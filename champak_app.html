@@ -10,13 +10,8 @@
 :root { --orange:#FF6B00; --yellow:#FFD700; --deep:#E64A00; --bg:#FFF8E7; --dark:#1a0a00; }
 body { font-family:'Baloo 2',cursive; background:var(--bg); overflow-x:hidden; min-height:100vh; width:100vw; }
 
-/* ══════════ SPLASH ══════════ */
-#splash {
-  position:fixed; inset:0;
-  background:linear-gradient(160deg,#FF8C00,#FF5500 40%,#E63200);
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  z-index:999; transition:opacity .8s ease, transform .8s ease;
-}
+/* ══ SPLASH ══ */
+#splash { position:fixed; inset:0; background:linear-gradient(160deg,#FF8C00,#FF5500 40%,#E63200); display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:999; transition:opacity .8s ease, transform .8s ease; }
 #splash.hide { opacity:0; transform:scale(1.05); pointer-events:none; }
 .stars { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
 .star { position:absolute; background:#FFD700; border-radius:50%; animation:twinkle linear infinite; }
@@ -33,17 +28,10 @@ body { font-family:'Baloo 2',cursive; background:var(--bg); overflow-x:hidden; m
 @keyframes dotB { 0%,100%{transform:translateY(0);opacity:.5} 50%{transform:translateY(-10px);opacity:1} }
 .leaf-bg { position:absolute; bottom:0; left:0; right:0; height:180px; overflow:hidden; pointer-events:none; }
 
-/* ══════════ HOME ══════════ */
+/* ══ HOME ══ */
 #home { display:none; flex-direction:column; min-height:100vh; }
 #home.active { display:flex; }
-
-.app-header {
-  background:linear-gradient(135deg,#FF6B00,#E64A00);
-  padding:14px 16px 18px;
-  display:flex; align-items:center; gap:10px;
-  box-shadow:0 4px 20px rgba(230,74,0,.4);
-  position:sticky; top:0; z-index:50; overflow:hidden;
-}
+.app-header { background:linear-gradient(135deg,#FF6B00,#E64A00); padding:14px 16px 18px; display:flex; align-items:center; gap:10px; box-shadow:0 4px 20px rgba(230,74,0,.4); position:sticky; top:0; z-index:50; overflow:hidden; }
 .app-header::before { content:''; position:absolute; top:-20px; right:-20px; width:120px; height:120px; background:rgba(255,255,255,.08); border-radius:50%; pointer-events:none; }
 .header-deer { animation:deerBounce 2s ease-in-out infinite; flex-shrink:0; }
 .header-texts { flex:1; }
@@ -52,34 +40,17 @@ body { font-family:'Baloo 2',cursive; background:var(--bg); overflow-x:hidden; m
 .refresh-btn { background:rgba(255,255,255,.2); border:none; color:white; width:38px; height:38px; border-radius:10px; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
 .refresh-btn.spinning { animation:spin .7s linear; }
 @keyframes spin { to{transform:rotate(360deg)} }
-
-/* Status bars */
 .status-bar { background:linear-gradient(135deg,#155215,#0a3a0a); padding:7px 16px; display:flex; align-items:center; gap:8px; flex-shrink:0; }
 .status-dot { width:8px; height:8px; background:#7FFF7F; border-radius:50%; box-shadow:0 0 6px #7FFF7F; animation:adPulse 1.5s ease-in-out infinite; }
 @keyframes adPulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(1.4)} }
 .status-text { color:#7FFF7F; font-size:12px; font-weight:700; }
 .status-count { margin-left:auto; color:rgba(180,255,180,.7); font-size:11px; }
-
-/* AdGuard DNS bar */
-.dns-bar {
-  background:linear-gradient(135deg,#1a1a6e,#0d0d4a);
-  padding:7px 16px; display:flex; align-items:center; gap:8px;
-}
-.dns-dot { width:8px; height:8px; background:#00BFFF; border-radius:50%; box-shadow:0 0 6px #00BFFF; animation:adPulse 2s ease-in-out infinite; }
-.dns-text { color:#00BFFF; font-size:12px; font-weight:700; }
-.dns-count { margin-left:auto; color:rgba(150,200,255,.7); font-size:11px; }
-
 .home-body { flex:1; padding:16px; overflow-y:auto; }
 .home-body::-webkit-scrollbar { width:0; }
-
-/* Back hint */
 .back-hint { background:linear-gradient(135deg,#1a1a5e,#000080); border-radius:12px; padding:10px 14px; display:flex; align-items:center; gap:10px; margin-bottom:14px; }
 .back-hint p { color:#AAF; font-size:12px; line-height:1.4; }
 .back-hint strong { color:#FFD700; display:block; font-size:13px; }
-
 .sec-title { color:var(--deep); font-size:15px; font-weight:800; margin-bottom:12px; display:flex; align-items:center; gap:6px; }
-
-/* Comic grid */
 #comicGrid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
 .comic-card { background:white; border-radius:16px; overflow:hidden; box-shadow:0 4px 16px rgba(255,107,0,.15); border:2px solid rgba(255,107,0,.1); cursor:pointer; transition:transform .15s; animation:cardIn .4s ease both; }
 .comic-card:active { transform:scale(.95); }
@@ -87,39 +58,22 @@ body { font-family:'Baloo 2',cursive; background:var(--bg); overflow-x:hidden; m
 .comic-cover { height:120px; display:flex; align-items:center; justify-content:center; font-size:44px; position:relative; overflow:hidden; }
 .comic-cover::after { content:''; position:absolute; inset:0; background:linear-gradient(to bottom,transparent 60%,rgba(0,0,0,.15)); }
 .comic-badge { position:absolute; top:8px; right:8px; z-index:2; background:#FFD700; color:#8B2500; font-size:9px; font-weight:800; padding:2px 7px; border-radius:8px; }
-.new-badge { position:absolute; top:8px; left:8px; z-index:2; background:#FF3366; color:white; font-size:9px; font-weight:800; padding:2px 7px; border-radius:8px; animation:newBadge 1s ease-in-out infinite; }
-@keyframes newBadge { 0%,100%{transform:scale(1)} 50%{transform:scale(1.1)} }
+.new-badge { position:absolute; top:8px; left:8px; z-index:2; background:#FF3366; color:white; font-size:9px; font-weight:800; padding:2px 7px; border-radius:8px; animation:newB 1s ease-in-out infinite; }
+@keyframes newB { 0%,100%{transform:scale(1)} 50%{transform:scale(1.1)} }
 .comic-info { padding:10px 12px 12px; }
 .comic-name { color:var(--dark); font-size:13px; font-weight:700; line-height:1.3; }
 .comic-meta { color:#aaa; font-size:11px; margin-top:3px; display:flex; justify-content:space-between; }
 .open-btn { margin-top:9px; width:100%; padding:8px; background:linear-gradient(135deg,#FF6B00,#E64A00); color:white; border:none; border-radius:9px; font-family:'Baloo 2',cursive; font-size:13px; font-weight:700; display:flex; align-items:center; justify-content:center; gap:5px; box-shadow:0 3px 8px rgba(230,74,0,.3); }
-
-/* States */
-#loadingState { text-align:center; padding:50px 20px; }
-.loader-deer { animation:deerBounce 1s ease-in-out infinite; display:inline-block; }
-#loadingState p { color:#FF6B00; font-weight:700; font-size:15px; margin-top:12px; }
-#loadingState small { color:#bbb; font-size:12px; display:block; margin-top:4px; }
-#errorState { display:none; text-align:center; padding:30px 20px; }
-#errorState .err-icon { font-size:44px; margin-bottom:10px; }
-#errorState p { color:#E64A00; font-weight:700; font-size:14px; }
-#errorState small { color:#aaa; font-size:12px; display:block; margin-top:4px; }
-.retry-btn { margin-top:14px; padding:12px 28px; background:linear-gradient(135deg,#FF6B00,#E64A00); color:white; border:none; border-radius:12px; font-family:'Baloo 2',cursive; font-size:14px; font-weight:700; cursor:pointer; }
-#emptyState { display:none; text-align:center; padding:50px 20px; }
-#emptyState .em-icon { font-size:50px; margin-bottom:12px; }
-#emptyState p { color:#ccc; font-size:14px; }
-
-/* Opening overlay */
 #openingOverlay { display:none; position:fixed; inset:0; z-index:200; background:linear-gradient(160deg,#FF8C00,#E63200); flex-direction:column; align-items:center; justify-content:center; }
 #openingOverlay.show { display:flex; animation:fadeIn .3s ease; }
 @keyframes fadeIn { from{opacity:0} to{opacity:1} }
 #openingOverlay .ov-deer { animation:deerBounce 1s ease-in-out infinite; }
 #openingOverlay p { color:#FFD700; font-size:18px; font-weight:800; margin-top:16px; text-shadow:2px 2px 0 #8B2500; }
-#openingOverlay small { color:rgba(255,240,200,.8); font-size:13px; margin-top:6px; }
 </style>
 </head>
 <body>
 
-<!-- ══════════ SPLASH ══════════ -->
+<!-- SPLASH -->
 <div id="splash">
   <div class="stars" id="stars"></div>
   <div class="deer-wrap">
@@ -162,7 +116,7 @@ body { font-family:'Baloo 2',cursive; background:var(--bg); overflow-x:hidden; m
   </div>
 </div>
 
-<!-- ══════════ HOME ══════════ -->
+<!-- HOME -->
 <div id="home">
   <div class="app-header">
     <div class="header-deer">
@@ -183,64 +137,24 @@ body { font-family:'Baloo 2',cursive; background:var(--bg); overflow-x:hidden; m
       <h1>चम्पक Comics</h1>
       <p>✦ YOUR FAVOURITE COMIC READER ✦</p>
     </div>
-    <button class="refresh-btn" id="refreshBtn" onclick="refreshComics()">🔄</button>
+    <button class="refresh-btn" id="refreshBtn" onclick="refreshPage()">🔄</button>
   </div>
-
-  <!-- Green: Ad Free status -->
   <div class="status-bar">
     <div class="status-dot"></div>
-    <div class="status-text">🛡️ Ad Blocker: ACTIVE</div>
-    <div class="status-count" id="statusCount">...</div>
+    <div class="status-text">🛡️ Ad Free • No Ads</div>
+    <div class="status-count" id="statusCount"></div>
   </div>
-
-  <!-- Blue: AdGuard DNS status -->
-  <div class="dns-bar">
-    <div class="dns-dot"></div>
-    <div class="dns-text">🔵 AdGuard DNS: ON</div>
-    <div class="dns-count" id="dnsCount">Blocked: 0</div>
-  </div>
-
   <div class="home-body">
     <div class="back-hint">
       <span>📱</span>
       <p><strong>Comic padhne ke baad wapas aao:</strong>Android ka ← Back Button dabao</p>
     </div>
-
-    <div id="loadingState">
-      <div class="loader-deer">
-        <svg width="70" height="80" viewBox="0 0 160 180" fill="none">
-          <ellipse cx="80" cy="115" rx="42" ry="35" fill="#F4A030"/>
-          <circle cx="80" cy="68" r="28" fill="#F4A030"/>
-          <circle cx="70" cy="64" r="7" fill="white"/><circle cx="90" cy="64" r="7" fill="white"/>
-          <circle cx="71" cy="65" r="4" fill="#1a0a00"/><circle cx="91" cy="65" r="4" fill="#1a0a00"/>
-          <ellipse cx="80" cy="78" rx="9" ry="6" fill="#E07820"/>
-          <path d="M70 83 Q80 92 90 83" stroke="#CC5500" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-          <rect x="58" y="145" width="14" height="28" rx="7" fill="#D4881A"/>
-          <rect x="88" y="145" width="14" height="28" rx="7" fill="#D4881A"/>
-        </svg>
-      </div>
-      <p>Comics la raha hoon... 📚</p>
-      <small>GitHub se load ho raha hai</small>
-    </div>
-
-    <div id="errorState">
-      <div class="err-icon">😿</div>
-      <p>Comics load nahi hui!</p>
-      <small>Internet check karo ya baad mein try karo</small><br>
-      <button class="retry-btn" onclick="fetchComics()">🔄 Dobara Try Karo</button>
-    </div>
-
-    <div id="emptyState">
-      <div class="em-icon">📚</div>
-      <p>Abhi koi comic nahi hai.<br>Jaldi nai aayegi!</p>
-    </div>
-
-    <div class="sec-title" id="secTitle" style="display:none">📚 Saari Comics</div>
+    <div class="sec-title">📚 Saari Comics</div>
     <div id="comicGrid"></div>
   </div>
 </div>
 
-<!-- ══════════ OPENING OVERLAY ══════════ -->
+<!-- Opening overlay -->
 <div id="openingOverlay">
   <div class="ov-deer">
     <svg width="100" height="112" viewBox="0 0 160 180" fill="none">
@@ -249,355 +163,111 @@ body { font-family:'Baloo 2',cursive; background:var(--bg); overflow-x:hidden; m
       <ellipse cx="57" cy="48" rx="9" ry="13" fill="#F4A030" transform="rotate(-20 57 48)"/>
       <ellipse cx="103" cy="48" rx="9" ry="13" fill="#F4A030" transform="rotate(20 103 48)"/>
       <line x1="60" y1="44" x2="42" y2="18" stroke="#8B4000" stroke-width="5" stroke-linecap="round"/>
-      <line x1="42" y1="18" x2="30" y2="10" stroke="#8B4000" stroke-width="4" stroke-linecap="round"/>
       <line x1="100" y1="44" x2="118" y2="18" stroke="#8B4000" stroke-width="5" stroke-linecap="round"/>
-      <line x1="118" y1="18" x2="130" y2="10" stroke="#8B4000" stroke-width="4" stroke-linecap="round"/>
       <circle cx="70" cy="64" r="7" fill="white"/><circle cx="90" cy="64" r="7" fill="white"/>
       <circle cx="71" cy="65" r="4" fill="#1a0a00"/><circle cx="91" cy="65" r="4" fill="#1a0a00"/>
       <ellipse cx="80" cy="78" rx="9" ry="6" fill="#E07820"/>
       <path d="M70 83 Q80 92 90 83" stroke="#CC5500" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-      <circle cx="60" cy="76" r="8" fill="rgba(255,120,80,0.35)"/>
-      <circle cx="100" cy="76" r="8" fill="rgba(255,120,80,0.35)"/>
       <rect x="58" y="145" width="14" height="28" rx="7" fill="#D4881A"/>
       <rect x="88" y="145" width="14" height="28" rx="7" fill="#D4881A"/>
     </svg>
   </div>
   <p>Comic khul rahi hai... 📖</p>
-  <small>🔵 AdGuard DNS protecting...</small>
 </div>
 
 <script>
-// ════════════════════════════════════════
-//  CONFIG
-// ════════════════════════════════════════
-// GitHub Pages se JSON load hoga (raw.githubusercontent WebView mein block hota hai)
-const COMICS_JSON_URL = 'https://coder0864-cell.github.io/champak-app/comics.json';
-
-// AdGuard DNS-over-HTTPS endpoint
-const ADGUARD_DOH = 'https://dns.adguard-dns.com/dns-query';
-
-// ════════════════════════════════════════
-//  🔵 ADGUARD DNS-over-HTTPS AD BLOCKER
-// ════════════════════════════════════════
-let blockedCount = 0;
-const dnsCache = {}; // cache results so same domain check nahi ho baar baar
-
-// Check domain via AdGuard DoH
-async function isAdDomain(hostname) {
-  if(dnsCache[hostname] !== undefined) return dnsCache[hostname];
-  try {
-    const res = await fetch(`${ADGUARD_DOH}?name=${hostname}&type=A`, {
-      headers: { 'Accept': 'application/dns-json' }
-    });
-    const data = await res.json();
-    // AdGuard blocks domains by returning NXDOMAIN (status 3) or 0.0.0.0
-    const blocked =
-      data.Status === 3 || // NXDOMAIN - domain blocked
-      (data.Answer && data.Answer.some(a => a.data === '0.0.0.0' || a.data === ''));
-    dnsCache[hostname] = blocked;
-    return blocked;
-  } catch {
-    dnsCache[hostname] = false;
-    return false;
+// ═══════════════════════════════════════════════════
+//  📚 COMICS LIST — YAHAN APNI COMICS ADD KARO
+//  Nayi comic add karni ho to neeche copy-paste karo
+// ═══════════════════════════════════════════════════
+var COMICS = [
+  {
+    id: 1,
+    name: "Champak Hindi - Sep 2019",
+    cover: "📕",
+    flipUrl: "https://online.fliphtml5.com/ufmtz/dtjr/",
+    pages: 50,
+    date: "Sep 2019"
   }
-}
-
-// Extract hostname from URL safely
-function getHostname(url) {
-  try { return new URL(url).hostname; } catch { return ''; }
-}
-
-// ── Known ad domains (fast local check, no DNS needed) ──
-const LOCAL_BLOCKLIST = new Set([
-  'doubleclick.net','googlesyndication.com','googleadservices.com',
-  'adservice.google.com','adnxs.com','pubmatic.com','rubiconproject.com',
-  'openx.net','criteo.com','taboola.com','outbrain.com','media.net',
-  'mgid.com','adroll.com','casalemedia.com','appnexus.com','zedo.com',
-  'smartadserver.com','yllix.com','popads.net','popcash.net',
-  'propellerads.com','adsterra.com','exoclick.com','clickadu.com',
-  'googletagmanager.com','hotjar.com','quantserve.com','scorecardresearch.com',
-  'pagead2.googlesyndication.com','tpc.googlesyndication.com',
-  'securepubads.g.doubleclick.net','ads.appgeyser.com','appgeyser-ads.com',
-  'sdk.appgeyser.com','monetization.appgeyser.com',
-  'ads.fliphtml5.com','fliphtml5ad.com','static.flipads.com',
-  'mc.yandex.ru','counter.yadro.ru','ads.adfox.ru',
-]);
-
-function isLocalBlocked(url) {
-  const host = getHostname(url);
-  if(!host) return false;
-  const parts = host.split('.');
-  for(let i=0; i<parts.length-1; i++) {
-    if(LOCAL_BLOCKLIST.has(parts.slice(i).join('.'))) return true;
-  }
-  return false;
-}
-
-function incrementBlock() {
-  blockedCount++;
-  document.getElementById('dnsCount').textContent = `Blocked: ${blockedCount}`;
-}
-
-// ── Intercept fetch ──
-const _fetch = window.fetch.bind(window);
-window.fetch = async function(input, init) {
-  const url = typeof input === 'string' ? input : (input?.url || '');
-  if(url === ADGUARD_DOH || url.startsWith(ADGUARD_DOH)) return _fetch(input, init); // allow DoH itself
-  if(isLocalBlocked(url)) {
-    incrementBlock();
-    return new Response('', { status: 200 });
-  }
-  const host = getHostname(url);
-  if(host) {
-    const blocked = await isAdDomain(host);
-    if(blocked) {
-      incrementBlock();
-      return new Response('', { status: 200 });
-    }
-  }
-  return _fetch(input, init);
-};
-
-// ── Intercept XHR ──
-const _XHR = window.XMLHttpRequest;
-function PatchedXHR() {
-  const xhr = new _XHR();
-  const _open = xhr.open.bind(xhr);
-  xhr.open = function(method, url, ...rest) {
-    if(isLocalBlocked(url)) {
-      incrementBlock();
-      return;
-    }
-    _open(method, url, ...rest);
-  };
-  return xhr;
-}
-PatchedXHR.prototype = _XHR.prototype;
-window.XMLHttpRequest = PatchedXHR;
-
-// ── Block injected ad scripts ──
-const _ce = document.createElement.bind(document);
-document.createElement = function(tag) {
-  const el = _ce(tag);
-  if(tag.toLowerCase() === 'script') {
-    const desc = Object.getOwnPropertyDescriptor(HTMLScriptElement.prototype, 'src');
-    if(desc) {
-      Object.defineProperty(el, 'src', {
-        set(v) {
-          if(isLocalBlocked(v)) { incrementBlock(); return; }
-          desc.set.call(this, v);
-        },
-        get() { return desc.get.call(this); }
-      });
-    }
-  }
-  return el;
-};
-
-// ── CSS: hide ad elements ──
-const adCSS = document.createElement('style');
-adCSS.textContent = `
-  [id*="ad-"],[id*="-ad"],[id*="ads"],[id*="banner"],[id*="sponsor"],
-  [class*="adsbygoogle"],[class*="ad-wrap"],[class*="ad-container"],
-  [class*="ad-banner"],[class*="ad-slot"],[class*="advertisement"],
-  [class*="sponsor"],[class*="promoted"],[class*="dfp-"],
-  ins.adsbygoogle,.google-auto-placed,
-  iframe[src*="doubleclick"],iframe[src*="googlesyndication"],
-  iframe[src*="adnxs"],iframe[src*="taboola"],iframe[src*="appgeyser"],
-  .appgeyser-ad,.ag-banner,.ag-ad,
-  .flip-ad,.fh5co-ad,[class*="flipad"],#fliphtml5-ad,
-  .powered-by-fliphtml5,.fh5-watermark,
-  [style*="z-index: 2147483647"],[style*="z-index:2147483647"] {
-    display:none !important;
-    visibility:hidden !important;
-    pointer-events:none !important;
-    opacity:0 !important;
-    height:0 !important;
-    width:0 !important;
-  }
-`;
-document.head.appendChild(adCSS);
-
-// ── MutationObserver: DOM se ads hatao ──
-const adSelectors = [
-  'ins.adsbygoogle','.google-auto-placed','[class*="adsbygoogle"]',
-  '[id*="google_ads"]','[class*="ad-container"]','[class*="advertisement"]',
-  '.appgeyser-ad','.ag-banner','.ag-ad',
-  '.flip-ad','.fh5co-ad','[class*="flipad"]','#fliphtml5-ad',
-  '.powered-by-fliphtml5','.fh5-watermark',
-  'iframe[src*="doubleclick"]','iframe[src*="googlesyndication"]',
+  // NAYI COMIC ADD KARNE KE LIYE YE COPY KARO:
+  // ,{
+  //   id: 2,
+  //   name: "Champak Hindi - Oct 2019",
+  //   cover: "📗",
+  //   flipUrl: "https://online.fliphtml5.com/XXXX/YYYY/",
+  //   pages: 48,
+  //   date: "Oct 2019"
+  // }
 ];
+// ═══════════════════════════════════════════════════
 
-const observer = new MutationObserver(mutations => {
-  mutations.forEach(m => {
-    m.addedNodes.forEach(node => {
-      if(node.nodeType !== 1) return;
-      const src = node.src || node.getAttribute?.('src') || '';
-      if(src && isLocalBlocked(src)) { node.remove(); incrementBlock(); return; }
-      adSelectors.forEach(sel => {
-        if(node.matches?.(sel)) { node.remove(); incrementBlock(); }
-        node.querySelectorAll?.(sel).forEach(el => { el.remove(); incrementBlock(); });
-      });
-    });
-  });
-});
-observer.observe(document.documentElement, { childList:true, subtree:true });
-
-// ════════════════════════════════════════
-//  STARS
-// ════════════════════════════════════════
-const se = document.getElementById('stars');
-for(let i=0;i<40;i++){
-  const s=document.createElement('div'); s.className='star';
-  const sz=Math.random()*5+2;
-  s.style.cssText=`width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;animation-duration:${Math.random()*2+1}s;animation-delay:${Math.random()*2}s;`;
+// Stars
+var se = document.getElementById('stars');
+for(var i=0;i<40;i++){
+  var s=document.createElement('div'); s.className='star';
+  var sz=Math.random()*5+2;
+  s.style.cssText='width:'+sz+'px;height:'+sz+'px;top:'+Math.random()*100+'%;left:'+Math.random()*100+'%;animation-duration:'+(Math.random()*2+1)+'s;animation-delay:'+(Math.random()*2)+'s;';
   se.appendChild(s);
 }
 
-// ════════════════════════════════════════
-//  SPLASH → HOME
-// ════════════════════════════════════════
-setTimeout(()=>{
+// Splash → Home
+setTimeout(function(){
   document.getElementById('splash').classList.add('hide');
-  setTimeout(()=>{
+  setTimeout(function(){
     document.getElementById('splash').style.display='none';
     document.getElementById('home').classList.add('active');
-    fetchComics();
+    renderComics();
   },800);
-},3200);
+},3000);
 
-// ════════════════════════════════════════
-//  FETCH COMICS
-// ════════════════════════════════════════
-let comicsData=[];
-
-// XMLHttpRequest use karo - Android WebView ke saath best compatible
-function fetchComics(){
-  showState('loading');
-  const url = COMICS_JSON_URL + '?t=' + Date.now();
-  const xhr = new XMLHttpRequest();
-  xhr.open('GET', url, true);
-  xhr.timeout = 10000;
-  xhr.onload = function(){
-    if(xhr.status === 200){
-      try {
-        comicsData = JSON.parse(xhr.responseText);
-        localStorage.setItem('champak_cache', JSON.stringify(comicsData));
-        renderComics(comicsData);
-        document.getElementById('statusCount').textContent = comicsData.length + ' Comics ✅';
-      } catch(e) {
-        loadFromCache();
-      }
-    } else {
-      loadFromCache();
-    }
-  };
-  xhr.onerror = function(){ loadFromCache(); };
-  xhr.ontimeout = function(){ loadFromCache(); };
-  xhr.send();
-}
-
-function loadFromCache(){
-  const cached = localStorage.getItem('champak_cache');
-  if(cached){
-    try {
-      comicsData = JSON.parse(cached);
-      renderComics(comicsData);
-      document.getElementById('statusCount').textContent = '📴 Cached (' + comicsData.length + ')';
-    } catch(e){ loadFallback(); }
-  } else {
-    loadFallback();
-  }
-}
-
-function loadFallback(){
-  comicsData = [
-    {
-      "id": 1,
-      "name": "Champak Hindi - Sep 2019",
-      "cover": "📕",
-      "flipUrl": "https://online.fliphtml5.com/ufmtz/dtjr/",
-      "pages": 50,
-      "date": "Sep 2019"
-    }
-  ];
-  renderComics(comicsData);
-  document.getElementById('statusCount').textContent = '⚠️ Offline Mode';
-}
-
-async function refreshComics(){
-  const btn = document.getElementById('refreshBtn');
-  btn.classList.add('spinning');
-  fetchComics();
-  setTimeout(()=> btn.classList.remove('spinning'), 700);
-}
-
-async function refreshComics(){
-  const btn=document.getElementById('refreshBtn');
-  btn.classList.add('spinning');
-  await fetchComics();
-  setTimeout(()=>btn.classList.remove('spinning'),700);
-}
-
-// ════════════════════════════════════════
-//  RENDER
-// ════════════════════════════════════════
-const COLORS=[
+// Colors
+var COLORS=[
   ['#FF6B00','#E64A00'],['#E63280','#B5006E'],
   ['#0066CC','#0044AA'],['#009944','#006622'],
   ['#8B00CC','#5C0099'],['#CC6600','#994400'],
   ['#CC0000','#880000'],['#006666','#004444'],
 ];
 
-function renderComics(data){
-  if(!data||!data.length){showState('empty');return;}
-  showState('grid');
-  const grid=document.getElementById('comicGrid');
-  grid.innerHTML='';
-  const sorted=[...data].sort((a,b)=>b.id-a.id);
-  const newestId=sorted[0].id;
-  sorted.forEach((comic,idx)=>{
-    const [c1,c2]=COLORS[idx%COLORS.length];
-    const isNew=comic.id===newestId&&data.length>1;
-    const card=document.createElement('div');
-    card.className='comic-card';
-    card.style.animationDelay=(idx*0.07)+'s';
-    card.innerHTML=`
-      <div class="comic-cover" style="background:linear-gradient(135deg,${c1},${c2})">
-        <span style="position:relative;z-index:1">${comic.cover||'📕'}</span>
-        ${comic.date?`<div class="comic-badge">${comic.date}</div>`:''}
-        ${isNew?`<div class="new-badge">🆕 NEW</div>`:''}
-      </div>
-      <div class="comic-info">
-        <div class="comic-name">${comic.name}</div>
-        <div class="comic-meta">
-          <span>${comic.pages?comic.pages+' pg':''}</span>
-          <span style="color:#27ae60;font-weight:700">Free</span>
-        </div>
-        <div class="open-btn">📖 Abhi Padho!</div>
-      </div>
-    `;
-    card.onclick=()=>openComic(comic);
+function renderComics(){
+  var grid = document.getElementById('comicGrid');
+  grid.innerHTML = '';
+  var sorted = COMICS.slice().sort(function(a,b){return b.id-a.id;});
+  var newestId = sorted[0].id;
+  document.getElementById('statusCount').textContent = COMICS.length + ' Comics ✅';
+
+  sorted.forEach(function(comic, idx){
+    var c = COLORS[idx % COLORS.length];
+    var isNew = comic.id === newestId && COMICS.length > 1;
+    var card = document.createElement('div');
+    card.className = 'comic-card';
+    card.style.animationDelay = (idx*0.07)+'s';
+    card.innerHTML =
+      '<div class="comic-cover" style="background:linear-gradient(135deg,'+c[0]+','+c[1]+')">' +
+        '<span style="position:relative;z-index:1">'+comic.cover+'</span>' +
+        (comic.date ? '<div class="comic-badge">'+comic.date+'</div>' : '') +
+        (isNew ? '<div class="new-badge">🆕 NEW</div>' : '') +
+      '</div>' +
+      '<div class="comic-info">' +
+        '<div class="comic-name">'+comic.name+'</div>' +
+        '<div class="comic-meta"><span>'+(comic.pages ? comic.pages+' pg' : '')+'</span><span style="color:#27ae60;font-weight:700">Free</span></div>' +
+        '<div class="open-btn">📖 Abhi Padho!</div>' +
+      '</div>';
+    card.onclick = function(){ openComic(comic); };
     grid.appendChild(card);
   });
 }
 
-function showState(s){
-  document.getElementById('loadingState').style.display=s==='loading'?'block':'none';
-  document.getElementById('errorState').style.display  =s==='error'  ?'block':'none';
-  document.getElementById('emptyState').style.display  =s==='empty'  ?'block':'none';
-  document.getElementById('comicGrid').style.display   =s==='grid'   ?'grid' :'none';
-  document.getElementById('secTitle').style.display    =s==='grid'   ?'flex' :'none';
-}
-
-// ════════════════════════════════════════
-//  OPEN COMIC — Direct navigate (no iframe)
-// ════════════════════════════════════════
 function openComic(comic){
   document.getElementById('openingOverlay').classList.add('show');
-  setTimeout(()=>{
+  setTimeout(function(){
     window.location.href = comic.flipUrl;
-  },1200);
+  }, 1000);
+}
+
+function refreshPage(){
+  var btn = document.getElementById('refreshBtn');
+  btn.classList.add('spinning');
+  setTimeout(function(){ btn.classList.remove('spinning'); renderComics(); }, 700);
 }
 </script>
 </body>
