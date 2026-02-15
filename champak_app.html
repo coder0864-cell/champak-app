@@ -270,7 +270,8 @@ body { font-family:'Baloo 2',cursive; background:var(--bg); overflow-x:hidden; m
 // ════════════════════════════════════════
 //  CONFIG
 // ════════════════════════════════════════
-const COMICS_JSON_URL = 'https://raw.githubusercontent.com/coder0864-cell/champak-app/main/comics.json';
+// GitHub Pages se JSON load hoga (raw.githubusercontent WebView mein block hota hai)
+const COMICS_JSON_URL = 'https://coder0864-cell.github.io/champak-app/comics.json';
 
 // AdGuard DNS-over-HTTPS endpoint
 const ADGUARD_DOH = 'https://dns.adguard-dns.com/dns-query';
@@ -474,21 +475,34 @@ async function fetchComics(){
   showState('loading');
   try {
     const url = COMICS_JSON_URL + '?t=' + Date.now();
-    const res = await _fetch(url); // use original fetch for our own JSON
-    if(!res.ok) throw new Error('HTTP '+res.status);
+    const res = await _fetch(url);
+    if(!res.ok) throw new Error('HTTP ' + res.status);
     comicsData = await res.json();
     localStorage.setItem('champak_cache', JSON.stringify(comicsData));
     renderComics(comicsData);
     document.getElementById('statusCount').textContent = comicsData.length+' Comics ✅';
   } catch(e) {
+    console.warn('Fetch failed:', e);
+    // Cache se try karo
     const cached = localStorage.getItem('champak_cache');
     if(cached){
-      comicsData=JSON.parse(cached);
+      comicsData = JSON.parse(cached);
       renderComics(comicsData);
-      document.getElementById('statusCount').textContent='📴 Cached ('+comicsData.length+')';
+      document.getElementById('statusCount').textContent = '📴 Cached ('+comicsData.length+')';
     } else {
-      showState('error');
-      document.getElementById('statusCount').textContent='❌ Offline';
+      // Fallback: hardcoded comics dikhao jab network fail ho
+      comicsData = [
+        {
+          "id": 1,
+          "name": "Champak Hindi",
+          "cover": "📕",
+          "flipUrl": "https://online.fliphtml5.com/ufmtz/dtjr/",
+          "pages": 50,
+          "date": "Sep 2019"
+        }
+      ];
+      renderComics(comicsData);
+      document.getElementById('statusCount').textContent = '⚠️ Offline Mode';
     }
   }
 }
