@@ -471,40 +471,65 @@ setTimeout(()=>{
 // ════════════════════════════════════════
 let comicsData=[];
 
-async function fetchComics(){
+// XMLHttpRequest use karo - Android WebView ke saath best compatible
+function fetchComics(){
   showState('loading');
-  try {
-    const url = COMICS_JSON_URL + '?t=' + Date.now();
-    const res = await _fetch(url);
-    if(!res.ok) throw new Error('HTTP ' + res.status);
-    comicsData = await res.json();
-    localStorage.setItem('champak_cache', JSON.stringify(comicsData));
-    renderComics(comicsData);
-    document.getElementById('statusCount').textContent = comicsData.length+' Comics ✅';
-  } catch(e) {
-    console.warn('Fetch failed:', e);
-    // Cache se try karo
-    const cached = localStorage.getItem('champak_cache');
-    if(cached){
+  const url = COMICS_JSON_URL + '?t=' + Date.now();
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', url, true);
+  xhr.timeout = 10000;
+  xhr.onload = function(){
+    if(xhr.status === 200){
+      try {
+        comicsData = JSON.parse(xhr.responseText);
+        localStorage.setItem('champak_cache', JSON.stringify(comicsData));
+        renderComics(comicsData);
+        document.getElementById('statusCount').textContent = comicsData.length + ' Comics ✅';
+      } catch(e) {
+        loadFromCache();
+      }
+    } else {
+      loadFromCache();
+    }
+  };
+  xhr.onerror = function(){ loadFromCache(); };
+  xhr.ontimeout = function(){ loadFromCache(); };
+  xhr.send();
+}
+
+function loadFromCache(){
+  const cached = localStorage.getItem('champak_cache');
+  if(cached){
+    try {
       comicsData = JSON.parse(cached);
       renderComics(comicsData);
-      document.getElementById('statusCount').textContent = '📴 Cached ('+comicsData.length+')';
-    } else {
-      // Fallback: hardcoded comics dikhao jab network fail ho
-      comicsData = [
-        {
-          "id": 1,
-          "name": "Champak Hindi",
-          "cover": "📕",
-          "flipUrl": "https://online.fliphtml5.com/ufmtz/dtjr/",
-          "pages": 50,
-          "date": "Sep 2019"
-        }
-      ];
-      renderComics(comicsData);
-      document.getElementById('statusCount').textContent = '⚠️ Offline Mode';
-    }
+      document.getElementById('statusCount').textContent = '📴 Cached (' + comicsData.length + ')';
+    } catch(e){ loadFallback(); }
+  } else {
+    loadFallback();
   }
+}
+
+function loadFallback(){
+  comicsData = [
+    {
+      "id": 1,
+      "name": "Champak Hindi - Sep 2019",
+      "cover": "📕",
+      "flipUrl": "https://online.fliphtml5.com/ufmtz/dtjr/",
+      "pages": 50,
+      "date": "Sep 2019"
+    }
+  ];
+  renderComics(comicsData);
+  document.getElementById('statusCount').textContent = '⚠️ Offline Mode';
+}
+
+async function refreshComics(){
+  const btn = document.getElementById('refreshBtn');
+  btn.classList.add('spinning');
+  fetchComics();
+  setTimeout(()=> btn.classList.remove('spinning'), 700);
 }
 
 async function refreshComics(){
