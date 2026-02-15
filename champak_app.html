@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -49,22 +49,37 @@ body{font-family:'Baloo 2',cursive;background:#FFD84D;}
 
 .sp-grass{position:absolute;bottom:0;left:0;right:0;height:170px;pointer-events:none;}
 
-/* ═══ HEADER ═══ */
+/* ═══ SIMPLE HEADER ═══ */
 .app-hdr{
-  background:linear-gradient(135deg,#FFD700,#FFC200);
-  padding:10px 14px;display:flex;align-items:center;gap:10px;
-  border-bottom:3px solid #E8A800;
-  box-shadow:0 3px 12px rgba(200,150,0,.3);
-  flex-shrink:0;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,#FF7700,#FF4400);
+  padding:12px 14px;display:flex;align-items:center;gap:12px;
+  border-bottom:3px solid #CC3300;
+  box-shadow:0 3px 12px rgba(200,50,0,.3);
+  flex-shrink:0;
 }
-.hdr-star{position:absolute;animation:starPop 2s ease-in-out infinite;}
-.hdr-icon-box{flex-shrink:0;width:50px;height:50px;background:white;border-radius:14px;display:flex;align-items:center;justify-content:center;border:2px solid #E8A800;box-shadow:0 3px 8px rgba(0,0,0,.1);}
-.hdr-title{font-family:'Lilita One',cursive;font-size:21px;color:#CC4400;line-height:1;text-shadow:1px 1px 0 rgba(255,255,255,.5);}
-.hdr-sub{font-size:10px;color:#886600;font-weight:700;letter-spacing:.5px;}
-.hdr-btn{background:rgba(255,255,255,.4);border:2px solid rgba(255,255,255,.6);color:#884400;width:38px;height:38px;border-radius:12px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.hdr-btn.spin{animation:spin .6s linear;}
-.hdr-back{background:rgba(255,255,255,.4);border:2px solid rgba(255,255,255,.6);color:#884400;width:38px;height:38px;border-radius:12px;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-@keyframes spin{to{transform:rotate(360deg)}}
+.hdr-back{
+  background:rgba(255,255,255,.9);
+  border:2px solid rgba(255,255,255,.6);
+  color:#CC3300;
+  width:40px;height:40px;
+  border-radius:12px;
+  font-size:22px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  font-weight:bold;
+}
+.hdr-back:active{transform:scale(.92);}
+.hdr-title{
+  font-family:'Lilita One',cursive;
+  font-size:22px;
+  color:white;
+  line-height:1;
+  text-shadow:2px 2px 0 rgba(0,0,0,.2);
+  flex:1;
+}
 
 /* ═══ HOME ═══ */
 #pgHome{background:#FFF5C0;overflow:hidden;}
@@ -102,9 +117,9 @@ body{font-family:'Baloo 2',cursive;background:#FFD84D;}
 .hcard{flex-shrink:0;width:120px;background:white;border-radius:16px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,.12);border:2px solid rgba(255,200,0,.2);cursor:pointer;animation:cin .4s ease both;}
 @keyframes cin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 .hcard:active{transform:scale(.94);}
-.hcard-thumb{height:92px;position:relative;overflow:hidden;}
+.hcard-thumb{height:92px;position:relative;overflow:hidden;background:#f5f5f5;}
 .hcard-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
-.hcard-fb{width:100%;height:100%;display:none;align-items:center;justify-content:center;font-size:30px;position:absolute;top:0;left:0;}
+.hcard-fb{width:100%;height:100%;display:none;align-items:center;justify-content:center;font-size:30px;position:absolute;top:0;left:0;background:#FF6B00;}
 .hcard-info{padding:6px 8px 8px;}
 .hcard-name{font-size:10px;font-weight:700;color:#333;line-height:1.3;margin-bottom:5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
 .read-btn{width:100%;padding:5px;background:linear-gradient(135deg,#FF7700,#FF4400);color:white;border:none;border-radius:8px;font-family:'Lilita One',cursive;font-size:11px;box-shadow:0 3px 0 #CC3300;cursor:pointer;}
@@ -114,9 +129,9 @@ body{font-family:'Baloo 2',cursive;background:#FFD84D;}
 .lib-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 14px;}
 .lcard{background:white;border-radius:14px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,.12);cursor:pointer;border:2px solid rgba(255,200,0,.15);animation:cin .4s ease both;}
 .lcard:active{transform:scale(.95);}
-.lcard-thumb{height:108px;position:relative;overflow:hidden;}
+.lcard-thumb{height:108px;position:relative;overflow:hidden;background:#f5f5f5;}
 .lcard-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
-.lcard-fb{width:100%;height:100%;display:none;align-items:center;justify-content:center;font-size:26px;position:absolute;top:0;left:0;}
+.lcard-fb{width:100%;height:100%;display:none;align-items:center;justify-content:center;font-size:26px;position:absolute;top:0;left:0;background:#FF6B00;}
 .lcat{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Lilita One',cursive;font-size:12px;color:white;text-align:center;line-height:1.2;text-shadow:1px 1px 0 rgba(0,0,0,.3);padding:4px;background:linear-gradient(to bottom,transparent 30%,rgba(0,0,0,.35));}
 .lcard-info{padding:5px 7px 7px;}
 .lcard-name{font-size:9px;font-weight:700;color:#333;line-height:1.2;margin-bottom:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
@@ -146,317 +161,148 @@ body{font-family:'Baloo 2',cursive;background:#FFD84D;}
 .all-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 .acard{background:white;border-radius:18px;overflow:hidden;box-shadow:0 5px 16px rgba(0,0,0,.1);cursor:pointer;border:2px solid rgba(255,200,0,.15);animation:cin .4s ease both;}
 .acard:active{transform:scale(.96);}
-.acard-thumb{height:150px;position:relative;overflow:hidden;}
+.acard-thumb{height:150px;position:relative;overflow:hidden;background:#f5f5f5;}
 .acard-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
-.acard-fb{width:100%;height:100%;display:none;align-items:center;justify-content:center;font-size:44px;position:absolute;top:0;left:0;}
+.acard-fb{width:100%;height:100%;display:none;align-items:center;justify-content:center;font-size:44px;position:absolute;top:0;left:0;background:#FF6B00;}
 .acard-ov{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(0,0,0,.45));}
-.acard-date{position:absolute;top:8px;right:8px;background:#FFE100;color:#8B1A00;font-size:9px;font-weight:800;padding:3px 8px;border-radius:10px;}
-.acard-pages{position:absolute;bottom:8px;left:8px;background:rgba(0,0,0,.55);color:white;font-size:9px;padding:2px 7px;border-radius:6px;}
-.acard-info{padding:10px 12px 12px;}
-.acard-name{color:#2a0a00;font-size:13px;font-weight:800;line-height:1.3;margin-bottom:8px;}
-.aread-btn{width:100%;padding:9px;background:linear-gradient(135deg,#FF7700,#FF4400);color:white;border:none;border-radius:10px;font-family:'Lilita One',cursive;font-size:13px;box-shadow:0 4px 0 #CC3300;cursor:pointer;}
-.aread-btn:active{transform:translateY(3px);box-shadow:0 1px 0 #CC3300;}
+.acard-date{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.95);font-size:9px;padding:3px 7px;border-radius:8px;font-weight:700;color:#333;box-shadow:0 2px 6px rgba(0,0,0,.15);}
+.acard-pages{position:absolute;bottom:8px;left:8px;background:rgba(255,255,255,.95);font-size:9px;padding:3px 7px;border-radius:8px;font-weight:700;color:#FF6B00;box-shadow:0 2px 6px rgba(0,0,0,.15);}
+.acard-info{padding:8px 10px 10px;}
+.acard-name{font-size:11px;font-weight:700;color:#333;line-height:1.3;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.aread-btn{width:100%;padding:6px;background:linear-gradient(135deg,#FF7700,#FF4400);color:white;border:none;border-radius:9px;font-family:'Lilita One',cursive;font-size:11px;box-shadow:0 3px 0 #CC3300;cursor:pointer;}
+.aread-btn:active{transform:translateY(2px);box-shadow:0 1px 0 #CC3300;}
 
-/* ═══ OPENING OVERLAY ═══ */
-#ov{display:none;position:fixed;inset:0;z-index:9999;background:linear-gradient(135deg,#FFD700,#FF8C00);flex-direction:column;align-items:center;justify-content:center;}
-#ov.show{display:flex;animation:fadeI .25s ease;}
-@keyframes fadeI{from{opacity:0}to{opacity:1}}
-.ov-char{animation:cb .9s ease-in-out infinite;}
-.ov-title{font-family:'Lilita One',cursive;font-size:22px;color:#CC3300;margin-top:16px;text-shadow:1px 1px 0 rgba(255,255,255,.5);}
-.ov-sub{font-size:13px;color:#884400;margin-top:4px;font-weight:700;}
+/* ═══ LOADING OVERLAY ═══ */
+#ov{
+  position:fixed;inset:0;background:rgba(0,0,0,.8);
+  display:none;align-items:center;justify-content:center;
+  flex-direction:column;gap:16px;z-index:1000;
+}
+#ov.show{display:flex;}
+.ov-char{width:160px;height:173px;}
+.ov-title{font-family:'Lilita One',cursive;font-size:20px;color:white;}
+.ov-sub{font-size:14px;color:#FFE566;}
 </style>
 </head>
 <body>
 
-<!-- ══ SPLASH ══ -->
-<div id="pgSplash" class="page active">
-  <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
-  <div class="sp-star" style="top:8%;left:8%">⭐</div>
-  <div class="sp-star" style="top:14%;right:10%;animation-delay:.4s;font-size:18px">✨</div>
-  <div class="sp-star" style="top:9%;left:48%;animation-delay:.7s">⭐</div>
-  <div class="sp-star" style="top:26%;left:14%;animation-delay:1s;font-size:13px">✨</div>
-  <div class="sp-star" style="top:18%;right:32%;animation-delay:.3s;font-size:20px">⭐</div>
-
-  <!-- 3 Characters -->
-  <div class="sp-chars" style="display:flex;align-items:flex-end;gap:0;">
-
-    <!-- Elephant -->
-    <div class="cb1">
-      <svg width="88" height="108" viewBox="0 0 90 110">
-        <ellipse cx="45" cy="82" rx="26" ry="22" fill="#7BB8F0"/>
-        <circle cx="45" cy="52" r="22" fill="#7BB8F0"/>
-        <ellipse cx="18" cy="48" rx="13" ry="18" fill="#6AA8E0"/><ellipse cx="18" cy="48" rx="8" ry="12" fill="#FFB0C0"/>
-        <ellipse cx="72" cy="48" rx="13" ry="18" fill="#6AA8E0"/><ellipse cx="72" cy="48" rx="8" ry="12" fill="#FFB0C0"/>
-        <path d="M40,68 Q32,80 30,88 Q29,93 34,93 Q38,93 38,87 Q40,80 46,70" fill="#7BB8F0" stroke="#6AA8E0" stroke-width="1"/>
-        <ellipse cx="34" cy="66" rx="3" ry="7" fill="white" transform="rotate(-15 34 66)"/>
-        <ellipse cx="56" cy="66" rx="3" ry="7" fill="white" transform="rotate(15 56 66)"/>
-        <circle cx="37" cy="44" r="6" fill="white"/><circle cx="53" cy="44" r="6" fill="white"/>
-        <circle cx="38" cy="45" r="3.5" fill="#1a0a00"/><circle cx="54" cy="45" r="3.5" fill="#1a0a00"/>
-        <circle cx="39" cy="43" r="1.3" fill="white"/><circle cx="55" cy="43" r="1.3" fill="white"/>
-        <circle cx="37" cy="44" r="7" fill="none" stroke="#884400" stroke-width="1.5"/>
-        <circle cx="53" cy="44" r="7" fill="none" stroke="#884400" stroke-width="1.5"/>
-        <line x1="44" y1="44" x2="46" y2="44" stroke="#884400" stroke-width="1.5"/>
-        <path d="M36 58 Q45 65 54 58" stroke="#4477AA" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-        <circle cx="26" cy="54" r="6" fill="rgba(255,150,180,.4)"/><circle cx="64" cy="54" r="6" fill="rgba(255,150,180,.4)"/>
-        <rect x="56" y="62" width="18" height="14" rx="4" fill="#FF8800"/><rect x="58" y="59" width="14" height="7" rx="3" fill="#FF6600"/>
-        <circle cx="65" cy="69" r="2" fill="#FFD700"/>
-        <rect x="24" y="100" width="11" height="16" rx="5" fill="#6AA8E0"/><rect x="50" y="100" width="11" height="16" rx="5" fill="#6AA8E0"/>
-        <ellipse cx="29" cy="115" rx="8" ry="4" fill="#5A98D0"/><ellipse cx="55" cy="115" rx="8" ry="4" fill="#5A98D0"/>
-      </svg>
-    </div>
-
-    <!-- Deer (bigger, center) -->
-    <div class="cb2" style="margin-left:-10px;margin-right:-10px;">
-      <svg width="106" height="128" viewBox="0 0 160 180">
-        <ellipse cx="80" cy="115" rx="42" ry="35" fill="#F4A030"/>
-        <circle cx="80" cy="68" r="28" fill="#F4A030"/>
-        <ellipse cx="57" cy="48" rx="9" ry="13" fill="#F4A030" transform="rotate(-20 57 48)"/>
-        <ellipse cx="57" cy="48" rx="5" ry="8" fill="#F8C870" transform="rotate(-20 57 48)"/>
-        <ellipse cx="103" cy="48" rx="9" ry="13" fill="#F4A030" transform="rotate(20 103 48)"/>
-        <ellipse cx="103" cy="48" rx="5" ry="8" fill="#F8C870" transform="rotate(20 103 48)"/>
-        <line x1="60" y1="44" x2="42" y2="18" stroke="#7B3800" stroke-width="5" stroke-linecap="round"/>
-        <line x1="42" y1="18" x2="28" y2="10" stroke="#7B3800" stroke-width="4" stroke-linecap="round"/>
-        <line x1="42" y1="18" x2="34" y2="4" stroke="#7B3800" stroke-width="3" stroke-linecap="round"/>
-        <line x1="100" y1="44" x2="118" y2="18" stroke="#7B3800" stroke-width="5" stroke-linecap="round"/>
-        <line x1="118" y1="18" x2="132" y2="10" stroke="#7B3800" stroke-width="4" stroke-linecap="round"/>
-        <line x1="118" y1="18" x2="126" y2="4" stroke="#7B3800" stroke-width="3" stroke-linecap="round"/>
-        <circle cx="70" cy="64" r="9" fill="white"/><circle cx="90" cy="64" r="9" fill="white"/>
-        <circle cx="71" cy="65" r="5" fill="#1a0a00"/><circle cx="91" cy="65" r="5" fill="#1a0a00"/>
-        <circle cx="72" cy="63" r="2" fill="white"/><circle cx="92" cy="63" r="2" fill="white"/>
-        <ellipse cx="80" cy="79" rx="10" ry="7" fill="#D4780A"/>
-        <ellipse cx="80" cy="78" rx="5.5" ry="3.5" fill="#BB5500"/>
-        <path d="M70 84 Q80 94 90 84" stroke="#BB5500" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        <circle cx="58" cy="77" r="10" fill="rgba(255,120,80,.4)"/><circle cx="102" cy="77" r="10" fill="rgba(255,120,80,.4)"/>
-        <path d="M40,96 Q80,106 120,96 Q118,108 80,110 Q42,108 40,96Z" fill="#FF4400" opacity=".8"/>
-        <rect x="58" y="145" width="14" height="28" rx="7" fill="#D4881A"/>
-        <rect x="88" y="145" width="14" height="28" rx="7" fill="#D4881A"/>
-      </svg>
-    </div>
-
-    <!-- Rabbit -->
-    <div class="cb3">
-      <svg width="82" height="108" viewBox="0 0 70 112">
-        <path d="M10,70 Q8,90 12,104 L58,104 Q62,90 60,70Z" fill="#FF6688"/>
-        <ellipse cx="35" cy="72" rx="22" ry="18" fill="#F8E8FF"/>
-        <circle cx="35" cy="48" r="20" fill="#F8E8FF"/>
-        <ellipse cx="22" cy="22" rx="7" ry="18" fill="#F8E8FF"/><ellipse cx="22" cy="22" rx="4" ry="12" fill="#FFB0C0"/>
-        <ellipse cx="48" cy="22" rx="7" ry="18" fill="#F8E8FF"/><ellipse cx="48" cy="22" rx="4" ry="12" fill="#FFB0C0"/>
-        <path d="M44,10 Q48,4 52,9 Q55,4 58,10 Q55,14 51,12 Q48,14 44,10Z" fill="#FF4488"/>
-        <circle cx="27" cy="44" r="6" fill="white"/><circle cx="43" cy="44" r="6" fill="white"/>
-        <circle cx="28" cy="45" r="3.5" fill="#FF6699"/><circle cx="44" cy="45" r="3.5" fill="#FF6699"/>
-        <circle cx="29" cy="43" r="1.3" fill="white"/><circle cx="45" cy="43" r="1.3" fill="white"/>
-        <ellipse cx="35" cy="52" rx="4.5" ry="3.5" fill="#FF8080"/>
-        <path d="M29 57 Q35 64 41 57" stroke="#CC6688" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-        <circle cx="19" cy="52" r="6" fill="rgba(255,150,180,.45)"/><circle cx="51" cy="52" r="6" fill="rgba(255,150,180,.45)"/>
-        <path d="M18,72 Q35,80 52,72" stroke="#FF4466" stroke-width="1.5" fill="none"/>
-        <path d="M28,76 Q30,70 35,73 Q40,70 42,76 Q40,80 35,78 Q30,80 28,76Z" fill="#FFE100"/>
-        <ellipse cx="18" cy="104" rx="10" ry="6" fill="#F8E8FF" transform="rotate(8 18 104)"/>
-        <ellipse cx="52" cy="104" rx="10" ry="6" fill="#F8E8FF" transform="rotate(-8 52 104)"/>
-        <circle cx="62" cy="16" r="13" fill="#CC44FF" opacity=".92"/>
-        <line x1="62" y1="29" x2="54" y2="50" stroke="#8844AA" stroke-width="1.5"/>
-      </svg>
-    </div>
+<!-- Splash Page -->
+<div class="page active" id="pgSplash">
+  <div class="cloud c1"></div>
+  <div class="cloud c2"></div>
+  <div class="cloud c3"></div>
+  <div class="sp-star" style="top:15%;left:8%;font-size:18px">⭐</div>
+  <div class="sp-star" style="top:28%;right:12%;font-size:14px">✨</div>
+  <div class="sp-star" style="top:18%;right:28%;font-size:20px">🌟</div>
+  <div class="sp-chars" style="display:flex;gap:14px;margin-bottom:18px">
+    <svg class="cb1" width="100" height="100" viewBox="0 0 100 100"><ellipse cx="50" cy="65" rx="32" ry="35" fill="#5BA3D0"/><ellipse cx="33" cy="60" rx="22" ry="25" fill="#7BBEE3"/><ellipse cx="67" cy="60" rx="22" ry="25" fill="#7BBEE3"/><circle cx="42" cy="55" r="8" fill="white"/><circle cx="58" cy="55" r="8" fill="white"/><circle cx="43" cy="56" r="4" fill="#1a0a00"/><circle cx="59" cy="56" r="4" fill="#1a0a00"/><ellipse cx="50" cy="68" rx="8" ry="6" fill="#D4780A"/><path d="M42 74 Q50 82 58 74" stroke="#444" stroke-width="2" fill="none"/></svg>
+    <svg class="cb2" width="100" height="100" viewBox="0 0 100 100"><ellipse cx="50" cy="55" rx="28" ry="30" fill="#E89E3A"/><line x1="50" y1="26" x2="42" y2="10" stroke="#7B3800" stroke-width="5" stroke-linecap="round"/><line x1="42" y1="10" x2="38" y2="0" stroke="#7B3800" stroke-width="4" stroke-linecap="round"/><line x1="50" y1="26" x2="58" y2="10" stroke="#7B3800" stroke-width="5" stroke-linecap="round"/><line x1="58" y1="10" x2="62" y2="0" stroke="#7B3800" stroke-width="4" stroke-linecap="round"/><circle cx="42" cy="50" r="7" fill="white"/><circle cx="58" cy="50" r="7" fill="white"/><circle cx="43" cy="51" r="4" fill="#1a0a00"/><circle cx="59" cy="51" r="4" fill="#1a0a00"/><ellipse cx="50" cy="63" rx="9" ry="6" fill="#D4780A"/><path d="M42 68 Q50 76 58 68" stroke="#BB5500" stroke-width="2" fill="none"/><ellipse cx="50" cy="82" rx="18" ry="12" fill="#CC6600" opacity=".9"/></svg>
+    <svg class="cb3" width="100" height="100" viewBox="0 0 100 100"><ellipse cx="50" cy="58" rx="26" ry="32" fill="#FFB6D9"/><ellipse cx="50" cy="22" rx="20" ry="26" fill="#FFD4E8"/><ellipse cx="36" cy="14" rx="12" ry="18" fill="#FFE0EE"/><ellipse cx="64" cy="14" rx="12" ry="18" fill="#FFE0EE"/><circle cx="43" cy="54" r="7" fill="white"/><circle cx="57" cy="54" r="7" fill="white"/><circle cx="44" cy="55" r="4" fill="#1a0a00"/><circle cx="58" cy="55" r="4" fill="#1a0a00"/><ellipse cx="50" cy="66" rx="8" ry="6" fill="#FF9EC8"/><path d="M43 71 Q50 78 57 71" stroke="#FF6BA6" stroke-width="2" fill="none"/><ellipse cx="50" cy="26" rx="6" ry="9" fill="#CC66BB"/></svg>
   </div>
-
-  <div class="sp-title-hi">चंपक</div>
-  <div class="sp-title-en">Comics</div>
-  <div class="sp-dots">
-    <div class="sp-dot"></div><div class="sp-dot"></div><div class="sp-dot"></div>
-  </div>
-
-  <div class="sp-grass">
-    <svg viewBox="0 0 400 170" preserveAspectRatio="none" width="100%" height="100%">
-      <path d="M0,50 Q20,25 40,45 Q60,65 80,35 Q100,15 120,40 Q140,60 160,30 Q180,10 200,38 Q220,58 240,30 Q260,10 280,42 Q300,65 320,35 Q340,15 360,45 Q380,65 400,40 L400,170 L0,170Z" fill="#5BB320"/>
-      <path d="M0,80 Q30,60 60,76 Q90,90 120,68 Q150,50 180,74 Q210,94 240,70 Q270,52 300,76 Q330,94 360,72 Q385,56 400,74 L400,170 L0,170Z" fill="#6CC929"/>
-      <path d="M0,108 Q40,90 80,106 Q120,120 160,100 Q200,82 240,104 Q280,122 320,102 Q360,84 400,106 L400,170 L0,170Z" fill="#7FDB35"/>
-      <circle cx="75" cy="108" r="5" fill="#FFEE00" opacity=".9"/>
-      <circle cx="175" cy="100" r="4" fill="#FF88CC" opacity=".9"/>
-      <circle cx="275" cy="102" r="5" fill="#FFEE00" opacity=".9"/>
-      <circle cx="330" cy="88" r="3" fill="#FF6644" opacity=".85"/>
-    </svg>
-  </div>
+  <div class="sp-title-hi">चम्पक Comics</div>
+  <div class="sp-title-en">CHAMPAK</div>
+  <div class="sp-dots"><div class="sp-dot"></div><div class="sp-dot"></div><div class="sp-dot"></div></div>
+  <svg class="sp-grass" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,30 Q10,10 20,30 T40,30 T60,30 T80,30 T100,30 L100,100 L0,100 Z" fill="#7DC42A"/></svg>
 </div>
 
-<!-- ══ HOME ══ -->
-<div id="pgHome" class="page">
-  <div class="app-hdr">
-    <div class="hdr-star" style="top:5px;right:58px;font-size:15px">⭐</div>
-    <div class="hdr-star" style="top:9px;right:98px;font-size:11px;animation-delay:.5s">✨</div>
-    <div class="hdr-icon-box">
-      <svg width="34" height="38" viewBox="0 0 160 180" fill="none">
-        <ellipse cx="80" cy="115" rx="42" ry="35" fill="#F4A030"/>
-        <circle cx="80" cy="68" r="28" fill="#F4A030"/>
-        <line x1="60" y1="44" x2="42" y2="18" stroke="#7B3800" stroke-width="6" stroke-linecap="round"/>
-        <line x1="42" y1="18" x2="28" y2="10" stroke="#7B3800" stroke-width="5" stroke-linecap="round"/>
-        <line x1="100" y1="44" x2="118" y2="18" stroke="#7B3800" stroke-width="6" stroke-linecap="round"/>
-        <line x1="118" y1="18" x2="132" y2="10" stroke="#7B3800" stroke-width="5" stroke-linecap="round"/>
-        <circle cx="70" cy="64" r="8" fill="white"/><circle cx="90" cy="64" r="8" fill="white"/>
-        <circle cx="71" cy="65" r="4.5" fill="#1a0a00"/><circle cx="91" cy="65" r="4.5" fill="#1a0a00"/>
-        <circle cx="72" cy="63" r="2" fill="white"/><circle cx="92" cy="63" r="2" fill="white"/>
-        <ellipse cx="80" cy="79" rx="10" ry="7" fill="#D4780A"/>
-        <path d="M70 84 Q80 93 90 84" stroke="#BB5500" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        <circle cx="58" cy="77" r="9" fill="rgba(255,120,80,.4)"/>
-        <circle cx="102" cy="77" r="9" fill="rgba(255,120,80,.4)"/>
-      </svg>
-    </div>
-    <div style="flex:1">
-      <div class="hdr-title">Champak Comics ⭐</div>
-      <div class="hdr-sub">🛡️ AD FREE • KIDS SAFE • FREE</div>
-    </div>
-    <button class="hdr-btn" id="refreshBtn" onclick="refreshPage()">🔄</button>
-  </div>
-
+<!-- Home Page -->
+<div class="page" id="pgHome">
   <div id="homeContent">
-
     <!-- Hero Banner -->
     <div class="hero-banner" onclick="showPage('pgSeeAll')">
-      <div class="hb-cloud hb-c1"></div>
-      <div class="hb-cloud hb-c2"></div>
-      <div class="hb-star" style="top:6px;left:50%;transform:translateX(-50%)">⭐</div>
-      <div class="hb-star" style="top:10px;left:28%;animation-delay:.4s">✨</div>
-      <div class="hb-star" style="top:10px;right:26%;animation-delay:.7s">⭐</div>
       <div class="hero-inner">
-        <div class="cb1" style="margin-bottom:-4px;">
-          <svg width="74" height="90" viewBox="0 0 90 110">
-            <ellipse cx="45" cy="82" rx="26" ry="22" fill="#7BB8F0"/>
-            <circle cx="45" cy="52" r="22" fill="#7BB8F0"/>
-            <ellipse cx="18" cy="48" rx="13" ry="18" fill="#6AA8E0"/><ellipse cx="18" cy="48" rx="8" ry="12" fill="#FFB0C0"/>
-            <ellipse cx="72" cy="48" rx="13" ry="18" fill="#6AA8E0"/><ellipse cx="72" cy="48" rx="8" ry="12" fill="#FFB0C0"/>
-            <path d="M40,68 Q32,80 30,88 Q29,93 34,93 Q38,93 38,87 Q40,80 46,70" fill="#7BB8F0" stroke="#6AA8E0" stroke-width="1"/>
-            <circle cx="37" cy="44" r="6" fill="white"/><circle cx="53" cy="44" r="6" fill="white"/>
-            <circle cx="38" cy="45" r="3.5" fill="#1a0a00"/><circle cx="54" cy="45" r="3.5" fill="#1a0a00"/>
-            <circle cx="37" cy="44" r="7" fill="none" stroke="#884400" stroke-width="1.5"/>
-            <circle cx="53" cy="44" r="7" fill="none" stroke="#884400" stroke-width="1.5"/>
-            <path d="M36 58 Q45 65 54 58" stroke="#4477AA" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <circle cx="26" cy="54" r="6" fill="rgba(255,150,180,.4)"/><circle cx="64" cy="54" r="6" fill="rgba(255,150,180,.4)"/>
-            <rect x="24" y="100" width="11" height="16" rx="5" fill="#6AA8E0"/><rect x="50" y="100" width="11" height="16" rx="5" fill="#6AA8E0"/>
-          </svg>
-        </div>
-        <div class="cb2" style="margin-left:-8px;margin-right:-8px;margin-bottom:-2px;">
-          <svg width="92" height="112" viewBox="0 0 160 180">
-            <ellipse cx="80" cy="115" rx="42" ry="35" fill="#F4A030"/>
-            <circle cx="80" cy="68" r="28" fill="#F4A030"/>
-            <ellipse cx="57" cy="48" rx="9" ry="13" fill="#F4A030" transform="rotate(-20 57 48)"/>
-            <ellipse cx="103" cy="48" rx="9" ry="13" fill="#F4A030" transform="rotate(20 103 48)"/>
-            <line x1="60" y1="44" x2="42" y2="18" stroke="#7B3800" stroke-width="5" stroke-linecap="round"/>
-            <line x1="42" y1="18" x2="28" y2="10" stroke="#7B3800" stroke-width="4" stroke-linecap="round"/>
-            <line x1="100" y1="44" x2="118" y2="18" stroke="#7B3800" stroke-width="5" stroke-linecap="round"/>
-            <line x1="118" y1="18" x2="132" y2="10" stroke="#7B3800" stroke-width="4" stroke-linecap="round"/>
-            <circle cx="70" cy="64" r="9" fill="white"/><circle cx="90" cy="64" r="9" fill="white"/>
-            <circle cx="71" cy="65" r="5" fill="#1a0a00"/><circle cx="91" cy="65" r="5" fill="#1a0a00"/>
-            <circle cx="72" cy="63" r="2" fill="white"/><circle cx="92" cy="63" r="2" fill="white"/>
-            <ellipse cx="80" cy="79" rx="10" ry="7" fill="#D4780A"/>
-            <path d="M70 84 Q80 94 90 84" stroke="#BB5500" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-            <circle cx="58" cy="77" r="10" fill="rgba(255,120,80,.4)"/><circle cx="102" cy="77" r="10" fill="rgba(255,120,80,.4)"/>
-            <path d="M40,96 Q80,106 120,96 Q118,108 80,110 Q42,108 40,96Z" fill="#FF4400" opacity=".8"/>
-            <rect x="58" y="145" width="14" height="28" rx="7" fill="#D4881A"/>
-            <rect x="88" y="145" width="14" height="28" rx="7" fill="#D4881A"/>
-          </svg>
-        </div>
-        <div class="cb3" style="margin-bottom:-4px;">
-          <svg width="74" height="90" viewBox="0 0 70 112">
-            <path d="M10,70 Q8,90 12,104 L58,104 Q62,90 60,70Z" fill="#FF6688"/>
-            <ellipse cx="35" cy="72" rx="22" ry="18" fill="#F8E8FF"/>
-            <circle cx="35" cy="48" r="20" fill="#F8E8FF"/>
-            <ellipse cx="22" cy="22" rx="7" ry="18" fill="#F8E8FF"/><ellipse cx="22" cy="22" rx="4" ry="12" fill="#FFB0C0"/>
-            <ellipse cx="48" cy="22" rx="7" ry="18" fill="#F8E8FF"/><ellipse cx="48" cy="22" rx="4" ry="12" fill="#FFB0C0"/>
-            <path d="M44,10 Q48,4 52,9 Q55,4 58,10 Q55,14 51,12 Q48,14 44,10Z" fill="#FF4488"/>
-            <circle cx="27" cy="44" r="6" fill="white"/><circle cx="43" cy="44" r="6" fill="white"/>
-            <circle cx="28" cy="45" r="3.5" fill="#FF6699"/><circle cx="44" cy="45" r="3.5" fill="#FF6699"/>
-            <ellipse cx="35" cy="52" rx="4.5" ry="3.5" fill="#FF8080"/>
-            <path d="M29 57 Q35 64 41 57" stroke="#CC6688" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <circle cx="19" cy="52" r="6" fill="rgba(255,150,180,.45)"/><circle cx="51" cy="52" r="6" fill="rgba(255,150,180,.45)"/>
-            <path d="M28,76 Q30,70 35,73 Q40,70 42,76 Q40,80 35,78 Q30,80 28,76Z" fill="#FFE100"/>
-            <circle cx="60" cy="16" r="12" fill="#CC44FF" opacity=".9"/>
-            <line x1="60" y1="28" x2="54" y2="50" stroke="#8844AA" stroke-width="1.5"/>
-          </svg>
-        </div>
+        <div class="hb-cloud hb-c1"></div>
+        <div class="hb-cloud hb-c2"></div>
+        <div class="hb-star" style="top:10px;left:16px">⭐</div>
+        <div class="hb-star" style="top:14px;right:20px">✨</div>
+        <svg width="76" height="90" viewBox="0 0 100 100"><ellipse cx="50" cy="65" rx="32" ry="35" fill="#5BA3D0"/><ellipse cx="33" cy="60" rx="22" ry="25" fill="#7BBEE3"/><ellipse cx="67" cy="60" rx="22" ry="25" fill="#7BBEE3"/><circle cx="42" cy="55" r="8" fill="white"/><circle cx="58" cy="55" r="8" fill="white"/><circle cx="43" cy="56" r="4" fill="#1a0a00"/><circle cx="59" cy="56" r="4" fill="#1a0a00"/><ellipse cx="50" cy="68" rx="8" ry="6" fill="#D4780A"/><path d="M42 74 Q50 82 58 74" stroke="#444" stroke-width="2" fill="none"/></svg>
+        <svg width="76" height="90" viewBox="0 0 100 100"><ellipse cx="50" cy="55" rx="28" ry="30" fill="#E89E3A"/><line x1="50" y1="26" x2="42" y2="10" stroke="#7B3800" stroke-width="5" stroke-linecap="round"/><line x1="42" y1="10" x2="38" y2="0" stroke="#7B3800" stroke-width="4" stroke-linecap="round"/><line x1="50" y1="26" x2="58" y2="10" stroke="#7B3800" stroke-width="5" stroke-linecap="round"/><line x1="58" y1="10" x2="62" y2="0" stroke="#7B3800" stroke-width="4" stroke-linecap="round"/><circle cx="42" cy="50" r="7" fill="white"/><circle cx="58" cy="50" r="7" fill="white"/><circle cx="43" cy="51" r="4" fill="#1a0a00"/><circle cx="59" cy="51" r="4" fill="#1a0a00"/><ellipse cx="50" cy="63" rx="9" ry="6" fill="#D4780A"/><path d="M42 68 Q50 76 58 68" stroke="#BB5500" stroke-width="2" fill="none"/><ellipse cx="50" cy="82" rx="18" ry="12" fill="#CC6600" opacity=".9"/></svg>
+        <svg width="76" height="90" viewBox="0 0 100 100"><ellipse cx="50" cy="58" rx="26" ry="32" fill="#FFB6D9"/><ellipse cx="50" cy="22" rx="20" ry="26" fill="#FFD4E8"/><ellipse cx="36" cy="14" rx="12" ry="18" fill="#FFE0EE"/><ellipse cx="64" cy="14" rx="12" ry="18" fill="#FFE0EE"/><circle cx="43" cy="54" r="7" fill="white"/><circle cx="57" cy="54" r="7" fill="white"/><circle cx="44" cy="55" r="4" fill="#1a0a00"/><circle cx="58" cy="55" r="4" fill="#1a0a00"/><ellipse cx="50" cy="66" rx="8" ry="6" fill="#FF9EC8"/><path d="M43 71 Q50 78 57 71" stroke="#FF6BA6" stroke-width="2" fill="none"/><ellipse cx="50" cy="26" rx="6" ry="9" fill="#CC66BB"/></svg>
       </div>
       <div class="hero-foot">
-        <div class="hero-foot-txt">🌟 Champak ki Duniya!</div>
-        <button class="hero-foot-btn" onclick="event.stopPropagation();showPage('pgSeeAll')">Comics Padho →</button>
+        <div class="hero-foot-txt">📚 Champak's World!</div>
+        <button class="hero-foot-btn">Read Comics →</button>
       </div>
     </div>
 
     <!-- New Arrivals -->
     <div class="sec-hdr">
-      <div class="sec-title">🆕 New Arrivals</div>
+      <div style="display:flex;align-items:center;gap:6px">
+        <span style="font-size:18px">📘</span>
+        <div class="sec-title">New Arrivals</div>
+      </div>
       <button class="see-all-btn" onclick="showPage('pgSeeAll')">See All →</button>
     </div>
     <div class="h-scroll" id="horizScroll"></div>
 
     <!-- Library -->
-    <div class="sec-hdr">
-      <div class="sec-title">📚 Library</div>
+    <div class="sec-hdr" style="margin-top:8px">
+      <div style="display:flex;align-items:center;gap:6px">
+        <span style="font-size:18px">📚</span>
+        <div class="sec-title">Library</div>
+      </div>
       <button class="see-all-btn" onclick="showPage('pgSeeAll')">See All →</button>
     </div>
     <div class="lib-grid" id="libGrid"></div>
-    <div style="height:10px;"></div>
+    <div style="height:12px"></div>
   </div>
 
   <!-- Bottom Nav -->
   <div id="bottomNav">
-    <div class="nav-item active" onclick="setNav(this);showPage('pgHome')">
+    <div class="nav-item active" onclick="showPage('pgHome');setNav(this)">
       <div class="nav-ico">🏠</div>
       <div class="nav-label">Home</div>
     </div>
-    <div class="nav-item" onclick="setNav(this);showPage('pgSeeAll')">
+    <div class="nav-item" onclick="showPage('pgSeeAll');setNav(this)">
       <div class="nav-ico">📚</div>
       <div class="nav-label">Comics</div>
     </div>
-    <div class="nav-item" onclick="setNav(this)">
+    <div class="nav-item">
       <div class="nav-ico">⚙️</div>
       <div class="nav-label">More</div>
     </div>
   </div>
 </div>
 
-<!-- ══ SEE ALL ══ -->
-<div id="pgSeeAll" class="page">
+<!-- See All Page -->
+<div class="page" id="pgSeeAll">
   <div class="app-hdr">
-    <div class="hdr-star" style="top:5px;right:16px;font-size:14px;animation-delay:.3s">⭐</div>
-    <button class="hdr-back" onclick="showPage('pgHome')">←</button>
-    <div style="flex:1">
-      <div class="hdr-title">📚 Saari Comics</div>
-      <div class="hdr-sub" id="allCount"></div>
-    </div>
+    <div class="hdr-back" onclick="backToHome()">←</div>
+    <div class="hdr-title" id="allCount">All Comics</div>
   </div>
   <div id="seeAllContent">
     <div class="all-grid" id="allGrid"></div>
-    <div style="height:20px;"></div>
   </div>
 </div>
 
-<!-- Opening overlay -->
+<!-- Loading Overlay -->
 <div id="ov">
   <div class="ov-char">
-    <svg width="110" height="130" viewBox="0 0 160 180" fill="none">
-      <ellipse cx="80" cy="115" rx="42" ry="35" fill="#F4A030"/>
-      <circle cx="80" cy="68" r="28" fill="#F4A030"/>
-      <ellipse cx="57" cy="48" rx="9" ry="13" fill="#F4A030" transform="rotate(-20 57 48)"/>
-      <ellipse cx="103" cy="48" rx="9" ry="13" fill="#F4A030" transform="rotate(20 103 48)"/>
-      <line x1="60" y1="44" x2="42" y2="18" stroke="#7B3800" stroke-width="5" stroke-linecap="round"/>
-      <line x1="42" y1="18" x2="28" y2="10" stroke="#7B3800" stroke-width="4" stroke-linecap="round"/>
-      <line x1="100" y1="44" x2="118" y2="18" stroke="#7B3800" stroke-width="5" stroke-linecap="round"/>
-      <line x1="118" y1="18" x2="132" y2="10" stroke="#7B3800" stroke-width="4" stroke-linecap="round"/>
-      <circle cx="70" cy="64" r="9" fill="white"/><circle cx="90" cy="64" r="9" fill="white"/>
-      <circle cx="71" cy="65" r="5" fill="#1a0a00"/><circle cx="91" cy="65" r="5" fill="#1a0a00"/>
-      <circle cx="72" cy="63" r="2" fill="white"/><circle cx="92" cy="63" r="2" fill="white"/>
-      <ellipse cx="80" cy="79" rx="10" ry="7" fill="#D4780A"/>
-      <path d="M70 84 Q80 94 90 84" stroke="#BB5500" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-      <circle cx="58" cy="77" r="10" fill="rgba(255,120,80,.4)"/>
-      <circle cx="102" cy="77" r="10" fill="rgba(255,120,80,.4)"/>
-      <rect x="58" y="145" width="14" height="28" rx="7" fill="#D4881A"/>
-      <rect x="88" y="145" width="14" height="28" rx="7" fill="#D4881A"/>
+    <svg width="160" height="173" viewBox="0 0 160 173">
+      <ellipse cx="80" cy="100" rx="48" ry="50" fill="#E89E3A"/>
+      <ellipse cx="80" cy="135" rx="32" ry="22" fill="#CC6600" opacity=".9"/>
+      <line x1="80" y1="44" x2="62" y2="18" stroke="#7B3800" stroke-width="5" stroke-linecap="round"/>
+      <line x1="62" y1="18" x2="48" y2="10" stroke="#7B3800" stroke-width="4" stroke-linecap="round"/>
+      <line x1="80" y1="44" x2="98" y2="18" stroke="#7B3800" stroke-width="5" stroke-linecap="round"/>
+      <line x1="98" y1="18" x2="112" y2="10" stroke="#7B3800" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="66" cy="90" r="11" fill="white"/><circle cx="94" cy="90" r="11" fill="white"/>
+      <circle cx="67" cy="91" r="6" fill="#1a0a00"/><circle cx="95" cy="91" r="6" fill="#1a0a00"/>
+      <circle cx="68" cy="88" r="3" fill="white"/><circle cx="96" cy="88" r="3" fill="white"/>
+      <ellipse cx="80" cy="108" rx="13" ry="9" fill="#D4780A"/>
+      <path d="M66 116 Q80 128 94 116" stroke="#BB5500" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <circle cx="52" cy="105" r="13" fill="rgba(255,120,80,.4)"/>
+      <circle cx="108" cy="105" r="13" fill="rgba(255,120,80,.4)"/>
+      <rect x="52" y="155" width="18" height="36" rx="9" fill="#D4881A"/>
+      <rect x="90" y="155" width="18" height="36" rx="9" fill="#D4881A"/>
     </svg>
   </div>
-  <div class="ov-title">Comic khul rahi hai! 📖</div>
-  <div class="ov-sub">Ek second ruko...</div>
+  <div class="ov-title">Opening Comic! 📖</div>
+  <div class="ov-sub">Please wait...</div>
 </div>
 
 <script>
 // ══════════════════════════════
-//  📚 COMICS — YAHAN ADD KARO
+//  📚 COMICS — ADD YOUR COMICS HERE
 // ══════════════════════════════
 var COMICS = [
   {
@@ -466,33 +312,56 @@ var COMICS = [
     pages: 50,
     date: "Sep 2019",
     catLabel: "FUNNY\nSTORIES",
-    catColor: "#00AA33"
+    catColor: "#FF6B00"
   }
+  // Add more comics here with the same format
 ];
 // ══════════════════════════════
 
 var COLORS = ['#FF6B00','#0066CC','#009944','#8B00CC','#CC6600','#CC0000','#007788'];
+var pageHistory = ['pgHome'];
 
-function thumb(u){ try{return u.replace(/\/$/,'')+'/files/thumb/1.jpg';}catch(e){return '';} }
-
-function fbFix(col){
-  return "this.style.display='none';var f=this.nextElementSibling;f.style.display='flex';f.style.background='"+col+"';";
+// IMPROVED: Multiple thumbnail URL patterns for FlipHTML5
+function getThumbUrls(flipUrl) {
+  var base = flipUrl.replace(/\/+$/, ''); // Remove trailing slashes
+  return [
+    base + '/files/large/1.jpg',    // Primary: large version
+    base + '/files/mobile/1.jpg',   // Alternative: mobile version  
+    base + '/files/thumb/1.jpg',    // Alternative: thumbnail version
+    base + '/files/shot/1.jpg'      // Alternative: screenshot version
+  ];
 }
 
 function renderHome(){
   var sorted = COMICS.slice().sort(function(a,b){return b.id-a.id;});
 
-  // Horizontal
+  // Horizontal scroll
   var hEl = document.getElementById('horizScroll');
   hEl.innerHTML = '';
   sorted.forEach(function(c,i){
-    var col = COLORS[i%COLORS.length];
+    var col = c.catColor || COLORS[i%COLORS.length];
     var d = document.createElement('div');
     d.className = 'hcard';
     d.style.animationDelay = (i*.08)+'s';
+    
+    var thumbUrls = getThumbUrls(c.flipUrl);
+    var thumbHtml = '<img src="' + thumbUrls[0] + '" loading="lazy" ' +
+                    'onerror="this.onerror=null;' +
+                    'this.src=\'' + thumbUrls[1] + '\';' +
+                    'this.onerror=function(){' +
+                      'this.onerror=null;this.src=\'' + thumbUrls[2] + '\';' +
+                      'this.onerror=function(){' +
+                        'this.onerror=null;this.src=\'' + thumbUrls[3] + '\';' +
+                        'this.onerror=function(){' +
+                          'this.style.display=\'none\';' +
+                          'this.nextElementSibling.style.display=\'flex\';' +
+                        '}' +
+                      '}' +
+                    '}">';
+    
     d.innerHTML =
-      '<div class="hcard-thumb">'+
-        '<img src="'+thumb(c.flipUrl)+'" loading="lazy" onerror="'+fbFix(col)+'">'+
+      '<div class="hcard-thumb">' +
+        thumbHtml +
         '<div class="hcard-fb" style="background:'+col+'">📕</div>'+
       '</div>'+
       '<div class="hcard-info">'+
@@ -503,19 +372,35 @@ function renderHome(){
     hEl.appendChild(d);
   });
 
-  // Library
+  // Library grid
   var lEl = document.getElementById('libGrid');
   lEl.innerHTML = '';
   COMICS.slice().sort(function(a,b){return a.id-b.id;}).forEach(function(c,i){
-    var col = COLORS[i%COLORS.length];
+    var col = c.catColor || COLORS[i%COLORS.length];
     var d = document.createElement('div');
     d.className = 'lcard';
     d.style.animationDelay = (i*.08)+'s';
+    
+    var thumbUrls = getThumbUrls(c.flipUrl);
+    var thumbHtml = '<img src="' + thumbUrls[0] + '" loading="lazy" ' +
+                    'onerror="this.onerror=null;' +
+                    'this.src=\'' + thumbUrls[1] + '\';' +
+                    'this.onerror=function(){' +
+                      'this.onerror=null;this.src=\'' + thumbUrls[2] + '\';' +
+                      'this.onerror=function(){' +
+                        'this.onerror=null;this.src=\'' + thumbUrls[3] + '\';' +
+                        'this.onerror=function(){' +
+                          'this.style.display=\'none\';' +
+                          'this.nextElementSibling.style.display=\'flex\';' +
+                        '}' +
+                      '}' +
+                    '}">';
+    
     d.innerHTML =
-      '<div class="lcard-thumb">'+
-        '<img src="'+thumb(c.flipUrl)+'" loading="lazy" onerror="'+fbFix(col)+'">'+
+      '<div class="lcard-thumb">' +
+        thumbHtml +
         '<div class="lcard-fb" style="background:'+col+'">📕</div>'+
-        '<div class="lcat">'+(c.catLabel||'').replace('\n','<br>')+'</div>'+
+        '<div class="lcat">'+(c.catLabel||'').replace(/\n/g,'<br>')+'</div>'+
       '</div>'+
       '<div class="lcard-info">'+
         '<div class="lcard-name">'+c.name+'</div>'+
@@ -529,15 +414,31 @@ function renderHome(){
 function renderSeeAll(){
   var el = document.getElementById('allGrid');
   el.innerHTML = '';
-  document.getElementById('allCount').textContent = COMICS.length+' comics available';
+  document.getElementById('allCount').textContent = COMICS.length + ' Comics Available';
   COMICS.slice().sort(function(a,b){return b.id-a.id;}).forEach(function(c,i){
-    var col = COLORS[i%COLORS.length];
+    var col = c.catColor || COLORS[i%COLORS.length];
     var d = document.createElement('div');
     d.className = 'acard';
     d.style.animationDelay = (i*.08)+'s';
+    
+    var thumbUrls = getThumbUrls(c.flipUrl);
+    var thumbHtml = '<img src="' + thumbUrls[0] + '" loading="lazy" ' +
+                    'onerror="this.onerror=null;' +
+                    'this.src=\'' + thumbUrls[1] + '\';' +
+                    'this.onerror=function(){' +
+                      'this.onerror=null;this.src=\'' + thumbUrls[2] + '\';' +
+                      'this.onerror=function(){' +
+                        'this.onerror=null;this.src=\'' + thumbUrls[3] + '\';' +
+                        'this.onerror=function(){' +
+                          'this.style.display=\'none\';' +
+                          'this.nextElementSibling.style.display=\'flex\';' +
+                        '}' +
+                      '}' +
+                    '}">';
+    
     d.innerHTML =
-      '<div class="acard-thumb">'+
-        '<img src="'+thumb(c.flipUrl)+'" loading="lazy" onerror="'+fbFix(col)+'">'+
+      '<div class="acard-thumb">' +
+        thumbHtml +
         '<div class="acard-fb" style="background:'+col+'">📕</div>'+
         '<div class="acard-ov"></div>'+
         (c.date?'<div class="acard-date">📅 '+c.date+'</div>':'')+
@@ -545,7 +446,7 @@ function renderSeeAll(){
       '</div>'+
       '<div class="acard-info">'+
         '<div class="acard-name">'+c.name+'</div>'+
-        '<button class="aread-btn">📖 Abhi Padho!</button>'+
+        '<button class="aread-btn">📖 Read Now!</button>'+
       '</div>';
     d.onclick = function(){ openComic(c); };
     el.appendChild(d);
@@ -554,27 +455,69 @@ function renderSeeAll(){
 
 function openComic(c){
   document.getElementById('ov').classList.add('show');
-  setTimeout(function(){ window.location.href = c.flipUrl; }, 1000);
+  setTimeout(function(){ 
+    window.location.href = c.flipUrl; 
+  }, 1000);
 }
 
 function showPage(id){
-  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+  var currentPage = document.querySelector('.page.active');
+  if (currentPage) {
+    var currentId = currentPage.id;
+    if (currentId !== id && pageHistory[pageHistory.length - 1] !== id) {
+      pageHistory.push(currentId);
+    }
+  }
+  
+  document.querySelectorAll('.page').forEach(function(p){ 
+    p.classList.remove('active'); 
+  });
   document.getElementById(id).classList.add('active');
-  if(id === 'pgSeeAll') renderSeeAll();
+  
+  if(id === 'pgSeeAll') {
+    renderSeeAll();
+  }
+}
+
+function backToHome(){
+  if (pageHistory.length > 1) {
+    pageHistory.pop();
+    var previousPage = pageHistory[pageHistory.length - 1];
+    showPage(previousPage);
+    
+    if (previousPage === 'pgHome') {
+      var homeNav = document.querySelector('.nav-item[onclick*="pgHome"]');
+      if (homeNav) setNav(homeNav);
+    }
+  } else {
+    showPage('pgHome');
+    var homeNav = document.querySelector('.nav-item[onclick*="pgHome"]');
+    if (homeNav) setNav(homeNav);
+  }
 }
 
 function setNav(el){
-  document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('active'); });
+  document.querySelectorAll('.nav-item').forEach(function(n){ 
+    n.classList.remove('active'); 
+  });
   el.classList.add('active');
 }
 
-function refreshPage(){
-  var b = document.getElementById('refreshBtn');
-  b.classList.add('spin');
-  setTimeout(function(){ b.classList.remove('spin'); renderHome(); }, 700);
-}
+// Handle Android back button
+document.addEventListener('backbutton', function(e){
+  e.preventDefault();
+  var currentPage = document.querySelector('.page.active').id;
+  
+  if (currentPage === 'pgHome') {
+    if (navigator.app) {
+      navigator.app.exitApp();
+    }
+  } else {
+    backToHome();
+  }
+}, false);
 
-// Splash
+// Splash screen
 setTimeout(function(){
   document.getElementById('pgSplash').classList.add('hide');
   setTimeout(function(){
