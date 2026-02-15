@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Champak Comics</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+:root { --orange:#FF6B00; --yellow:#FFD700; --deep:#E64A00; --bg:#FFF8E7; --dark:#1a0a00; }
+body { font-family:'Baloo 2',cursive; background:var(--bg); overflow-x:hidden; min-height:100vh; width:100vw; }
+
+/* ══════════ SPLASH ══════════ */
+#splash {
+  position:fixed; inset:0;
+  background:linear-gradient(160deg,#FF8C00,#FF5500 40%,#E63200);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  z-index:999; transition:opacity .8s ease, transform .8s ease;
+}
+#splash.hide { opacity:0; transform:scale(1.05); pointer-events:none; }
+.stars { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+.star { position:absolute; background:#FFD700; border-radius:50%; animation:twinkle linear infinite; }
+@keyframes twinkle { 0%,100%{opacity:0;transform:scale(.5)} 50%{opacity:1;transform:scale(1)} }
+.deer-wrap { animation:deerBounce 1.2s ease-in-out infinite; margin-bottom:10px; position:relative; z-index:2; }
+@keyframes deerBounce { 0%,100%{transform:translateY(0) rotate(-2deg)} 50%{transform:translateY(-18px) rotate(2deg)} }
+.splash-title { font-weight:800; font-size:52px; color:#FFD700; text-shadow:4px 4px 0 #8B2500,-2px -2px 0 #8B2500; letter-spacing:2px; animation:titlePop .6s cubic-bezier(.34,1.56,.64,1) .3s both; z-index:2; position:relative; }
+@keyframes titlePop { from{transform:scale(.3) rotate(-5deg);opacity:0} to{transform:scale(1);opacity:1} }
+.splash-sub { font-size:15px; color:rgba(255,255,220,.9); letter-spacing:4px; text-transform:uppercase; margin-top:4px; animation:fadeUp .5s ease .7s both; z-index:2; position:relative; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(15px)} to{opacity:1;transform:translateY(0)} }
+.dots { display:flex; gap:8px; margin-top:40px; z-index:2; }
+.dot { width:12px; height:12px; background:#FFD700; border-radius:50%; animation:dotB .8s ease-in-out infinite; }
+.dot:nth-child(2){animation-delay:.15s} .dot:nth-child(3){animation-delay:.3s}
+@keyframes dotB { 0%,100%{transform:translateY(0);opacity:.5} 50%{transform:translateY(-10px);opacity:1} }
+.leaf-bg { position:absolute; bottom:0; left:0; right:0; height:180px; overflow:hidden; pointer-events:none; }
+
+/* ══════════ HOME ══════════ */
+#home { display:none; flex-direction:column; min-height:100vh; }
+#home.active { display:flex; }
+@keyframes screenIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+/* Header */
+.app-header {
+  background:linear-gradient(135deg,#FF6B00,#E64A00);
+  padding:14px 16px 18px;
+  display:flex; align-items:center; gap:10px;
+  box-shadow:0 4px 20px rgba(230,74,0,.4);
+  position:relative; overflow:hidden; flex-shrink:0;
+  position:sticky; top:0; z-index:50;
+}
+.app-header::before { content:''; position:absolute; top:-20px; right:-20px; width:120px; height:120px; background:rgba(255,255,255,.08); border-radius:50%; pointer-events:none; }
+.header-deer { animation:deerBounce 2s ease-in-out infinite; flex-shrink:0; }
+.header-texts { flex:1; }
+.app-header h1 { color:#FFD700; font-size:24px; font-weight:800; text-shadow:2px 2px 0 #8B2500; line-height:1.1; }
+.app-header p { color:rgba(255,240,200,.8); font-size:10px; letter-spacing:1.5px; }
+.refresh-btn {
+  background:rgba(255,255,255,.2); border:none; color:white;
+  width:38px; height:38px; border-radius:10px; font-size:18px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  transition:background .2s;
+}
+.refresh-btn:active { background:rgba(255,255,255,.35); }
+.refresh-btn.spinning { animation:spin .7s linear; }
+@keyframes spin { to{transform:rotate(360deg)} }
+
+/* Status bar */
+.status-bar {
+  background:linear-gradient(135deg,#155215,#0a3a0a);
+  padding:7px 16px; display:flex; align-items:center; gap:8px; flex-shrink:0;
+}
+.status-dot { width:8px; height:8px; background:#7FFF7F; border-radius:50%; box-shadow:0 0 6px #7FFF7F; animation:adPulse 1.5s ease-in-out infinite; }
+@keyframes adPulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(1.4)} }
+.status-text { color:#7FFF7F; font-size:12px; font-weight:700; }
+.status-count { margin-left:auto; color:rgba(180,255,180,.7); font-size:11px; }
+
+/* Body */
+.home-body { flex:1; padding:16px; overflow-y:auto; }
+
+/* Back hint banner */
+.back-hint {
+  background:linear-gradient(135deg,#1a1a5e,#000080);
+  border-radius:12px; padding:10px 14px;
+  display:flex; align-items:center; gap:10px;
+  margin-bottom:14px;
+}
+.back-hint span { font-size:20px; }
+.back-hint p { color:#AAF; font-size:12px; line-height:1.4; }
+.back-hint strong { color:#FFD700; display:block; font-size:13px; }
+
+/* Section title */
+.sec-title { color:var(--deep); font-size:15px; font-weight:800; margin-bottom:12px; display:flex; align-items:center; gap:6px; }
+
+/* Comic grid */
+#comicGrid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+
+.comic-card {
+  background:white; border-radius:16px; overflow:hidden;
+  box-shadow:0 4px 16px rgba(255,107,0,.15); border:2px solid rgba(255,107,0,.1);
+  cursor:pointer; transition:transform .15s, box-shadow .15s;
+  animation:cardIn .4s ease both;
+  text-decoration:none; display:block;
+}
+.comic-card:active { transform:scale(.95); box-shadow:0 2px 8px rgba(255,107,0,.2); }
+@keyframes cardIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+.comic-cover {
+  height:120px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:44px; position:relative; overflow:hidden;
+}
+.comic-cover::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(to bottom, transparent 60%, rgba(0,0,0,.15));
+}
+.comic-badge {
+  position:absolute; top:8px; right:8px; z-index:2;
+  background:#FFD700; color:#8B2500; font-size:9px; font-weight:800;
+  padding:2px 7px; border-radius:8px;
+}
+.new-badge {
+  position:absolute; top:8px; left:8px; z-index:2;
+  background:#FF3366; color:white; font-size:9px; font-weight:800;
+  padding:2px 7px; border-radius:8px; animation:newBadge 1s ease-in-out infinite;
+}
+@keyframes newBadge { 0%,100%{transform:scale(1)} 50%{transform:scale(1.1)} }
+
+.comic-info { padding:10px 12px 12px; }
+.comic-name { color:var(--dark); font-size:13px; font-weight:700; line-height:1.3; }
+.comic-meta { color:#aaa; font-size:11px; margin-top:3px; display:flex; justify-content:space-between; }
+.open-btn {
+  margin-top:9px; width:100%; padding:8px;
+  background:linear-gradient(135deg,#FF6B00,#E64A00);
+  color:white; border:none; border-radius:9px;
+  font-family:'Baloo 2',cursive; font-size:13px; font-weight:700;
+  display:flex; align-items:center; justify-content:center; gap:5px;
+  box-shadow:0 3px 8px rgba(230,74,0,.3);
+}
+
+/* States */
+#loadingState { text-align:center; padding:50px 20px; }
+.loader-deer { animation:deerBounce 1s ease-in-out infinite; display:inline-block; }
+#loadingState p { color:#FF6B00; font-weight:700; font-size:15px; margin-top:12px; }
+#loadingState small { color:#bbb; font-size:12px; display:block; margin-top:4px; }
+
+#errorState { display:none; text-align:center; padding:30px 20px; }
+#errorState .err-icon { font-size:44px; margin-bottom:10px; }
+#errorState p { color:#E64A00; font-weight:700; font-size:14px; }
+#errorState small { color:#aaa; font-size:12px; display:block; margin-top:4px; }
+.retry-btn { margin-top:14px; padding:12px 28px; background:linear-gradient(135deg,#FF6B00,#E64A00); color:white; border:none; border-radius:12px; font-family:'Baloo 2',cursive; font-size:14px; font-weight:700; cursor:pointer; box-shadow:0 4px 12px rgba(230,74,0,.3); }
+
+#emptyState { display:none; text-align:center; padding:50px 20px; }
+#emptyState .em-icon { font-size:50px; margin-bottom:12px; }
+#emptyState p { color:#ccc; font-size:14px; }
+
+/* Opening overlay */
+#openingOverlay {
+  display:none; position:fixed; inset:0; z-index:200;
+  background:linear-gradient(160deg,#FF8C00,#E63200);
+  flex-direction:column; align-items:center; justify-content:center;
+}
+#openingOverlay.show { display:flex; animation:fadeIn .3s ease; }
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+#openingOverlay .ov-deer { animation:deerBounce 1s ease-in-out infinite; }
+#openingOverlay p { color:#FFD700; font-size:18px; font-weight:800; margin-top:16px; text-shadow:2px 2px 0 #8B2500; }
+#openingOverlay small { color:rgba(255,240,200,.8); font-size:13px; margin-top:6px; }
+</style>
+</head>
+<body>
+
+<!-- ══════════ SPLASH ══════════ -->
+<div id="splash">
+  <div class="stars" id="stars"></div>
+  <div class="deer-wrap">
+    <svg width="150" height="170" viewBox="0 0 160 180" fill="none">
+      <ellipse cx="80" cy="115" rx="42" ry="35" fill="#F4A030"/>
+      <circle cx="80" cy="68" r="28" fill="#F4A030"/>
+      <ellipse cx="57" cy="48" rx="9" ry="13" fill="#F4A030" transform="rotate(-20 57 48)"/>
+      <ellipse cx="57" cy="48" rx="5" ry="8" fill="#F8C070" transform="rotate(-20 57 48)"/>
+      <ellipse cx="103" cy="48" rx="9" ry="13" fill="#F4A030" transform="rotate(20 103 48)"/>
+      <ellipse cx="103" cy="48" rx="5" ry="8" fill="#F8C070" transform="rotate(20 103 48)"/>
+      <line x1="60" y1="44" x2="42" y2="18" stroke="#8B4000" stroke-width="5" stroke-linecap="round"/>
+      <line x1="42" y1="18" x2="30" y2="10" stroke="#8B4000" stroke-width="4" stroke-linecap="round"/>
+      <line x1="42" y1="18" x2="36" y2="5" stroke="#8B4000" stroke-width="4" stroke-linecap="round"/>
+      <line x1="100" y1="44" x2="118" y2="18" stroke="#8B4000" stroke-width="5" stroke-linecap="round"/>
+      <line x1="118" y1="18" x2="130" y2="10" stroke="#8B4000" stroke-width="4" stroke-linecap="round"/>
+      <line x1="118" y1="18" x2="124" y2="5" stroke="#8B4000" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="70" cy="64" r="7" fill="white"/><circle cx="90" cy="64" r="7" fill="white"/>
+      <circle cx="71" cy="65" r="4" fill="#1a0a00"/><circle cx="91" cy="65" r="4" fill="#1a0a00"/>
+      <circle cx="72" cy="63" r="1.5" fill="white"/><circle cx="92" cy="63" r="1.5" fill="white"/>
+      <ellipse cx="80" cy="78" rx="9" ry="6" fill="#E07820"/>
+      <ellipse cx="80" cy="77" rx="5" ry="3" fill="#CC5500"/>
+      <path d="M70 83 Q80 92 90 83" stroke="#CC5500" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      <circle cx="60" cy="76" r="8" fill="rgba(255,120,80,0.35)"/>
+      <circle cx="100" cy="76" r="8" fill="rgba(255,120,80,0.35)"/>
+      <rect x="58" y="145" width="14" height="28" rx="7" fill="#D4881A"/>
+      <rect x="88" y="145" width="14" height="28" rx="7" fill="#D4881A"/>
+      <rect x="100" y="100" width="32" height="24" rx="4" fill="#E63200" transform="rotate(15 100 100)"/>
+      <rect x="102" y="102" width="14" height="20" rx="2" fill="#FF8040" transform="rotate(15 100 100)"/>
+    </svg>
+  </div>
+  <div class="splash-title">चम्पक</div>
+  <div class="splash-sub">✦ Comics Reader ✦</div>
+  <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+  <div class="leaf-bg">
+    <svg viewBox="0 0 400 180" preserveAspectRatio="none" width="100%" height="100%">
+      <path d="M0,100 Q50,40 100,80 Q150,110 200,60 Q250,20 300,70 Q350,110 400,50 L400,180 L0,180 Z" fill="rgba(0,100,0,0.4)"/>
+      <path d="M0,130 Q60,80 120,110 Q180,140 240,90 Q300,50 360,100 Q390,120 400,90 L400,180 L0,180 Z" fill="rgba(0,130,0,0.35)"/>
+      <path d="M0,155 Q80,120 160,145 Q240,165 320,135 Q360,120 400,140 L400,180 L0,180 Z" fill="rgba(0,160,0,0.3)"/>
+    </svg>
+  </div>
+</div>
+
+<!-- ══════════ HOME ══════════ -->
+<div id="home">
+
+  <!-- Sticky Header -->
+  <div class="app-header">
+    <div class="header-deer">
+      <svg width="34" height="38" viewBox="0 0 160 180" fill="none">
+        <ellipse cx="80" cy="115" rx="42" ry="35" fill="#F4A030"/>
+        <circle cx="80" cy="68" r="28" fill="#F4A030"/>
+        <line x1="60" y1="44" x2="42" y2="18" stroke="#8B4000" stroke-width="6" stroke-linecap="round"/>
+        <line x1="42" y1="18" x2="30" y2="10" stroke="#8B4000" stroke-width="4" stroke-linecap="round"/>
+        <line x1="100" y1="44" x2="118" y2="18" stroke="#8B4000" stroke-width="6" stroke-linecap="round"/>
+        <line x1="118" y1="18" x2="130" y2="10" stroke="#8B4000" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="70" cy="64" r="7" fill="white"/><circle cx="90" cy="64" r="7" fill="white"/>
+        <circle cx="71" cy="65" r="4" fill="#1a0a00"/><circle cx="91" cy="65" r="4" fill="#1a0a00"/>
+        <ellipse cx="80" cy="78" rx="9" ry="6" fill="#E07820"/>
+        <path d="M70 83 Q80 92 90 83" stroke="#CC5500" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      </svg>
+    </div>
+    <div class="header-texts">
+      <h1>चम्पक Comics</h1>
+      <p>✦ YOUR FAVOURITE COMIC READER ✦</p>
+    </div>
+    <button class="refresh-btn" id="refreshBtn" onclick="refreshComics()">🔄</button>
+  </div>
+
+  <!-- Status -->
+  <div class="status-bar">
+    <div class="status-dot"></div>
+    <div class="status-text">🛡️ Ad Free • Auto Update On</div>
+    <div class="status-count" id="statusCount">...</div>
+  </div>
+
+  <!-- Body -->
+  <div class="home-body">
+
+    <!-- Back hint -->
+    <div class="back-hint">
+      <span>📱</span>
+      <p><strong>Comic padhne ke baad wapas aao:</strong>Android ka ← Back Button dabao</p>
+    </div>
+
+    <!-- Loading -->
+    <div id="loadingState">
+      <div class="loader-deer">
+        <svg width="70" height="80" viewBox="0 0 160 180" fill="none">
+          <ellipse cx="80" cy="115" rx="42" ry="35" fill="#F4A030"/>
+          <circle cx="80" cy="68" r="28" fill="#F4A030"/>
+          <circle cx="70" cy="64" r="7" fill="white"/><circle cx="90" cy="64" r="7" fill="white"/>
+          <circle cx="71" cy="65" r="4" fill="#1a0a00"/><circle cx="91" cy="65" r="4" fill="#1a0a00"/>
+          <ellipse cx="80" cy="78" rx="9" ry="6" fill="#E07820"/>
+          <path d="M70 83 Q80 92 90 83" stroke="#CC5500" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <rect x="58" y="145" width="14" height="28" rx="7" fill="#D4881A"/>
+          <rect x="88" y="145" width="14" height="28" rx="7" fill="#D4881A"/>
+        </svg>
+      </div>
+      <p>Comics la raha hoon... 📚</p>
+      <small>GitHub se load ho raha hai</small>
+    </div>
+
+    <!-- Error -->
+    <div id="errorState">
+      <div class="err-icon">😿</div>
+      <p>Comics load nahi hui!</p>
+      <small>Internet check karo ya baad mein try karo</small>
+      <br>
+      <button class="retry-btn" onclick="fetchComics()">🔄 Dobara Try Karo</button>
+    </div>
+
+    <!-- Empty -->
+    <div id="emptyState">
+      <div class="em-icon">📚</div>
+      <p>Abhi koi comic nahi hai.<br>Jaldi nai comic aayegi!</p>
+    </div>
+
+    <!-- Comics -->
+    <div class="sec-title" id="secTitle" style="display:none">📚 Saari Comics</div>
+    <div id="comicGrid"></div>
+  </div>
+</div>
+
+<!-- ══════════ OPENING OVERLAY ══════════ -->
+<div id="openingOverlay">
+  <div class="ov-deer">
+    <svg width="100" height="112" viewBox="0 0 160 180" fill="none">
+      <ellipse cx="80" cy="115" rx="42" ry="35" fill="#F4A030"/>
+      <circle cx="80" cy="68" r="28" fill="#F4A030"/>
+      <ellipse cx="57" cy="48" rx="9" ry="13" fill="#F4A030" transform="rotate(-20 57 48)"/>
+      <ellipse cx="103" cy="48" rx="9" ry="13" fill="#F4A030" transform="rotate(20 103 48)"/>
+      <line x1="60" y1="44" x2="42" y2="18" stroke="#8B4000" stroke-width="5" stroke-linecap="round"/>
+      <line x1="42" y1="18" x2="30" y2="10" stroke="#8B4000" stroke-width="4" stroke-linecap="round"/>
+      <line x1="100" y1="44" x2="118" y2="18" stroke="#8B4000" stroke-width="5" stroke-linecap="round"/>
+      <line x1="118" y1="18" x2="130" y2="10" stroke="#8B4000" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="70" cy="64" r="7" fill="white"/><circle cx="90" cy="64" r="7" fill="white"/>
+      <circle cx="71" cy="65" r="4" fill="#1a0a00"/><circle cx="91" cy="65" r="4" fill="#1a0a00"/>
+      <ellipse cx="80" cy="78" rx="9" ry="6" fill="#E07820"/>
+      <path d="M70 83 Q80 92 90 83" stroke="#CC5500" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      <circle cx="60" cy="76" r="8" fill="rgba(255,120,80,0.35)"/>
+      <circle cx="100" cy="76" r="8" fill="rgba(255,120,80,0.35)"/>
+      <rect x="58" y="145" width="14" height="28" rx="7" fill="#D4881A"/>
+      <rect x="88" y="145" width="14" height="28" rx="7" fill="#D4881A"/>
+    </svg>
+  </div>
+  <p>Comic khul rahi hai... 📖</p>
+  <small>Thoda wait karo!</small>
+</div>
+
+<script>
+// ════════════════════════════════
+//  AAPKA GITHUB JSON LINK
+// ════════════════════════════════
+const COMICS_JSON_URL = 'https://raw.githubusercontent.com/coder0864-cell/champak-app/main/comics.json';
+
+// ════════════════════════════════
+//  Stars
+// ════════════════════════════════
+const se = document.getElementById('stars');
+for(let i=0;i<40;i++){
+  const s = document.createElement('div'); s.className='star';
+  const sz = Math.random()*5+2;
+  s.style.cssText=`width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;animation-duration:${Math.random()*2+1}s;animation-delay:${Math.random()*2}s;`;
+  se.appendChild(s);
+}
+
+// ════════════════════════════════
+//  Splash → Home
+// ════════════════════════════════
+setTimeout(()=>{
+  document.getElementById('splash').classList.add('hide');
+  setTimeout(()=>{
+    document.getElementById('splash').style.display = 'none';
+    document.getElementById('home').classList.add('active');
+    fetchComics();
+  }, 800);
+}, 3200);
+
+// ════════════════════════════════
+//  Fetch Comics
+// ════════════════════════════════
+let comicsData = [];
+
+async function fetchComics(){
+  showState('loading');
+  try {
+    const url = COMICS_JSON_URL + '?nocache=' + Date.now();
+    const res = await fetch(url);
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    comicsData = await res.json();
+    localStorage.setItem('champak_cache', JSON.stringify(comicsData));
+    renderComics(comicsData);
+    document.getElementById('statusCount').textContent = comicsData.length + ' Comics ✅';
+  } catch(e) {
+    console.warn('Fetch failed:', e);
+    const cached = localStorage.getItem('champak_cache');
+    if(cached){
+      comicsData = JSON.parse(cached);
+      renderComics(comicsData);
+      document.getElementById('statusCount').textContent = '📴 Cached (' + comicsData.length + ')';
+    } else {
+      showState('error');
+      document.getElementById('statusCount').textContent = '❌ Offline';
+    }
+  }
+}
+
+async function refreshComics(){
+  const btn = document.getElementById('refreshBtn');
+  btn.classList.add('spinning');
+  await fetchComics();
+  setTimeout(()=> btn.classList.remove('spinning'), 700);
+}
+
+// ════════════════════════════════
+//  Render Comics Grid
+// ════════════════════════════════
+const COLORS = [
+  ['#FF6B00','#E64A00'],
+  ['#E63280','#B5006E'],
+  ['#0066CC','#0044AA'],
+  ['#009944','#006622'],
+  ['#8B00CC','#5C0099'],
+  ['#CC6600','#994400'],
+  ['#CC0000','#880000'],
+  ['#006666','#004444'],
+];
+
+function renderComics(data){
+  if(!data || !data.length){ showState('empty'); return; }
+  showState('grid');
+  const grid = document.getElementById('comicGrid');
+  grid.innerHTML = '';
+
+  // Sort: newest first (highest id first)
+  const sorted = [...data].sort((a,b) => b.id - a.id);
+  const newestId = sorted[0].id;
+
+  sorted.forEach((comic, idx) => {
+    const [c1,c2] = COLORS[idx % COLORS.length];
+    const isNew = comic.id === newestId && data.length > 1;
+    const card = document.createElement('div');
+    card.className = 'comic-card';
+    card.style.animationDelay = (idx * 0.07) + 's';
+    card.innerHTML = `
+      <div class="comic-cover" style="background:linear-gradient(135deg,${c1},${c2})">
+        <span style="position:relative;z-index:1">${comic.cover || '📕'}</span>
+        ${comic.date ? `<div class="comic-badge">${comic.date}</div>` : ''}
+        ${isNew ? `<div class="new-badge">🆕 NEW</div>` : ''}
+      </div>
+      <div class="comic-info">
+        <div class="comic-name">${comic.name}</div>
+        <div class="comic-meta">
+          <span>${comic.pages ? comic.pages+' pg' : ''}</span>
+          <span style="color:#27ae60;font-weight:700">Free</span>
+        </div>
+        <div class="open-btn">📖 Abhi Padho!</div>
+      </div>
+    `;
+    card.onclick = () => openComic(comic);
+    grid.appendChild(card);
+  });
+}
+
+function showState(state){
+  document.getElementById('loadingState').style.display = state==='loading' ? 'block' : 'none';
+  document.getElementById('errorState').style.display   = state==='error'   ? 'block' : 'none';
+  document.getElementById('emptyState').style.display   = state==='empty'   ? 'block' : 'none';
+  document.getElementById('comicGrid').style.display    = state==='grid'    ? 'grid'  : 'none';
+  document.getElementById('secTitle').style.display     = state==='grid'    ? 'flex'  : 'none';
+}
+
+// ════════════════════════════════
+//  ✅ FIX: Direct navigation — no iframe!
+//  FlipHTML5 iframe block karta hai
+//  Isliye seedha navigate karo
+//  Android back button se wapas aao
+// ════════════════════════════════
+function openComic(comic){
+  // Show loading animation
+  const overlay = document.getElementById('openingOverlay');
+  overlay.classList.add('show');
+
+  // 1.2 sec baad seedha FlipHTML5 pe navigate karo
+  setTimeout(()=>{
+    window.location.href = comic.flipUrl;
+  }, 1200);
+}
+</script>
+</body>
+</html>
