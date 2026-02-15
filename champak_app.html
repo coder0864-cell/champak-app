@@ -36,127 +36,80 @@ body { font-family:'Baloo 2',cursive; background:var(--bg); overflow-x:hidden; m
 /* ══════════ HOME ══════════ */
 #home { display:none; flex-direction:column; min-height:100vh; }
 #home.active { display:flex; }
-@keyframes screenIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
 
-/* Header */
 .app-header {
   background:linear-gradient(135deg,#FF6B00,#E64A00);
   padding:14px 16px 18px;
   display:flex; align-items:center; gap:10px;
   box-shadow:0 4px 20px rgba(230,74,0,.4);
-  position:relative; overflow:hidden; flex-shrink:0;
-  position:sticky; top:0; z-index:50;
+  position:sticky; top:0; z-index:50; overflow:hidden;
 }
 .app-header::before { content:''; position:absolute; top:-20px; right:-20px; width:120px; height:120px; background:rgba(255,255,255,.08); border-radius:50%; pointer-events:none; }
 .header-deer { animation:deerBounce 2s ease-in-out infinite; flex-shrink:0; }
 .header-texts { flex:1; }
 .app-header h1 { color:#FFD700; font-size:24px; font-weight:800; text-shadow:2px 2px 0 #8B2500; line-height:1.1; }
 .app-header p { color:rgba(255,240,200,.8); font-size:10px; letter-spacing:1.5px; }
-.refresh-btn {
-  background:rgba(255,255,255,.2); border:none; color:white;
-  width:38px; height:38px; border-radius:10px; font-size:18px; cursor:pointer;
-  display:flex; align-items:center; justify-content:center; flex-shrink:0;
-  transition:background .2s;
-}
-.refresh-btn:active { background:rgba(255,255,255,.35); }
+.refresh-btn { background:rgba(255,255,255,.2); border:none; color:white; width:38px; height:38px; border-radius:10px; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
 .refresh-btn.spinning { animation:spin .7s linear; }
 @keyframes spin { to{transform:rotate(360deg)} }
 
-/* Status bar */
-.status-bar {
-  background:linear-gradient(135deg,#155215,#0a3a0a);
-  padding:7px 16px; display:flex; align-items:center; gap:8px; flex-shrink:0;
-}
+/* Status bars */
+.status-bar { background:linear-gradient(135deg,#155215,#0a3a0a); padding:7px 16px; display:flex; align-items:center; gap:8px; flex-shrink:0; }
 .status-dot { width:8px; height:8px; background:#7FFF7F; border-radius:50%; box-shadow:0 0 6px #7FFF7F; animation:adPulse 1.5s ease-in-out infinite; }
 @keyframes adPulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(1.4)} }
 .status-text { color:#7FFF7F; font-size:12px; font-weight:700; }
 .status-count { margin-left:auto; color:rgba(180,255,180,.7); font-size:11px; }
 
-/* Body */
-.home-body { flex:1; padding:16px; overflow-y:auto; }
-
-/* Back hint banner */
-.back-hint {
-  background:linear-gradient(135deg,#1a1a5e,#000080);
-  border-radius:12px; padding:10px 14px;
-  display:flex; align-items:center; gap:10px;
-  margin-bottom:14px;
+/* AdGuard DNS bar */
+.dns-bar {
+  background:linear-gradient(135deg,#1a1a6e,#0d0d4a);
+  padding:7px 16px; display:flex; align-items:center; gap:8px;
 }
-.back-hint span { font-size:20px; }
+.dns-dot { width:8px; height:8px; background:#00BFFF; border-radius:50%; box-shadow:0 0 6px #00BFFF; animation:adPulse 2s ease-in-out infinite; }
+.dns-text { color:#00BFFF; font-size:12px; font-weight:700; }
+.dns-count { margin-left:auto; color:rgba(150,200,255,.7); font-size:11px; }
+
+.home-body { flex:1; padding:16px; overflow-y:auto; }
+.home-body::-webkit-scrollbar { width:0; }
+
+/* Back hint */
+.back-hint { background:linear-gradient(135deg,#1a1a5e,#000080); border-radius:12px; padding:10px 14px; display:flex; align-items:center; gap:10px; margin-bottom:14px; }
 .back-hint p { color:#AAF; font-size:12px; line-height:1.4; }
 .back-hint strong { color:#FFD700; display:block; font-size:13px; }
 
-/* Section title */
 .sec-title { color:var(--deep); font-size:15px; font-weight:800; margin-bottom:12px; display:flex; align-items:center; gap:6px; }
 
 /* Comic grid */
 #comicGrid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-
-.comic-card {
-  background:white; border-radius:16px; overflow:hidden;
-  box-shadow:0 4px 16px rgba(255,107,0,.15); border:2px solid rgba(255,107,0,.1);
-  cursor:pointer; transition:transform .15s, box-shadow .15s;
-  animation:cardIn .4s ease both;
-  text-decoration:none; display:block;
-}
-.comic-card:active { transform:scale(.95); box-shadow:0 2px 8px rgba(255,107,0,.2); }
+.comic-card { background:white; border-radius:16px; overflow:hidden; box-shadow:0 4px 16px rgba(255,107,0,.15); border:2px solid rgba(255,107,0,.1); cursor:pointer; transition:transform .15s; animation:cardIn .4s ease both; }
+.comic-card:active { transform:scale(.95); }
 @keyframes cardIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-
-.comic-cover {
-  height:120px;
-  display:flex; align-items:center; justify-content:center;
-  font-size:44px; position:relative; overflow:hidden;
-}
-.comic-cover::after {
-  content:''; position:absolute; inset:0;
-  background:linear-gradient(to bottom, transparent 60%, rgba(0,0,0,.15));
-}
-.comic-badge {
-  position:absolute; top:8px; right:8px; z-index:2;
-  background:#FFD700; color:#8B2500; font-size:9px; font-weight:800;
-  padding:2px 7px; border-radius:8px;
-}
-.new-badge {
-  position:absolute; top:8px; left:8px; z-index:2;
-  background:#FF3366; color:white; font-size:9px; font-weight:800;
-  padding:2px 7px; border-radius:8px; animation:newBadge 1s ease-in-out infinite;
-}
+.comic-cover { height:120px; display:flex; align-items:center; justify-content:center; font-size:44px; position:relative; overflow:hidden; }
+.comic-cover::after { content:''; position:absolute; inset:0; background:linear-gradient(to bottom,transparent 60%,rgba(0,0,0,.15)); }
+.comic-badge { position:absolute; top:8px; right:8px; z-index:2; background:#FFD700; color:#8B2500; font-size:9px; font-weight:800; padding:2px 7px; border-radius:8px; }
+.new-badge { position:absolute; top:8px; left:8px; z-index:2; background:#FF3366; color:white; font-size:9px; font-weight:800; padding:2px 7px; border-radius:8px; animation:newBadge 1s ease-in-out infinite; }
 @keyframes newBadge { 0%,100%{transform:scale(1)} 50%{transform:scale(1.1)} }
-
 .comic-info { padding:10px 12px 12px; }
 .comic-name { color:var(--dark); font-size:13px; font-weight:700; line-height:1.3; }
 .comic-meta { color:#aaa; font-size:11px; margin-top:3px; display:flex; justify-content:space-between; }
-.open-btn {
-  margin-top:9px; width:100%; padding:8px;
-  background:linear-gradient(135deg,#FF6B00,#E64A00);
-  color:white; border:none; border-radius:9px;
-  font-family:'Baloo 2',cursive; font-size:13px; font-weight:700;
-  display:flex; align-items:center; justify-content:center; gap:5px;
-  box-shadow:0 3px 8px rgba(230,74,0,.3);
-}
+.open-btn { margin-top:9px; width:100%; padding:8px; background:linear-gradient(135deg,#FF6B00,#E64A00); color:white; border:none; border-radius:9px; font-family:'Baloo 2',cursive; font-size:13px; font-weight:700; display:flex; align-items:center; justify-content:center; gap:5px; box-shadow:0 3px 8px rgba(230,74,0,.3); }
 
 /* States */
 #loadingState { text-align:center; padding:50px 20px; }
 .loader-deer { animation:deerBounce 1s ease-in-out infinite; display:inline-block; }
 #loadingState p { color:#FF6B00; font-weight:700; font-size:15px; margin-top:12px; }
 #loadingState small { color:#bbb; font-size:12px; display:block; margin-top:4px; }
-
 #errorState { display:none; text-align:center; padding:30px 20px; }
 #errorState .err-icon { font-size:44px; margin-bottom:10px; }
 #errorState p { color:#E64A00; font-weight:700; font-size:14px; }
 #errorState small { color:#aaa; font-size:12px; display:block; margin-top:4px; }
-.retry-btn { margin-top:14px; padding:12px 28px; background:linear-gradient(135deg,#FF6B00,#E64A00); color:white; border:none; border-radius:12px; font-family:'Baloo 2',cursive; font-size:14px; font-weight:700; cursor:pointer; box-shadow:0 4px 12px rgba(230,74,0,.3); }
-
+.retry-btn { margin-top:14px; padding:12px 28px; background:linear-gradient(135deg,#FF6B00,#E64A00); color:white; border:none; border-radius:12px; font-family:'Baloo 2',cursive; font-size:14px; font-weight:700; cursor:pointer; }
 #emptyState { display:none; text-align:center; padding:50px 20px; }
 #emptyState .em-icon { font-size:50px; margin-bottom:12px; }
 #emptyState p { color:#ccc; font-size:14px; }
 
 /* Opening overlay */
-#openingOverlay {
-  display:none; position:fixed; inset:0; z-index:200;
-  background:linear-gradient(160deg,#FF8C00,#E63200);
-  flex-direction:column; align-items:center; justify-content:center;
-}
+#openingOverlay { display:none; position:fixed; inset:0; z-index:200; background:linear-gradient(160deg,#FF8C00,#E63200); flex-direction:column; align-items:center; justify-content:center; }
 #openingOverlay.show { display:flex; animation:fadeIn .3s ease; }
 @keyframes fadeIn { from{opacity:0} to{opacity:1} }
 #openingOverlay .ov-deer { animation:deerBounce 1s ease-in-out infinite; }
@@ -211,8 +164,6 @@ body { font-family:'Baloo 2',cursive; background:var(--bg); overflow-x:hidden; m
 
 <!-- ══════════ HOME ══════════ -->
 <div id="home">
-
-  <!-- Sticky Header -->
   <div class="app-header">
     <div class="header-deer">
       <svg width="34" height="38" viewBox="0 0 160 180" fill="none">
@@ -235,23 +186,26 @@ body { font-family:'Baloo 2',cursive; background:var(--bg); overflow-x:hidden; m
     <button class="refresh-btn" id="refreshBtn" onclick="refreshComics()">🔄</button>
   </div>
 
-  <!-- Status -->
+  <!-- Green: Ad Free status -->
   <div class="status-bar">
     <div class="status-dot"></div>
-    <div class="status-text">🛡️ Ad Free • Auto Update On</div>
+    <div class="status-text">🛡️ Ad Blocker: ACTIVE</div>
     <div class="status-count" id="statusCount">...</div>
   </div>
 
-  <!-- Body -->
-  <div class="home-body">
+  <!-- Blue: AdGuard DNS status -->
+  <div class="dns-bar">
+    <div class="dns-dot"></div>
+    <div class="dns-text">🔵 AdGuard DNS: ON</div>
+    <div class="dns-count" id="dnsCount">Blocked: 0</div>
+  </div>
 
-    <!-- Back hint -->
+  <div class="home-body">
     <div class="back-hint">
       <span>📱</span>
       <p><strong>Comic padhne ke baad wapas aao:</strong>Android ka ← Back Button dabao</p>
     </div>
 
-    <!-- Loading -->
     <div id="loadingState">
       <div class="loader-deer">
         <svg width="70" height="80" viewBox="0 0 160 180" fill="none">
@@ -269,22 +223,18 @@ body { font-family:'Baloo 2',cursive; background:var(--bg); overflow-x:hidden; m
       <small>GitHub se load ho raha hai</small>
     </div>
 
-    <!-- Error -->
     <div id="errorState">
       <div class="err-icon">😿</div>
       <p>Comics load nahi hui!</p>
-      <small>Internet check karo ya baad mein try karo</small>
-      <br>
+      <small>Internet check karo ya baad mein try karo</small><br>
       <button class="retry-btn" onclick="fetchComics()">🔄 Dobara Try Karo</button>
     </div>
 
-    <!-- Empty -->
     <div id="emptyState">
       <div class="em-icon">📚</div>
-      <p>Abhi koi comic nahi hai.<br>Jaldi nai comic aayegi!</p>
+      <p>Abhi koi comic nahi hai.<br>Jaldi nai aayegi!</p>
     </div>
 
-    <!-- Comics -->
     <div class="sec-title" id="secTitle" style="display:none">📚 Saari Comics</div>
     <div id="comicGrid"></div>
   </div>
@@ -313,147 +263,302 @@ body { font-family:'Baloo 2',cursive; background:var(--bg); overflow-x:hidden; m
     </svg>
   </div>
   <p>Comic khul rahi hai... 📖</p>
-  <small>Thoda wait karo!</small>
+  <small>🔵 AdGuard DNS protecting...</small>
 </div>
 
 <script>
-// ════════════════════════════════
-//  AAPKA GITHUB JSON LINK
-// ════════════════════════════════
+// ════════════════════════════════════════
+//  CONFIG
+// ════════════════════════════════════════
 const COMICS_JSON_URL = 'https://raw.githubusercontent.com/coder0864-cell/champak-app/main/comics.json';
 
-// ════════════════════════════════
-//  Stars
-// ════════════════════════════════
+// AdGuard DNS-over-HTTPS endpoint
+const ADGUARD_DOH = 'https://dns.adguard-dns.com/dns-query';
+
+// ════════════════════════════════════════
+//  🔵 ADGUARD DNS-over-HTTPS AD BLOCKER
+// ════════════════════════════════════════
+let blockedCount = 0;
+const dnsCache = {}; // cache results so same domain check nahi ho baar baar
+
+// Check domain via AdGuard DoH
+async function isAdDomain(hostname) {
+  if(dnsCache[hostname] !== undefined) return dnsCache[hostname];
+  try {
+    const res = await fetch(`${ADGUARD_DOH}?name=${hostname}&type=A`, {
+      headers: { 'Accept': 'application/dns-json' }
+    });
+    const data = await res.json();
+    // AdGuard blocks domains by returning NXDOMAIN (status 3) or 0.0.0.0
+    const blocked =
+      data.Status === 3 || // NXDOMAIN - domain blocked
+      (data.Answer && data.Answer.some(a => a.data === '0.0.0.0' || a.data === ''));
+    dnsCache[hostname] = blocked;
+    return blocked;
+  } catch {
+    dnsCache[hostname] = false;
+    return false;
+  }
+}
+
+// Extract hostname from URL safely
+function getHostname(url) {
+  try { return new URL(url).hostname; } catch { return ''; }
+}
+
+// ── Known ad domains (fast local check, no DNS needed) ──
+const LOCAL_BLOCKLIST = new Set([
+  'doubleclick.net','googlesyndication.com','googleadservices.com',
+  'adservice.google.com','adnxs.com','pubmatic.com','rubiconproject.com',
+  'openx.net','criteo.com','taboola.com','outbrain.com','media.net',
+  'mgid.com','adroll.com','casalemedia.com','appnexus.com','zedo.com',
+  'smartadserver.com','yllix.com','popads.net','popcash.net',
+  'propellerads.com','adsterra.com','exoclick.com','clickadu.com',
+  'googletagmanager.com','hotjar.com','quantserve.com','scorecardresearch.com',
+  'pagead2.googlesyndication.com','tpc.googlesyndication.com',
+  'securepubads.g.doubleclick.net','ads.appgeyser.com','appgeyser-ads.com',
+  'sdk.appgeyser.com','monetization.appgeyser.com',
+  'ads.fliphtml5.com','fliphtml5ad.com','static.flipads.com',
+  'mc.yandex.ru','counter.yadro.ru','ads.adfox.ru',
+]);
+
+function isLocalBlocked(url) {
+  const host = getHostname(url);
+  if(!host) return false;
+  const parts = host.split('.');
+  for(let i=0; i<parts.length-1; i++) {
+    if(LOCAL_BLOCKLIST.has(parts.slice(i).join('.'))) return true;
+  }
+  return false;
+}
+
+function incrementBlock() {
+  blockedCount++;
+  document.getElementById('dnsCount').textContent = `Blocked: ${blockedCount}`;
+}
+
+// ── Intercept fetch ──
+const _fetch = window.fetch.bind(window);
+window.fetch = async function(input, init) {
+  const url = typeof input === 'string' ? input : (input?.url || '');
+  if(url === ADGUARD_DOH || url.startsWith(ADGUARD_DOH)) return _fetch(input, init); // allow DoH itself
+  if(isLocalBlocked(url)) {
+    incrementBlock();
+    return new Response('', { status: 200 });
+  }
+  const host = getHostname(url);
+  if(host) {
+    const blocked = await isAdDomain(host);
+    if(blocked) {
+      incrementBlock();
+      return new Response('', { status: 200 });
+    }
+  }
+  return _fetch(input, init);
+};
+
+// ── Intercept XHR ──
+const _XHR = window.XMLHttpRequest;
+function PatchedXHR() {
+  const xhr = new _XHR();
+  const _open = xhr.open.bind(xhr);
+  xhr.open = function(method, url, ...rest) {
+    if(isLocalBlocked(url)) {
+      incrementBlock();
+      return;
+    }
+    _open(method, url, ...rest);
+  };
+  return xhr;
+}
+PatchedXHR.prototype = _XHR.prototype;
+window.XMLHttpRequest = PatchedXHR;
+
+// ── Block injected ad scripts ──
+const _ce = document.createElement.bind(document);
+document.createElement = function(tag) {
+  const el = _ce(tag);
+  if(tag.toLowerCase() === 'script') {
+    const desc = Object.getOwnPropertyDescriptor(HTMLScriptElement.prototype, 'src');
+    if(desc) {
+      Object.defineProperty(el, 'src', {
+        set(v) {
+          if(isLocalBlocked(v)) { incrementBlock(); return; }
+          desc.set.call(this, v);
+        },
+        get() { return desc.get.call(this); }
+      });
+    }
+  }
+  return el;
+};
+
+// ── CSS: hide ad elements ──
+const adCSS = document.createElement('style');
+adCSS.textContent = `
+  [id*="ad-"],[id*="-ad"],[id*="ads"],[id*="banner"],[id*="sponsor"],
+  [class*="adsbygoogle"],[class*="ad-wrap"],[class*="ad-container"],
+  [class*="ad-banner"],[class*="ad-slot"],[class*="advertisement"],
+  [class*="sponsor"],[class*="promoted"],[class*="dfp-"],
+  ins.adsbygoogle,.google-auto-placed,
+  iframe[src*="doubleclick"],iframe[src*="googlesyndication"],
+  iframe[src*="adnxs"],iframe[src*="taboola"],iframe[src*="appgeyser"],
+  .appgeyser-ad,.ag-banner,.ag-ad,
+  .flip-ad,.fh5co-ad,[class*="flipad"],#fliphtml5-ad,
+  .powered-by-fliphtml5,.fh5-watermark,
+  [style*="z-index: 2147483647"],[style*="z-index:2147483647"] {
+    display:none !important;
+    visibility:hidden !important;
+    pointer-events:none !important;
+    opacity:0 !important;
+    height:0 !important;
+    width:0 !important;
+  }
+`;
+document.head.appendChild(adCSS);
+
+// ── MutationObserver: DOM se ads hatao ──
+const adSelectors = [
+  'ins.adsbygoogle','.google-auto-placed','[class*="adsbygoogle"]',
+  '[id*="google_ads"]','[class*="ad-container"]','[class*="advertisement"]',
+  '.appgeyser-ad','.ag-banner','.ag-ad',
+  '.flip-ad','.fh5co-ad','[class*="flipad"]','#fliphtml5-ad',
+  '.powered-by-fliphtml5','.fh5-watermark',
+  'iframe[src*="doubleclick"]','iframe[src*="googlesyndication"]',
+];
+
+const observer = new MutationObserver(mutations => {
+  mutations.forEach(m => {
+    m.addedNodes.forEach(node => {
+      if(node.nodeType !== 1) return;
+      const src = node.src || node.getAttribute?.('src') || '';
+      if(src && isLocalBlocked(src)) { node.remove(); incrementBlock(); return; }
+      adSelectors.forEach(sel => {
+        if(node.matches?.(sel)) { node.remove(); incrementBlock(); }
+        node.querySelectorAll?.(sel).forEach(el => { el.remove(); incrementBlock(); });
+      });
+    });
+  });
+});
+observer.observe(document.documentElement, { childList:true, subtree:true });
+
+// ════════════════════════════════════════
+//  STARS
+// ════════════════════════════════════════
 const se = document.getElementById('stars');
 for(let i=0;i<40;i++){
-  const s = document.createElement('div'); s.className='star';
-  const sz = Math.random()*5+2;
+  const s=document.createElement('div'); s.className='star';
+  const sz=Math.random()*5+2;
   s.style.cssText=`width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;animation-duration:${Math.random()*2+1}s;animation-delay:${Math.random()*2}s;`;
   se.appendChild(s);
 }
 
-// ════════════════════════════════
-//  Splash → Home
-// ════════════════════════════════
+// ════════════════════════════════════════
+//  SPLASH → HOME
+// ════════════════════════════════════════
 setTimeout(()=>{
   document.getElementById('splash').classList.add('hide');
   setTimeout(()=>{
-    document.getElementById('splash').style.display = 'none';
+    document.getElementById('splash').style.display='none';
     document.getElementById('home').classList.add('active');
     fetchComics();
-  }, 800);
-}, 3200);
+  },800);
+},3200);
 
-// ════════════════════════════════
-//  Fetch Comics
-// ════════════════════════════════
-let comicsData = [];
+// ════════════════════════════════════════
+//  FETCH COMICS
+// ════════════════════════════════════════
+let comicsData=[];
 
 async function fetchComics(){
   showState('loading');
   try {
-    const url = COMICS_JSON_URL + '?nocache=' + Date.now();
-    const res = await fetch(url);
-    if(!res.ok) throw new Error('HTTP ' + res.status);
+    const url = COMICS_JSON_URL + '?t=' + Date.now();
+    const res = await _fetch(url); // use original fetch for our own JSON
+    if(!res.ok) throw new Error('HTTP '+res.status);
     comicsData = await res.json();
     localStorage.setItem('champak_cache', JSON.stringify(comicsData));
     renderComics(comicsData);
-    document.getElementById('statusCount').textContent = comicsData.length + ' Comics ✅';
+    document.getElementById('statusCount').textContent = comicsData.length+' Comics ✅';
   } catch(e) {
-    console.warn('Fetch failed:', e);
     const cached = localStorage.getItem('champak_cache');
     if(cached){
-      comicsData = JSON.parse(cached);
+      comicsData=JSON.parse(cached);
       renderComics(comicsData);
-      document.getElementById('statusCount').textContent = '📴 Cached (' + comicsData.length + ')';
+      document.getElementById('statusCount').textContent='📴 Cached ('+comicsData.length+')';
     } else {
       showState('error');
-      document.getElementById('statusCount').textContent = '❌ Offline';
+      document.getElementById('statusCount').textContent='❌ Offline';
     }
   }
 }
 
 async function refreshComics(){
-  const btn = document.getElementById('refreshBtn');
+  const btn=document.getElementById('refreshBtn');
   btn.classList.add('spinning');
   await fetchComics();
-  setTimeout(()=> btn.classList.remove('spinning'), 700);
+  setTimeout(()=>btn.classList.remove('spinning'),700);
 }
 
-// ════════════════════════════════
-//  Render Comics Grid
-// ════════════════════════════════
-const COLORS = [
-  ['#FF6B00','#E64A00'],
-  ['#E63280','#B5006E'],
-  ['#0066CC','#0044AA'],
-  ['#009944','#006622'],
-  ['#8B00CC','#5C0099'],
-  ['#CC6600','#994400'],
-  ['#CC0000','#880000'],
-  ['#006666','#004444'],
+// ════════════════════════════════════════
+//  RENDER
+// ════════════════════════════════════════
+const COLORS=[
+  ['#FF6B00','#E64A00'],['#E63280','#B5006E'],
+  ['#0066CC','#0044AA'],['#009944','#006622'],
+  ['#8B00CC','#5C0099'],['#CC6600','#994400'],
+  ['#CC0000','#880000'],['#006666','#004444'],
 ];
 
 function renderComics(data){
-  if(!data || !data.length){ showState('empty'); return; }
+  if(!data||!data.length){showState('empty');return;}
   showState('grid');
-  const grid = document.getElementById('comicGrid');
-  grid.innerHTML = '';
-
-  // Sort: newest first (highest id first)
-  const sorted = [...data].sort((a,b) => b.id - a.id);
-  const newestId = sorted[0].id;
-
-  sorted.forEach((comic, idx) => {
-    const [c1,c2] = COLORS[idx % COLORS.length];
-    const isNew = comic.id === newestId && data.length > 1;
-    const card = document.createElement('div');
-    card.className = 'comic-card';
-    card.style.animationDelay = (idx * 0.07) + 's';
-    card.innerHTML = `
+  const grid=document.getElementById('comicGrid');
+  grid.innerHTML='';
+  const sorted=[...data].sort((a,b)=>b.id-a.id);
+  const newestId=sorted[0].id;
+  sorted.forEach((comic,idx)=>{
+    const [c1,c2]=COLORS[idx%COLORS.length];
+    const isNew=comic.id===newestId&&data.length>1;
+    const card=document.createElement('div');
+    card.className='comic-card';
+    card.style.animationDelay=(idx*0.07)+'s';
+    card.innerHTML=`
       <div class="comic-cover" style="background:linear-gradient(135deg,${c1},${c2})">
-        <span style="position:relative;z-index:1">${comic.cover || '📕'}</span>
-        ${comic.date ? `<div class="comic-badge">${comic.date}</div>` : ''}
-        ${isNew ? `<div class="new-badge">🆕 NEW</div>` : ''}
+        <span style="position:relative;z-index:1">${comic.cover||'📕'}</span>
+        ${comic.date?`<div class="comic-badge">${comic.date}</div>`:''}
+        ${isNew?`<div class="new-badge">🆕 NEW</div>`:''}
       </div>
       <div class="comic-info">
         <div class="comic-name">${comic.name}</div>
         <div class="comic-meta">
-          <span>${comic.pages ? comic.pages+' pg' : ''}</span>
+          <span>${comic.pages?comic.pages+' pg':''}</span>
           <span style="color:#27ae60;font-weight:700">Free</span>
         </div>
         <div class="open-btn">📖 Abhi Padho!</div>
       </div>
     `;
-    card.onclick = () => openComic(comic);
+    card.onclick=()=>openComic(comic);
     grid.appendChild(card);
   });
 }
 
-function showState(state){
-  document.getElementById('loadingState').style.display = state==='loading' ? 'block' : 'none';
-  document.getElementById('errorState').style.display   = state==='error'   ? 'block' : 'none';
-  document.getElementById('emptyState').style.display   = state==='empty'   ? 'block' : 'none';
-  document.getElementById('comicGrid').style.display    = state==='grid'    ? 'grid'  : 'none';
-  document.getElementById('secTitle').style.display     = state==='grid'    ? 'flex'  : 'none';
+function showState(s){
+  document.getElementById('loadingState').style.display=s==='loading'?'block':'none';
+  document.getElementById('errorState').style.display  =s==='error'  ?'block':'none';
+  document.getElementById('emptyState').style.display  =s==='empty'  ?'block':'none';
+  document.getElementById('comicGrid').style.display   =s==='grid'   ?'grid' :'none';
+  document.getElementById('secTitle').style.display    =s==='grid'   ?'flex' :'none';
 }
 
-// ════════════════════════════════
-//  ✅ FIX: Direct navigation — no iframe!
-//  FlipHTML5 iframe block karta hai
-//  Isliye seedha navigate karo
-//  Android back button se wapas aao
-// ════════════════════════════════
+// ════════════════════════════════════════
+//  OPEN COMIC — Direct navigate (no iframe)
+// ════════════════════════════════════════
 function openComic(comic){
-  // Show loading animation
-  const overlay = document.getElementById('openingOverlay');
-  overlay.classList.add('show');
-
-  // 1.2 sec baad seedha FlipHTML5 pe navigate karo
+  document.getElementById('openingOverlay').classList.add('show');
   setTimeout(()=>{
     window.location.href = comic.flipUrl;
-  }, 1200);
+  },1200);
 }
 </script>
 </body>
