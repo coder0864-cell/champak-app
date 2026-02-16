@@ -378,16 +378,9 @@ body{font-family:'Baloo 2',cursive;background:#FFD84D;}
       </div>
     </div>
 
-    <!-- New Arrivals -->
-    <div class="sec-hdr">
-      <div class="sec-title">🆕 New Arrivals</div>
-      <button class="see-all-btn" onclick="showPage('pgSeeAll')">See All →</button>
-    </div>
-    <div class="h-scroll" id="horizScroll"></div>
-
     <!-- Library -->
     <div class="sec-hdr">
-      <div class="sec-title">📚 Library</div>
+      <div class="sec-title">📚 Comics Library</div>
       <button class="see-all-btn" onclick="showPage('pgSeeAll')">See All →</button>
     </div>
     <div class="lib-grid" id="libGrid"></div>
@@ -482,27 +475,6 @@ function fbFix(col){
 function renderHome(){
   var sorted = COMICS.slice().sort(function(a,b){return b.id-a.id;});
 
-  // Horizontal
-  var hEl = document.getElementById('horizScroll');
-  hEl.innerHTML = '';
-  sorted.forEach(function(c,i){
-    var col = COLORS[i%COLORS.length];
-    var d = document.createElement('div');
-    d.className = 'hcard';
-    d.style.animationDelay = (i*.08)+'s';
-    d.innerHTML =
-      '<div class="hcard-thumb">'+
-        '<img src="'+thumb(c.flipUrl)+'" loading="lazy" onerror="'+fbFix(col)+'">'+
-        '<div class="hcard-fb" style="background:'+col+'">📕</div>'+
-      '</div>'+
-      '<div class="hcard-info">'+
-        '<div class="hcard-name">'+c.name+'</div>'+
-        '<button class="read-btn">READ</button>'+
-      '</div>';
-    d.onclick = function(){ openComic(c); };
-    hEl.appendChild(d);
-  });
-
   // Library
   var lEl = document.getElementById('libGrid');
   lEl.innerHTML = '';
@@ -580,8 +552,14 @@ setTimeout(function(){
   setTimeout(function(){
     document.getElementById('pgSplash').classList.remove('active');
     document.getElementById('pgSplash').style.display = 'none';
-    showPage('pgHome');
-    renderHome();
+    // Agar back button se aaye (#comics) → seedha library
+    if(window.location.hash === '#comics'){
+      renderHome();
+      showPage('pgSeeAll');
+    } else {
+      showPage('pgHome');
+      renderHome();
+    }
   }, 900);
 }, 3000);
 </script>
