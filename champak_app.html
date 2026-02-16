@@ -450,6 +450,7 @@ body{font-family:'Baloo 2',cursive;background:#FFD84D;}
 <script>
 // ══════════════════════════════
 //  📚 COMICS — YAHAN ADD KARO
+//  Thumbnail AUTOMATIC aayegi! 🎉
 // ══════════════════════════════
 var COMICS = [
   {
@@ -466,7 +467,14 @@ var COMICS = [
 
 var COLORS = ['#FF6B00','#0066CC','#009944','#8B00CC','#CC6600','#CC0000','#007788'];
 
-function thumb(u){ try{return u.replace(/\/$/,'')+'/files/thumb/1.jpg';}catch(e){return '';} }
+// Auto thumbnail — website screenshot service se!
+// Koi manual kaam nahi — FlipHTML5 URL daalo, thumbnail automatic aayegi!
+function thumb(c){
+  if(c.thumbUrl) return c.thumbUrl; // Custom URL agar diya ho
+  // Free screenshot API — automatically pehla page capture karta hai!
+  var url = encodeURIComponent(c.flipUrl);
+  return 'https://image.thum.io/get/width/300/crop/400/' + c.flipUrl;
+}
 
 function fbFix(col){
   return "this.style.display='none';var f=this.nextElementSibling;f.style.display='flex';f.style.background='"+col+"';";
@@ -485,7 +493,7 @@ function renderHome(){
     d.style.animationDelay = (i*.08)+'s';
     d.innerHTML =
       '<div class="lcard-thumb">'+
-        '<img src="'+thumb(c.flipUrl)+'" loading="lazy" onerror="'+fbFix(col)+'">'+
+        '<img src="'+thumb(c)+'" loading="lazy" onerror="'+fbFix(col)+'">'+
         '<div class="lcard-fb" style="background:'+col+'">📕</div>'+
         '<div class="lcat">'+(c.catLabel||'').replace('\n','<br>')+'</div>'+
       '</div>'+
@@ -509,7 +517,7 @@ function renderSeeAll(){
     d.style.animationDelay = (i*.08)+'s';
     d.innerHTML =
       '<div class="acard-thumb">'+
-        '<img src="'+thumb(c.flipUrl)+'" loading="lazy" onerror="'+fbFix(col)+'">'+
+        '<img src="'+thumb(c)+'" loading="lazy" onerror="'+fbFix(col)+'">'+
         '<div class="acard-fb" style="background:'+col+'">📕</div>'+
         '<div class="acard-ov"></div>'+
         (c.date?'<div class="acard-date">📅 '+c.date+'</div>':'')+
