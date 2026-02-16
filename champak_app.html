@@ -9,197 +9,38 @@
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;overflow:hidden;}
 body{font-family:'Baloo 2',cursive;background:#FFD84D;}
-
 .page{display:none;position:fixed;inset:0;flex-direction:column;}
 .page.active{display:flex;}
 
-/* ══════════════════════════════════════
-   SPLASH SCREEN
-   ══════════════════════════════════════ */
-#pgSplash{
-  transition:opacity .9s;
-  z-index:999;
-  overflow:hidden;
-  background:#ffd84d;
-}
-#pgSplash.hide{opacity:0;pointer-events:none;}
+/* SPLASH */
+#pgSplash{transition:opacity .8s;z-index:999;overflow:hidden;background:#ffd84d;}
+.sp-base-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:1;display:block;}
 
-/* ── Layer 1: Static full-screen base image ── */
-.sp-base-img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center top;
-  z-index: 1;
-  display: block;
-}
+/* Character bounce windows */
+.char-win{position:absolute;overflow:hidden;z-index:2;}
+.win-elephant{top:30%;left:1%;width:40%;height:44%;}
+.win-bunny{top:23%;left:27%;width:46%;height:50%;}
+.win-monkey{top:30%;left:60%;width:39%;height:44%;}
+.char-win img{position:absolute;width:100vw;height:100vh;max-width:none;object-fit:cover;object-position:center top;}
+.win-elephant img{margin-left:-1vw;margin-top:calc(var(--vh,-1vh)*-30);animation:bounceEle 1.5s ease-in-out infinite;}
+.win-bunny img{margin-left:-27vw;margin-top:calc(var(--vh,-1vh)*-23);animation:bounceBun 1.3s ease-in-out .2s infinite;}
+.win-monkey img{margin-left:-60vw;margin-top:calc(var(--vh,-1vh)*-30);animation:bounceMon 1.7s ease-in-out .08s infinite;}
+@keyframes bounceEle{0%,100%{transform:translateY(0) rotate(0deg);}40%{transform:translateY(-14px) rotate(-1.5deg);}70%{transform:translateY(-5px) rotate(.5deg);}}
+@keyframes bounceBun{0%,100%{transform:translateY(0) scaleX(1);}45%{transform:translateY(-17px) scaleX(1.03);}75%{transform:translateY(-6px) scaleX(1);}}
+@keyframes bounceMon{0%,100%{transform:translateY(0) rotate(0deg);}40%{transform:translateY(-12px) rotate(1.5deg);}70%{transform:translateY(-4px) rotate(-.5deg);}}
 
-/* ── Character bounce windows ──
-   Each window is a fixed box over one character.
-   Inside it is a full copy of the image positioned
-   identically to the base — so it looks seamless.
-   We animate the inner image to create the bounce. ── */
+/* Button */
+.sp-btn-wrap{position:absolute;bottom:22%;left:50%;transform:translateX(-50%);z-index:10;width:70%;max-width:280px;}
+.sp-start-btn{width:100%;padding:15px 20px;background:linear-gradient(180deg,#FFAA00 0%,#FF6A00 55%,#E84500 100%);color:white;font-family:'Baloo 2',cursive;font-size:25px;font-weight:800;letter-spacing:1px;border:none;border-radius:50px;cursor:pointer;box-shadow:0 6px 0 #A03000,0 9px 22px rgba(180,60,0,.45),inset 0 2px 0 rgba(255,210,100,.5);display:flex;align-items:center;justify-content:center;gap:10px;position:relative;overflow:hidden;animation:btnGlow 2s ease-in-out infinite;transition:transform .1s,box-shadow .1s;}
+@keyframes btnGlow{0%,100%{box-shadow:0 6px 0 #A03000,0 9px 22px rgba(180,60,0,.4),inset 0 2px 0 rgba(255,210,100,.5);}50%{box-shadow:0 6px 0 #A03000,0 14px 34px rgba(255,110,0,.7),inset 0 2px 0 rgba(255,210,100,.5);}}
+.sp-start-btn::after{content:'';position:absolute;top:0;left:-80%;width:55%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.38),transparent);animation:shimmer 2.6s ease-in-out infinite;}
+@keyframes shimmer{0%{left:-80%}65%,100%{left:140%}}
+.sp-start-btn:active{transform:translateY(4px);box-shadow:0 2px 0 #A03000,0 3px 6px rgba(180,60,0,.3),inset 0 2px 0 rgba(255,210,100,.5);}
+.btn-star-ico{font-size:24px;animation:starSpin 1.8s ease-in-out infinite;flex-shrink:0;}
+@keyframes starSpin{0%,100%{transform:rotate(-12deg) scale(1);}50%{transform:rotate(12deg) scale(1.2);}}
 
-.char-win {
-  position: absolute;
-  overflow: hidden;
-  z-index: 2;
-  /* no background — transparent */
-}
-
-/* Window positions — tuned to the image characters */
-.win-elephant {
-  top: 30%;
-  left: 1%;
-  width: 40%;
-  height: 43%;
-}
-.win-bunny {
-  top: 24%;
-  left: 27%;
-  width: 46%;
-  height: 49%;
-}
-.win-monkey {
-  top: 30%;
-  left: 59%;
-  width: 40%;
-  height: 43%;
-}
-
-/* Each window holds a full image, aligned to the page */
-.char-win img {
-  position: absolute;
-  /* This makes the image inside the window look like it's
-     a seamless part of the background.
-     We anchor it: left/top of THIS image = left/top of PAGE.
-     Since the window is offset by (left%, top%), we undo it: */
-  top: 0;
-  left: 0;
-  width: 100vw;      /* full page width */
-  height: 100vh;     /* full page height */
-  max-width: none;
-  object-fit: cover;
-  object-position: center top;
-  /* Shift image left/up to compensate for window offset */
-  transform-origin: top left;
-}
-
-/* For each character window, offset the image to align with page */
-/* The image inside must be moved left by the window's left%
-   and up by the window's top% so it lines up with the base layer */
-.win-elephant img {
-  margin-left: -1vw;          /* cancel out left:1% */
-  margin-top: calc(-30vh);    /* cancel out top:30% */
-  animation: bounceEle 1.5s ease-in-out infinite;
-}
-.win-bunny img {
-  margin-left: -27vw;
-  margin-top: calc(-24vh);
-  animation: bounceBun 1.3s ease-in-out 0.2s infinite;
-}
-.win-monkey img {
-  margin-left: -59vw;
-  margin-top: calc(-30vh);
-  animation: bounceMon 1.7s ease-in-out 0.08s infinite;
-}
-
-/* Each character gets its own bounce timing for natural feel */
-@keyframes bounceEle {
-  0%,100%{ transform: translateY(0px) rotate(0deg); }
-  40%    { transform: translateY(-13px) rotate(-1.5deg); }
-  70%    { transform: translateY(-5px)  rotate(0.5deg); }
-}
-@keyframes bounceBun {
-  0%,100%{ transform: translateY(0px) scale(1); }
-  45%    { transform: translateY(-16px) scale(1.02); }
-  75%    { transform: translateY(-6px)  scale(1); }
-}
-@keyframes bounceMon {
-  0%,100%{ transform: translateY(0px) rotate(0deg); }
-  40%    { transform: translateY(-11px) rotate(1.5deg); }
-  70%    { transform: translateY(-4px)  rotate(-0.5deg); }
-}
-
-/* ── शुरु करें Button ── */
-.sp-btn-wrap {
-  position: absolute;
-  bottom: 23%;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-  width: 70%;
-  max-width: 280px;
-}
-
-.sp-start-btn {
-  width: 100%;
-  padding: 15px 20px;
-  background: linear-gradient(180deg, #FFAA00 0%, #FF6A00 55%, #E84500 100%);
-  color: white;
-  font-family: 'Baloo 2', cursive;
-  font-size: 25px;
-  font-weight: 800;
-  letter-spacing: 1px;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  box-shadow:
-    0 6px 0 #A03000,
-    0 9px 22px rgba(180,60,0,.45),
-    inset 0 2px 0 rgba(255,210,100,.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  position: relative;
-  overflow: hidden;
-  animation: btnGlow 2s ease-in-out infinite;
-  transition: transform .1s, box-shadow .1s;
-  -webkit-tap-highlight-color: transparent;
-}
-@keyframes btnGlow {
-  0%,100%{ box-shadow: 0 6px 0 #A03000, 0 9px 22px rgba(180,60,0,.4),  inset 0 2px 0 rgba(255,210,100,.5); }
-  50%    { box-shadow: 0 6px 0 #A03000, 0 14px 34px rgba(255,110,0,.7), inset 0 2px 0 rgba(255,210,100,.5); }
-}
-/* Shimmer sweep */
-.sp-start-btn::after {
-  content:'';
-  position:absolute;
-  top:0; left:-80%;
-  width:55%; height:100%;
-  background: linear-gradient(90deg,transparent,rgba(255,255,255,.38),transparent);
-  animation: shimmer 2.6s ease-in-out infinite;
-}
-@keyframes shimmer { 0%{left:-80%} 65%,100%{left:140%} }
-
-.sp-start-btn:active {
-  transform: translateY(4px);
-  box-shadow: 0 2px 0 #A03000, 0 3px 6px rgba(180,60,0,.3), inset 0 2px 0 rgba(255,210,100,.5);
-}
-
-.btn-star-ico {
-  font-size: 24px;
-  animation: starSpin 1.8s ease-in-out infinite;
-  flex-shrink: 0;
-}
-@keyframes starSpin {
-  0%,100%{ transform: rotate(-12deg) scale(1); }
-  50%    { transform: rotate(12deg)  scale(1.2); }
-}
-
-/* ══════════════════════════════════════
-   HEADER
-   ══════════════════════════════════════ */
-.app-hdr{
-  background:linear-gradient(135deg,#FFD700,#FFC200);
-  padding:10px 14px;display:flex;align-items:center;gap:10px;
-  border-bottom:3px solid #E8A800;
-  box-shadow:0 3px 12px rgba(200,150,0,.3);
-  flex-shrink:0;position:relative;overflow:hidden;
-}
+/* HEADER */
+.app-hdr{background:linear-gradient(135deg,#FFD700,#FFC200);padding:10px 14px;display:flex;align-items:center;gap:10px;border-bottom:3px solid #E8A800;box-shadow:0 3px 12px rgba(200,150,0,.3);flex-shrink:0;position:relative;overflow:hidden;}
 .hdr-icon-box{flex-shrink:0;width:50px;height:50px;background:white;border-radius:14px;display:flex;align-items:center;justify-content:center;border:2px solid #E8A800;box-shadow:0 3px 8px rgba(0,0,0,.1);}
 .hdr-title{font-family:'Lilita One',cursive;font-size:21px;color:#CC4400;line-height:1;text-shadow:1px 1px 0 rgba(255,255,255,.5);}
 .hdr-sub{font-size:10px;color:#886600;font-weight:700;letter-spacing:.5px;}
@@ -208,38 +49,25 @@ body{font-family:'Baloo 2',cursive;background:#FFD84D;}
 .hdr-back{background:rgba(255,255,255,.4);border:2px solid rgba(255,255,255,.6);color:#884400;width:38px;height:38px;border-radius:12px;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* ══════════════════════════════════════
-   HOME PAGE
-   ══════════════════════════════════════ */
+/* HOME */
 #pgHome{background:#FFF5C0;overflow:hidden;}
 #homeContent{flex:1;overflow-y:auto;padding-bottom:76px;}
 #homeContent::-webkit-scrollbar{width:0;}
-
-.hero-banner{
-  margin:12px 14px 6px;border-radius:22px;overflow:hidden;
-  background:linear-gradient(160deg,#FFE566,#FFD000 45%,#8DC42A 100%);
-  border:3px solid #E8A800;
-  box-shadow:0 5px 0 #C89800,0 7px 18px rgba(200,160,0,.3);
-  position:relative;cursor:pointer;
-}
+.hero-banner{margin:12px 14px 6px;border-radius:22px;overflow:hidden;background:linear-gradient(160deg,#FFE566,#FFD000 45%,#8DC42A 100%);border:3px solid #E8A800;box-shadow:0 5px 0 #C89800,0 7px 18px rgba(200,160,0,.3);position:relative;cursor:pointer;}
 .hero-inner{display:flex;align-items:flex-end;justify-content:center;padding:10px 6px 0;min-height:145px;position:relative;}
 .hb-cloud{position:absolute;background:rgba(255,255,255,.8);border-radius:30px;}
 .hb-c1{width:52px;height:16px;top:8px;left:10px;}
 .hb-c1::before{width:24px;height:24px;top:-11px;left:5px;}.hb-c1::after{width:18px;height:18px;top:-7px;left:24px;}
 .hb-c2{width:42px;height:14px;top:12px;right:12px;}
 .hb-c2::before{width:20px;height:20px;top:-9px;left:4px;}.hb-c2::after{width:15px;height:15px;top:-6px;left:20px;}
-.hb-star{position:absolute;font-size:15px;}
 .hero-foot{background:linear-gradient(135deg,#4A9A18,#5BB320);padding:8px 14px;display:flex;align-items:center;justify-content:space-between;}
 .hero-foot-txt{font-family:'Lilita One',cursive;font-size:14px;color:white;text-shadow:1px 1px 0 rgba(0,0,0,.2);}
 .hero-foot-btn{background:#FFE100;color:#6B3A00;font-family:'Lilita One',cursive;font-size:12px;padding:5px 14px;border:none;border-radius:10px;box-shadow:0 3px 0 #C8A800;cursor:pointer;}
-
 .sec-hdr{display:flex;align-items:center;justify-content:space-between;padding:12px 14px 6px;}
 .sec-title{font-family:'Lilita One',cursive;font-size:17px;color:#333;}
 .see-all-btn{font-size:12px;color:#FF6B00;font-weight:700;background:rgba(255,107,0,.1);padding:4px 10px;border-radius:10px;cursor:pointer;border:none;font-family:'Baloo 2',cursive;}
-
 @keyframes cin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 @keyframes cb{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
-
 .lib-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:0 14px;}
 .lcard{background:white;border-radius:14px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,.12);cursor:pointer;border:2px solid rgba(255,200,0,.15);animation:cin .4s ease both;}
 .lcard:active{transform:scale(.95);}
@@ -250,14 +78,8 @@ body{font-family:'Baloo 2',cursive;background:#FFD84D;}
 .lcard-name{font-size:9px;font-weight:700;color:#333;line-height:1.2;margin-bottom:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
 .lread-btn{width:100%;padding:4px;background:linear-gradient(135deg,#FF7700,#FF4400);color:white;border:none;border-radius:7px;font-family:'Lilita One',cursive;font-size:10px;box-shadow:0 2px 0 #CC3300;cursor:pointer;}
 
-#bottomNav{
-  position:fixed;bottom:0;left:0;right:0;height:70px;
-  background:linear-gradient(180deg,#FFE566,#FFD700);
-  border-top:3px solid #E8A800;
-  display:flex;align-items:center;
-  box-shadow:0 -4px 16px rgba(200,150,0,.25);
-  z-index:50;
-}
+/* BOTTOM NAV */
+#bottomNav{position:fixed;bottom:0;left:0;right:0;height:70px;background:linear-gradient(180deg,#FFE566,#FFD700);border-top:3px solid #E8A800;display:flex;align-items:center;box-shadow:0 -4px 16px rgba(200,150,0,.25);z-index:50;}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;padding:6px 4px;}
 .nav-ico{width:40px;height:40px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:19px;transition:transform .1s;}
 .nav-item.active .nav-ico{background:linear-gradient(135deg,#FF7700,#FF4400);box-shadow:0 4px 10px rgba(255,100,0,.4);}
@@ -266,9 +88,7 @@ body{font-family:'Baloo 2',cursive;background:#FFD84D;}
 .nav-item.active .nav-label{color:#CC4400;}
 .nav-item:active .nav-ico{transform:scale(.88);}
 
-/* ══════════════════════════════════════
-   SEE ALL PAGE
-   ══════════════════════════════════════ */
+/* SEE ALL */
 #pgSeeAll{background:#FFF5C0;}
 #seeAllContent{flex:1;overflow-y:auto;padding:14px;padding-bottom:20px;}
 #seeAllContent::-webkit-scrollbar{width:0;}
@@ -286,9 +106,7 @@ body{font-family:'Baloo 2',cursive;background:#FFD84D;}
 .aread-btn{width:100%;padding:9px;background:linear-gradient(135deg,#FF7700,#FF4400);color:white;border:none;border-radius:10px;font-family:'Lilita One',cursive;font-size:13px;box-shadow:0 4px 0 #CC3300;cursor:pointer;}
 .aread-btn:active{transform:translateY(3px);box-shadow:0 1px 0 #CC3300;}
 
-/* ══════════════════════════════════════
-   OPENING OVERLAY
-   ══════════════════════════════════════ */
+/* OPENING OVERLAY */
 #ov{display:none;position:fixed;inset:0;z-index:9999;background:linear-gradient(135deg,#FFD700,#FF8C00);flex-direction:column;align-items:center;justify-content:center;}
 #ov.show{display:flex;animation:fadeI .25s ease;}
 @keyframes fadeI{from{opacity:0}to{opacity:1}}
@@ -299,315 +117,129 @@ body{font-family:'Baloo 2',cursive;background:#FFD84D;}
 </head>
 <body>
 
-<!-- ══════════════════════════════════════════════════════
-     SPLASH SCREEN
-     
-     HOW CHARACTER BOUNCING WORKS:
-     - Layer 1 (z=1): Full image, static (background)
-     - Layer 2 (z=2): 3 "windows" each positioned over one character
-       Each window has overflow:hidden + a COPY of the full image inside
-       The inner image is shifted left/up to align with Layer 1
-       When the inner image bounces (translateY), the clipped
-       character appears to jump — seamlessly cut from the scene.
-     - Layer 3 (z=10): The button
-     ══════════════════════════════════════════════════════ -->
+<!-- SPLASH: image background + 3 independently bouncing characters + button -->
 <div id="pgSplash" class="page active">
-
-  <!-- Layer 1: Static base image -->
   <img class="sp-base-img" src="./champak_splash.png" alt="">
-
-  <!-- Layer 2a: Elephant window (left character) -->
-  <div class="char-win win-elephant">
-    <img src="./champak_splash.png" alt="">
-  </div>
-
-  <!-- Layer 2b: Bunny window (center character) -->
-  <div class="char-win win-bunny">
-    <img src="./champak_splash.png" alt="">
-  </div>
-
-  <!-- Layer 2c: Monkey window (right character) -->
-  <div class="char-win win-monkey">
-    <img src="./champak_splash.png" alt="">
-  </div>
-
-  <!-- Layer 3: शुरु करें Button -->
+  <div class="char-win win-elephant"><img src="./champak_splash.png" alt=""></div>
+  <div class="char-win win-bunny"><img src="./champak_splash.png" alt=""></div>
+  <div class="char-win win-monkey"><img src="./champak_splash.png" alt=""></div>
   <div class="sp-btn-wrap">
     <button class="sp-start-btn" onclick="startApp()">
-      <span class="btn-star-ico">⭐</span>
-      शुरु करें
+      <span class="btn-star-ico">&#11088;</span>
+      &#2358;&#2369;&#2352;&#2369; &#2325;&#2352;&#2375;&#2306;
     </button>
   </div>
-
 </div>
 
-<!-- ══ HOME ══ -->
+<!-- HOME -->
 <div id="pgHome" class="page">
   <div class="app-hdr">
-    <div class="hdr-icon-box">
-      <svg width="32" height="32" viewBox="0 0 32 32">
-        <rect width="32" height="32" rx="8" fill="#FFE566"/>
-        <text x="16" y="22" text-anchor="middle" font-size="18">📚</text>
-      </svg>
-    </div>
+    <div class="hdr-icon-box"><svg width="32" height="32" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#FFE566"/><text x="16" y="22" text-anchor="middle" font-size="18">&#128218;</text></svg></div>
     <div style="flex:1">
-      <div class="hdr-title">चंपक Comics</div>
-      <div class="hdr-sub">🛡️ AD FREE • KIDS SAFE • FREE</div>
+      <div class="hdr-title">&#2330;&#2306;&#2346;&#2325; Comics</div>
+      <div class="hdr-sub">&#128737;&#65039; AD FREE &#8226; KIDS SAFE &#8226; FREE</div>
     </div>
-    <button class="hdr-btn" id="refreshBtn" onclick="refreshPage()">🔄</button>
+    <button class="hdr-btn" id="refreshBtn" onclick="refreshPage()">&#128260;</button>
   </div>
-
   <div id="homeContent">
-    <!-- Hero Banner -->
     <div class="hero-banner" onclick="showPage('pgSeeAll')">
-      <div class="hb-cloud hb-c1"></div>
-      <div class="hb-cloud hb-c2"></div>
-      <div class="hb-star" style="top:6px;left:50%;transform:translateX(-50%)">⭐</div>
-      <div class="hb-star" style="top:10px;left:28%">✨</div>
-      <div class="hb-star" style="top:10px;right:26%">⭐</div>
+      <div class="hb-cloud hb-c1"></div><div class="hb-cloud hb-c2"></div>
       <div class="hero-inner">
         <div style="animation:cb 1.4s ease-in-out infinite;margin-bottom:-4px;">
-          <svg width="74" height="90" viewBox="0 0 90 110">
-            <ellipse cx="45" cy="82" rx="26" ry="22" fill="#7BB8F0"/>
-            <circle cx="45" cy="52" r="22" fill="#7BB8F0"/>
-            <ellipse cx="18" cy="48" rx="13" ry="18" fill="#6AA8E0"/><ellipse cx="18" cy="48" rx="8" ry="12" fill="#FFB0C0"/>
-            <ellipse cx="72" cy="48" rx="13" ry="18" fill="#6AA8E0"/><ellipse cx="72" cy="48" rx="8" ry="12" fill="#FFB0C0"/>
-            <path d="M40,68 Q32,80 30,88 Q29,93 34,93 Q38,93 38,87 Q40,80 46,70" fill="#7BB8F0" stroke="#6AA8E0" stroke-width="1"/>
-            <circle cx="37" cy="44" r="6" fill="white"/><circle cx="53" cy="44" r="6" fill="white"/>
-            <circle cx="38" cy="45" r="3.5" fill="#1a0a00"/><circle cx="54" cy="45" r="3.5" fill="#1a0a00"/>
-            <circle cx="37" cy="44" r="7" fill="none" stroke="#884400" stroke-width="1.5"/>
-            <circle cx="53" cy="44" r="7" fill="none" stroke="#884400" stroke-width="1.5"/>
-            <path d="M36 58 Q45 65 54 58" stroke="#4477AA" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <circle cx="26" cy="54" r="6" fill="rgba(255,150,180,.4)"/><circle cx="64" cy="54" r="6" fill="rgba(255,150,180,.4)"/>
-            <rect x="24" y="100" width="11" height="16" rx="5" fill="#6AA8E0"/><rect x="50" y="100" width="11" height="16" rx="5" fill="#6AA8E0"/>
-          </svg>
+          <svg width="74" height="90" viewBox="0 0 90 110"><ellipse cx="45" cy="82" rx="26" ry="22" fill="#7BB8F0"/><circle cx="45" cy="52" r="22" fill="#7BB8F0"/><ellipse cx="18" cy="48" rx="13" ry="18" fill="#6AA8E0"/><ellipse cx="18" cy="48" rx="8" ry="12" fill="#FFB0C0"/><ellipse cx="72" cy="48" rx="13" ry="18" fill="#6AA8E0"/><ellipse cx="72" cy="48" rx="8" ry="12" fill="#FFB0C0"/><path d="M40,68 Q32,80 30,88 Q29,93 34,93 Q38,93 38,87 Q40,80 46,70" fill="#7BB8F0" stroke="#6AA8E0" stroke-width="1"/><circle cx="37" cy="44" r="6" fill="white"/><circle cx="53" cy="44" r="6" fill="white"/><circle cx="38" cy="45" r="3.5" fill="#1a0a00"/><circle cx="54" cy="45" r="3.5" fill="#1a0a00"/><path d="M36 58 Q45 65 54 58" stroke="#4477AA" stroke-width="1.5" fill="none" stroke-linecap="round"/><rect x="24" y="100" width="11" height="16" rx="5" fill="#6AA8E0"/><rect x="50" y="100" width="11" height="16" rx="5" fill="#6AA8E0"/></svg>
         </div>
         <div style="animation:cb 1.2s ease-in-out .2s infinite;margin-left:-8px;margin-right:-8px;margin-bottom:-2px;">
-          <svg width="92" height="112" viewBox="0 0 160 180">
-            <ellipse cx="80" cy="115" rx="42" ry="35" fill="#F4A030"/>
-            <circle cx="80" cy="68" r="28" fill="#F4A030"/>
-            <ellipse cx="57" cy="48" rx="9" ry="13" fill="#F4A030" transform="rotate(-20 57 48)"/>
-            <ellipse cx="103" cy="48" rx="9" ry="13" fill="#F4A030" transform="rotate(20 103 48)"/>
-            <line x1="60" y1="44" x2="42" y2="18" stroke="#7B3800" stroke-width="5" stroke-linecap="round"/>
-            <line x1="42" y1="18" x2="28" y2="10" stroke="#7B3800" stroke-width="4" stroke-linecap="round"/>
-            <line x1="100" y1="44" x2="118" y2="18" stroke="#7B3800" stroke-width="5" stroke-linecap="round"/>
-            <line x1="118" y1="18" x2="132" y2="10" stroke="#7B3800" stroke-width="4" stroke-linecap="round"/>
-            <circle cx="70" cy="64" r="9" fill="white"/><circle cx="90" cy="64" r="9" fill="white"/>
-            <circle cx="71" cy="65" r="5" fill="#1a0a00"/><circle cx="91" cy="65" r="5" fill="#1a0a00"/>
-            <circle cx="72" cy="63" r="2" fill="white"/><circle cx="92" cy="63" r="2" fill="white"/>
-            <ellipse cx="80" cy="79" rx="10" ry="7" fill="#D4780A"/>
-            <path d="M70 84 Q80 94 90 84" stroke="#BB5500" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-            <circle cx="58" cy="77" r="10" fill="rgba(255,120,80,.4)"/><circle cx="102" cy="77" r="10" fill="rgba(255,120,80,.4)"/>
-            <path d="M40,96 Q80,106 120,96 Q118,108 80,110 Q42,108 40,96Z" fill="#FF4400" opacity=".8"/>
-            <rect x="58" y="145" width="14" height="28" rx="7" fill="#D4881A"/>
-            <rect x="88" y="145" width="14" height="28" rx="7" fill="#D4881A"/>
-          </svg>
+          <svg width="92" height="112" viewBox="0 0 160 180"><ellipse cx="80" cy="115" rx="42" ry="35" fill="#F4A030"/><circle cx="80" cy="68" r="28" fill="#F4A030"/><ellipse cx="57" cy="48" rx="9" ry="13" fill="#F4A030" transform="rotate(-20 57 48)"/><ellipse cx="103" cy="48" rx="9" ry="13" fill="#F4A030" transform="rotate(20 103 48)"/><line x1="60" y1="44" x2="42" y2="18" stroke="#7B3800" stroke-width="5" stroke-linecap="round"/><line x1="42" y1="18" x2="28" y2="10" stroke="#7B3800" stroke-width="4" stroke-linecap="round"/><line x1="100" y1="44" x2="118" y2="18" stroke="#7B3800" stroke-width="5" stroke-linecap="round"/><line x1="118" y1="18" x2="132" y2="10" stroke="#7B3800" stroke-width="4" stroke-linecap="round"/><circle cx="70" cy="64" r="9" fill="white"/><circle cx="90" cy="64" r="9" fill="white"/><circle cx="71" cy="65" r="5" fill="#1a0a00"/><circle cx="91" cy="65" r="5" fill="#1a0a00"/><ellipse cx="80" cy="79" rx="10" ry="7" fill="#D4780A"/><path d="M70 84 Q80 94 90 84" stroke="#BB5500" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M40,96 Q80,106 120,96 Q118,108 80,110 Q42,108 40,96Z" fill="#FF4400" opacity=".8"/><rect x="58" y="145" width="14" height="28" rx="7" fill="#D4881A"/><rect x="88" y="145" width="14" height="28" rx="7" fill="#D4881A"/></svg>
         </div>
         <div style="animation:cb 1.6s ease-in-out .1s infinite;margin-bottom:-4px;">
-          <svg width="74" height="90" viewBox="0 0 70 112">
-            <path d="M10,70 Q8,90 12,104 L58,104 Q62,90 60,70Z" fill="#FF6688"/>
-            <ellipse cx="35" cy="72" rx="22" ry="18" fill="#F8E8FF"/>
-            <circle cx="35" cy="48" r="20" fill="#F8E8FF"/>
-            <ellipse cx="22" cy="22" rx="7" ry="18" fill="#F8E8FF"/><ellipse cx="22" cy="22" rx="4" ry="12" fill="#FFB0C0"/>
-            <ellipse cx="48" cy="22" rx="7" ry="18" fill="#F8E8FF"/><ellipse cx="48" cy="22" rx="4" ry="12" fill="#FFB0C0"/>
-            <path d="M44,10 Q48,4 52,9 Q55,4 58,10 Q55,14 51,12 Q48,14 44,10Z" fill="#FF4488"/>
-            <circle cx="27" cy="44" r="6" fill="white"/><circle cx="43" cy="44" r="6" fill="white"/>
-            <circle cx="28" cy="45" r="3.5" fill="#FF6699"/><circle cx="44" cy="45" r="3.5" fill="#FF6699"/>
-            <ellipse cx="35" cy="52" rx="4.5" ry="3.5" fill="#FF8080"/>
-            <path d="M29 57 Q35 64 41 57" stroke="#CC6688" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <circle cx="19" cy="52" r="6" fill="rgba(255,150,180,.45)"/><circle cx="51" cy="52" r="6" fill="rgba(255,150,180,.45)"/>
-            <path d="M28,76 Q30,70 35,73 Q40,70 42,76 Q40,80 35,78 Q30,80 28,76Z" fill="#FFE100"/>
-            <circle cx="60" cy="16" r="12" fill="#CC44FF" opacity=".9"/>
-            <line x1="60" y1="28" x2="54" y2="50" stroke="#8844AA" stroke-width="1.5"/>
-          </svg>
+          <svg width="74" height="90" viewBox="0 0 70 112"><path d="M10,70 Q8,90 12,104 L58,104 Q62,90 60,70Z" fill="#FF6688"/><ellipse cx="35" cy="72" rx="22" ry="18" fill="#F8E8FF"/><circle cx="35" cy="48" r="20" fill="#F8E8FF"/><ellipse cx="22" cy="22" rx="7" ry="18" fill="#F8E8FF"/><ellipse cx="22" cy="22" rx="4" ry="12" fill="#FFB0C0"/><ellipse cx="48" cy="22" rx="7" ry="18" fill="#F8E8FF"/><ellipse cx="48" cy="22" rx="4" ry="12" fill="#FFB0C0"/><circle cx="27" cy="44" r="6" fill="white"/><circle cx="43" cy="44" r="6" fill="white"/><circle cx="28" cy="45" r="3.5" fill="#FF6699"/><circle cx="44" cy="45" r="3.5" fill="#FF6699"/><ellipse cx="35" cy="52" rx="4.5" ry="3.5" fill="#FF8080"/><path d="M29 57 Q35 64 41 57" stroke="#CC6688" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M28,76 Q30,70 35,73 Q40,70 42,76 Q40,80 35,78 Q30,80 28,76Z" fill="#FFE100"/><circle cx="60" cy="16" r="12" fill="#CC44FF" opacity=".9"/></svg>
         </div>
       </div>
       <div class="hero-foot">
-        <div class="hero-foot-txt">🌟 Champak ki Duniya!</div>
-        <button class="hero-foot-btn" onclick="event.stopPropagation();showPage('pgSeeAll')">Comics Padho →</button>
+        <div class="hero-foot-txt">&#127775; Champak ki Duniya!</div>
+        <button class="hero-foot-btn" onclick="event.stopPropagation();showPage('pgSeeAll')">Comics Padho &#8594;</button>
       </div>
     </div>
-
-    <!-- Library -->
     <div class="sec-hdr">
-      <div class="sec-title">📚 Comics Library</div>
-      <button class="see-all-btn" onclick="showPage('pgSeeAll')">See All →</button>
+      <div class="sec-title">&#128218; Comics Library</div>
+      <button class="see-all-btn" onclick="showPage('pgSeeAll')">See All &#8594;</button>
     </div>
     <div class="lib-grid" id="libGrid"></div>
     <div style="height:10px;"></div>
   </div>
-
-  <!-- Bottom Nav -->
   <div id="bottomNav">
-    <div class="nav-item active" onclick="setNav(this);showPage('pgHome')">
-      <div class="nav-ico">🏠</div>
-      <div class="nav-label">Home</div>
-    </div>
-    <div class="nav-item" onclick="setNav(this);showPage('pgSeeAll')">
-      <div class="nav-ico">📚</div>
-      <div class="nav-label">Comics</div>
-    </div>
-    <div class="nav-item" onclick="setNav(this)">
-      <div class="nav-ico">⚙️</div>
-      <div class="nav-label">More</div>
-    </div>
+    <div class="nav-item active" onclick="setNav(this);showPage('pgHome')"><div class="nav-ico">&#127968;</div><div class="nav-label">Home</div></div>
+    <div class="nav-item" onclick="setNav(this);showPage('pgSeeAll')"><div class="nav-ico">&#128218;</div><div class="nav-label">Comics</div></div>
+    <div class="nav-item" onclick="setNav(this)"><div class="nav-ico">&#9881;&#65039;</div><div class="nav-label">More</div></div>
   </div>
 </div>
 
-<!-- ══ SEE ALL ══ -->
+<!-- SEE ALL -->
 <div id="pgSeeAll" class="page">
   <div class="app-hdr">
-    <button class="hdr-back" onclick="showPage('pgHome')">←</button>
-    <div style="flex:1">
-      <div class="hdr-title">📚 Saari Comics</div>
-      <div class="hdr-sub" id="allCount"></div>
-    </div>
+    <button class="hdr-back" onclick="showPage('pgHome')">&#8592;</button>
+    <div style="flex:1"><div class="hdr-title">&#128218; Saari Comics</div><div class="hdr-sub" id="allCount"></div></div>
   </div>
-  <div id="seeAllContent">
-    <div class="all-grid" id="allGrid"></div>
-    <div style="height:20px;"></div>
-  </div>
+  <div id="seeAllContent"><div class="all-grid" id="allGrid"></div><div style="height:20px;"></div></div>
 </div>
 
 <!-- Opening overlay -->
 <div id="ov">
   <div class="ov-char">
-    <svg width="110" height="130" viewBox="0 0 160 180" fill="none">
-      <ellipse cx="80" cy="115" rx="42" ry="35" fill="#F4A030"/>
-      <circle cx="80" cy="68" r="28" fill="#F4A030"/>
-      <ellipse cx="57" cy="48" rx="9" ry="13" fill="#F4A030" transform="rotate(-20 57 48)"/>
-      <ellipse cx="103" cy="48" rx="9" ry="13" fill="#F4A030" transform="rotate(20 103 48)"/>
-      <line x1="60" y1="44" x2="42" y2="18" stroke="#7B3800" stroke-width="5" stroke-linecap="round"/>
-      <line x1="42" y1="18" x2="28" y2="10" stroke="#7B3800" stroke-width="4" stroke-linecap="round"/>
-      <line x1="100" y1="44" x2="118" y2="18" stroke="#7B3800" stroke-width="5" stroke-linecap="round"/>
-      <line x1="118" y1="18" x2="132" y2="10" stroke="#7B3800" stroke-width="4" stroke-linecap="round"/>
-      <circle cx="70" cy="64" r="9" fill="white"/><circle cx="90" cy="64" r="9" fill="white"/>
-      <circle cx="71" cy="65" r="5" fill="#1a0a00"/><circle cx="91" cy="65" r="5" fill="#1a0a00"/>
-      <circle cx="72" cy="63" r="2" fill="white"/><circle cx="92" cy="63" r="2" fill="white"/>
-      <ellipse cx="80" cy="79" rx="10" ry="7" fill="#D4780A"/>
-      <path d="M70 84 Q80 94 90 84" stroke="#BB5500" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-      <circle cx="58" cy="77" r="10" fill="rgba(255,120,80,.4)"/>
-      <circle cx="102" cy="77" r="10" fill="rgba(255,120,80,.4)"/>
-      <rect x="58" y="145" width="14" height="28" rx="7" fill="#D4881A"/>
-      <rect x="88" y="145" width="14" height="28" rx="7" fill="#D4881A"/>
-    </svg>
+    <svg width="110" height="130" viewBox="0 0 160 180" fill="none"><ellipse cx="80" cy="115" rx="42" ry="35" fill="#F4A030"/><circle cx="80" cy="68" r="28" fill="#F4A030"/><ellipse cx="57" cy="48" rx="9" ry="13" fill="#F4A030" transform="rotate(-20 57 48)"/><ellipse cx="103" cy="48" rx="9" ry="13" fill="#F4A030" transform="rotate(20 103 48)"/><line x1="60" y1="44" x2="42" y2="18" stroke="#7B3800" stroke-width="5" stroke-linecap="round"/><line x1="42" y1="18" x2="28" y2="10" stroke="#7B3800" stroke-width="4" stroke-linecap="round"/><line x1="100" y1="44" x2="118" y2="18" stroke="#7B3800" stroke-width="5" stroke-linecap="round"/><line x1="118" y1="18" x2="132" y2="10" stroke="#7B3800" stroke-width="4" stroke-linecap="round"/><circle cx="70" cy="64" r="9" fill="white"/><circle cx="90" cy="64" r="9" fill="white"/><circle cx="71" cy="65" r="5" fill="#1a0a00"/><circle cx="91" cy="65" r="5" fill="#1a0a00"/><circle cx="72" cy="63" r="2" fill="white"/><circle cx="92" cy="63" r="2" fill="white"/><ellipse cx="80" cy="79" rx="10" ry="7" fill="#D4780A"/><path d="M70 84 Q80 94 90 84" stroke="#BB5500" stroke-width="2.5" fill="none" stroke-linecap="round"/><circle cx="58" cy="77" r="10" fill="rgba(255,120,80,.4)"/><circle cx="102" cy="77" r="10" fill="rgba(255,120,80,.4)"/><rect x="58" y="145" width="14" height="28" rx="7" fill="#D4881A"/><rect x="88" y="145" width="14" height="28" rx="7" fill="#D4881A"/></svg>
   </div>
-  <div class="ov-title">Comic khul rahi hai! 📖</div>
+  <div class="ov-title">Comic khul rahi hai! &#128214;</div>
   <div class="ov-sub">Ek second ruko...</div>
 </div>
 
 <script>
-// ══════════════════════════════
-//  📚 COMICS — YAHAN ADD KARO
-// ══════════════════════════════
-var COMICS = [
-  {
-    id: 1,
-    name: "Champak Hindi - Sep 2019",
-    flipUrl: "https://online.fliphtml5.com/ufmtz/dtjr/",
-    pages: 50,
-    date: "Sep 2019",
-    catLabel: "FUNNY\nSTORIES",
-    catColor: "#00AA33"
-  }
-];
-// ══════════════════════════════
+var COMICS=[{id:1,name:"Champak Hindi - Sep 2019",flipUrl:"https://online.fliphtml5.com/ufmtz/dtjr/",pages:50,date:"Sep 2019",catLabel:"FUNNY\nSTORIES",catColor:"#00AA33"}];
+var COLORS=['#FF6B00','#0066CC','#009944','#8B00CC','#CC6600','#CC0000','#007788'];
 
-var COLORS = ['#FF6B00','#0066CC','#009944','#8B00CC','#CC6600','#CC0000','#007788'];
+// Fix --vh for mobile browsers
+(function(){
+  function setVH(){document.documentElement.style.setProperty('--vh',(window.innerHeight*0.01)+'px');}
+  setVH(); window.addEventListener('resize',setVH);
+})();
 
-function thumb(c){
-  if(c.thumbUrl) return c.thumbUrl;
-  return 'https://image.thum.io/get/width/400/crop/600/viewportWidth/400/' + c.flipUrl;
-}
-function fbFix(col){
-  return "this.style.display='none';var f=this.nextElementSibling;f.style.display='flex';f.style.background='"+col+"';";
-}
+function thumb(c){return c.thumbUrl||'https://image.thum.io/get/width/400/crop/600/viewportWidth/400/'+c.flipUrl;}
+function fbFix(col){return "this.style.display='none';var f=this.nextElementSibling;f.style.display='flex';f.style.background='"+col+"';";}
 
-/* ── शुरु करें → open Home ── */
 function startApp(){
-  var splash = document.getElementById('pgSplash');
-  splash.style.transition = 'opacity .8s';
-  splash.style.opacity = '0';
+  var sp=document.getElementById('pgSplash');
+  sp.style.opacity='0';
   setTimeout(function(){
-    splash.style.display = 'none';
+    sp.style.display='none';
     renderHome();
-    if(window.location.hash === '#comics'){
-      showPage('pgSeeAll');
-    } else {
-      showPage('pgHome');
-    }
-  }, 820);
+    showPage(window.location.hash==='#comics'?'pgSeeAll':'pgHome');
+  },820);
 }
 
 function renderHome(){
-  var lEl = document.getElementById('libGrid');
-  lEl.innerHTML = '';
+  var el=document.getElementById('libGrid'); el.innerHTML='';
   COMICS.slice().sort(function(a,b){return a.id-b.id;}).forEach(function(c,i){
-    var col = COLORS[i%COLORS.length];
-    var d = document.createElement('div');
-    d.className = 'lcard';
-    d.style.animationDelay = (i*.08)+'s';
-    d.innerHTML =
-      '<div class="lcard-thumb">'+
-        '<img src="'+thumb(c)+'" loading="lazy" onerror="'+fbFix(col)+'">'+
-        '<div class="lcard-fb" style="background:'+col+'">📕</div>'+
-      '</div>'+
-      '<div class="lcard-info">'+
-        '<div class="lcard-name">'+c.name+'</div>'+
-        '<button class="lread-btn">READ</button>'+
-      '</div>';
-    d.onclick = function(){ openComic(c); };
-    lEl.appendChild(d);
+    var col=COLORS[i%COLORS.length],d=document.createElement('div');
+    d.className='lcard'; d.style.animationDelay=(i*.08)+'s';
+    d.innerHTML='<div class="lcard-thumb"><img src="'+thumb(c)+'" loading="lazy" onerror="'+fbFix(col)+'"><div class="lcard-fb" style="background:'+col+'">&#128213;</div></div><div class="lcard-info"><div class="lcard-name">'+c.name+'</div><button class="lread-btn">READ</button></div>';
+    d.onclick=function(){openComic(c);}; el.appendChild(d);
   });
 }
 
 function renderSeeAll(){
-  var el = document.getElementById('allGrid');
-  el.innerHTML = '';
-  document.getElementById('allCount').textContent = COMICS.length+' comics available';
+  var el=document.getElementById('allGrid'); el.innerHTML='';
+  document.getElementById('allCount').textContent=COMICS.length+' comics available';
   COMICS.slice().sort(function(a,b){return b.id-a.id;}).forEach(function(c,i){
-    var col = COLORS[i%COLORS.length];
-    var d = document.createElement('div');
-    d.className = 'acard';
-    d.style.animationDelay = (i*.08)+'s';
-    d.innerHTML =
-      '<div class="acard-thumb">'+
-        '<img src="'+thumb(c)+'" loading="lazy" onerror="'+fbFix(col)+'">'+
-        '<div class="acard-fb" style="background:'+col+'">📕</div>'+
-        '<div class="acard-ov"></div>'+
-        (c.date?'<div class="acard-date">📅 '+c.date+'</div>':'')+
-        (c.pages?'<div class="acard-pages">'+c.pages+' pages</div>':'')+
-      '</div>'+
-      '<div class="acard-info">'+
-        '<div class="acard-name">'+c.name+'</div>'+
-        '<button class="aread-btn">📖 Abhi Padho!</button>'+
-      '</div>';
-    d.onclick = function(){ openComic(c); };
-    el.appendChild(d);
+    var col=COLORS[i%COLORS.length],d=document.createElement('div');
+    d.className='acard'; d.style.animationDelay=(i*.08)+'s';
+    d.innerHTML='<div class="acard-thumb"><img src="'+thumb(c)+'" loading="lazy" onerror="'+fbFix(col)+'"><div class="acard-fb" style="background:'+col+'">&#128213;</div><div class="acard-ov"></div>'+(c.date?'<div class="acard-date">&#128197; '+c.date+'</div>':'')+(c.pages?'<div class="acard-pages">'+c.pages+' pages</div>':'')+'</div><div class="acard-info"><div class="acard-name">'+c.name+'</div><button class="aread-btn">&#128214; Abhi Padho!</button></div>';
+    d.onclick=function(){openComic(c);}; el.appendChild(d);
   });
 }
 
-function openComic(c){
-  document.getElementById('ov').classList.add('show');
-  setTimeout(function(){ window.location.href = c.flipUrl; }, 1000);
-}
-
-function showPage(id){
-  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
-  document.getElementById(id).classList.add('active');
-  if(id === 'pgSeeAll') renderSeeAll();
-}
-
-function setNav(el){
-  document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('active'); });
-  el.classList.add('active');
-}
-
-function refreshPage(){
-  var b = document.getElementById('refreshBtn');
-  b.classList.add('spin');
-  setTimeout(function(){ b.classList.remove('spin'); renderHome(); }, 700);
-}
+function openComic(c){document.getElementById('ov').classList.add('show');setTimeout(function(){window.location.href=c.flipUrl;},1000);}
+function showPage(id){document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});document.getElementById(id).classList.add('active');if(id==='pgSeeAll')renderSeeAll();}
+function setNav(el){document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});el.classList.add('active');}
+function refreshPage(){var b=document.getElementById('refreshBtn');b.classList.add('spin');setTimeout(function(){b.classList.remove('spin');renderHome();},700);}
 </script>
 </body>
 </html>
