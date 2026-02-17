@@ -6,113 +6,188 @@
 <title>Champak Comics</title>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800&family=Lilita+One&display=swap" rel="stylesheet">
 <style>
+/* ══════════════════════════════════════
+   BASE
+══════════════════════════════════════ */
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;overflow:hidden;}
-body{font-family:'Baloo 2',cursive;background:#FFD84D;}
+body{font-family:'Baloo 2',cursive;background:#FFD84D;transition:background .3s;}
 .page{display:none;position:fixed;inset:0;flex-direction:column;}
 .page.active{display:flex;}
 
-/* ── SPLASH ── */
+/* ── DARK MODE ── */
+body.dark{background:#1a1a2e;}
+body.dark #pgHome,body.dark #pgSeeAll,body.dark #pgSettings{background:#1a1a2e;}
+body.dark #homeContent,body.dark #seeAllContent,body.dark #settContent{background:#1a1a2e;}
+body.dark .home-hdr,body.dark .app-hdr{background:linear-gradient(135deg,#252540,#1a1a2e);border-bottom-color:#353560;}
+body.dark .hdr-hi{color:#FFD700;}
+body.dark .hdr-en{color:#aaa;}
+body.dark .hdr-sub{color:#777;}
+body.dark .hdr-back,body.dark .hdr-btn{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);color:#FFD700;}
+body.dark .sec-title{color:#FFD700;}
+body.dark .lcard,body.dark .acard{background:#252540;border-color:rgba(255,200,0,.1);}
+body.dark .lcard-name,body.dark .acard-name{color:#e8e0ff;}
+body.dark #bottomNav{background:linear-gradient(180deg,#252540,#1a1a2e);border-top-color:#353560;}
+body.dark .nav-label{color:#888;}
+body.dark .nav-item:not(.active) .nav-ico{background:rgba(255,255,255,.08);}
+body.dark .cat-tabs{background:#252540;border-bottom-color:#353560;}
+body.dark .cat-tab{color:#888;}
+body.dark .cat-tab.active{color:#FFD700;}
+body.dark .cat-tab.active::after{background:#FFD700;}
+body.dark .sett-card{background:#252540;border-color:#353560;}
+body.dark .sett-label{color:#e8e0ff;}
+body.dark .sett-val{color:#888;}
+body.dark .sett-sec-title{color:#FFD700;}
+body.dark .sett-group{background:#252540;border-color:#353560;}
+body.dark .sett-card{border-bottom-color:#353560;}
+body.dark .sett-card:active{background:rgba(255,215,0,.06);}
+body.dark .search-bar{background:#252540;border-color:#353560;}
+body.dark .search-bar input{color:#e8e0ff;}
+body.dark .search-bar input::placeholder{color:#666;}
+body.dark .no-comics{color:#666;}
+
+/* ══════════════════════════════════════
+   SPLASH
+══════════════════════════════════════ */
 #pgSplash{transition:opacity .8s;z-index:999;overflow:hidden;background:#ffd84d;}
 .sp-base-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:1;display:block;}
 .sp-btn-wrap{position:absolute;bottom:22%;left:50%;transform:translateX(-50%);z-index:10;width:70%;max-width:280px;}
-.sp-start-btn{width:100%;padding:15px 20px;background:linear-gradient(180deg,#FFAA00 0%,#FF6A00 55%,#E84500 100%);color:white;font-family:'Baloo 2',cursive;font-size:25px;font-weight:800;letter-spacing:1px;border:none;border-radius:50px;cursor:pointer;box-shadow:0 6px 0 #A03000,0 9px 22px rgba(180,60,0,.45),inset 0 2px 0 rgba(255,210,100,.5);display:flex;align-items:center;justify-content:center;gap:10px;position:relative;overflow:hidden;animation:btnGlow 2s ease-in-out infinite;transition:transform .1s,box-shadow .1s;}
+.sp-start-btn{width:100%;padding:15px 20px;background:linear-gradient(180deg,#FFAA00 0%,#FF6A00 55%,#E84500 100%);color:white;font-family:'Baloo 2',cursive;font-size:25px;font-weight:800;border:none;border-radius:50px;cursor:pointer;box-shadow:0 6px 0 #A03000,0 9px 22px rgba(180,60,0,.45),inset 0 2px 0 rgba(255,210,100,.5);display:flex;align-items:center;justify-content:center;gap:10px;position:relative;overflow:hidden;animation:btnGlow 2s ease-in-out infinite;transition:transform .1s,box-shadow .1s;}
 @keyframes btnGlow{0%,100%{box-shadow:0 6px 0 #A03000,0 9px 22px rgba(180,60,0,.4),inset 0 2px 0 rgba(255,210,100,.5);}50%{box-shadow:0 6px 0 #A03000,0 14px 34px rgba(255,110,0,.7),inset 0 2px 0 rgba(255,210,100,.5);}}
 .sp-start-btn::after{content:'';position:absolute;top:0;left:-80%;width:55%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.38),transparent);animation:shimmer 2.6s ease-in-out infinite;}
 @keyframes shimmer{0%{left:-80%}65%,100%{left:140%}}
 .sp-start-btn:active{transform:translateY(4px);box-shadow:0 2px 0 #A03000,0 3px 6px rgba(180,60,0,.3),inset 0 2px 0 rgba(255,210,100,.5);}
-.btn-star-ico{font-size:24px;flex-shrink:0;}
 
-/* ── HEADER ── */
-.app-hdr{background:linear-gradient(135deg,#FFD700,#FFC200);padding:10px 14px;display:flex;align-items:center;gap:10px;border-bottom:3px solid #E8A800;box-shadow:0 3px 12px rgba(200,150,0,.3);flex-shrink:0;position:relative;overflow:hidden;}
-/* Champak Vibe Icon — a comic-book style badge */
-.hdr-icon-box{flex-shrink:0;width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;overflow:hidden;border:2.5px solid #E8A800;box-shadow:0 3px 10px rgba(0,0,0,.15);}
-/* Title: Baloo 2 for Hindi (has Devanagari) + Lilita One for "Comics" */
-.hdr-hi{font-family:'Baloo 2',cursive;font-size:22px;font-weight:800;color:#CC2200;line-height:1;text-shadow:1px 1px 0 rgba(255,255,255,.5);}
-.hdr-en{font-family:'Lilita One',cursive;font-size:22px;color:#884400;line-height:1;text-shadow:1px 1px 0 rgba(255,255,255,.5);}
+/* ══════════════════════════════════════
+   SHARED HEADER
+══════════════════════════════════════ */
+.app-hdr,.home-hdr{background:linear-gradient(135deg,#FFD700,#FFC200);padding:10px 14px;display:flex;align-items:center;gap:10px;border-bottom:3px solid #E8A800;box-shadow:0 3px 12px rgba(200,150,0,.3);flex-shrink:0;}
+.hdr-icon-box{flex-shrink:0;width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;overflow:hidden;border:2.5px solid #E8A800;box-shadow:0 3px 10px rgba(0,0,0,.15);}
+.hdr-hi{font-family:'Baloo 2',cursive;font-size:21px;font-weight:800;color:#CC2200;line-height:1;text-shadow:1px 1px 0 rgba(255,255,255,.5);}
+.hdr-en{font-family:'Lilita One',cursive;font-size:21px;color:#884400;line-height:1;text-shadow:1px 1px 0 rgba(255,255,255,.5);}
 .hdr-title-row{display:flex;align-items:baseline;gap:4px;}
-.hdr-sub{font-size:10px;color:#886600;font-weight:700;letter-spacing:.5px;margin-top:1px;}
-.hdr-btn{background:rgba(255,255,255,.4);border:2px solid rgba(255,255,255,.6);color:#884400;width:38px;height:38px;border-radius:12px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.hdr-sub{font-size:9px;color:#886600;font-weight:700;letter-spacing:.5px;margin-top:1px;}
+.hdr-btn{background:rgba(255,255,255,.4);border:2px solid rgba(255,255,255,.6);color:#884400;width:36px;height:36px;border-radius:11px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.hdr-back{background:rgba(255,255,255,.4);border:2px solid rgba(255,255,255,.6);color:#884400;width:36px;height:36px;border-radius:11px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .hdr-btn.spin{animation:spin .6s linear;}
-.hdr-back{background:rgba(255,255,255,.4);border:2px solid rgba(255,255,255,.6);color:#884400;width:38px;height:38px;border-radius:12px;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes cin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 
-/* ── HOME ── */
-#pgHome{background:#FFF5C0;overflow:hidden;}
-#homeContent{flex:1;overflow-y:auto;padding-top:8px;padding-bottom:76px;}
+/* ══════════════════════════════════════
+   HOME
+══════════════════════════════════════ */
+#pgHome{background:#FFF5C0;}
+#homeContent{flex:1;overflow-y:auto;padding-bottom:76px;}
 #homeContent::-webkit-scrollbar{width:0;}
 
-/* Hero Banner — no SVG characters, clean decorative */
-.hero-banner{margin:12px 14px 6px;border-radius:22px;overflow:hidden;background:linear-gradient(160deg,#FFE566,#FFD000 45%,#8DC42A 100%);border:3px solid #E8A800;box-shadow:0 5px 0 #C89800,0 7px 18px rgba(200,160,0,.3);position:relative;cursor:pointer;}
-.hero-inner{position:relative;min-height:160px;height:160px;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:16px;}
-/* Decorative circles in background */
-.hero-inner::before{content:'';position:absolute;width:110px;height:110px;border-radius:50%;background:rgba(255,255,255,.15);top:-20px;left:-20px;}
-.hero-inner::after{content:'';position:absolute;width:80px;height:80px;border-radius:50%;background:rgba(255,200,0,.2);bottom:-10px;right:30px;}
-.hero-text-wrap{position:relative;z-index:2;text-align:center;}
-.hero-big-hi{font-family:'Baloo 2',cursive;font-size:52px;font-weight:800;color:#CC2200;line-height:1;text-shadow:2px 2px 0 rgba(255,255,255,.6),3px 3px 0 rgba(200,80,0,.2);}
-.hero-tagline{font-family:'Baloo 2',cursive;font-size:13px;font-weight:700;color:#555200;margin-top:2px;letter-spacing:.5px;}
-/* Floating deco stars */
-.hero-deco{position:absolute;z-index:1;}
-.hd1{top:12px;left:14px;font-size:22px;transform:rotate(-10deg);}
-.hd2{top:14px;right:18px;font-size:18px;transform:rotate(12deg);}
-.hd3{bottom:14px;left:22px;font-size:14px;}
-.hd4{bottom:12px;right:16px;font-size:20px;transform:rotate(-8deg);}
+/* Banner */
+.hero-banner{margin:12px 14px 10px;border-radius:20px;overflow:hidden;border:3px solid #E8A800;box-shadow:0 5px 0 #C89800,0 7px 18px rgba(200,160,0,.3);cursor:pointer;}
+.hero-img-wrap{height:155px;overflow:hidden;position:relative;background:#FFB300;}
+.hero-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;}
+.hero-foot{background:linear-gradient(135deg,#4A9A18,#5BB320);padding:9px 14px;display:flex;align-items:center;justify-content:space-between;}
+.hero-foot-txt{font-family:'Baloo 2',cursive;font-size:13px;font-weight:800;color:white;text-shadow:1px 1px 0 rgba(0,0,0,.2);}
+.hero-foot-btn{background:#FFE100;color:#6B3A00;font-family:'Lilita One',cursive;font-size:12px;padding:6px 14px;border:none;border-radius:10px;box-shadow:0 3px 0 #C8A800;cursor:pointer;}
 
-.hero-foot{background:linear-gradient(135deg,#4A9A18,#5BB320);padding:10px 14px;display:flex;align-items:center;justify-content:space-between;}
-.hero-foot-txt{font-family:'Baloo 2',cursive;font-size:14px;font-weight:800;color:white;text-shadow:1px 1px 0 rgba(0,0,0,.2);}
-.hero-foot-btn{background:#FFE100;color:#6B3A00;font-family:'Lilita One',cursive;font-size:13px;padding:7px 16px;border:none;border-radius:12px;box-shadow:0 3px 0 #C8A800;cursor:pointer;letter-spacing:.5px;}
+/* Search */
+.search-wrap{padding:0 14px 10px;}
+.search-bar{display:flex;align-items:center;gap:8px;background:white;border-radius:14px;padding:10px 14px;border:2px solid #FFD84D;box-shadow:0 2px 8px rgba(0,0,0,.08);}
+.search-bar span{font-size:18px;flex-shrink:0;}
+.search-bar input{flex:1;border:none;outline:none;font-family:'Baloo 2',cursive;font-size:14px;font-weight:700;color:#333;background:transparent;}
+.search-bar input::placeholder{color:#bbb;font-weight:400;}
 
-/* Library */
-.sec-hdr{display:flex;align-items:center;justify-content:space-between;padding:12px 14px 6px;}
-.sec-title{font-family:'Lilita One',cursive;font-size:17px;color:#333;}
+/* Section header */
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;padding:4px 14px 8px;}
+.sec-title{font-family:'Lilita One',cursive;font-size:16px;color:#333;}
 .see-all-btn{font-size:12px;color:#FF6B00;font-weight:700;background:rgba(255,107,0,.1);padding:4px 10px;border-radius:10px;cursor:pointer;border:none;font-family:'Baloo 2',cursive;}
 
+/* Library cards */
 .lib-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:0 14px;}
-.lcard{background:white;border-radius:14px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,.12);cursor:pointer;border:2px solid rgba(255,200,0,.2);animation:cin .4s ease both;}
+.lcard{background:white;border-radius:16px;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.12);cursor:pointer;border:2px solid rgba(255,200,0,.2);animation:cin .4s ease both;position:relative;}
 .lcard:active{transform:scale(.95);}
-
-/* ── THUMBNAIL FIX ──
-   No more top:-30px hack. Image fills the card perfectly.
-   object-fit:cover ensures no black/grey gaps ever. */
-.lcard-thumb{height:155px;position:relative;overflow:hidden;background:#FFD84D;}
+.lcard-thumb{height:160px;position:relative;overflow:hidden;background:#FFB300;}
 .lcard-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;}
-.lcard-fb{position:absolute;inset:0;display:none;align-items:center;justify-content:center;font-size:26px;background:#FF6B00;}
-.lcard-info{padding:6px 8px 8px;}
-.lcard-name{font-size:9px;font-weight:700;color:#333;line-height:1.2;margin-bottom:5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-.lread-btn{width:100%;padding:5px;background:linear-gradient(135deg,#FF7700,#FF4400);color:white;border:none;border-radius:8px;font-family:'Lilita One',cursive;font-size:11px;box-shadow:0 3px 0 #CC3300;cursor:pointer;}
+.lcard-fb{position:absolute;inset:0;display:none;align-items:center;justify-content:center;font-size:32px;}
+.lcard-badge{position:absolute;top:8px;font-size:9px;font-weight:800;padding:3px 8px;border-radius:8px;z-index:2;}
+.badge-left{left:8px;}
+.badge-right{right:8px;}
+.badge-new{background:#FF3D00;color:white;}
+.badge-hi{background:#138808;color:white;}
+.badge-en{background:#003087;color:white;}
+.lcard-info{padding:8px 10px 10px;}
+.lcard-name{font-size:11px;font-weight:700;color:#333;line-height:1.3;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.lread-btn{width:100%;padding:7px;background:linear-gradient(135deg,#FF7700,#FF4400);color:white;border:none;border-radius:10px;font-family:'Lilita One',cursive;font-size:12px;box-shadow:0 3px 0 #CC3300;cursor:pointer;}
 .lread-btn:active{transform:translateY(2px);box-shadow:0 1px 0 #CC3300;}
 
-/* ── BOTTOM NAV ── */
+/* ══════════════════════════════════════
+   BOTTOM NAV
+══════════════════════════════════════ */
 #bottomNav{position:fixed;bottom:0;left:0;right:0;height:70px;background:linear-gradient(180deg,#FFE566,#FFD700);border-top:3px solid #E8A800;display:flex;align-items:center;box-shadow:0 -4px 16px rgba(200,150,0,.25);z-index:50;}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;padding:6px 4px;}
-.nav-ico{width:40px;height:40px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:19px;transition:transform .1s;}
+.nav-ico{width:40px;height:40px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:19px;transition:transform .15s;}
 .nav-item.active .nav-ico{background:linear-gradient(135deg,#FF7700,#FF4400);box-shadow:0 4px 10px rgba(255,100,0,.4);}
 .nav-item:not(.active) .nav-ico{background:rgba(255,255,255,.5);}
 .nav-label{font-size:10px;font-weight:700;color:#884400;}
 .nav-item.active .nav-label{color:#CC4400;}
-.nav-item:active .nav-ico{transform:scale(.88);}
+.nav-item:active .nav-ico{transform:scale(.85);}
 
-/* ── SEE ALL ── */
+/* ══════════════════════════════════════
+   COMICS PAGE
+══════════════════════════════════════ */
 #pgSeeAll{background:#FFF5C0;}
-#seeAllContent{flex:1;overflow-y:auto;padding:14px;padding-bottom:20px;}
+#seeAllContent{flex:1;overflow-y:auto;padding-bottom:10px;}
 #seeAllContent::-webkit-scrollbar{width:0;}
-.all-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.cat-tabs{display:flex;background:white;padding:0 14px;gap:4px;border-bottom:2px solid rgba(255,200,0,.3);flex-shrink:0;}
+.cat-tab{flex-shrink:0;padding:12px 16px 10px;font-family:'Lilita One',cursive;font-size:14px;color:#aaa;background:transparent;border:none;cursor:pointer;position:relative;transition:color .2s;}
+.cat-tab.active{color:#FF4400;}
+.cat-tab.active::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:#FF4400;border-radius:3px 3px 0 0;}
+.all-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:14px 14px 10px;}
 .acard{background:white;border-radius:18px;overflow:hidden;box-shadow:0 5px 16px rgba(0,0,0,.1);cursor:pointer;border:2px solid rgba(255,200,0,.15);animation:cin .4s ease both;}
 .acard:active{transform:scale(.96);}
-/* Same thumbnail fix for See All cards */
-.acard-thumb{height:180px;position:relative;overflow:hidden;background:#FFD84D;}
+.acard-thumb{height:185px;position:relative;overflow:hidden;background:#FFB300;}
 .acard-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;}
 .acard-fb{position:absolute;inset:0;display:none;align-items:center;justify-content:center;font-size:44px;}
-.acard-ov{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(0,0,0,.4));}
-.acard-date{position:absolute;top:8px;right:8px;background:#FFE100;color:#8B1A00;font-size:9px;font-weight:800;padding:3px 8px;border-radius:10px;}
+.acard-ov{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 55%,rgba(0,0,0,.45));}
+.acard-lang{position:absolute;top:8px;left:8px;font-size:9px;font-weight:800;padding:3px 8px;border-radius:8px;}
+.acard-lang.hi{background:#138808;color:white;}
+.acard-lang.en{background:#003087;color:white;}
+.acard-date{position:absolute;top:8px;right:8px;background:#FFE100;color:#8B1A00;font-size:9px;font-weight:800;padding:3px 8px;border-radius:8px;}
 .acard-pages{position:absolute;bottom:8px;left:8px;background:rgba(0,0,0,.55);color:white;font-size:9px;padding:2px 7px;border-radius:6px;}
+.acard-new{position:absolute;bottom:8px;right:8px;background:#FF3D00;color:white;font-size:9px;font-weight:800;padding:2px 7px;border-radius:6px;}
 .acard-info{padding:10px 12px 12px;}
 .acard-name{color:#2a0a00;font-size:13px;font-weight:800;line-height:1.3;margin-bottom:8px;}
 .aread-btn{width:100%;padding:9px;background:linear-gradient(135deg,#FF7700,#FF4400);color:white;border:none;border-radius:10px;font-family:'Lilita One',cursive;font-size:13px;box-shadow:0 4px 0 #CC3300;cursor:pointer;}
 .aread-btn:active{transform:translateY(3px);box-shadow:0 1px 0 #CC3300;}
+.no-comics{grid-column:1/-1;text-align:center;padding:50px 20px;color:#bbb;font-size:15px;font-weight:700;line-height:1.8;}
 
-/* ── OPENING OVERLAY ── */
+/* ══════════════════════════════════════
+   SETTINGS PAGE
+══════════════════════════════════════ */
+#pgSettings{background:#FFF5C0;}
+#settContent{flex:1;overflow-y:auto;padding:14px;padding-bottom:80px;}
+#settContent::-webkit-scrollbar{width:0;}
+.dev-card{background:linear-gradient(135deg,#FF7700,#FF4400);border-radius:20px;padding:20px;margin-bottom:18px;display:flex;align-items:center;gap:14px;box-shadow:0 6px 0 #CC3300,0 8px 20px rgba(255,100,0,.3);}
+.dev-avatar{width:62px;height:62px;border-radius:18px;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:30px;flex-shrink:0;border:2.5px solid rgba(255,255,255,.4);}
+.dev-name{font-family:'Lilita One',cursive;font-size:22px;color:white;text-shadow:1px 1px 0 rgba(0,0,0,.2);}
+.dev-role{font-size:11px;color:rgba(255,255,255,.85);font-weight:700;margin-top:2px;}
+.dev-ver{font-size:10px;color:rgba(255,255,255,.7);margin-top:5px;font-weight:700;background:rgba(0,0,0,.15);display:inline-block;padding:2px 10px;border-radius:10px;}
+.sett-sec-title{font-family:'Lilita One',cursive;font-size:12px;color:#888;letter-spacing:.8px;text-transform:uppercase;padding:0 2px 8px;}
+.sett-group{background:white;border-radius:16px;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,.08);margin-bottom:18px;border:2px solid rgba(255,200,0,.15);}
+.sett-card{display:flex;align-items:center;padding:14px 16px;border-bottom:1.5px solid rgba(0,0,0,.05);cursor:pointer;transition:background .15s;}
+.sett-card:last-child{border-bottom:none;}
+.sett-card:active{background:rgba(255,200,0,.1);}
+.sett-ico{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;margin-right:12px;}
+.sett-text{flex:1;}
+.sett-label{font-size:14px;font-weight:700;color:#333;}
+.sett-val{font-size:11px;color:#999;margin-top:2px;font-weight:600;}
+.sett-arrow{color:#ccc;font-size:16px;flex-shrink:0;}
+.toggle{width:48px;height:26px;background:#ddd;border-radius:13px;position:relative;cursor:pointer;transition:background .25s;flex-shrink:0;}
+.toggle.on{background:linear-gradient(135deg,#FF7700,#FF4400);}
+.toggle::after{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;background:white;border-radius:50%;transition:transform .25s;box-shadow:0 2px 4px rgba(0,0,0,.2);}
+.toggle.on::after{transform:translateX(22px);}
+
+/* ══════════════════════════════════════
+   OPENING OVERLAY
+══════════════════════════════════════ */
 #ov{display:none;position:fixed;inset:0;z-index:9999;background:linear-gradient(135deg,#FFD700,#FF8C00);flex-direction:column;align-items:center;justify-content:center;}
 #ov.show{display:flex;animation:fadeI .25s ease;}
 @keyframes fadeI{from{opacity:0}to{opacity:1}}
@@ -122,153 +197,459 @@ body{font-family:'Baloo 2',cursive;background:#FFD84D;}
 </head>
 <body>
 
-<!-- SPLASH: full image background, static (no bouncing), button works -->
+<!-- ══════ SPLASH ══════ -->
 <div id="pgSplash" class="page active">
   <img class="sp-base-img" src="./champak_splash.png" alt="">
   <div class="sp-btn-wrap">
     <button class="sp-start-btn" onclick="startApp()">
-      <span class="btn-star-ico">&#11088;</span>
-      &#2358;&#2369;&#2352;&#2369; &#2325;&#2352;&#2375;&#2306;
+      <span style="font-size:24px">⭐</span>
+      शुरु करें
     </button>
   </div>
 </div>
 
-<!-- HOME -->
+<!-- ══════ HOME ══════ -->
 <div id="pgHome" class="page">
+  <div class="home-hdr">
+    <div class="hdr-icon-box">
+      <svg width="46" height="46" viewBox="0 0 52 52" fill="none">
+        <rect width="52" height="52" rx="13" fill="url(#hig)"/>
+        <defs>
+          <linearGradient id="hig" x1="0" y1="0" x2="52" y2="52">
+            <stop offset="0%" stop-color="#FF9500"/>
+            <stop offset="100%" stop-color="#FF3D00"/>
+          </linearGradient>
+        </defs>
+        <g stroke="rgba(255,230,0,.9)" stroke-width="2.5" stroke-linecap="round">
+          <line x1="26" y1="5" x2="26" y2="10"/><line x1="26" y1="42" x2="26" y2="47"/>
+          <line x1="5" y1="26" x2="10" y2="26"/><line x1="42" y1="26" x2="47" y2="26"/>
+          <line x1="10" y1="10" x2="14" y2="14"/><line x1="38" y1="38" x2="42" y2="42"/>
+          <line x1="42" y1="10" x2="38" y2="14"/><line x1="10" y1="42" x2="14" y2="38"/>
+        </g>
+        <circle cx="26" cy="26" r="14" fill="rgba(255,240,100,.95)"/>
+        <text x="26" y="33" text-anchor="middle" font-family="'Baloo 2',sans-serif" font-size="17" font-weight="800" fill="#CC2200">च</text>
+      </svg>
+    </div>
+    <div style="flex:1">
+      <div class="hdr-title-row">
+        <span class="hdr-hi">चंपक</span>
+        <span class="hdr-en">Comics</span>
+      </div>
+      <div class="hdr-sub">🛡️ AD FREE • KIDS SAFE • FREE</div>
+    </div>
+    <button class="hdr-btn" id="refreshBtn" onclick="refreshPage()">🔄</button>
+  </div>
 
   <div id="homeContent">
-
-    <!-- Hero Banner: characters image -->
-    <div class="hero-banner" onclick="showPage('pgSeeAll')">
-      <div class="hero-inner" style="padding:0;min-height:160px;">
-        <img src="./champak_banner.png" alt="Champak Characters"
-             style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;border-radius:0;">
+    <!-- Character banner image -->
+    <div class="hero-banner" onclick="goComics('all')">
+      <div class="hero-img-wrap">
+        <img src="./champak_banner.png" alt="Champak Characters">
       </div>
       <div class="hero-foot">
-        <div class="hero-foot-txt">&#127775; Champak ki Duniya!</div>
-        <button class="hero-foot-btn" onclick="event.stopPropagation();showPage('pgSeeAll')">Read Comics &#8594;</button>
+        <div class="hero-foot-txt">🌟 Champak ki Duniya!</div>
+        <button class="hero-foot-btn" onclick="event.stopPropagation();goComics('all')">Read Comics →</button>
       </div>
     </div>
 
-    <!-- Library -->
-    <div class="sec-hdr">
-      <div class="sec-title">&#128218; Comics Library</div>
-      <button class="see-all-btn" onclick="showPage('pgSeeAll')">See All &#8594;</button>
+    <!-- Search -->
+    <div class="search-wrap">
+      <div class="search-bar">
+        <span>🔍</span>
+        <input type="text" id="homeSearch" placeholder="Comic dhundho..." oninput="doSearch(this.value)">
+      </div>
     </div>
-    <div class="lib-grid" id="libGrid"></div>
+
+    <!-- Hindi section -->
+    <div class="sec-hdr">
+      <div class="sec-title">🇮🇳 Hindi Comics</div>
+      <button class="see-all-btn" onclick="goComics('hi')">See All →</button>
+    </div>
+    <div class="lib-grid" id="libGridHi"></div>
+
+    <div style="height:14px;"></div>
+
+    <!-- English section -->
+    <div class="sec-hdr">
+      <div class="sec-title">🇬🇧 English Comics</div>
+      <button class="see-all-btn" onclick="goComics('en')">See All →</button>
+    </div>
+    <div class="lib-grid" id="libGridEn"></div>
     <div style="height:10px;"></div>
   </div>
 
   <div id="bottomNav">
-    <div class="nav-item active" onclick="setNav(this);showPage('pgHome')"><div class="nav-ico">&#127968;</div><div class="nav-label">Home</div></div>
-    <div class="nav-item" onclick="setNav(this);showPage('pgSeeAll')"><div class="nav-ico">&#128218;</div><div class="nav-label">Comics</div></div>
-    <div class="nav-item" onclick="setNav(this)"><div class="nav-ico">&#9881;&#65039;</div><div class="nav-label">More</div></div>
+    <div class="nav-item active" id="nav-home" onclick="setNav('home');showPage('pgHome')">
+      <div class="nav-ico">🏠</div><div class="nav-label">Home</div>
+    </div>
+    <div class="nav-item" id="nav-comics" onclick="setNav('comics');goComics('all')">
+      <div class="nav-ico">📚</div><div class="nav-label">Comics</div>
+    </div>
+    <div class="nav-item" id="nav-settings" onclick="setNav('settings');showPage('pgSettings')">
+      <div class="nav-ico">⚙️</div><div class="nav-label">Settings</div>
+    </div>
   </div>
 </div>
 
-<!-- SEE ALL -->
+<!-- ══════ COMICS PAGE ══════ -->
 <div id="pgSeeAll" class="page">
   <div class="app-hdr">
-    <button class="hdr-back" onclick="showPage('pgHome')">&#8592;</button>
+    <button class="hdr-back" onclick="showPage('pgHome');setNav('home')">←</button>
     <div style="flex:1">
       <div class="hdr-title-row">
-        <span class="hdr-hi">&#2330;&#2306;&#2346;&#2325;</span>
+        <span class="hdr-hi">चंपक</span>
         <span class="hdr-en">Comics</span>
       </div>
       <div class="hdr-sub" id="allCount"></div>
     </div>
   </div>
-  <div id="seeAllContent"><div class="all-grid" id="allGrid"></div><div style="height:20px;"></div></div>
+  <div class="cat-tabs">
+    <button class="cat-tab active" id="tab-all" onclick="switchTab('all')">📖 All</button>
+    <button class="cat-tab" id="tab-hi"  onclick="switchTab('hi')">🇮🇳 Hindi</button>
+    <button class="cat-tab" id="tab-en"  onclick="switchTab('en')">🇬🇧 English</button>
+  </div>
+  <div id="seeAllContent">
+    <div class="all-grid" id="allGrid"></div>
+    <div style="height:20px;"></div>
+  </div>
+</div>
+
+<!-- ══════ SETTINGS PAGE ══════ -->
+<div id="pgSettings" class="page">
+  <div class="app-hdr">
+    <button class="hdr-back" onclick="showPage('pgHome');setNav('home')">←</button>
+    <div style="flex:1">
+      <div class="hdr-title-row">
+        <span class="hdr-en" style="font-size:20px;">Settings</span>
+      </div>
+    </div>
+  </div>
+  <div id="settContent">
+
+    <!-- Developer card -->
+    <div class="dev-card">
+      <div class="dev-avatar">👨‍💻</div>
+      <div>
+        <div class="dev-name">Baadal</div>
+        <div class="dev-role">App Developer</div>
+        <div class="dev-ver">Champak Comics • v2.0</div>
+      </div>
+    </div>
+
+    <!-- Appearance -->
+    <div class="sett-sec-title">🎨 Appearance</div>
+    <div class="sett-group">
+      <div class="sett-card" onclick="toggleDark()">
+        <div class="sett-ico" style="background:#1a1a2e;">🌙</div>
+        <div class="sett-text">
+          <div class="sett-label">Dark Mode</div>
+          <div class="sett-val">Switch to dark theme</div>
+        </div>
+        <div class="toggle" id="darkToggle"></div>
+      </div>
+    </div>
+
+    <!-- App Info -->
+    <div class="sett-sec-title">ℹ️ App Info</div>
+    <div class="sett-group">
+      <div class="sett-card">
+        <div class="sett-ico" style="background:#FFF3CD;">📱</div>
+        <div class="sett-text">
+          <div class="sett-label">App Version</div>
+          <div class="sett-val">v2.0 — Latest</div>
+        </div>
+        <div class="sett-arrow" style="color:#22aa44;font-size:18px;">✓</div>
+      </div>
+      <div class="sett-card" onclick="goComics('all')">
+        <div class="sett-ico" style="background:#FFE0E0;">📚</div>
+        <div class="sett-text">
+          <div class="sett-label">Total Comics</div>
+          <div class="sett-val" id="totalComicsCount">Loading...</div>
+        </div>
+        <div class="sett-arrow">›</div>
+      </div>
+      <div class="sett-card">
+        <div class="sett-ico" style="background:#E0FFE8;">🛡️</div>
+        <div class="sett-text">
+          <div class="sett-label">Kid Safe</div>
+          <div class="sett-val">100% Ad-free &amp; safe for kids</div>
+        </div>
+        <div class="sett-arrow" style="color:#22aa44;font-size:18px;">✓</div>
+      </div>
+    </div>
+
+    <!-- About Developer -->
+    <div class="sett-sec-title">👨‍💻 About Developer</div>
+    <div class="sett-group">
+      <div class="sett-card">
+        <div class="sett-ico" style="background:#FFF0E0;">🧑‍🎨</div>
+        <div class="sett-text">
+          <div class="sett-label">Developed by</div>
+          <div class="sett-val">Baadal — Made with ❤️</div>
+        </div>
+      </div>
+      <div class="sett-card" onclick="openLink('https://github.com/coder0864-cell')">
+        <div class="sett-ico" style="background:#f0f0f0;">🐙</div>
+        <div class="sett-text">
+          <div class="sett-label">GitHub</div>
+          <div class="sett-val">coder0864-cell</div>
+        </div>
+        <div class="sett-arrow">›</div>
+      </div>
+    </div>
+
+    <!-- Contact / Feedback -->
+    <div class="sett-sec-title">📬 Contact &amp; Feedback</div>
+    <div class="sett-group">
+      <div class="sett-card" onclick="openLink('https://github.com/coder0864-cell/champak-app/issues')">
+        <div class="sett-ico" style="background:#E8F4FF;">🐛</div>
+        <div class="sett-text">
+          <div class="sett-label">Report a Bug</div>
+          <div class="sett-val">Found something wrong? Tell us!</div>
+        </div>
+        <div class="sett-arrow">›</div>
+      </div>
+      <div class="sett-card" onclick="openLink('https://github.com/coder0864-cell/champak-app/issues')">
+        <div class="sett-ico" style="background:#FFFFE0;">💡</div>
+        <div class="sett-text">
+          <div class="sett-label">Suggest a Feature</div>
+          <div class="sett-val">Ideas are always welcome!</div>
+        </div>
+        <div class="sett-arrow">›</div>
+      </div>
+    </div>
+
+    <div style="text-align:center;padding:10px 0 4px;color:#bbb;font-size:11px;font-weight:700;">
+      Made with ❤️ by Baadal &nbsp;•&nbsp; Champak Comics v2.0
+    </div>
+  </div>
 </div>
 
 <!-- Opening overlay -->
 <div id="ov">
-  <div style="font-size:64px">&#128214;</div>
+  <div style="font-size:64px">📖</div>
   <div class="ov-title">Comic khul rahi hai!</div>
   <div class="ov-sub">Ek second ruko...</div>
 </div>
 
 <script>
-// ═══════════════════════════════
-//  COMICS — YAHAN ADD KARO
-// ═══════════════════════════════
-var COMICS=[
+// ═══════════════════════════════════════════════════
+//  📚 COMICS LIST — YAHAN ADD KARO
+//
+//  HINDI comic add karne ke liye:   lang: "hi"
+//  ENGLISH comic add karne ke liye: lang: "en"
+//  NEW badge lagane ke liye:        isNew: true
+// ═══════════════════════════════════════════════════
+var COMICS = [
   {
-    id:1,
-    name:"Champak Hindi - Sep 2019",
-    flipUrl:"https://online.fliphtml5.com/ufmtz/dtjr/",
-    pages:50,
-    date:"Sep 2019",
-    catColor:"#00AA33"
+    id: 1,
+    name: "Champak Hindi - Sep 2019",
+    lang: "hi",
+    isNew: false,
+    flipUrl: "https://online.fliphtml5.com/ufmtz/dtjr/",
+    pages: 50,
+    date: "Sep 2019"
   }
+  // ── ISKE NEECHE AUR COMICS ADD KARO ──
+  // {
+  //   id: 2,
+  //   name: "Champak English - Oct 2019",
+  //   lang: "en",
+  //   isNew: true,
+  //   flipUrl: "https://online.fliphtml5.com/XXXXX/YYYY/",
+  //   pages: 48,
+  //   date: "Oct 2019"
+  // },
 ];
-// ═══════════════════════════════
+// ═══════════════════════════════════════════════════
 
-var COLORS=['#FF6B00','#0066CC','#009944','#8B00CC','#CC6600','#CC0000','#007788'];
+var COLORS = ['#FF6B00','#0066CC','#009944','#8B00CC','#CC6600','#CC0000','#007788'];
+var currentTab = 'all';
+var darkMode = false;
 
-function thumb(c){
-  if(c.thumbUrl) return c.thumbUrl;
-  // Use a wider crop (crop/800) to get more of the cover
-  return 'https://image.thum.io/get/width/400/crop/550/noanimate/viewportWidth/400/'+c.flipUrl;
+/* thumbnail URL */
+function thumb(c) {
+  if (c.thumbUrl) return c.thumbUrl;
+  return c.flipUrl.replace(/\/$/, '') + '/files/large/1.jpg';
 }
-function fbFix(col){
-  return "this.style.display='none';var f=this.nextElementSibling;f.style.display='flex';f.style.background='"+col+"';";
+
+/* image fallback if cover fails */
+function onThumbErr(img, flipUrl, col) {
+  img.onerror = null;
+  img.src = 'https://image.thum.io/get/width/400/crop/500/noanimate/' + flipUrl;
+  img.onerror = function() {
+    img.style.display = 'none';
+    var fb = img.nextElementSibling;
+    while(fb && !fb.classList.contains('lcard-fb') && !fb.classList.contains('acard-fb')) fb = fb.nextElementSibling;
+    if (fb) { fb.style.display = 'flex'; fb.style.background = col; }
+  };
 }
 
-function startApp(){
-  var sp=document.getElementById('pgSplash');
-  sp.style.opacity='0';
-  setTimeout(function(){
-    sp.style.display='none';
+/* ── START ── */
+function startApp() {
+  var sp = document.getElementById('pgSplash');
+  sp.style.opacity = '0';
+  setTimeout(function() {
+    sp.style.display = 'none';
     renderHome();
-    showPage(window.location.hash==='#comics'?'pgSeeAll':'pgHome');
-  },820);
+    showPage('pgHome');
+    updateSettingsStats();
+  }, 820);
 }
 
-function renderHome(){
-  var el=document.getElementById('libGrid'); el.innerHTML='';
-  COMICS.slice().sort(function(a,b){return a.id-b.id;}).forEach(function(c,i){
-    var col=COLORS[i%COLORS.length],d=document.createElement('div');
-    d.className='lcard'; d.style.animationDelay=(i*.08)+'s';
-    d.innerHTML=
-      '<div class="lcard-thumb">'+
-        '<img src="'+thumb(c)+'" loading="lazy" onerror="'+fbFix(col)+'">'+
-        '<div class="lcard-fb">&#128213;</div>'+
-      '</div>'+
-      '<div class="lcard-info">'+
-        '<div class="lcard-name">'+c.name+'</div>'+
-        '<button class="lread-btn">Read Now</button>'+
+function updateSettingsStats() {
+  var hi = COMICS.filter(function(c){ return c.lang==='hi'; }).length;
+  var en = COMICS.filter(function(c){ return c.lang==='en'; }).length;
+  var el = document.getElementById('totalComicsCount');
+  if (el) el.textContent = COMICS.length + ' total (' + hi + ' Hindi, ' + en + ' English)';
+}
+
+/* ── RENDER HOME ── */
+function renderHome(filter) {
+  var q = filter ? filter.toLowerCase().trim() : null;
+  var hi = COMICS.filter(function(c){ return c.lang==='hi' && (!q || c.name.toLowerCase().indexOf(q)>-1); });
+  var en = COMICS.filter(function(c){ return c.lang==='en' && (!q || c.name.toLowerCase().indexOf(q)>-1); });
+  renderLibGrid('libGridHi', hi.slice(0, 4));
+  renderLibGrid('libGridEn', en.slice(0, 4));
+}
+
+function renderLibGrid(elId, list) {
+  var el = document.getElementById(elId); el.innerHTML = '';
+  if (!list.length) {
+    el.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:18px;color:#bbb;font-size:13px;font-weight:700;">Abhi koi comic nahi 😊</div>';
+    return;
+  }
+  list.forEach(function(c, i) {
+    var col = COLORS[i % COLORS.length];
+    var d = document.createElement('div');
+    d.className = 'lcard'; d.style.animationDelay = (i * .08) + 's';
+    var langBadge = c.lang === 'hi'
+      ? '<span class="lcard-badge badge-hi badge-left">हिंदी</span>'
+      : '<span class="lcard-badge badge-en badge-left">ENG</span>';
+    var newBadge = c.isNew ? '<span class="lcard-badge badge-new badge-right">NEW</span>' : '';
+    d.innerHTML =
+      '<div class="lcard-thumb">' +
+        '<img src="' + thumb(c) + '" loading="lazy" onerror="onThumbErr(this,\'' + c.flipUrl + '\',\'' + col + '\')">' +
+        langBadge + newBadge +
+        '<div class="lcard-fb">📕</div>' +
+      '</div>' +
+      '<div class="lcard-info">' +
+        '<div class="lcard-name">' + c.name + '</div>' +
+        '<button class="lread-btn">Read Now</button>' +
       '</div>';
-    d.onclick=function(){openComic(c);}; el.appendChild(d);
+    d.onclick = function(){ openComic(c); };
+    el.appendChild(d);
   });
 }
 
-function renderSeeAll(){
-  var el=document.getElementById('allGrid'); el.innerHTML='';
-  document.getElementById('allCount').textContent=COMICS.length+' comics available';
-  COMICS.slice().sort(function(a,b){return b.id-a.id;}).forEach(function(c,i){
-    var col=COLORS[i%COLORS.length],d=document.createElement('div');
-    d.className='acard'; d.style.animationDelay=(i*.08)+'s';
-    d.innerHTML=
-      '<div class="acard-thumb">'+
-        '<img src="'+thumb(c)+'" loading="lazy" onerror="'+fbFix(col)+'">'+
-        '<div class="acard-fb" style="background:'+col+'">&#128213;</div>'+
-        '<div class="acard-ov"></div>'+
-        (c.date?'<div class="acard-date">&#128197; '+c.date+'</div>':'')+
-        (c.pages?'<div class="acard-pages">'+c.pages+' pages</div>':'')+
-      '</div>'+
-      '<div class="acard-info">'+
-        '<div class="acard-name">'+c.name+'</div>'+
-        '<button class="aread-btn">&#128214; Read Now</button>'+
+/* ── SEARCH ── */
+function doSearch(val) {
+  renderHome(val || null);
+}
+
+/* ── RENDER SEE ALL ── */
+function renderSeeAll(tab) {
+  tab = tab || currentTab;
+  var list = COMICS.filter(function(c) {
+    if (tab === 'hi') return c.lang === 'hi';
+    if (tab === 'en') return c.lang === 'en';
+    return true;
+  }).sort(function(a,b){ return b.id - a.id; });
+
+  var hi = COMICS.filter(function(c){ return c.lang==='hi'; }).length;
+  var en = COMICS.filter(function(c){ return c.lang==='en'; }).length;
+  document.getElementById('allCount').textContent = hi + ' Hindi • ' + en + ' English • Total ' + COMICS.length;
+
+  var el = document.getElementById('allGrid'); el.innerHTML = '';
+  if (!list.length) {
+    el.innerHTML = '<div class="no-comics">Abhi koi comic nahi hai 😊<br><small style="font-size:12px;color:#ccc;">Jald aayegi!</small></div>';
+    return;
+  }
+  list.forEach(function(c, i) {
+    var col = COLORS[i % COLORS.length];
+    var d = document.createElement('div');
+    d.className = 'acard'; d.style.animationDelay = (i * .07) + 's';
+    d.innerHTML =
+      '<div class="acard-thumb">' +
+        '<img src="' + thumb(c) + '" loading="lazy" onerror="onThumbErr(this,\'' + c.flipUrl + '\',\'' + col + '\')">' +
+        '<div class="acard-fb" style="background:' + col + '">📕</div>' +
+        '<div class="acard-ov"></div>' +
+        '<span class="acard-lang ' + c.lang + '">' + (c.lang==='hi' ? 'हिंदी' : 'ENG') + '</span>' +
+        (c.date ? '<div class="acard-date">📅 ' + c.date + '</div>' : '') +
+        (c.pages ? '<div class="acard-pages">' + c.pages + ' pages</div>' : '') +
+        (c.isNew ? '<div class="acard-new">NEW ✨</div>' : '') +
+      '</div>' +
+      '<div class="acard-info">' +
+        '<div class="acard-name">' + c.name + '</div>' +
+        '<button class="aread-btn">📖 Read Now</button>' +
       '</div>';
-    d.onclick=function(){openComic(c);}; el.appendChild(d);
+    d.onclick = function(){ openComic(c); };
+    el.appendChild(d);
   });
 }
 
-function openComic(c){document.getElementById('ov').classList.add('show');setTimeout(function(){window.location.href=c.flipUrl;},1000);}
-function showPage(id){document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});document.getElementById(id).classList.add('active');if(id==='pgSeeAll')renderSeeAll();}
-function setNav(el){document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});el.classList.add('active');}
-function refreshPage(){var b=document.getElementById('refreshBtn');b.classList.add('spin');setTimeout(function(){b.classList.remove('spin');renderHome();},700);}
+/* ── TAB SWITCH ── */
+function switchTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.cat-tab').forEach(function(t){ t.classList.remove('active'); });
+  document.getElementById('tab-' + tab).classList.add('active');
+  renderSeeAll(tab);
+}
+
+/* ── GO TO COMICS ── */
+function goComics(tab) {
+  currentTab = tab || 'all';
+  showPage('pgSeeAll');
+  setNav('comics');
+  setTimeout(function(){ switchTab(currentTab); }, 40);
+}
+
+/* ── OPEN COMIC ── */
+function openComic(c) {
+  document.getElementById('ov').classList.add('show');
+  setTimeout(function(){ window.location.href = c.flipUrl; }, 1000);
+}
+
+/* ── DARK MODE ── */
+function toggleDark() {
+  darkMode = !darkMode;
+  document.body.classList.toggle('dark', darkMode);
+  document.getElementById('darkToggle').classList.toggle('on', darkMode);
+  try{ localStorage.setItem('champak_dark', darkMode ? '1' : '0'); }catch(e){}
+}
+
+/* ── NAV ── */
+function setNav(name) {
+  document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('active'); });
+  var el = document.getElementById('nav-' + name);
+  if (el) el.classList.add('active');
+}
+
+/* ── SHOW PAGE ── */
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+}
+
+/* ── REFRESH ── */
+function refreshPage() {
+  var b = document.getElementById('refreshBtn');
+  b.classList.add('spin');
+  setTimeout(function(){ b.classList.remove('spin'); renderHome(); }, 700);
+}
+
+/* ── OPEN LINK ── */
+function openLink(url) { window.location.href = url; }
+
+/* ── RESTORE DARK MODE on load ── */
+(function() {
+  try {
+    if (localStorage.getItem('champak_dark') === '1') {
+      darkMode = true;
+      document.body.classList.add('dark');
+    }
+  } catch(e){}
+})();
 </script>
 </body>
 </html>
