@@ -6,220 +6,398 @@
 <title>Champak Comics</title>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800&family=Lilita+One&display=swap" rel="stylesheet">
 <style>
-/* ══════════════════════════════════════
-   BASE
-══════════════════════════════════════ */
+/* ═══ BASE ═══ */
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;overflow:hidden;}
-body{font-family:'Baloo 2',cursive;background:#FFD84D;transition:background .3s;}
+body{font-family:'Baloo 2',cursive;background:var(--bg);color:var(--text);transition:background .3s,color .3s;}
+:root{
+  --primary:#FFD700;--primary2:#FFC200;--border:#E8A800;
+  --accent:#FF6B00;--accent2:#FF4400;--shadow:#CC3300;
+  --bg:#FFF5C0;--nav:#FFE566;--card:#fff;--text:#333;--sub:#888;
+  --hdr-hi:#CC2200;--hdr-en:#884400;--hdr-sub:#886600;
+  --tab-active:#FF4400;--streak:#FF6B00;
+}
+/* ── THEMES ── */
+body.theme-blue{--primary:#4FC3F7;--primary2:#0288D1;--border:#0277BD;--accent:#1565C0;--accent2:#0D47A1;--shadow:#01579B;--bg:#E3F2FD;--nav:#B3E5FC;--hdr-hi:#0D47A1;--hdr-en:#1565C0;--hdr-sub:#1976D2;--tab-active:#1565C0;--streak:#1565C0;}
+body.theme-green{--primary:#A5D6A7;--primary2:#43A047;--border:#2E7D32;--accent:#1B5E20;--accent2:#33691E;--shadow:#1B5E20;--bg:#E8F5E9;--nav:#C8E6C9;--hdr-hi:#1B5E20;--hdr-en:#2E7D32;--hdr-sub:#388E3C;--tab-active:#2E7D32;--streak:#2E7D32;}
+body.theme-purple{--primary:#CE93D8;--primary2:#8E24AA;--border:#6A1B9A;--accent:#4A148C;--accent2:#6A1B9A;--shadow:#4A148C;--bg:#F3E5F5;--nav:#E1BEE7;--hdr-hi:#4A148C;--hdr-en:#6A1B9A;--hdr-sub:#7B1FA2;--tab-active:#6A1B9A;--streak:#6A1B9A;}
+body.theme-pink{--primary:#F48FB1;--primary2:#E91E63;--border:#C2185B;--accent:#880E4F;--accent2:#AD1457;--shadow:#880E4F;--bg:#FCE4EC;--nav:#F8BBD0;--hdr-hi:#880E4F;--hdr-en:#C2185B;--hdr-sub:#D81B60;--tab-active:#C2185B;--streak:#C2185B;}
+/* ── DARK MODE ── */
+body.dark{--bg:#12121e;--card:#1e1e30;--text:#e8e0ff;--sub:#888;--nav:#1e1e30;--border:#333358;}
+body.dark .app-hdr,body.dark .home-hdr{background:linear-gradient(135deg,#1e1e30,#12121e)!important;border-bottom-color:#333358!important;}
+body.dark .cat-tabs,body.dark .sett-group,body.dark .lcard,body.dark .acard,body.dark .fav-card{background:#1e1e30!important;border-color:#333358!important;}
+body.dark #bottomNav{background:linear-gradient(180deg,#1e1e30,#12121e)!important;border-top-color:#333358!important;}
+body.dark .nav-item:not(.active) .nav-ico{background:rgba(255,255,255,.08)!important;}
+body.dark .nav-label{color:#888!important;}
+body.dark .search-bar{background:#1e1e30!important;border-color:#333358!important;}
+body.dark .search-bar input{color:var(--text)!important;}
+body.dark .streak-bar{background:#1e1e30!important;}
+body.dark .sett-card{background:#1e1e30!important;border-color:#333358!important;}
+body.dark .sett-label{color:#e8e0ff!important;}
+body.dark .fb-form{background:#1e1e30!important;}
+body.dark .fb-input,body.dark .fb-textarea{background:#12121e!important;color:#e8e0ff!important;border-color:#333358!important;}
+body.dark .dev-section{background:#1e1e30!important;border-color:#333358!important;}
+body.dark .dev-comic-row{background:#12121e!important;border-color:#333358!important;}
+body.dark .dev-input{background:#12121e!important;color:#e8e0ff!important;border-color:#333358!important;}
+body.dark .acard-name,body.dark .lcard-name,body.dark .fav-name{color:#e8e0ff!important;}
+body.dark .sec-title{color:#e8e0ff!important;}
+body.dark .xp-bar-bg{background:#333358!important;}
+
 .page{display:none;position:fixed;inset:0;flex-direction:column;}
 .page.active{display:flex;}
-
-/* ── DARK MODE ── */
-body.dark{background:#1a1a2e;}
-body.dark #pgHome,body.dark #pgSeeAll,body.dark #pgSettings{background:#1a1a2e;}
-body.dark #homeContent,body.dark #seeAllContent,body.dark #settContent{background:#1a1a2e;}
-body.dark .home-hdr,body.dark .app-hdr{background:linear-gradient(135deg,#252540,#1a1a2e);border-bottom-color:#353560;}
-body.dark .hdr-hi{color:#FFD700;}
-body.dark .hdr-en{color:#aaa;}
-body.dark .hdr-sub{color:#777;}
-body.dark .hdr-back,body.dark .hdr-btn{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);color:#FFD700;}
-body.dark .sec-title{color:#FFD700;}
-body.dark .lcard,body.dark .acard{background:#252540;border-color:rgba(255,200,0,.1);}
-body.dark .lcard-name,body.dark .acard-name{color:#e8e0ff;}
-body.dark #bottomNav{background:linear-gradient(180deg,#252540,#1a1a2e);border-top-color:#353560;}
-body.dark .nav-label{color:#888;}
-body.dark .nav-item:not(.active) .nav-ico{background:rgba(255,255,255,.08);}
-body.dark .cat-tabs{background:#252540;border-bottom-color:#353560;}
-body.dark .cat-tab{color:#888;}
-body.dark .cat-tab.active{color:#FFD700;}
-body.dark .cat-tab.active::after{background:#FFD700;}
-body.dark .sett-card{background:#252540;border-color:#353560;}
-body.dark .sett-label{color:#e8e0ff;}
-body.dark .sett-val{color:#888;}
-body.dark .sett-sec-title{color:#FFD700;}
-body.dark .sett-group{background:#252540;border-color:#353560;}
-body.dark .sett-card{border-bottom-color:#353560;}
-body.dark .sett-card:active{background:rgba(255,215,0,.06);}
-body.dark .search-bar{background:#252540;border-color:#353560;}
-body.dark .search-bar input{color:#e8e0ff;}
-body.dark .search-bar input::placeholder{color:#666;}
-body.dark .no-comics{color:#666;}
-
-/* ══════════════════════════════════════
-   SPLASH
-══════════════════════════════════════ */
-#pgSplash{transition:opacity .8s;z-index:999;overflow:hidden;background:#ffd84d;}
-.sp-base-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:1;display:block;}
-.sp-btn-wrap{position:absolute;bottom:22%;left:50%;transform:translateX(-50%);z-index:10;width:70%;max-width:280px;}
-.sp-start-btn{width:100%;padding:15px 20px;background:linear-gradient(180deg,#FFAA00 0%,#FF6A00 55%,#E84500 100%);color:white;font-family:'Baloo 2',cursive;font-size:25px;font-weight:800;border:none;border-radius:50px;cursor:pointer;box-shadow:0 6px 0 #A03000,0 9px 22px rgba(180,60,0,.45),inset 0 2px 0 rgba(255,210,100,.5);display:flex;align-items:center;justify-content:center;gap:10px;position:relative;overflow:hidden;animation:btnGlow 2s ease-in-out infinite;transition:transform .1s,box-shadow .1s;}
-@keyframes btnGlow{0%,100%{box-shadow:0 6px 0 #A03000,0 9px 22px rgba(180,60,0,.4),inset 0 2px 0 rgba(255,210,100,.5);}50%{box-shadow:0 6px 0 #A03000,0 14px 34px rgba(255,110,0,.7),inset 0 2px 0 rgba(255,210,100,.5);}}
-.sp-start-btn::after{content:'';position:absolute;top:0;left:-80%;width:55%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.38),transparent);animation:shimmer 2.6s ease-in-out infinite;}
-@keyframes shimmer{0%{left:-80%}65%,100%{left:140%}}
-.sp-start-btn:active{transform:translateY(4px);box-shadow:0 2px 0 #A03000,0 3px 6px rgba(180,60,0,.3),inset 0 2px 0 rgba(255,210,100,.5);}
-
-/* ══════════════════════════════════════
-   SHARED HEADER
-══════════════════════════════════════ */
-.app-hdr,.home-hdr{background:linear-gradient(135deg,#FFD700,#FFC200);padding:10px 14px;display:flex;align-items:center;gap:10px;border-bottom:3px solid #E8A800;box-shadow:0 3px 12px rgba(200,150,0,.3);flex-shrink:0;}
-.hdr-icon-box{flex-shrink:0;width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;overflow:hidden;border:2.5px solid #E8A800;box-shadow:0 3px 10px rgba(0,0,0,.15);}
-.hdr-hi{font-family:'Baloo 2',cursive;font-size:21px;font-weight:800;color:#CC2200;line-height:1;text-shadow:1px 1px 0 rgba(255,255,255,.5);}
-.hdr-en{font-family:'Lilita One',cursive;font-size:21px;color:#884400;line-height:1;text-shadow:1px 1px 0 rgba(255,255,255,.5);}
-.hdr-title-row{display:flex;align-items:baseline;gap:4px;}
-.hdr-sub{font-size:9px;color:#886600;font-weight:700;letter-spacing:.5px;margin-top:1px;}
-.hdr-btn{background:rgba(255,255,255,.4);border:2px solid rgba(255,255,255,.6);color:#884400;width:36px;height:36px;border-radius:11px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.hdr-back{background:rgba(255,255,255,.4);border:2px solid rgba(255,255,255,.6);color:#884400;width:36px;height:36px;border-radius:11px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.hdr-btn.spin{animation:spin .6s linear;}
+@keyframes cin{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pop{0%{transform:scale(0)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 @keyframes spin{to{transform:rotate(360deg)}}
-@keyframes cin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes shimmer{0%{left:-80%}65%,100%{left:140%}}
+@keyframes btnGlow{0%,100%{box-shadow:0 6px 0 #A03000,0 9px 22px rgba(180,60,0,.4)}50%{box-shadow:0 6px 0 #A03000,0 14px 34px rgba(255,110,0,.7)}}
+@keyframes confettiFall{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
+@keyframes badgePop{0%{transform:translateY(100px);opacity:0}20%{transform:translateY(0);opacity:1}80%{transform:translateY(0);opacity:1}100%{transform:translateY(100px);opacity:0}}
+@keyframes streakPop{0%{transform:scale(0) rotate(-10deg)}60%{transform:scale(1.15) rotate(3deg)}100%{transform:scale(1) rotate(0)}}
 
-/* ══════════════════════════════════════
-   HOME
-══════════════════════════════════════ */
-#pgHome{background:#FFF5C0;}
+/* ═══ SPLASH ═══ */
+#pgSplash{transition:opacity .8s;z-index:999;overflow:hidden;background:#ffd84d;}
+.sp-base-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:1;}
+.sp-btn-wrap{position:absolute;bottom:22%;left:50%;transform:translateX(-50%);z-index:10;width:72%;max-width:290px;}
+.sp-start-btn{width:100%;padding:15px 20px;background:linear-gradient(180deg,#FFAA00,#FF6A00 55%,#E84500);color:#fff;font-family:'Baloo 2',cursive;font-size:25px;font-weight:800;border:none;border-radius:50px;cursor:pointer;box-shadow:0 6px 0 #A03000;display:flex;align-items:center;justify-content:center;gap:10px;position:relative;overflow:hidden;animation:btnGlow 2s ease-in-out infinite;}
+.sp-start-btn::after{content:'';position:absolute;top:0;left:-80%;width:55%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.38),transparent);animation:shimmer 2.6s ease-in-out infinite;}
+.sp-start-btn:active{transform:translateY(4px);}
+
+/* ═══ ONBOARDING ═══ */
+#pgOnboard{background:linear-gradient(160deg,#FFE566,#FFD000 50%,#8DC42A);align-items:center;justify-content:center;flex-direction:column;gap:16px;padding:30px;}
+.ob-emoji{font-size:72px;animation:bounce 2s ease-in-out infinite;}
+.ob-title{font-family:'Lilita One',cursive;font-size:28px;color:#CC2200;text-align:center;text-shadow:2px 2px 0 rgba(255,255,255,.5);}
+.ob-sub{font-size:15px;color:#665500;font-weight:700;text-align:center;}
+.ob-input{width:100%;max-width:300px;padding:14px 18px;border-radius:16px;border:3px solid #E8A800;font-family:'Baloo 2',cursive;font-size:18px;font-weight:700;color:#333;outline:none;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.1);}
+.ob-btn{width:100%;max-width:300px;padding:14px;background:linear-gradient(135deg,#FF7700,#FF4400);color:#fff;font-family:'Lilita One',cursive;font-size:20px;border:none;border-radius:16px;box-shadow:0 5px 0 #CC3300;cursor:pointer;}
+.ob-btn:active{transform:translateY(3px);box-shadow:0 2px 0 #CC3300;}
+
+/* ═══ HEADER ═══ */
+.app-hdr,.home-hdr{background:linear-gradient(135deg,var(--primary),var(--primary2));padding:10px 14px;display:flex;align-items:center;gap:10px;border-bottom:3px solid var(--border);box-shadow:0 3px 12px rgba(0,0,0,.15);flex-shrink:0;}
+.hdr-icon-box{flex-shrink:0;width:44px;height:44px;border-radius:12px;overflow:hidden;border:2.5px solid var(--border);box-shadow:0 3px 8px rgba(0,0,0,.15);cursor:pointer;}
+.hdr-hi{font-family:'Baloo 2',cursive;font-size:20px;font-weight:800;color:var(--hdr-hi);line-height:1;}
+.hdr-en{font-family:'Lilita One',cursive;font-size:20px;color:var(--hdr-en);line-height:1;}
+.hdr-title-row{display:flex;align-items:baseline;gap:4px;}
+.hdr-sub{font-size:9px;color:var(--hdr-sub);font-weight:700;letter-spacing:.4px;margin-top:1px;}
+.hdr-greeting{font-size:11px;color:var(--hdr-en);font-weight:800;margin-top:1px;}
+.hdr-btn{background:rgba(255,255,255,.4);border:2px solid rgba(255,255,255,.6);color:var(--hdr-en);width:36px;height:36px;border-radius:11px;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.hdr-back{background:rgba(255,255,255,.4);border:2px solid rgba(255,255,255,.6);color:var(--hdr-en);width:36px;height:36px;border-radius:11px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.hdr-btn.spin{animation:spin .6s linear;}
+
+/* ═══ HOME ═══ */
+#pgHome{background:var(--bg);}
 #homeContent{flex:1;overflow-y:auto;padding-bottom:76px;}
 #homeContent::-webkit-scrollbar{width:0;}
 
+/* Announcement */
+.ann-bar{background:linear-gradient(135deg,#FF7700,#FF4400);padding:9px 14px;display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.ann-bar span{font-size:12px;font-weight:800;color:#fff;flex:1;}
+.ann-close{background:rgba(255,255,255,.25);border:none;color:#fff;width:22px;height:22px;border-radius:6px;font-size:12px;cursor:pointer;flex-shrink:0;}
+
+/* Streak/XP bar */
+.streak-bar{background:white;margin:10px 14px 0;border-radius:14px;padding:10px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.08);border:2px solid rgba(255,200,0,.2);}
+.streak-fire{font-size:22px;flex-shrink:0;}
+.streak-info{flex:1;}
+.streak-title{font-size:12px;font-weight:800;color:var(--text);}
+.streak-sub{font-size:10px;color:var(--sub);font-weight:600;}
+.xp-wrap{display:flex;align-items:center;gap:6px;}
+.xp-label{font-size:10px;font-weight:800;color:var(--accent);}
+.xp-bar-bg{height:6px;width:70px;background:#eee;border-radius:3px;overflow:hidden;}
+.xp-bar-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:3px;transition:width .4s;}
+
 /* Banner */
-.hero-banner{margin:12px 14px 10px;border-radius:20px;overflow:hidden;border:3px solid #E8A800;box-shadow:0 5px 0 #C89800,0 7px 18px rgba(200,160,0,.3);cursor:pointer;}
-.hero-img-wrap{height:155px;overflow:hidden;position:relative;background:#FFB300;}
-.hero-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;}
+.hero-banner{margin:10px 14px 8px;border-radius:18px;overflow:hidden;border:3px solid var(--border);box-shadow:0 5px 0 rgba(0,0,0,.15);cursor:pointer;}
+.hero-img-wrap{height:150px;overflow:hidden;background:#FFB300;}
+.hero-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:center;}
 .hero-foot{background:linear-gradient(135deg,#4A9A18,#5BB320);padding:9px 14px;display:flex;align-items:center;justify-content:space-between;}
-.hero-foot-txt{font-family:'Baloo 2',cursive;font-size:13px;font-weight:800;color:white;text-shadow:1px 1px 0 rgba(0,0,0,.2);}
+.hero-foot-txt{font-size:13px;font-weight:800;color:#fff;}
 .hero-foot-btn{background:#FFE100;color:#6B3A00;font-family:'Lilita One',cursive;font-size:12px;padding:6px 14px;border:none;border-radius:10px;box-shadow:0 3px 0 #C8A800;cursor:pointer;}
 
+/* Comic of the Day */
+.cotd-wrap{margin:0 14px 8px;}
+.cotd-label{font-family:'Lilita One',cursive;font-size:13px;color:var(--accent);margin-bottom:6px;display:flex;align-items:center;gap:5px;}
+.cotd-card{background:linear-gradient(135deg,#FF7700,#FF4400);border-radius:16px;padding:12px;display:flex;align-items:center;gap:12px;box-shadow:0 4px 0 #CC3300;cursor:pointer;}
+.cotd-thumb{width:60px;height:75px;border-radius:10px;overflow:hidden;flex-shrink:0;background:#ffbb77;}
+.cotd-thumb img{width:100%;height:100%;object-fit:cover;object-position:center top;}
+.cotd-info{flex:1;}
+.cotd-title{font-size:13px;font-weight:800;color:#fff;line-height:1.3;margin-bottom:4px;}
+.cotd-sub{font-size:10px;color:rgba(255,255,255,.8);font-weight:700;}
+.cotd-btn{background:rgba(255,255,255,.25);border:2px solid rgba(255,255,255,.4);color:#fff;font-family:'Lilita One',cursive;font-size:11px;padding:6px 12px;border-radius:10px;cursor:pointer;white-space:nowrap;}
+
 /* Search */
-.search-wrap{padding:0 14px 10px;}
-.search-bar{display:flex;align-items:center;gap:8px;background:white;border-radius:14px;padding:10px 14px;border:2px solid #FFD84D;box-shadow:0 2px 8px rgba(0,0,0,.08);}
-.search-bar span{font-size:18px;flex-shrink:0;}
-.search-bar input{flex:1;border:none;outline:none;font-family:'Baloo 2',cursive;font-size:14px;font-weight:700;color:#333;background:transparent;}
+.search-wrap{padding:0 14px 8px;}
+.search-bar{display:flex;align-items:center;gap:8px;background:var(--card);border-radius:14px;padding:10px 14px;border:2px solid rgba(255,200,0,.3);box-shadow:0 2px 8px rgba(0,0,0,.07);}
+.search-bar span{font-size:17px;}
+.search-bar input{flex:1;border:none;outline:none;font-family:'Baloo 2',cursive;font-size:14px;font-weight:700;color:var(--text);background:transparent;}
 .search-bar input::placeholder{color:#bbb;font-weight:400;}
 
 /* Section header */
 .sec-hdr{display:flex;align-items:center;justify-content:space-between;padding:4px 14px 8px;}
-.sec-title{font-family:'Lilita One',cursive;font-size:16px;color:#333;}
-.see-all-btn{font-size:12px;color:#FF6B00;font-weight:700;background:rgba(255,107,0,.1);padding:4px 10px;border-radius:10px;cursor:pointer;border:none;font-family:'Baloo 2',cursive;}
+.sec-title{font-family:'Lilita One',cursive;font-size:16px;color:var(--text);}
+.see-all-btn{font-size:12px;color:var(--accent);font-weight:700;background:rgba(255,107,0,.1);padding:4px 10px;border-radius:10px;cursor:pointer;border:none;font-family:'Baloo 2',cursive;}
 
 /* Library cards */
 .lib-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:0 14px;}
-.lcard{background:white;border-radius:16px;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.12);cursor:pointer;border:2px solid rgba(255,200,0,.2);animation:cin .4s ease both;position:relative;}
+.lcard{background:var(--card);border-radius:16px;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.1);cursor:pointer;border:2px solid rgba(255,200,0,.15);animation:cin .4s ease both;position:relative;}
 .lcard:active{transform:scale(.95);}
-.lcard-thumb{height:160px;position:relative;overflow:hidden;background:#FFB300;}
-.lcard-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;}
+.lcard-thumb{height:155px;position:relative;overflow:hidden;background:linear-gradient(135deg,#FF9500,#FF6B00);}
+.lcard-thumb img{position:absolute;inset:-2px;width:calc(100% + 4px);height:calc(100% + 4px);object-fit:cover;object-position:center center;}
+.lcard-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 60%,rgba(0,0,0,.18));pointer-events:none;z-index:1;}
 .lcard-fb{position:absolute;inset:0;display:none;align-items:center;justify-content:center;font-size:32px;}
-.lcard-badge{position:absolute;top:8px;font-size:9px;font-weight:800;padding:3px 8px;border-radius:8px;z-index:2;}
-.badge-left{left:8px;}
-.badge-right{right:8px;}
-.badge-new{background:#FF3D00;color:white;}
-.badge-hi{background:#138808;color:white;}
-.badge-en{background:#003087;color:white;}
 .lcard-info{padding:8px 10px 10px;}
-.lcard-name{font-size:11px;font-weight:700;color:#333;line-height:1.3;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-.lread-btn{width:100%;padding:7px;background:linear-gradient(135deg,#FF7700,#FF4400);color:white;border:none;border-radius:10px;font-family:'Lilita One',cursive;font-size:12px;box-shadow:0 3px 0 #CC3300;cursor:pointer;}
-.lread-btn:active{transform:translateY(2px);box-shadow:0 1px 0 #CC3300;}
+.lcard-name{font-size:11px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.lread-btn{width:100%;padding:7px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;border-radius:10px;font-family:'Lilita One',cursive;font-size:12px;box-shadow:0 3px 0 var(--shadow);cursor:pointer;}
+.lread-btn:active{transform:translateY(2px);}
+/* Badges on cards */
+.cbadge{position:absolute;top:7px;font-size:9px;font-weight:800;padding:3px 7px;border-radius:7px;z-index:2;}
+.cbadge-left{left:7px;}
+.cbadge-right{right:7px;}
+.b-hi{background:#138808;color:#fff;}
+.b-en{background:#003087;color:#fff;}
+.b-new{background:#FF3D00;color:#fff;}
+.b-pin{background:#FFD700;color:#8B1A00;}
+.b-fav{background:rgba(255,255,255,.9);color:#e91e63;}
 
-/* ══════════════════════════════════════
-   BOTTOM NAV
-══════════════════════════════════════ */
-#bottomNav{position:fixed;bottom:0;left:0;right:0;height:70px;background:linear-gradient(180deg,#FFE566,#FFD700);border-top:3px solid #E8A800;display:flex;align-items:center;box-shadow:0 -4px 16px rgba(200,150,0,.25);z-index:50;}
-.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;padding:6px 4px;}
+/* ═══ BOTTOM NAV ═══ */
+#bottomNav{position:fixed;bottom:0;left:0;right:0;height:68px;background:linear-gradient(180deg,var(--nav),var(--primary));border-top:3px solid var(--border);display:flex;align-items:center;box-shadow:0 -4px 16px rgba(0,0,0,.15);z-index:50;}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;padding:5px 2px;position:relative;}
 .nav-ico{width:40px;height:40px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:19px;transition:transform .15s;}
-.nav-item.active .nav-ico{background:linear-gradient(135deg,#FF7700,#FF4400);box-shadow:0 4px 10px rgba(255,100,0,.4);}
+.nav-item.active .nav-ico{background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 4px 10px rgba(255,100,0,.35);}
 .nav-item:not(.active) .nav-ico{background:rgba(255,255,255,.5);}
-.nav-label{font-size:10px;font-weight:700;color:#884400;}
-.nav-item.active .nav-label{color:#CC4400;}
+.nav-label{font-size:10px;font-weight:700;color:var(--hdr-en);}
+.nav-item.active .nav-label{color:var(--accent2);}
 .nav-item:active .nav-ico{transform:scale(.85);}
+.nav-badge{position:absolute;top:2px;right:calc(50% - 24px);background:#FF3D00;color:#fff;font-size:8px;font-weight:800;min-width:16px;height:16px;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:0 3px;border:2px solid var(--bg);}
 
-/* ══════════════════════════════════════
-   COMICS PAGE
-══════════════════════════════════════ */
-#pgSeeAll{background:#FFF5C0;}
+/* ═══ COMICS PAGE ═══ */
+#pgSeeAll{background:var(--bg);}
 #seeAllContent{flex:1;overflow-y:auto;padding-bottom:10px;}
 #seeAllContent::-webkit-scrollbar{width:0;}
-.cat-tabs{display:flex;background:white;padding:0 14px;gap:4px;border-bottom:2px solid rgba(255,200,0,.3);flex-shrink:0;}
+.cat-tabs{display:flex;background:var(--card);padding:0 14px;border-bottom:2px solid rgba(255,200,0,.25);flex-shrink:0;}
 .cat-tab{flex-shrink:0;padding:12px 16px 10px;font-family:'Lilita One',cursive;font-size:14px;color:#aaa;background:transparent;border:none;cursor:pointer;position:relative;transition:color .2s;}
-.cat-tab.active{color:#FF4400;}
-.cat-tab.active::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:#FF4400;border-radius:3px 3px 0 0;}
+.cat-tab.active{color:var(--tab-active);}
+.cat-tab.active::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--tab-active);border-radius:3px 3px 0 0;}
 .all-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:14px 14px 10px;}
-.acard{background:white;border-radius:18px;overflow:hidden;box-shadow:0 5px 16px rgba(0,0,0,.1);cursor:pointer;border:2px solid rgba(255,200,0,.15);animation:cin .4s ease both;}
+.acard{background:var(--card);border-radius:18px;overflow:hidden;box-shadow:0 5px 16px rgba(0,0,0,.09);cursor:pointer;border:2px solid rgba(255,200,0,.12);animation:cin .4s ease both;position:relative;}
 .acard:active{transform:scale(.96);}
-.acard-thumb{height:185px;position:relative;overflow:hidden;background:#FFB300;}
-.acard-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;}
+.acard-thumb{height:180px;position:relative;overflow:hidden;background:linear-gradient(135deg,#FF9500,#FF6B00);}
+.acard-thumb img{position:absolute;inset:-2px;width:calc(100% + 4px);height:calc(100% + 4px);object-fit:cover;object-position:center center;}
 .acard-fb{position:absolute;inset:0;display:none;align-items:center;justify-content:center;font-size:44px;}
 .acard-ov{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 55%,rgba(0,0,0,.45));}
-.acard-lang{position:absolute;top:8px;left:8px;font-size:9px;font-weight:800;padding:3px 8px;border-radius:8px;}
-.acard-lang.hi{background:#138808;color:white;}
-.acard-lang.en{background:#003087;color:white;}
-.acard-date{position:absolute;top:8px;right:8px;background:#FFE100;color:#8B1A00;font-size:9px;font-weight:800;padding:3px 8px;border-radius:8px;}
-.acard-pages{position:absolute;bottom:8px;left:8px;background:rgba(0,0,0,.55);color:white;font-size:9px;padding:2px 7px;border-radius:6px;}
-.acard-new{position:absolute;bottom:8px;right:8px;background:#FF3D00;color:white;font-size:9px;font-weight:800;padding:2px 7px;border-radius:6px;}
 .acard-info{padding:10px 12px 12px;}
-.acard-name{color:#2a0a00;font-size:13px;font-weight:800;line-height:1.3;margin-bottom:8px;}
-.aread-btn{width:100%;padding:9px;background:linear-gradient(135deg,#FF7700,#FF4400);color:white;border:none;border-radius:10px;font-family:'Lilita One',cursive;font-size:13px;box-shadow:0 4px 0 #CC3300;cursor:pointer;}
-.aread-btn:active{transform:translateY(3px);box-shadow:0 1px 0 #CC3300;}
-.no-comics{grid-column:1/-1;text-align:center;padding:50px 20px;color:#bbb;font-size:15px;font-weight:700;line-height:1.8;}
+.acard-name{color:var(--text);font-size:13px;font-weight:800;line-height:1.3;margin-bottom:8px;}
+.aread-btn{width:100%;padding:9px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;border-radius:10px;font-family:'Lilita One',cursive;font-size:13px;box-shadow:0 4px 0 var(--shadow);cursor:pointer;}
+.aread-btn:active{transform:translateY(3px);}
+.no-items{grid-column:1/-1;text-align:center;padding:50px 20px;color:#bbb;font-size:15px;font-weight:700;line-height:1.8;}
+/* card metadata badges */
+.cm-date{position:absolute;top:8px;right:8px;background:#FFE100;color:#8B1A00;font-size:9px;font-weight:800;padding:3px 7px;border-radius:7px;}
+.cm-pages{position:absolute;bottom:8px;left:8px;background:rgba(0,0,0,.55);color:#fff;font-size:9px;padding:2px 6px;border-radius:5px;}
 
-/* ══════════════════════════════════════
-   SETTINGS PAGE
-══════════════════════════════════════ */
-#pgSettings{background:#FFF5C0;}
+/* ═══ FAVOURITES ═══ */
+#pgFavs{background:var(--bg);}
+#favsContent{flex:1;overflow-y:auto;padding:14px;padding-bottom:80px;}
+#favsContent::-webkit-scrollbar{width:0;}
+.fav-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.fav-card{background:var(--card);border-radius:16px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,.1);cursor:pointer;border:2px solid rgba(255,200,0,.15);animation:cin .4s ease both;position:relative;}
+.fav-card:active{transform:scale(.96);}
+.fav-thumb{height:150px;position:relative;overflow:hidden;background:linear-gradient(135deg,#FF9500,#FF6B00);}
+.fav-thumb img{position:absolute;inset:-2px;width:calc(100% + 4px);height:calc(100% + 4px);object-fit:cover;object-position:center center;}
+.fav-fb{position:absolute;inset:0;display:none;align-items:center;justify-content:center;font-size:32px;}
+.fav-name{font-size:11px;font-weight:700;color:var(--text);padding:7px 9px 4px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.fav-remove{width:calc(100% - 18px);margin:0 9px 9px;padding:6px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;border-radius:9px;font-family:'Lilita One',cursive;font-size:11px;cursor:pointer;box-shadow:0 2px 0 var(--shadow);}
+
+/* ═══ SETTINGS ═══ */
+#pgSettings{background:var(--bg);}
 #settContent{flex:1;overflow-y:auto;padding:14px;padding-bottom:80px;}
 #settContent::-webkit-scrollbar{width:0;}
-.dev-card{background:linear-gradient(135deg,#FF7700,#FF4400);border-radius:20px;padding:20px;margin-bottom:18px;display:flex;align-items:center;gap:14px;box-shadow:0 6px 0 #CC3300,0 8px 20px rgba(255,100,0,.3);}
-.dev-avatar{width:62px;height:62px;border-radius:18px;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:30px;flex-shrink:0;border:2.5px solid rgba(255,255,255,.4);}
-.dev-name{font-family:'Lilita One',cursive;font-size:22px;color:white;text-shadow:1px 1px 0 rgba(0,0,0,.2);}
+.dev-card{background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:20px;padding:18px;margin-bottom:18px;display:flex;align-items:center;gap:14px;box-shadow:0 6px 0 var(--shadow),0 8px 20px rgba(255,100,0,.25);}
+.dev-avatar{width:60px;height:60px;border-radius:16px;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;border:2.5px solid rgba(255,255,255,.4);}
+.dev-name{font-family:'Lilita One',cursive;font-size:22px;color:#fff;}
 .dev-role{font-size:11px;color:rgba(255,255,255,.85);font-weight:700;margin-top:2px;}
-.dev-ver{font-size:10px;color:rgba(255,255,255,.7);margin-top:5px;font-weight:700;background:rgba(0,0,0,.15);display:inline-block;padding:2px 10px;border-radius:10px;}
-.sett-sec-title{font-family:'Lilita One',cursive;font-size:12px;color:#888;letter-spacing:.8px;text-transform:uppercase;padding:0 2px 8px;}
-.sett-group{background:white;border-radius:16px;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,.08);margin-bottom:18px;border:2px solid rgba(255,200,0,.15);}
-.sett-card{display:flex;align-items:center;padding:14px 16px;border-bottom:1.5px solid rgba(0,0,0,.05);cursor:pointer;transition:background .15s;}
-.sett-card:last-child{border-bottom:none;}
-.sett-card:active{background:rgba(255,200,0,.1);}
-.sett-ico{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;margin-right:12px;}
+.dev-ver{font-size:10px;color:rgba(255,255,255,.7);margin-top:5px;background:rgba(0,0,0,.15);display:inline-block;padding:2px 10px;border-radius:8px;font-weight:700;}
+.sett-sec{font-family:'Lilita One',cursive;font-size:12px;color:#888;letter-spacing:.8px;text-transform:uppercase;padding:0 2px 8px;}
+.sett-group{background:var(--card);border-radius:16px;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,.07);margin-bottom:18px;border:2px solid rgba(255,200,0,.12);}
+.sett-row{display:flex;align-items:center;padding:13px 15px;border-bottom:1.5px solid rgba(0,0,0,.05);cursor:pointer;transition:background .15s;}
+.sett-row:last-child{border-bottom:none;}
+.sett-row:active{background:rgba(255,200,0,.08);}
+.sett-ico{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;margin-right:12px;}
 .sett-text{flex:1;}
-.sett-label{font-size:14px;font-weight:700;color:#333;}
-.sett-val{font-size:11px;color:#999;margin-top:2px;font-weight:600;}
-.sett-arrow{color:#ccc;font-size:16px;flex-shrink:0;}
-.toggle{width:48px;height:26px;background:#ddd;border-radius:13px;position:relative;cursor:pointer;transition:background .25s;flex-shrink:0;}
-.toggle.on{background:linear-gradient(135deg,#FF7700,#FF4400);}
-.toggle::after{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;background:white;border-radius:50%;transition:transform .25s;box-shadow:0 2px 4px rgba(0,0,0,.2);}
-.toggle.on::after{transform:translateX(22px);}
+.sett-label{font-size:14px;font-weight:700;color:var(--text);}
+.sett-val{font-size:11px;color:var(--sub);margin-top:2px;font-weight:600;}
+.sett-arrow{color:#ccc;font-size:16px;}
+/* Theme circles */
+.theme-row{padding:12px 15px;border-bottom:1.5px solid rgba(0,0,0,.05);}
+.theme-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px;}
+.theme-dots{display:flex;gap:12px;}
+.tdot{width:32px;height:32px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:transform .15s;}
+.tdot:active{transform:scale(.88);}
+.tdot.active{border-color:#333;box-shadow:0 0 0 2px #fff;}
+/* Toggle */
+.toggle{width:46px;height:25px;background:#ddd;border-radius:13px;position:relative;cursor:pointer;transition:background .25s;flex-shrink:0;}
+.toggle.on{background:linear-gradient(135deg,var(--accent),var(--accent2));}
+.toggle::after{content:'';position:absolute;top:3px;left:3px;width:19px;height:19px;background:#fff;border-radius:50%;transition:transform .25s;box-shadow:0 2px 4px rgba(0,0,0,.2);}
+.toggle.on::after{transform:translateX(21px);}
+/* Badges showcase */
+.badges-wrap{display:flex;flex-wrap:wrap;gap:8px;padding:12px 15px;}
+.badge-chip{display:flex;align-items:center;gap:5px;background:var(--bg);border-radius:10px;padding:5px 10px;border:2px solid rgba(255,200,0,.2);}
+.badge-chip .bi{font-size:18px;}
+.badge-chip .bn{font-size:10px;font-weight:700;color:var(--text);}
+.badge-chip.locked{opacity:.35;}
+/* History list */
+.hist-item{display:flex;align-items:center;gap:10px;padding:10px 15px;border-bottom:1px solid rgba(0,0,0,.04);}
+.hist-item:last-child{border:none;}
+.hist-thumb{width:36px;height:44px;border-radius:7px;overflow:hidden;background:#FFB300;flex-shrink:0;}
+.hist-thumb img{width:100%;height:100%;object-fit:cover;}
+.hist-name{flex:1;font-size:12px;font-weight:700;color:var(--text);line-height:1.3;}
+.hist-date{font-size:10px;color:var(--sub);}
 
-/* ══════════════════════════════════════
-   OPENING OVERLAY
-══════════════════════════════════════ */
-#ov{display:none;position:fixed;inset:0;z-index:9999;background:linear-gradient(135deg,#FFD700,#FF8C00);flex-direction:column;align-items:center;justify-content:center;}
-#ov.show{display:flex;animation:fadeI .25s ease;}
-@keyframes fadeI{from{opacity:0}to{opacity:1}}
-.ov-title{font-family:'Baloo 2',cursive;font-size:22px;font-weight:800;color:#CC3300;margin-top:16px;text-shadow:1px 1px 0 rgba(255,255,255,.5);}
+/* ═══ FEEDBACK PAGE ═══ */
+#pgFeedback{background:var(--bg);}
+#fbContent{flex:1;overflow-y:auto;padding:16px;padding-bottom:30px;}
+#fbContent::-webkit-scrollbar{width:0;}
+.fb-form{background:var(--card);border-radius:18px;padding:18px;box-shadow:0 4px 16px rgba(0,0,0,.08);}
+.fb-type-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;}
+.fb-type-btn{padding:10px 6px;border-radius:12px;border:2px solid rgba(255,200,0,.2);background:var(--bg);font-family:'Baloo 2',cursive;font-size:11px;font-weight:700;color:var(--text);cursor:pointer;text-align:center;line-height:1.4;}
+.fb-type-btn.selected{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border-color:var(--accent);box-shadow:0 3px 0 var(--shadow);}
+.fb-label{font-size:12px;font-weight:800;color:var(--sub);margin-bottom:6px;}
+.fb-input,.fb-textarea{width:100%;padding:11px 14px;border-radius:12px;border:2px solid rgba(255,200,0,.3);font-family:'Baloo 2',cursive;font-size:14px;font-weight:600;color:var(--text);background:var(--bg);outline:none;margin-bottom:12px;}
+.fb-textarea{height:100px;resize:none;}
+.fb-submit{width:100%;padding:14px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;border-radius:14px;font-family:'Lilita One',cursive;font-size:18px;box-shadow:0 5px 0 var(--shadow);cursor:pointer;}
+.fb-submit:active{transform:translateY(3px);box-shadow:0 2px 0 var(--shadow);}
+
+/* ═══ DEVELOPER PANEL ═══ */
+#pgDev{background:#12121e;}
+#devContent{flex:1;overflow-y:auto;padding:14px;padding-bottom:20px;}
+#devContent::-webkit-scrollbar{width:0;}
+.dev-hdr{background:linear-gradient(135deg,#1e1e30,#12121e);padding:12px 14px;display:flex;align-items:center;gap:10px;border-bottom:2px solid #333358;flex-shrink:0;}
+.dev-hdr-title{font-family:'Lilita One',cursive;font-size:18px;color:#FFD700;flex:1;}
+.dev-section{background:#1e1e30;border-radius:14px;border:1px solid #333358;margin-bottom:16px;overflow:hidden;}
+.dev-sec-hdr{background:linear-gradient(135deg,var(--accent),var(--accent2));padding:10px 14px;font-family:'Lilita One',cursive;font-size:14px;color:#fff;display:flex;align-items:center;justify-content:space-between;}
+.dev-sec-body{padding:12px;}
+.dev-stat-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.dev-stat{background:#12121e;border-radius:10px;padding:10px;text-align:center;}
+.dev-stat-num{font-family:'Lilita One',cursive;font-size:24px;color:var(--accent);}
+.dev-stat-label{font-size:10px;color:#888;font-weight:700;}
+.dev-top3{margin-top:10px;}
+.dev-top3-item{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.dev-top3-rank{font-size:18px;flex-shrink:0;}
+.dev-top3-bar-wrap{flex:1;}
+.dev-top3-name{font-size:10px;color:#aaa;font-weight:700;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.dev-bar{height:8px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:4px;transition:width .5s;}
+.dev-top3-count{font-size:11px;color:#FFD700;font-weight:800;flex-shrink:0;}
+.dev-comic-row{background:#12121e;border-radius:10px;padding:10px 12px;margin-bottom:8px;border:1px solid #333358;}
+.dev-comic-name{font-size:13px;font-weight:800;color:#e8e0ff;margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.dev-comic-meta{font-size:10px;color:#888;margin-bottom:8px;}
+.dev-btns{display:flex;flex-wrap:wrap;gap:5px;}
+.dev-btn{padding:5px 10px;border-radius:8px;border:none;font-family:'Baloo 2',cursive;font-size:11px;font-weight:700;cursor:pointer;}
+.dbtn-edit{background:#2d5a8e;color:#fff;}
+.dbtn-hide{background:#5a3a6e;color:#fff;}
+.dbtn-pin{background:#8e6a00;color:#fff;}
+.dbtn-new{background:#8e2a00;color:#fff;}
+.dbtn-up{background:#1e3a1e;color:#adf;}
+.dbtn-down{background:#1e3a1e;color:#adf;}
+.dbtn-del{background:#8e1a1a;color:#fff;}
+.dev-input{width:100%;padding:9px 12px;background:#12121e;color:#e8e0ff;border:1px solid #333358;border-radius:9px;font-family:'Baloo 2',cursive;font-size:13px;outline:none;margin-bottom:8px;}
+.dev-select{width:100%;padding:9px 12px;background:#12121e;color:#e8e0ff;border:1px solid #333358;border-radius:9px;font-family:'Baloo 2',cursive;font-size:13px;outline:none;margin-bottom:8px;}
+.dev-add-btn{width:100%;padding:11px;background:linear-gradient(135deg,#FF7700,#FF4400);color:#fff;border:none;border-radius:10px;font-family:'Lilita One',cursive;font-size:15px;cursor:pointer;box-shadow:0 4px 0 #CC3300;}
+.dev-add-btn:active{transform:translateY(2px);}
+.fb-msg-item{background:#12121e;border-radius:10px;padding:10px 12px;margin-bottom:8px;border:1px solid #333358;}
+.fb-msg-type{font-size:10px;font-weight:800;color:var(--accent);margin-bottom:3px;}
+.fb-msg-name{font-size:11px;font-weight:700;color:#aaa;}
+.fb-msg-text{font-size:12px;color:#e8e0ff;margin-top:4px;line-height:1.5;}
+.fb-msg-time{font-size:10px;color:#666;margin-top:4px;}
+.dev-maint-note{font-size:12px;color:#aaa;margin-top:8px;line-height:1.5;}
+.dev-backup-btn{width:100%;padding:11px;border:none;border-radius:10px;font-family:'Lilita One',cursive;font-size:14px;cursor:pointer;margin-bottom:8px;}
+
+/* ═══ PASSWORD MODAL ═══ */
+#pwModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:9998;align-items:center;justify-content:center;}
+#pwModal.show{display:flex;}
+.pw-box{background:#1e1e30;border-radius:20px;padding:28px;width:280px;text-align:center;border:2px solid #FFD700;animation:pop .3s ease;}
+.pw-title{font-family:'Lilita One',cursive;font-size:20px;color:#FFD700;margin-bottom:8px;}
+.pw-sub{font-size:12px;color:#888;margin-bottom:16px;}
+.pw-input{width:100%;padding:12px;background:#12121e;color:#e8e0ff;border:2px solid #FFD700;border-radius:12px;font-family:'Baloo 2',cursive;font-size:18px;text-align:center;letter-spacing:4px;outline:none;margin-bottom:14px;}
+.pw-btns{display:flex;gap:8px;}
+.pw-ok{flex:1;padding:11px;background:linear-gradient(135deg,#FF7700,#FF4400);color:#fff;border:none;border-radius:11px;font-family:'Lilita One',cursive;font-size:16px;cursor:pointer;box-shadow:0 4px 0 #CC3300;}
+.pw-cancel{padding:11px 16px;background:#333;color:#aaa;border:none;border-radius:11px;font-family:'Baloo 2',cursive;font-size:14px;cursor:pointer;}
+.pw-err{font-size:12px;color:#FF4444;margin-bottom:8px;}
+
+/* ═══ OVERLAYS ═══ */
+#ovOpen{display:none;position:fixed;inset:0;z-index:9999;background:linear-gradient(135deg,#FFD700,#FF8C00);flex-direction:column;align-items:center;justify-content:center;}
+#ovOpen.show{display:flex;animation:fadeIn .25s ease;}
+.ov-title{font-family:'Baloo 2',cursive;font-size:22px;font-weight:800;color:#CC3300;margin-top:16px;}
 .ov-sub{font-size:13px;color:#884400;margin-top:4px;font-weight:700;}
+#confettiLayer{position:fixed;inset:0;pointer-events:none;z-index:9990;overflow:hidden;}
+.cf{position:absolute;width:10px;height:10px;border-radius:2px;animation:confettiFall linear forwards;}
+#badgeToast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#FFD700,#FF8C00);border-radius:16px;padding:12px 20px;display:none;align-items:center;gap:10px;box-shadow:0 6px 20px rgba(0,0,0,.25);z-index:9995;animation:badgePop 3s ease forwards;}
+.bt-ico{font-size:28px;}
+.bt-text{font-size:12px;font-weight:800;color:#CC2200;}
+#xpToast{position:fixed;top:80px;right:16px;background:#FFD700;border-radius:12px;padding:8px 14px;display:none;font-family:'Lilita One',cursive;font-size:16px;color:#CC2200;box-shadow:0 4px 12px rgba(0,0,0,.2);z-index:9995;animation:pop .4s ease;}
+#maintScreen{display:none;position:fixed;inset:0;z-index:9997;background:linear-gradient(160deg,#FFD700,#FF6B00);flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:30px;text-align:center;}
+#maintScreen.show{display:flex;}
+.maint-emoji{font-size:80px;animation:bounce 2s ease-in-out infinite;}
+.maint-title{font-family:'Lilita One',cursive;font-size:28px;color:#CC2200;}
+.maint-sub{font-size:15px;color:#884400;font-weight:700;line-height:1.6;}
 </style>
 </head>
 <body>
 
-<!-- ══════ SPLASH ══════ -->
+<!-- ══ MAINTENANCE ══ -->
+<div id="maintScreen">
+  <div class="maint-emoji">🔧</div>
+  <div class="maint-title">Jald Aayenge!</div>
+  <div class="maint-sub">Champak Comics abhi update ho rahi hai.<br>Thoda wait karo... 😊</div>
+</div>
+
+<!-- ══ CONFETTI / TOASTS ══ -->
+<div id="confettiLayer"></div>
+<div id="badgeToast" style="display:none;">
+  <div class="bt-ico" id="btIco">🏆</div>
+  <div class="bt-text" id="btText">New Badge!</div>
+</div>
+<div id="xpToast">+10 XP ⭐</div>
+
+<!-- ══ PASSWORD MODAL ══ -->
+<div id="pwModal">
+  <div class="pw-box">
+    <div class="pw-title">🔐 Dev Panel</div>
+    <div class="pw-sub">Enter password to continue</div>
+    <div class="pw-err" id="pwErr"></div>
+    <input class="pw-input" type="password" id="pwInput" maxlength="20" placeholder="••••">
+    <div class="pw-btns">
+      <button class="pw-cancel" onclick="closePwModal()">Cancel</button>
+      <button class="pw-ok" onclick="checkPassword()">Enter</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SPLASH ══ -->
 <div id="pgSplash" class="page active">
   <img class="sp-base-img" src="./champak_splash.png" alt="">
   <div class="sp-btn-wrap">
     <button class="sp-start-btn" onclick="startApp()">
-      <span style="font-size:24px">⭐</span>
-      शुरु करें
+      <span style="font-size:24px">⭐</span> शुरु करें
     </button>
   </div>
 </div>
 
-<!-- ══════ HOME ══════ -->
+<!-- ══ ONBOARDING ══ -->
+<div id="pgOnboard" class="page" style="background:linear-gradient(160deg,#FFE566,#FFD000 50%,#8DC42A);align-items:center;justify-content:center;flex-direction:column;gap:16px;padding:30px;">
+  <div style="font-size:72px;animation:bounce 2s ease-in-out infinite;">📚</div>
+  <div style="font-family:'Lilita One',cursive;font-size:28px;color:#CC2200;text-align:center;text-shadow:2px 2px 0 rgba(255,255,255,.5);">Champak mein Swagat Hai! 🎉</div>
+  <div style="font-size:15px;color:#665500;font-weight:700;text-align:center;">Tumhara naam kya hai?</div>
+  <input class="ob-input" type="text" id="nameInput" placeholder="Apna naam likho..." maxlength="20">
+  <button class="ob-btn" onclick="saveNameAndStart()">Chalte Hain! 🚀</button>
+</div>
+
+<!-- ══ HOME ══ -->
 <div id="pgHome" class="page">
   <div class="home-hdr">
-    <div class="hdr-icon-box">
-      <svg width="46" height="46" viewBox="0 0 52 52" fill="none">
+    <div class="hdr-icon-box" id="logoTapZone" onclick="tapLogo()">
+      <svg width="44" height="44" viewBox="0 0 52 52" fill="none">
         <rect width="52" height="52" rx="13" fill="url(#hig)"/>
-        <defs>
-          <linearGradient id="hig" x1="0" y1="0" x2="52" y2="52">
-            <stop offset="0%" stop-color="#FF9500"/>
-            <stop offset="100%" stop-color="#FF3D00"/>
-          </linearGradient>
-        </defs>
+        <defs><linearGradient id="hig" x1="0" y1="0" x2="52" y2="52"><stop offset="0%" stop-color="#FF9500"/><stop offset="100%" stop-color="#FF3D00"/></linearGradient></defs>
         <g stroke="rgba(255,230,0,.9)" stroke-width="2.5" stroke-linecap="round">
           <line x1="26" y1="5" x2="26" y2="10"/><line x1="26" y1="42" x2="26" y2="47"/>
           <line x1="5" y1="26" x2="10" y2="26"/><line x1="42" y1="26" x2="47" y2="26"/>
@@ -230,18 +408,38 @@ body.dark .no-comics{color:#666;}
         <text x="26" y="33" text-anchor="middle" font-family="'Baloo 2',sans-serif" font-size="17" font-weight="800" fill="#CC2200">च</text>
       </svg>
     </div>
-    <div style="flex:1">
+    <div style="flex:1;">
       <div class="hdr-title-row">
         <span class="hdr-hi">चंपक</span>
         <span class="hdr-en">Comics</span>
       </div>
-      <div class="hdr-sub">🛡️ AD FREE • KIDS SAFE • FREE</div>
+      <div class="hdr-greeting" id="hdrGreeting">Hello! 👋</div>
     </div>
     <button class="hdr-btn" id="refreshBtn" onclick="refreshPage()">🔄</button>
   </div>
 
+  <!-- Announcement bar -->
+  <div class="ann-bar" id="annBar" style="display:none;">
+    <span>📢</span>
+    <span id="annText"></span>
+    <button class="ann-close" onclick="closeAnn()">✕</button>
+  </div>
+
   <div id="homeContent">
-    <!-- Character banner image -->
+    <!-- Streak bar -->
+    <div class="streak-bar" id="streakBar">
+      <div class="streak-fire" id="streakFire">🔥</div>
+      <div class="streak-info">
+        <div class="streak-title" id="streakTitle">Day 1 Streak!</div>
+        <div class="streak-sub" id="streakSub">Aaj padho aur streak badhao!</div>
+      </div>
+      <div class="xp-wrap">
+        <div class="xp-label" id="xpLabel">0 XP</div>
+        <div class="xp-bar-bg"><div class="xp-bar-fill" id="xpFill" style="width:0%"></div></div>
+      </div>
+    </div>
+
+    <!-- Character banner -->
     <div class="hero-banner" onclick="goComics('all')">
       <div class="hero-img-wrap">
         <img src="./champak_banner.png" alt="Champak Characters">
@@ -249,6 +447,19 @@ body.dark .no-comics{color:#666;}
       <div class="hero-foot">
         <div class="hero-foot-txt">🌟 Champak ki Duniya!</div>
         <button class="hero-foot-btn" onclick="event.stopPropagation();goComics('all')">Read Comics →</button>
+      </div>
+    </div>
+
+    <!-- Comic of the Day -->
+    <div class="cotd-wrap" id="cotdWrap">
+      <div class="cotd-label">🎁 <span id="cotdLbl">Comic of the Day</span></div>
+      <div class="cotd-card" id="cotdCard">
+        <div class="cotd-thumb"><img id="cotdImg" src="" alt=""></div>
+        <div class="cotd-info">
+          <div class="cotd-title" id="cotdTitle">Loading...</div>
+          <div class="cotd-sub" id="cotdSub"></div>
+        </div>
+        <button class="cotd-btn" id="cotdBtn">Read →</button>
       </div>
     </div>
 
@@ -262,17 +473,16 @@ body.dark .no-comics{color:#666;}
 
     <!-- Hindi section -->
     <div class="sec-hdr">
-      <div class="sec-title">🇮🇳 Hindi Comics</div>
-      <button class="see-all-btn" onclick="goComics('hi')">See All →</button>
+      <div class="sec-title" id="lblHindiSec">🇮🇳 Hindi Comics</div>
+      <button class="see-all-btn" onclick="goComics('hi')" id="lblSeeAllHi">See All →</button>
     </div>
     <div class="lib-grid" id="libGridHi"></div>
-
     <div style="height:14px;"></div>
 
     <!-- English section -->
     <div class="sec-hdr">
-      <div class="sec-title">🇬🇧 English Comics</div>
-      <button class="see-all-btn" onclick="goComics('en')">See All →</button>
+      <div class="sec-title" id="lblEnSec">🇬🇧 English Comics</div>
+      <button class="see-all-btn" onclick="goComics('en')" id="lblSeeAllEn">See All →</button>
     </div>
     <div class="lib-grid" id="libGridEn"></div>
     <div style="height:10px;"></div>
@@ -280,53 +490,57 @@ body.dark .no-comics{color:#666;}
 
   <div id="bottomNav">
     <div class="nav-item active" id="nav-home" onclick="setNav('home');showPage('pgHome')">
-      <div class="nav-ico">🏠</div><div class="nav-label">Home</div>
+      <div class="nav-ico">🏠</div><div class="nav-label" id="nlHome">Home</div>
     </div>
     <div class="nav-item" id="nav-comics" onclick="setNav('comics');goComics('all')">
-      <div class="nav-ico">📚</div><div class="nav-label">Comics</div>
+      <div class="nav-ico">📚</div><div class="nav-label" id="nlComics">Comics</div>
+      <div class="nav-badge" id="newBadge" style="display:none;">0</div>
     </div>
-    <div class="nav-item" id="nav-settings" onclick="setNav('settings');showPage('pgSettings')">
-      <div class="nav-ico">⚙️</div><div class="nav-label">Settings</div>
+    <div class="nav-item" id="nav-favs" onclick="setNav('favs');showPage('pgFavs');renderFavs()">
+      <div class="nav-ico">❤️</div><div class="nav-label" id="nlFavs">Favs</div>
+    </div>
+    <div class="nav-item" id="nav-settings" onclick="setNav('settings');showPage('pgSettings');renderSettings()">
+      <div class="nav-ico">⚙️</div><div class="nav-label" id="nlSettings">Settings</div>
     </div>
   </div>
 </div>
 
-<!-- ══════ COMICS PAGE ══════ -->
+<!-- ══ COMICS PAGE ══ -->
 <div id="pgSeeAll" class="page">
   <div class="app-hdr">
     <button class="hdr-back" onclick="showPage('pgHome');setNav('home')">←</button>
     <div style="flex:1">
-      <div class="hdr-title-row">
-        <span class="hdr-hi">चंपक</span>
-        <span class="hdr-en">Comics</span>
-      </div>
+      <div class="hdr-title-row"><span class="hdr-hi">चंपक</span><span class="hdr-en">Comics</span></div>
       <div class="hdr-sub" id="allCount"></div>
     </div>
   </div>
   <div class="cat-tabs">
     <button class="cat-tab active" id="tab-all" onclick="switchTab('all')">📖 All</button>
-    <button class="cat-tab" id="tab-hi"  onclick="switchTab('hi')">🇮🇳 Hindi</button>
-    <button class="cat-tab" id="tab-en"  onclick="switchTab('en')">🇬🇧 English</button>
+    <button class="cat-tab" id="tab-hi" onclick="switchTab('hi')">🇮🇳 Hindi</button>
+    <button class="cat-tab" id="tab-en" onclick="switchTab('en')">🇬🇧 English</button>
   </div>
-  <div id="seeAllContent">
-    <div class="all-grid" id="allGrid"></div>
-    <div style="height:20px;"></div>
-  </div>
+  <div id="seeAllContent"><div class="all-grid" id="allGrid"></div><div style="height:20px;"></div></div>
 </div>
 
-<!-- ══════ SETTINGS PAGE ══════ -->
-<div id="pgSettings" class="page">
+<!-- ══ FAVOURITES ══ -->
+<div id="pgFavs" class="page">
   <div class="app-hdr">
     <button class="hdr-back" onclick="showPage('pgHome');setNav('home')">←</button>
     <div style="flex:1">
-      <div class="hdr-title-row">
-        <span class="hdr-en" style="font-size:20px;">Settings</span>
-      </div>
+      <div class="hdr-title-row"><span class="hdr-en" style="font-size:20px">❤️ Favourites</span></div>
+      <div class="hdr-sub" id="favsCount"></div>
     </div>
   </div>
-  <div id="settContent">
+  <div id="favsContent"><div class="fav-grid" id="favGrid"></div></div>
+</div>
 
-    <!-- Developer card -->
+<!-- ══ SETTINGS ══ -->
+<div id="pgSettings" class="page">
+  <div class="app-hdr">
+    <button class="hdr-back" onclick="showPage('pgHome');setNav('home')">←</button>
+    <div style="flex:1"><div class="hdr-title-row"><span class="hdr-en" style="font-size:20px">⚙️ Settings</span></div></div>
+  </div>
+  <div id="settContent">
     <div class="dev-card">
       <div class="dev-avatar">👨‍💻</div>
       <div>
@@ -336,319 +550,1019 @@ body.dark .no-comics{color:#666;}
       </div>
     </div>
 
-    <!-- Appearance -->
-    <div class="sett-sec-title">🎨 Appearance</div>
+    <div class="sett-sec">🎨 Appearance</div>
     <div class="sett-group">
-      <div class="sett-card" onclick="toggleDark()">
+      <div class="sett-row" onclick="toggleDark()">
         <div class="sett-ico" style="background:#1a1a2e;">🌙</div>
-        <div class="sett-text">
-          <div class="sett-label">Dark Mode</div>
-          <div class="sett-val">Switch to dark theme</div>
-        </div>
+        <div class="sett-text"><div class="sett-label">Dark Mode</div><div class="sett-val">Switch to dark theme</div></div>
         <div class="toggle" id="darkToggle"></div>
       </div>
+      <div class="sett-row" onclick="toggleSound()">
+        <div class="sett-ico" style="background:#FFF0E0;">🔊</div>
+        <div class="sett-text"><div class="sett-label" id="lblSound">Sound Effects</div><div class="sett-val">Tap &amp; success sounds</div></div>
+        <div class="toggle on" id="soundToggle"></div>
+      </div>
+      <div class="theme-row">
+        <div class="theme-title">🎨 Colour Theme</div>
+        <div class="theme-dots">
+          <div class="tdot active" id="td-orange" style="background:linear-gradient(135deg,#FFD700,#FF6B00);" onclick="setTheme('orange')" title="Orange"></div>
+          <div class="tdot" id="td-blue" style="background:linear-gradient(135deg,#4FC3F7,#1565C0);" onclick="setTheme('blue')" title="Blue"></div>
+          <div class="tdot" id="td-green" style="background:linear-gradient(135deg,#A5D6A7,#2E7D32);" onclick="setTheme('green')" title="Green"></div>
+          <div class="tdot" id="td-purple" style="background:linear-gradient(135deg,#CE93D8,#6A1B9A);" onclick="setTheme('purple')" title="Purple"></div>
+          <div class="tdot" id="td-pink" style="background:linear-gradient(135deg,#F48FB1,#C2185B);" onclick="setTheme('pink')" title="Pink"></div>
+        </div>
+      </div>
+      <div class="sett-row" onclick="toggleLang()">
+        <div class="sett-ico" style="background:#E3F2FD;">🌐</div>
+        <div class="sett-text"><div class="sett-label">App Language</div><div class="sett-val" id="langVal">हिंदी</div></div>
+        <div class="sett-arrow">›</div>
+      </div>
     </div>
 
-    <!-- App Info -->
-    <div class="sett-sec-title">ℹ️ App Info</div>
+    <div class="sett-sec">🏆 Achievements</div>
+    <div class="sett-group"><div class="badges-wrap" id="badgesWrap"></div></div>
+
+    <div class="sett-sec">📖 Reading History</div>
+    <div class="sett-group" id="histList"></div>
+
+    <div class="sett-sec">ℹ️ App Info</div>
     <div class="sett-group">
-      <div class="sett-card">
-        <div class="sett-ico" style="background:#FFF3CD;">📱</div>
-        <div class="sett-text">
-          <div class="sett-label">App Version</div>
-          <div class="sett-val">v2.0 — Latest</div>
-        </div>
-        <div class="sett-arrow" style="color:#22aa44;font-size:18px;">✓</div>
-      </div>
-      <div class="sett-card" onclick="goComics('all')">
-        <div class="sett-ico" style="background:#FFE0E0;">📚</div>
-        <div class="sett-text">
-          <div class="sett-label">Total Comics</div>
-          <div class="sett-val" id="totalComicsCount">Loading...</div>
-        </div>
-        <div class="sett-arrow">›</div>
-      </div>
-      <div class="sett-card">
-        <div class="sett-ico" style="background:#E0FFE8;">🛡️</div>
-        <div class="sett-text">
-          <div class="sett-label">Kid Safe</div>
-          <div class="sett-val">100% Ad-free &amp; safe for kids</div>
-        </div>
-        <div class="sett-arrow" style="color:#22aa44;font-size:18px;">✓</div>
-      </div>
+      <div class="sett-row"><div class="sett-ico" style="background:#FFF3CD;">📱</div><div class="sett-text"><div class="sett-label">Version</div><div class="sett-val">v2.0 — Latest ✓</div></div></div>
+      <div class="sett-row"><div class="sett-ico" style="background:#FFE0E0;">📚</div><div class="sett-text"><div class="sett-label">Total Comics</div><div class="sett-val" id="settTotalComics"></div></div></div>
+      <div class="sett-row"><div class="sett-ico" style="background:#E0FFE8;">🛡️</div><div class="sett-text"><div class="sett-label">Kid Safe</div><div class="sett-val">100% Ad-free &amp; safe</div></div><div class="sett-arrow" style="color:#22aa44">✓</div></div>
     </div>
 
-    <!-- About Developer -->
-    <div class="sett-sec-title">👨‍💻 About Developer</div>
+    <div class="sett-sec">📬 Feedback</div>
     <div class="sett-group">
-      <div class="sett-card">
-        <div class="sett-ico" style="background:#FFF0E0;">🧑‍🎨</div>
-        <div class="sett-text">
-          <div class="sett-label">Developed by</div>
-          <div class="sett-val">Baadal — Made with ❤️</div>
-        </div>
-      </div>
-      <div class="sett-card" onclick="openLink('https://github.com/coder0864-cell')">
-        <div class="sett-ico" style="background:#f0f0f0;">🐙</div>
-        <div class="sett-text">
-          <div class="sett-label">GitHub</div>
-          <div class="sett-val">coder0864-cell</div>
-        </div>
+      <div class="sett-row" onclick="showPage('pgFeedback')">
+        <div class="sett-ico" style="background:#FFF0E0;">💌</div>
+        <div class="sett-text"><div class="sett-label">Send Feedback</div><div class="sett-val">Ideas, bugs, comic requests</div></div>
         <div class="sett-arrow">›</div>
       </div>
     </div>
 
-    <!-- Contact / Feedback -->
-    <div class="sett-sec-title">📬 Contact &amp; Feedback</div>
+    <div class="sett-sec">👨‍💻 About</div>
     <div class="sett-group">
-      <div class="sett-card" onclick="openLink('https://github.com/coder0864-cell/champak-app/issues')">
-        <div class="sett-ico" style="background:#E8F4FF;">🐛</div>
-        <div class="sett-text">
-          <div class="sett-label">Report a Bug</div>
-          <div class="sett-val">Found something wrong? Tell us!</div>
-        </div>
-        <div class="sett-arrow">›</div>
-      </div>
-      <div class="sett-card" onclick="openLink('https://github.com/coder0864-cell/champak-app/issues')">
-        <div class="sett-ico" style="background:#FFFFE0;">💡</div>
-        <div class="sett-text">
-          <div class="sett-label">Suggest a Feature</div>
-          <div class="sett-val">Ideas are always welcome!</div>
-        </div>
-        <div class="sett-arrow">›</div>
+      <div class="sett-row"><div class="sett-ico" style="background:#FFF0E0;">🧑‍🎨</div><div class="sett-text"><div class="sett-label">Developed by</div><div class="sett-val">Baadal — Made with ❤️</div></div></div>
+      <div class="sett-row" onclick="openLink('https://github.com/coder0864-cell')"><div class="sett-ico" style="background:#f0f0f0;">🐙</div><div class="sett-text"><div class="sett-label">GitHub</div><div class="sett-val">coder0864-cell</div></div><div class="sett-arrow">›</div></div>
+    </div>
+    <div style="text-align:center;padding:10px 0 4px;color:#bbb;font-size:11px;font-weight:700;">Made with ❤️ by Baadal &nbsp;•&nbsp; v2.0</div>
+  </div>
+</div>
+
+<!-- ══ FEEDBACK PAGE ══ -->
+<div id="pgFeedback" class="page">
+  <div class="app-hdr">
+    <button class="hdr-back" onclick="showPage('pgSettings')">←</button>
+    <div style="flex:1">
+      <div class="hdr-title-row"><span class="hdr-en" style="font-size:18px">💌 Send Feedback</span></div>
+      <div class="hdr-sub">Developer ko seedha message karo</div>
+    </div>
+  </div>
+  <div id="fbContent">
+
+    <!-- In-app badge -->
+    <div style="background:linear-gradient(135deg,#E8F5E9,#C8E6C9);border-radius:14px;padding:12px 14px;margin-bottom:14px;display:flex;align-items:center;gap:10px;border:2px solid #81C784;">
+      <div style="font-size:28px;">✅</div>
+      <div>
+        <div style="font-size:12px;font-weight:800;color:#1B5E20;">100% In-App — Koi Link Nahi!</div>
+        <div style="font-size:11px;color:#388E3C;font-weight:600;margin-top:2px;">Message seedha developer ke panel mein jaata hai 🔒</div>
       </div>
     </div>
 
-    <div style="text-align:center;padding:10px 0 4px;color:#bbb;font-size:11px;font-weight:700;">
-      Made with ❤️ by Baadal &nbsp;•&nbsp; Champak Comics v2.0
+    <div class="fb-form">
+      <div class="fb-label">📋 Kya bhejana chahte ho?</div>
+      <div class="fb-type-grid" id="fbTypeGrid">
+        <button class="fb-type-btn selected" onclick="selectFbType(this,'idea')">💡 Feature Idea</button>
+        <button class="fb-type-btn" onclick="selectFbType(this,'bug')">🐛 Report Bug</button>
+        <button class="fb-type-btn" onclick="selectFbType(this,'msg')">💬 General Message</button>
+        <button class="fb-type-btn" onclick="selectFbType(this,'request')">📖 Comic Request</button>
+      </div>
+      <div class="fb-label">👤 Tumhara Naam</div>
+      <input class="fb-input" type="text" id="fbName" placeholder="Apna naam likho...">
+      <div class="fb-label">✏️ Tumhara Message</div>
+      <textarea class="fb-textarea" id="fbMsg" placeholder="Yahan apna poora message likho... Developer zaroor padega! 😊"></textarea>
+      <button class="fb-submit" onclick="submitFeedback()">🚀 Developer ko Bhejo!</button>
+      <div style="text-align:center;margin-top:10px;font-size:11px;color:#aaa;font-weight:600;">
+        📵 No email &nbsp;•&nbsp; 📵 No WhatsApp &nbsp;•&nbsp; 🔒 App ke andar hi
+      </div>
     </div>
   </div>
 </div>
 
-<!-- Opening overlay -->
-<div id="ov">
+<!-- ══ DEV PANEL ══ -->
+<div id="pgDev" class="page">
+  <div class="dev-hdr">
+    <button style="background:rgba(255,255,255,.1);border:1px solid #555;color:#aaa;width:34px;height:34px;border-radius:9px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;" onclick="showPage('pgHome');setNav('home')">←</button>
+    <div class="dev-hdr-title">🛠️ Dev Panel</div>
+    <button style="background:rgba(255,100,0,.2);border:1px solid #FF6B00;color:#FF6B00;padding:5px 10px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;" onclick="devLock()">🔒 Lock</button>
+  </div>
+  <div id="devContent">
+
+    <!-- Stats -->
+    <div class="dev-section">
+      <div class="dev-sec-hdr">📊 App Stats</div>
+      <div class="dev-sec-body">
+        <div class="dev-stat-grid" id="devStatGrid"></div>
+        <div class="dev-top3" id="devTop3"></div>
+      </div>
+    </div>
+
+    <!-- Add Comic -->
+    <div class="dev-section">
+      <div class="dev-sec-hdr">➕ Add New Comic</div>
+      <div class="dev-sec-body">
+        <input class="dev-input" id="devAddName" placeholder="Comic name...">
+        <input class="dev-input" id="devAddUrl" placeholder="FlipHTML5 URL (https://online.fliphtml5.com/...)">
+        <select class="dev-select" id="devAddLang">
+          <option value="hi">🇮🇳 Hindi</option>
+          <option value="en">🇬🇧 English</option>
+        </select>
+        <input class="dev-input" id="devAddDate" placeholder="Date (e.g. Jan 2024)">
+        <input class="dev-input" id="devAddPages" placeholder="Pages (e.g. 50)" type="number">
+        <button class="dev-add-btn" onclick="devAddComic()">➕ Add Comic</button>
+      </div>
+    </div>
+
+    <!-- Manage Comics -->
+    <div class="dev-section">
+      <div class="dev-sec-hdr">📚 Manage Comics <span id="devComicCount" style="font-size:12px;opacity:.8;"></span></div>
+      <div class="dev-sec-body" id="devComicsList"></div>
+    </div>
+
+    <!-- Announcement -->
+    <div class="dev-section">
+      <div class="dev-sec-hdr">📢 Announcement Banner</div>
+      <div class="dev-sec-body">
+        <textarea class="dev-input" id="devAnnText" style="height:70px;resize:none;" placeholder="Announcement message..."></textarea>
+        <div style="display:flex;gap:8px;">
+          <button class="dev-add-btn" style="flex:1;" onclick="devSaveAnn()">💾 Save &amp; Show</button>
+          <button class="dev-add-btn" style="flex:1;background:#8e1a1a;" onclick="devHideAnn()">🚫 Hide</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Maintenance mode -->
+    <div class="dev-section">
+      <div class="dev-sec-hdr">🔧 Maintenance Mode</div>
+      <div class="dev-sec-body">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <div style="font-size:13px;font-weight:700;color:#e8e0ff;">Maintenance Mode</div>
+            <div style="font-size:11px;color:#888;margin-top:2px;">Users see "Coming Soon" screen</div>
+          </div>
+          <div class="toggle" id="devMaintToggle" onclick="devToggleMaint()"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feedback inbox -->
+    <div class="dev-section">
+      <div class="dev-sec-hdr">💌 Feedback Inbox <span id="devFbCount" style="font-size:12px;opacity:.8;"></span>
+        <button style="background:rgba(255,255,255,.15);border:none;color:#fff;padding:3px 8px;border-radius:6px;font-size:11px;cursor:pointer;" onclick="devClearFeedback()">Clear All</button>
+      </div>
+      <div class="dev-sec-body" id="devFbList"></div>
+    </div>
+
+    <!-- Backup & Restore -->
+    <div class="dev-section">
+      <div class="dev-sec-hdr">💾 Backup &amp; Restore</div>
+      <div class="dev-sec-body">
+        <button class="dev-backup-btn" style="background:linear-gradient(135deg,#1565C0,#0D47A1);color:#fff;" onclick="devBackup()">📤 Export Comics JSON</button>
+        <textarea class="dev-input" id="devRestoreInput" style="height:80px;resize:none;" placeholder="Paste exported JSON here to restore..."></textarea>
+        <button class="dev-backup-btn" style="background:linear-gradient(135deg,#2E7D32,#1B5E20);color:#fff;" onclick="devRestore()">📥 Restore from JSON</button>
+      </div>
+    </div>
+
+    <!-- Change password -->
+    <div class="dev-section">
+      <div class="dev-sec-hdr">🔑 Change Password</div>
+      <div class="dev-sec-body">
+        <input class="dev-input" type="password" id="devNewPass1" placeholder="New password...">
+        <input class="dev-input" type="password" id="devNewPass2" placeholder="Confirm new password...">
+        <button class="dev-add-btn" onclick="devChangePass()">🔑 Update Password</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ OPENING OVERLAY ══ -->
+<div id="ovOpen">
   <div style="font-size:64px">📖</div>
   <div class="ov-title">Comic khul rahi hai!</div>
   <div class="ov-sub">Ek second ruko...</div>
 </div>
 
 <script>
-// ═══════════════════════════════════════════════════
-//  📚 COMICS LIST — YAHAN ADD KARO
-//
-//  HINDI comic add karne ke liye:   lang: "hi"
-//  ENGLISH comic add karne ke liye: lang: "en"
-//  NEW badge lagane ke liye:        isNew: true
-// ═══════════════════════════════════════════════════
-var COMICS = [
-  {
-    id: 1,
-    name: "Champak Hindi - Sep 2019",
-    lang: "hi",
-    isNew: false,
-    flipUrl: "https://online.fliphtml5.com/ufmtz/dtjr/",
-    pages: 50,
-    date: "Sep 2019"
-  }
-  // ── ISKE NEECHE AUR COMICS ADD KARO ──
-  // {
-  //   id: 2,
-  //   name: "Champak English - Oct 2019",
-  //   lang: "en",
-  //   isNew: true,
-  //   flipUrl: "https://online.fliphtml5.com/XXXXX/YYYY/",
-  //   pages: 48,
-  //   date: "Oct 2019"
-  // },
+// ═══════════════════════════════════════════════════════
+//  📚 DEFAULT COMICS — STARTING DATA
+//  (Managed via Dev Panel after first launch)
+// ═══════════════════════════════════════════════════════
+var DEFAULT_COMICS = [
+  {id:1, name:"Champak Hindi - Sep 2019", lang:"hi", isNew:false, isPinned:false, isHidden:false,
+   flipUrl:"https://online.fliphtml5.com/ufmtz/dtjr/", pages:50, date:"Sep 2019"}
 ];
-// ═══════════════════════════════════════════════════
 
-var COLORS = ['#FF6B00','#0066CC','#009944','#8B00CC','#CC6600','#CC0000','#007788'];
-var currentTab = 'all';
-var darkMode = false;
+// ═══════════════════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════════════════
+var COMICS=[], FEEDBACK=[], STATS={}, FAVS=[], HISTORY=[];
+var USER={name:'',lang:'hi',theme:'orange',dark:false,sound:true};
+var STREAK={last:'',count:0};
+var XP=0;
+var EARNED_BADGES=[];
+var ANNOUNCEMENT={active:false,text:''};
+var MAINTENANCE=false;
+var DEV_PASS='1234';
+var DEV_UNLOCKED=false;
+var LOGO_TAPS=0, LOGO_TIMER=null;
+var CURRENT_TAB='all';
+var FB_TYPE='idea';
+var FIRST_OPEN_TODAY=false;
+var NEW_SINCE={count:0,lastSeen:0};
 
-/* thumbnail URL */
-function thumb(c) {
-  if (c.thumbUrl) return c.thumbUrl;
-  return c.flipUrl.replace(/\/$/, '') + '/files/large/1.jpg';
+var BADGE_DEFS=[
+  {id:'first',  ico:'📖', name:'First Read',    req:'Open your first comic'},
+  {id:'reader', ico:'📚', name:'Book Worm',      req:'Open 5 comics'},
+  {id:'super',  ico:'🦸', name:'Super Reader',   req:'Open 10 comics'},
+  {id:'streak3',ico:'🔥', name:'3-Day Streak',   req:'Read 3 days in a row'},
+  {id:'streak7',ico:'⚡', name:'Week Warrior',   req:'Read 7 days in a row'},
+  {id:'xp100',  ico:'⭐', name:'XP Hunter',      req:'Earn 100 XP'},
+  {id:'explorer',ico:'🗺️',name:'Explorer',       req:'Read both Hindi & English'},
+  {id:'fav5',   ico:'❤️', name:'Collector',      req:'Add 5 favourites'},
+];
+
+var STRINGS={
+  hi:{home:'होम',comics:'कॉमिक्स',favs:'पसंद',settings:'सेटिंग्स',readNow:'पढ़ें',cotd:'आज की कॉमिक',hindiSec:'🇮🇳 हिंदी कॉमिक्स',enSec:'🇬🇧 English Comics',seeAll:'सब देखें →',noComics:'अभी कोई कॉमिक नहीं 😊',noFavs:'कोई पसंदीदा नहीं ❤️'},
+  en:{home:'Home',comics:'Comics',favs:'Favs',settings:'Settings',readNow:'Read Now',cotd:'Comic of the Day',hindiSec:'🇮🇳 Hindi Comics',enSec:'🇬🇧 English Comics',seeAll:'See All →',noComics:'No comics yet 😊',noFavs:'No favourites yet ❤️'}
+};
+
+// ═══════ STORAGE HELPERS ═══════
+function ls(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(k));localStorage.setItem(k,JSON.stringify(v));}catch(e){return null;}}
+function loadAll(){
+  COMICS   = ls('ch_comics')   || DEFAULT_COMICS.slice();
+  FEEDBACK = ls('ch_feedback') || [];
+  STATS    = ls('ch_stats')    || {};
+  FAVS     = ls('ch_favs')     || [];
+  HISTORY  = ls('ch_history')  || [];
+  USER     = Object.assign({name:'',lang:'hi',theme:'orange',dark:false,sound:true}, ls('ch_user')||{});
+  STREAK   = Object.assign({last:'',count:0}, ls('ch_streak')||{});
+  XP       = ls('ch_xp')       || 0;
+  EARNED_BADGES = ls('ch_badges') || [];
+  ANNOUNCEMENT  = ls('ch_ann')   || {active:false,text:''};
+  MAINTENANCE   = ls('ch_maint') || false;
+  DEV_PASS      = ls('ch_pass')  || '1234';
+  NEW_SINCE     = ls('ch_new_since') || {count:0,lastSeen:Date.now()};
+}
+function saveComics(){ls('ch_comics',COMICS);}
+function saveUser(){ls('ch_user',USER);}
+
+// ═══════ SOUND ═══════
+function playSound(type){
+  if(!USER.sound) return;
+  try{
+    var ctx=new(window.AudioContext||window.webkitAudioContext)();
+    var o=ctx.createOscillator(), g=ctx.createGain();
+    o.connect(g); g.connect(ctx.destination);
+    if(type==='tap'){o.frequency.value=600;g.gain.setValueAtTime(.25,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.08);o.start();o.stop(ctx.currentTime+.08);}
+    else if(type==='success'){
+      var times=[0,.12,.24]; var freqs=[523,659,784];
+      times.forEach(function(t,i){var oo=ctx.createOscillator(),gg=ctx.createGain();oo.connect(gg);gg.connect(ctx.destination);oo.frequency.value=freqs[i];gg.gain.setValueAtTime(.25,ctx.currentTime+t);gg.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+t+.15);oo.start(ctx.currentTime+t);oo.stop(ctx.currentTime+t+.15);});
+    }else if(type==='whoosh'){o.type='sawtooth';o.frequency.setValueAtTime(200,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(50,ctx.currentTime+.3);g.gain.setValueAtTime(.3,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.3);o.start();o.stop(ctx.currentTime+.3);}
+  }catch(e){}
 }
 
-/* image fallback if cover fails */
-function onThumbErr(img, flipUrl, col) {
-  img.onerror = null;
-  img.src = 'https://image.thum.io/get/width/400/crop/500/noanimate/' + flipUrl;
-  img.onerror = function() {
-    img.style.display = 'none';
-    var fb = img.nextElementSibling;
-    while(fb && !fb.classList.contains('lcard-fb') && !fb.classList.contains('acard-fb')) fb = fb.nextElementSibling;
-    if (fb) { fb.style.display = 'flex'; fb.style.background = col; }
+// ═══════ CONFETTI ═══════
+function launchConfetti(){
+  var layer=document.getElementById('confettiLayer');
+  layer.innerHTML='';
+  var colors=['#FF6B00','#FFD700','#00C853','#2196F3','#E91E63','#9C27B0'];
+  for(var i=0;i<60;i++){
+    var cf=document.createElement('div');
+    cf.className='cf';
+    cf.style.left=Math.random()*100+'%';
+    cf.style.background=colors[Math.floor(Math.random()*colors.length)];
+    cf.style.width=(6+Math.random()*8)+'px';
+    cf.style.height=(6+Math.random()*8)+'px';
+    cf.style.animationDuration=(.8+Math.random()*1.5)+'s';
+    cf.style.animationDelay=(Math.random()*.5)+'s';
+    layer.appendChild(cf);
+  }
+  setTimeout(function(){layer.innerHTML='';},3000);
+}
+
+// ═══════ XP & BADGES ═══════
+function addXP(amt){
+  XP+=amt;
+  ls('ch_xp',XP);
+  updateXPBar();
+  var t=document.getElementById('xpToast');
+  t.textContent='+'+amt+' XP ⭐';
+  t.style.display='block';
+  setTimeout(function(){t.style.display='none';},1500);
+  checkBadges();
+}
+function updateXPBar(){
+  var level=Math.floor(XP/100);
+  var pct=(XP%100);
+  document.getElementById('xpLabel').textContent=XP+' XP';
+  document.getElementById('xpFill').style.width=pct+'%';
+}
+function checkBadges(){
+  var totalOpens=Object.values(STATS).reduce(function(a,b){return a+b;},0);
+  var checks={
+    first:  totalOpens>=1,
+    reader: totalOpens>=5,
+    super:  totalOpens>=10,
+    streak3:STREAK.count>=3,
+    streak7:STREAK.count>=7,
+    xp100:  XP>=100,
+    explorer:Object.keys(STATS).some(function(id){
+      var c=COMICS.find(function(x){return x.id==id;});
+      return c&&c.lang==='en';
+    })&&Object.keys(STATS).some(function(id){
+      var c=COMICS.find(function(x){return x.id==id;});
+      return c&&c.lang==='hi';
+    }),
+    fav5:   FAVS.length>=5
   };
+  BADGE_DEFS.forEach(function(b){
+    if(checks[b.id]&&EARNED_BADGES.indexOf(b.id)<0){
+      EARNED_BADGES.push(b.id);
+      ls('ch_badges',EARNED_BADGES);
+      showBadgeToast(b);
+      playSound('success');
+    }
+  });
+}
+function showBadgeToast(b){
+  var t=document.getElementById('badgeToast');
+  document.getElementById('btIco').textContent=b.ico;
+  document.getElementById('btText').textContent='New Badge: '+b.name+'!';
+  t.style.display='flex';
+  setTimeout(function(){t.style.display='none';},3000);
 }
 
-/* ── START ── */
-function startApp() {
-  var sp = document.getElementById('pgSplash');
-  sp.style.opacity = '0';
-  setTimeout(function() {
-    sp.style.display = 'none';
-    renderHome();
-    showPage('pgHome');
-    updateSettingsStats();
-  }, 820);
-}
-
-function updateSettingsStats() {
-  var hi = COMICS.filter(function(c){ return c.lang==='hi'; }).length;
-  var en = COMICS.filter(function(c){ return c.lang==='en'; }).length;
-  var el = document.getElementById('totalComicsCount');
-  if (el) el.textContent = COMICS.length + ' total (' + hi + ' Hindi, ' + en + ' English)';
-}
-
-/* ── RENDER HOME ── */
-function renderHome(filter) {
-  var q = filter ? filter.toLowerCase().trim() : null;
-  var hi = COMICS.filter(function(c){ return c.lang==='hi' && (!q || c.name.toLowerCase().indexOf(q)>-1); });
-  var en = COMICS.filter(function(c){ return c.lang==='en' && (!q || c.name.toLowerCase().indexOf(q)>-1); });
-  renderLibGrid('libGridHi', hi.slice(0, 4));
-  renderLibGrid('libGridEn', en.slice(0, 4));
-}
-
-function renderLibGrid(elId, list) {
-  var el = document.getElementById(elId); el.innerHTML = '';
-  if (!list.length) {
-    el.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:18px;color:#bbb;font-size:13px;font-weight:700;">Abhi koi comic nahi 😊</div>';
-    return;
+// ═══════ STREAK ═══════
+function updateStreak(){
+  var today=new Date().toDateString();
+  var yesterday=new Date(Date.now()-86400000).toDateString();
+  if(STREAK.last===today){
+    // already updated today
+  } else if(STREAK.last===yesterday){
+    STREAK.count++;
+    STREAK.last=today;
+    FIRST_OPEN_TODAY=true;
+  } else {
+    STREAK.count=1;
+    STREAK.last=today;
+    FIRST_OPEN_TODAY=true;
   }
-  list.forEach(function(c, i) {
-    var col = COLORS[i % COLORS.length];
-    var d = document.createElement('div');
-    d.className = 'lcard'; d.style.animationDelay = (i * .08) + 's';
-    var langBadge = c.lang === 'hi'
-      ? '<span class="lcard-badge badge-hi badge-left">हिंदी</span>'
-      : '<span class="lcard-badge badge-en badge-left">ENG</span>';
-    var newBadge = c.isNew ? '<span class="lcard-badge badge-new badge-right">NEW</span>' : '';
-    d.innerHTML =
-      '<div class="lcard-thumb">' +
-        '<img src="' + thumb(c) + '" loading="lazy" onerror="onThumbErr(this,\'' + c.flipUrl + '\',\'' + col + '\')">' +
-        langBadge + newBadge +
-        '<div class="lcard-fb">📕</div>' +
-      '</div>' +
-      '<div class="lcard-info">' +
-        '<div class="lcard-name">' + c.name + '</div>' +
-        '<button class="lread-btn">Read Now</button>' +
+  ls('ch_streak',STREAK);
+  renderStreakBar();
+}
+function renderStreakBar(){
+  var el=document.getElementById('streakTitle');
+  var sub=document.getElementById('streakSub');
+  var fire=document.getElementById('streakFire');
+  if(!el)return;
+  el.textContent=(STREAK.count>1?STREAK.count+' Day Streak! 🔥':'Reading Streak');
+  sub.textContent=STREAK.count>1?'Kya baat! '+STREAK.count+' din padha!':'Aaj padho aur streak shuru karo!';
+  fire.style.animation=STREAK.count>=3?'bounce 1s ease-in-out infinite':'none';
+  updateXPBar();
+}
+
+// ═══════ THUMB ═══════
+function thumb(c){
+  if(c.thumbUrl) return c.thumbUrl;
+  // FlipHTML5 direct cover — best quality, no viewer chrome
+  var base=c.flipUrl.replace(/\/$/,'');
+  return base+'/files/large/1.jpg';
+}
+
+function onThumbErr(img,url,col){
+  // Try chain of fallbacks so we ALWAYS show something good
+  var base=url.replace(/\/$/,'');
+  var tried=parseInt(img.dataset.tried||'0');
+  img.dataset.tried=tried+1;
+  img.onerror=null;
+  if(tried===0){
+    // Try mobile version — sometimes only this exists
+    img.onerror=function(){onThumbErr(img,url,col);};
+    img.src=base+'/files/mobile/1.jpg';
+  } else if(tried===1){
+    // Try page screenshot via thum.io — captures real page
+    img.onerror=function(){onThumbErr(img,url,col);};
+    img.src='https://image.thum.io/get/width/400/crop/580/noanimate/allowJPG/'+url;
+  } else {
+    // All failed — show coloured placeholder with book emoji
+    img.style.display='none';
+    var p=document.createElement('div');
+    p.style.cssText='position:absolute;inset:0;background:'+col+';display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;';
+    p.innerHTML='<div style="font-size:36px">📕</div><div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.8);text-align:center;padding:0 8px;">CHAMPAK</div>';
+    img.parentElement.appendChild(p);
+  }
+}
+
+// ═══════ START APP ═══════
+function startApp(){
+  loadAll();
+  if(MAINTENANCE){document.getElementById('maintScreen').classList.add('show');return;}
+  var sp=document.getElementById('pgSplash');
+  sp.style.opacity='0';
+  setTimeout(function(){
+    sp.style.display='none';
+    var isFirst=!ls('ch_launched');
+    if(isFirst){
+      ls('ch_launched',true);
+      showPage('pgOnboard');
+    } else {
+      bootHome();
+    }
+  },820);
+}
+
+function saveNameAndStart(){
+  var n=document.getElementById('nameInput').value.trim();
+  USER.name=n||'Dost';
+  saveUser();
+  launchConfetti();
+  playSound('success');
+  setTimeout(function(){bootHome();},800);
+}
+
+function bootHome(){
+  applyTheme(USER.theme);
+  applyDark(USER.dark);
+  updateStreak();
+  updateXPBar();
+  renderHome();
+  showPage('pgHome');
+  setNav('home');
+  updateGreeting();
+  renderAnnouncement();
+  renderCOTD();
+  checkNewComics();
+  applyLang();
+  renderSettings();
+}
+
+function updateGreeting(){
+  var el=document.getElementById('hdrGreeting');
+  if(!el)return;
+  var S=STRINGS[USER.lang];
+  var h=new Date().getHours();
+  var greet=h<12?'Suprabhat':'h<17?'Namaste':'Shubh Sham';
+  if(h<12) greet='Suprabhat ☀️';
+  else if(h<17) greet='Namaste 🌤️';
+  else greet='Shubh Sham 🌙';
+  el.textContent=(USER.name?greet+', '+USER.name+'!':greet+'!');
+}
+
+// ═══════ RENDER HOME ═══════
+function renderHome(filter){
+  var q=filter?filter.toLowerCase().trim():null;
+  var vis=COMICS.filter(function(c){return !c.isHidden;});
+  var hi=vis.filter(function(c){return c.lang==='hi'&&(!q||c.name.toLowerCase().indexOf(q)>-1);});
+  var en=vis.filter(function(c){return c.lang==='en'&&(!q||c.name.toLowerCase().indexOf(q)>-1);});
+  // pinned first
+  function sortList(arr){return arr.sort(function(a,b){return (b.isPinned?1:0)-(a.isPinned?1:0);});}
+  renderLibGrid('libGridHi',sortList(hi).slice(0,4));
+  renderLibGrid('libGridEn',sortList(en).slice(0,4));
+}
+
+function renderLibGrid(elId,list){
+  var el=document.getElementById(elId); if(!el)return; el.innerHTML='';
+  var S=STRINGS[USER.lang];
+  if(!list.length){el.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:18px;color:#bbb;font-size:13px;font-weight:700;">'+S.noComics+'</div>';return;}
+  var COLORS=['#FF6B00','#0066CC','#009944','#8B00CC','#CC6600','#CC0000','#007788'];
+  list.forEach(function(c,i){
+    var col=COLORS[i%COLORS.length];
+    var isFav=FAVS.indexOf(c.id)>-1;
+    var d=document.createElement('div');
+    d.className='lcard'; d.style.animationDelay=(i*.08)+'s';
+    d.innerHTML=
+      '<div class="lcard-thumb">'+
+        '<img src="'+thumb(c)+'" loading="lazy" onerror="onThumbErr(this,\''+c.flipUrl+'\',\''+col+'\')">'+
+        (c.isPinned?'<span class="cbadge cbadge-left b-pin">📌</span>':
+         c.lang==='hi'?'<span class="cbadge cbadge-left b-hi">हिंदी</span>':'<span class="cbadge cbadge-left b-en">ENG</span>')+
+        (c.isNew?'<span class="cbadge cbadge-right b-new">NEW</span>':
+         isFav?'<span class="cbadge cbadge-right b-fav">❤️</span>':'')+
+        '<div class="lcard-fb">📕</div>'+
+      '</div>'+
+      '<div class="lcard-info">'+
+        '<div class="lcard-name">'+c.name+'</div>'+
+        '<button class="lread-btn">'+S.readNow+'</button>'+
       '</div>';
-    d.onclick = function(){ openComic(c); };
+    d.onclick=function(){openComic(c);};
     el.appendChild(d);
   });
 }
 
-/* ── SEARCH ── */
-function doSearch(val) {
-  renderHome(val || null);
+// ═══════ COMIC OF THE DAY ═══════
+function renderCOTD(){
+  var vis=COMICS.filter(function(c){return !c.isHidden;});
+  if(!vis.length){document.getElementById('cotdWrap').style.display='none';return;}
+  var idx=(new Date().getDate()+new Date().getMonth())%vis.length;
+  var c=vis[idx];
+  document.getElementById('cotdTitle').textContent=c.name;
+  document.getElementById('cotdSub').textContent=(c.date||'')+(c.pages?' • '+c.pages+' pages':'');
+  document.getElementById('cotdImg').src=thumb(c);
+  document.getElementById('cotdImg').onerror=function(){this.style.display='none';};
+  document.getElementById('cotdBtn').onclick=function(){openComic(c);};
+  document.getElementById('cotdLbl').textContent=STRINGS[USER.lang].cotd;
 }
 
-/* ── RENDER SEE ALL ── */
-function renderSeeAll(tab) {
-  tab = tab || currentTab;
-  var list = COMICS.filter(function(c) {
-    if (tab === 'hi') return c.lang === 'hi';
-    if (tab === 'en') return c.lang === 'en';
+// ═══════ ANNOUNCEMENT ═══════
+function renderAnnouncement(){
+  var bar=document.getElementById('annBar');
+  if(ANNOUNCEMENT.active&&ANNOUNCEMENT.text){
+    document.getElementById('annText').textContent=ANNOUNCEMENT.text;
+    bar.style.display='flex';
+  } else {
+    bar.style.display='none';
+  }
+}
+function closeAnn(){document.getElementById('annBar').style.display='none';}
+
+// ═══════ NEW COMICS BADGE ═══════
+function checkNewComics(){
+  var newCount=COMICS.filter(function(c){return c.isNew&&!c.isHidden;}).length;
+  var badge=document.getElementById('newBadge');
+  if(newCount>0){badge.textContent=newCount;badge.style.display='flex';}
+  else{badge.style.display='none';}
+}
+
+// ═══════ SEE ALL (COMICS PAGE) ═══════
+function renderSeeAll(tab){
+  tab=tab||CURRENT_TAB;
+  var vis=COMICS.filter(function(c){return !c.isHidden;});
+  var list=vis.filter(function(c){
+    if(tab==='hi')return c.lang==='hi';
+    if(tab==='en')return c.lang==='en';
     return true;
-  }).sort(function(a,b){ return b.id - a.id; });
-
-  var hi = COMICS.filter(function(c){ return c.lang==='hi'; }).length;
-  var en = COMICS.filter(function(c){ return c.lang==='en'; }).length;
-  document.getElementById('allCount').textContent = hi + ' Hindi • ' + en + ' English • Total ' + COMICS.length;
-
-  var el = document.getElementById('allGrid'); el.innerHTML = '';
-  if (!list.length) {
-    el.innerHTML = '<div class="no-comics">Abhi koi comic nahi hai 😊<br><small style="font-size:12px;color:#ccc;">Jald aayegi!</small></div>';
-    return;
-  }
-  list.forEach(function(c, i) {
-    var col = COLORS[i % COLORS.length];
-    var d = document.createElement('div');
-    d.className = 'acard'; d.style.animationDelay = (i * .07) + 's';
-    d.innerHTML =
-      '<div class="acard-thumb">' +
-        '<img src="' + thumb(c) + '" loading="lazy" onerror="onThumbErr(this,\'' + c.flipUrl + '\',\'' + col + '\')">' +
-        '<div class="acard-fb" style="background:' + col + '">📕</div>' +
-        '<div class="acard-ov"></div>' +
-        '<span class="acard-lang ' + c.lang + '">' + (c.lang==='hi' ? 'हिंदी' : 'ENG') + '</span>' +
-        (c.date ? '<div class="acard-date">📅 ' + c.date + '</div>' : '') +
-        (c.pages ? '<div class="acard-pages">' + c.pages + ' pages</div>' : '') +
-        (c.isNew ? '<div class="acard-new">NEW ✨</div>' : '') +
-      '</div>' +
-      '<div class="acard-info">' +
-        '<div class="acard-name">' + c.name + '</div>' +
-        '<button class="aread-btn">📖 Read Now</button>' +
+  }).sort(function(a,b){return (b.isPinned?1:0)-(a.isPinned?1:0)||(b.id-a.id);});
+  var hi=vis.filter(function(c){return c.lang==='hi';}).length;
+  var en=vis.filter(function(c){return c.lang==='en';}).length;
+  document.getElementById('allCount').textContent=hi+' Hindi • '+en+' English • Total '+vis.length;
+  var el=document.getElementById('allGrid'); el.innerHTML='';
+  if(!list.length){el.innerHTML='<div class="no-items">'+STRINGS[USER.lang].noComics+'<br><small style="font-size:12px;color:#ccc;">Jald aayegi!</small></div>';return;}
+  var COLORS=['#FF6B00','#0066CC','#009944','#8B00CC','#CC6600','#CC0000','#007788'];
+  list.forEach(function(c,i){
+    var col=COLORS[i%COLORS.length];
+    var isFav=FAVS.indexOf(c.id)>-1;
+    var d=document.createElement('div');
+    d.className='acard'; d.style.animationDelay=(i*.06)+'s';
+    d.innerHTML=
+      '<div class="acard-thumb">'+
+        '<img src="'+thumb(c)+'" loading="lazy" onerror="onThumbErr(this,\''+c.flipUrl+'\',\''+col+'\')">'+
+        '<div class="acard-fb" style="background:'+col+'">📕</div>'+
+        '<div class="acard-ov"></div>'+
+        '<span class="cbadge cbadge-left '+(c.lang==='hi'?'b-hi':'b-en')+'">'+(c.lang==='hi'?'हिंदी':'ENG')+'</span>'+
+        (c.isPinned?'<span class="cbadge" style="top:8px;right:8px;background:#FFD700;color:#8B1A00;">📌</span>':
+         c.date?'<div class="cm-date">📅 '+c.date+'</div>':'')+
+        (c.isNew?'<span class="cbadge cbadge-left b-new" style="top:auto;bottom:8px;">NEW ✨</span>':'')+
+        (c.pages?'<div class="cm-pages">'+c.pages+' pages</div>':'')+
+      '</div>'+
+      '<div class="acard-info">'+
+        '<div class="acard-name">'+c.name+'</div>'+
+        '<div style="display:flex;gap:6px;">'+
+          '<button class="aread-btn" style="flex:1;">📖 '+STRINGS[USER.lang].readNow+'</button>'+
+          '<button style="width:38px;background:'+(isFav?'#e91e63':'rgba(255,100,0,.15)')+';border:2px solid '+(isFav?'#e91e63':'rgba(255,100,0,.2)')+';border-radius:9px;cursor:pointer;font-size:16px;" onclick="event.stopPropagation();toggleFav('+c.id+',this)">'+( isFav?'❤️':'🤍')+'</button>'+
+        '</div>'+
       '</div>';
-    d.onclick = function(){ openComic(c); };
+    d.onclick=function(e){if(e.target.tagName!=='BUTTON')openComic(c);else openComic(c);};
+    var readBtn=d.querySelector('.aread-btn');
+    readBtn.onclick=function(e){e.stopPropagation();openComic(c);};
     el.appendChild(d);
   });
 }
 
-/* ── TAB SWITCH ── */
-function switchTab(tab) {
-  currentTab = tab;
-  document.querySelectorAll('.cat-tab').forEach(function(t){ t.classList.remove('active'); });
-  document.getElementById('tab-' + tab).classList.add('active');
+function switchTab(tab){
+  CURRENT_TAB=tab;
+  document.querySelectorAll('.cat-tab').forEach(function(t){t.classList.remove('active');});
+  document.getElementById('tab-'+tab).classList.add('active');
   renderSeeAll(tab);
 }
 
-/* ── GO TO COMICS ── */
-function goComics(tab) {
-  currentTab = tab || 'all';
+function goComics(tab){
+  CURRENT_TAB=tab||'all';
   showPage('pgSeeAll');
   setNav('comics');
-  setTimeout(function(){ switchTab(currentTab); }, 40);
+  setTimeout(function(){switchTab(CURRENT_TAB);},40);
 }
 
-/* ── OPEN COMIC ── */
-function openComic(c) {
-  document.getElementById('ov').classList.add('show');
-  setTimeout(function(){ window.location.href = c.flipUrl; }, 1000);
+// ═══════ FAVOURITES ═══════
+function toggleFav(id,btn){
+  playSound('tap');
+  var idx=FAVS.indexOf(id);
+  if(idx>-1){FAVS.splice(idx,1);}
+  else{FAVS.push(id);}
+  ls('ch_favs',FAVS);
+  if(btn){btn.textContent=FAVS.indexOf(id)>-1?'❤️':'🤍';btn.style.background=FAVS.indexOf(id)>-1?'#e91e63':'rgba(255,100,0,.15)';}
+  checkBadges();
+}
+function renderFavs(){
+  var el=document.getElementById('favGrid'); el.innerHTML='';
+  var list=COMICS.filter(function(c){return FAVS.indexOf(c.id)>-1&&!c.isHidden;});
+  document.getElementById('favsCount').textContent=list.length+' saved comics';
+  if(!list.length){el.innerHTML='<div class="no-items" style="grid-column:1/-1;">'+STRINGS[USER.lang].noFavs+'<br><small style="font-size:13px;color:#ccc;">Comics page se dil lagao!</small></div>';return;}
+  var COLORS=['#FF6B00','#0066CC','#009944','#8B00CC'];
+  list.forEach(function(c,i){
+    var col=COLORS[i%COLORS.length];
+    var d=document.createElement('div');
+    d.className='fav-card'; d.style.animationDelay=(i*.08)+'s';
+    d.innerHTML=
+      '<div class="fav-thumb"><img src="'+thumb(c)+'" loading="lazy" onerror="onThumbErr(this,\''+c.flipUrl+'\',\''+col+'\')"><div class="fav-fb">📕</div></div>'+
+      '<div class="fav-name">'+c.name+'</div>'+
+      '<button class="fav-remove" onclick="event.stopPropagation();removeFav('+c.id+')">Remove ✕</button>';
+    d.onclick=function(){openComic(c);};
+    el.appendChild(d);
+  });
+}
+function removeFav(id){
+  FAVS=FAVS.filter(function(x){return x!==id;});
+  ls('ch_favs',FAVS);
+  renderFavs();
+  playSound('tap');
 }
 
-/* ── DARK MODE ── */
-function toggleDark() {
-  darkMode = !darkMode;
-  document.body.classList.toggle('dark', darkMode);
-  document.getElementById('darkToggle').classList.toggle('on', darkMode);
-  try{ localStorage.setItem('champak_dark', darkMode ? '1' : '0'); }catch(e){}
+// ═══════ OPEN COMIC ═══════
+function openComic(c){
+  playSound('whoosh');
+  STATS[c.id]=(STATS[c.id]||0)+1;
+  ls('ch_stats',STATS);
+  // Reading history
+  HISTORY=HISTORY.filter(function(h){return h.id!==c.id;});
+  HISTORY.unshift({id:c.id,name:c.name,date:new Date().toLocaleDateString(),thumb:thumb(c)});
+  if(HISTORY.length>10) HISTORY=HISTORY.slice(0,10);
+  ls('ch_history',HISTORY);
+  // First comic of day - confetti
+  if(FIRST_OPEN_TODAY){launchConfetti();FIRST_OPEN_TODAY=false;}
+  addXP(10);
+  checkBadges();
+  document.getElementById('ovOpen').classList.add('show');
+  setTimeout(function(){window.location.href=c.flipUrl;},1000);
 }
 
-/* ── NAV ── */
-function setNav(name) {
-  document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('active'); });
-  var el = document.getElementById('nav-' + name);
-  if (el) el.classList.add('active');
+// ═══════ SEARCH ═══════
+function doSearch(v){renderHome(v||null);}
+
+// ═══════ SETTINGS ═══════
+function renderSettings(){
+  // Badges
+  var bw=document.getElementById('badgesWrap');
+  if(bw){
+    bw.innerHTML='';
+    BADGE_DEFS.forEach(function(b){
+      var earned=EARNED_BADGES.indexOf(b.id)>-1;
+      var div=document.createElement('div');
+      div.className='badge-chip'+(earned?'':' locked');
+      div.innerHTML='<span class="bi">'+b.ico+'</span><span class="bn">'+b.name+'</span>';
+      div.title=b.req;
+      bw.appendChild(div);
+    });
+  }
+  // History
+  var hl=document.getElementById('histList');
+  if(hl){
+    hl.innerHTML='';
+    if(!HISTORY.length){hl.innerHTML='<div style="padding:14px;text-align:center;font-size:13px;color:#bbb;font-weight:700;">Abhi koi history nahi</div>';return;}
+    HISTORY.slice(0,5).forEach(function(h){
+      var div=document.createElement('div');
+      div.className='hist-item';
+      div.innerHTML='<div class="hist-thumb"><img src="'+h.thumb+'" onerror="this.parentElement.innerHTML=\'📕\'" style="width:100%;height:100%;object-fit:cover;"></div><div class="hist-name">'+h.name+'</div><div class="hist-date">'+h.date+'</div>';
+      var c=COMICS.find(function(x){return x.id===h.id;});
+      if(c) div.onclick=function(){openComic(c);};
+      hl.appendChild(div);
+    });
+  }
+  var tc=document.getElementById('settTotalComics');
+  if(tc){
+    var hi=COMICS.filter(function(c){return c.lang==='hi'&&!c.isHidden;}).length;
+    var en=COMICS.filter(function(c){return c.lang==='en'&&!c.isHidden;}).length;
+    tc.textContent=COMICS.filter(function(c){return !c.isHidden;}).length+' ('+hi+' Hindi, '+en+' English)';
+  }
 }
 
-/* ── SHOW PAGE ── */
-function showPage(id) {
-  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+// ═══════ THEME ═══════
+function setTheme(t){
+  USER.theme=t; saveUser();
+  applyTheme(t);
+  document.querySelectorAll('.tdot').forEach(function(d){d.classList.remove('active');});
+  var td=document.getElementById('td-'+t);
+  if(td) td.classList.add('active');
+  playSound('tap');
+}
+function applyTheme(t){
+  document.body.className=document.body.className.replace(/theme-\w+/g,'').trim();
+  if(t!=='orange') document.body.classList.add('theme-'+t);
+  if(USER.dark) document.body.classList.add('dark');
+}
+
+// ═══════ DARK MODE ═══════
+function toggleDark(){
+  USER.dark=!USER.dark; saveUser();
+  applyDark(USER.dark);
+  document.getElementById('darkToggle').classList.toggle('on',USER.dark);
+  playSound('tap');
+}
+function applyDark(d){
+  document.body.classList.toggle('dark',d);
+  var t=document.getElementById('darkToggle');
+  if(t) t.classList.toggle('on',d);
+}
+
+// ═══════ SOUND ═══════
+function toggleSound(){
+  USER.sound=!USER.sound; saveUser();
+  document.getElementById('soundToggle').classList.toggle('on',USER.sound);
+}
+
+// ═══════ LANGUAGE ═══════
+function toggleLang(){
+  USER.lang=USER.lang==='hi'?'en':'hi';
+  saveUser();
+  document.getElementById('langVal').textContent=USER.lang==='hi'?'हिंदी':'English';
+  applyLang();
+  renderHome();
+  renderCOTD();
+  playSound('tap');
+}
+function applyLang(){
+  var S=STRINGS[USER.lang];
+  var m={nlHome:S.home,nlComics:S.comics,nlFavs:S.favs,nlSettings:S.settings,
+         lblHindiSec:S.hindiSec,lblEnSec:S.enSec,lblSeeAllHi:S.seeAll,lblSeeAllEn:S.seeAll};
+  for(var k in m){var el=document.getElementById(k);if(el)el.textContent=m[k];}
+  document.getElementById('langVal').textContent=USER.lang==='hi'?'हिंदी':'English';
+  updateGreeting();
+}
+
+// ═══════ FEEDBACK ═══════
+function selectFbType(btn,type){
+  FB_TYPE=type;
+  document.querySelectorAll('.fb-type-btn').forEach(function(b){b.classList.remove('selected');});
+  btn.classList.add('selected');
+  playSound('tap');
+}
+function submitFeedback(){
+  var name=document.getElementById('fbName').value.trim()||USER.name||'Anonymous';
+  var msg=document.getElementById('fbMsg').value.trim();
+  if(!msg){
+    document.getElementById('fbMsg').style.borderColor='#FF4444';
+    setTimeout(function(){document.getElementById('fbMsg').style.borderColor='';},2000);
+    return;
+  }
+  FEEDBACK.push({type:FB_TYPE,name:name,msg:msg,time:new Date().toLocaleString()});
+  ls('ch_feedback',FEEDBACK);
+  document.getElementById('fbMsg').value='';
+  document.getElementById('fbName').value='';
+  playSound('success');
+  launchConfetti();
+  // Show in-app success screen
+  var fc=document.getElementById('fbContent');
+  var orig=fc.innerHTML;
+  fc.innerHTML=
+    '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 30px;text-align:center;gap:14px;">'+
+    '<div style="font-size:80px;animation:bounce 1s ease-in-out 3;">🎉</div>'+
+    '<div style="font-family:Lilita One,cursive;font-size:24px;color:var(--accent);">Message Pahunch Gaya!</div>'+
+    '<div style="font-size:14px;color:var(--sub);font-weight:700;line-height:1.6;">Tumhara message developer Baadal tak<br>seedha pahunch gaya hai! 🙏<br><br>Woh zaroor padhenge aur kaam karenge!</div>'+
+    '<button onclick="this.parentElement.parentElement.innerHTML=arguments[0]" style="padding:14px 30px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;border-radius:14px;font-family:Lilita One,cursive;font-size:16px;box-shadow:0 4px 0 var(--shadow);cursor:pointer;" onclick="resetFbForm()">✉️ Aur Bhejo</button>'+
+    '</div>';
+  setTimeout(function(){
+    if(document.getElementById('fbContent'))
+      document.getElementById('fbContent').innerHTML=orig;
+  },4000);
+}
+
+// ═══════ LOGO TAP (DEV UNLOCK) ═══════
+function tapLogo(){
+  playSound('tap');
+  LOGO_TAPS++;
+  clearTimeout(LOGO_TIMER);
+  if(LOGO_TAPS>=5){LOGO_TAPS=0;openPwModal();}
+  else{LOGO_TIMER=setTimeout(function(){LOGO_TAPS=0;},2000);}
+}
+function openPwModal(){
+  document.getElementById('pwInput').value='';
+  document.getElementById('pwErr').textContent='';
+  document.getElementById('pwModal').classList.add('show');
+  setTimeout(function(){document.getElementById('pwInput').focus();},100);
+}
+function closePwModal(){document.getElementById('pwModal').classList.remove('show');}
+function checkPassword(){
+  var v=document.getElementById('pwInput').value;
+  if(v===DEV_PASS){
+    DEV_UNLOCKED=true;
+    closePwModal();
+    showPage('pgDev');
+    renderDevPanel();
+  } else {
+    document.getElementById('pwErr').textContent='❌ Wrong password!';
+    playSound('tap');
+  }
+}
+function devLock(){DEV_UNLOCKED=false;showPage('pgHome');setNav('home');}
+
+// ═══════ DEV PANEL ═══════
+function renderDevPanel(){
+  if(!DEV_UNLOCKED) return;
+  renderDevStats();
+  renderDevComics();
+  renderDevFeedback();
+  // Announcement
+  document.getElementById('devAnnText').value=ANNOUNCEMENT.text||'';
+  // Maintenance
+  document.getElementById('devMaintToggle').classList.toggle('on',MAINTENANCE);
+}
+
+function renderDevStats(){
+  var totalOpens=Object.values(STATS).reduce(function(a,b){return a+b;},0);
+  var hi=COMICS.filter(function(c){return c.lang==='hi'&&!c.isHidden;}).length;
+  var en=COMICS.filter(function(c){return c.lang==='en'&&!c.isHidden;}).length;
+  document.getElementById('devStatGrid').innerHTML=
+    '<div class="dev-stat"><div class="dev-stat-num">'+COMICS.filter(function(c){return !c.isHidden;}).length+'</div><div class="dev-stat-label">Comics</div></div>'+
+    '<div class="dev-stat"><div class="dev-stat-num">'+totalOpens+'</div><div class="dev-stat-label">Total Opens</div></div>'+
+    '<div class="dev-stat"><div class="dev-stat-num">'+FEEDBACK.length+'</div><div class="dev-stat-label">Feedback</div></div>';
+  // Top 3
+  var sorted=COMICS.map(function(c){return {c:c,opens:STATS[c.id]||0};}).sort(function(a,b){return b.opens-a.opens;}).slice(0,3);
+  var maxOpens=sorted[0]?sorted[0].opens:1;
+  var icons=['🥇','🥈','🥉'];
+  var t3=document.getElementById('devTop3');
+  t3.innerHTML='<div style="font-size:11px;font-weight:700;color:#888;margin-bottom:8px;">TOP 3 MOST READ</div>';
+  sorted.forEach(function(item,i){
+    var pct=maxOpens>0?Math.round((item.opens/maxOpens)*100):0;
+    var div=document.createElement('div');
+    div.className='dev-top3-item';
+    div.innerHTML='<div class="dev-top3-rank">'+icons[i]+'</div><div class="dev-top3-bar-wrap"><div class="dev-top3-name">'+item.c.name+'</div><div class="dev-bar" style="width:'+pct+'%"></div></div><div class="dev-top3-count">'+item.opens+'</div>';
+    t3.appendChild(div);
+  });
+  document.getElementById('devComicCount').textContent='('+COMICS.length+' total)';
+}
+
+function renderDevComics(){
+  var el=document.getElementById('devComicsList'); el.innerHTML='';
+  if(!COMICS.length){el.innerHTML='<div style="color:#888;font-size:13px;padding:10px;">No comics yet. Add one above!</div>';return;}
+  COMICS.forEach(function(c,i){
+    var div=document.createElement('div');
+    div.className='dev-comic-row';
+    div.style.opacity=c.isHidden?'.5':'1';
+    div.innerHTML=
+      '<div class="dev-comic-name">'+(c.isPinned?'📌 ':'')+(c.isNew?'🆕 ':'')+(c.isHidden?'👁️‍🗨️ ':'')+c.name+'</div>'+
+      '<div class="dev-comic-meta">'+c.lang.toUpperCase()+' • '+(c.date||'No date')+' • '+(STATS[c.id]||0)+' opens</div>'+
+      '<div class="dev-btns">'+
+        '<button class="dev-btn dbtn-edit" onclick="devEditComic('+c.id+')">✏️ Edit</button>'+
+        '<button class="dev-btn dbtn-hide" onclick="devToggleHide('+c.id+')">'+(c.isHidden?'👁️ Show':'🚫 Hide')+'</button>'+
+        '<button class="dev-btn dbtn-pin" onclick="devTogglePin('+c.id+')">'+(c.isPinned?'📌 Unpin':'📌 Pin')+'</button>'+
+        '<button class="dev-btn dbtn-new" onclick="devToggleNew('+c.id+')">'+(c.isNew?'✅ Unmark':'🆕 Mark New')+'</button>'+
+        (i>0?'<button class="dev-btn dbtn-up" onclick="devMove('+c.id+',-1)">⬆️</button>':'')+
+        (i<COMICS.length-1?'<button class="dev-btn dbtn-down" onclick="devMove('+c.id+',1)">⬇️</button>':'')+
+        '<button class="dev-btn dbtn-del" onclick="devDeleteComic('+c.id+')">🗑️ Del</button>'+
+      '</div>';
+    el.appendChild(div);
+  });
+}
+
+function renderDevFeedback(){
+  var el=document.getElementById('devFbList'); el.innerHTML='';
+  document.getElementById('devFbCount').textContent='('+FEEDBACK.length+')';
+  if(!FEEDBACK.length){el.innerHTML='<div style="color:#888;font-size:13px;padding:10px;">No feedback yet.</div>';return;}
+  var typeIcons={idea:'💡',bug:'🐛',msg:'💬',request:'📖'};
+  FEEDBACK.slice().reverse().forEach(function(f){
+    var div=document.createElement('div');
+    div.className='fb-msg-item';
+    div.innerHTML='<div class="fb-msg-type">'+(typeIcons[f.type]||'📩')+' '+f.type.toUpperCase()+'</div>'+
+      '<div class="fb-msg-name">👤 '+f.name+'</div>'+
+      '<div class="fb-msg-text">'+f.msg+'</div>'+
+      '<div class="fb-msg-time">🕒 '+f.time+'</div>';
+    el.appendChild(div);
+  });
+}
+
+function devAddComic(){
+  var name=document.getElementById('devAddName').value.trim();
+  var url=document.getElementById('devAddUrl').value.trim();
+  var lang=document.getElementById('devAddLang').value;
+  var date=document.getElementById('devAddDate').value.trim();
+  var pages=parseInt(document.getElementById('devAddPages').value)||0;
+  if(!name||!url){alert('Name aur URL zaroori hain!');return;}
+  var newId=Math.max.apply(null,COMICS.map(function(c){return c.id;}).concat([0]))+1;
+  COMICS.push({id:newId,name:name,lang:lang,isNew:true,isPinned:false,isHidden:false,flipUrl:url,pages:pages||undefined,date:date||undefined});
+  saveComics();
+  renderDevPanel();
+  renderHome();
+  checkNewComics();
+  document.getElementById('devAddName').value='';
+  document.getElementById('devAddUrl').value='';
+  document.getElementById('devAddDate').value='';
+  document.getElementById('devAddPages').value='';
+  playSound('success');
+  alert('Comic add ho gaya! ✅');
+}
+
+function devEditComic(id){
+  var c=COMICS.find(function(x){return x.id===id;});
+  if(!c) return;
+  var name=prompt('Comic name:', c.name);
+  if(name===null) return;
+  var date=prompt('Date (e.g. Jan 2024):', c.date||'');
+  var pages=prompt('Pages:', c.pages||'');
+  c.name=name.trim()||c.name;
+  c.date=date.trim()||c.date;
+  c.pages=parseInt(pages)||c.pages;
+  saveComics();
+  renderDevPanel();
+  renderHome();
+}
+
+function devToggleHide(id){var c=COMICS.find(function(x){return x.id===id;});if(c){c.isHidden=!c.isHidden;saveComics();renderDevPanel();renderHome();checkNewComics();}}
+function devTogglePin(id){var c=COMICS.find(function(x){return x.id===id;});if(c){c.isPinned=!c.isPinned;saveComics();renderDevPanel();renderHome();}}
+function devToggleNew(id){var c=COMICS.find(function(x){return x.id===id;});if(c){c.isNew=!c.isNew;saveComics();renderDevPanel();checkNewComics();}}
+function devMove(id,dir){
+  var idx=COMICS.findIndex(function(x){return x.id===id;});
+  var newIdx=idx+dir;
+  if(newIdx<0||newIdx>=COMICS.length) return;
+  var tmp=COMICS[idx]; COMICS[idx]=COMICS[newIdx]; COMICS[newIdx]=tmp;
+  saveComics(); renderDevPanel(); renderHome();
+}
+function devDeleteComic(id){
+  if(!confirm('Confirm delete?')) return;
+  COMICS=COMICS.filter(function(x){return x.id!==id;});
+  saveComics(); renderDevPanel(); renderHome(); checkNewComics();
+}
+
+function devSaveAnn(){
+  ANNOUNCEMENT={active:true,text:document.getElementById('devAnnText').value.trim()};
+  ls('ch_ann',ANNOUNCEMENT); renderAnnouncement();
+  alert('Announcement saved! ✅');
+}
+function devHideAnn(){
+  ANNOUNCEMENT.active=false;
+  ls('ch_ann',ANNOUNCEMENT); renderAnnouncement();
+}
+function devToggleMaint(){
+  MAINTENANCE=!MAINTENANCE;
+  ls('ch_maint',MAINTENANCE);
+  document.getElementById('devMaintToggle').classList.toggle('on',MAINTENANCE);
+}
+function devClearFeedback(){
+  if(!confirm('Sab feedback delete karein?')) return;
+  FEEDBACK=[];
+  ls('ch_feedback',FEEDBACK);
+  renderDevFeedback();
+}
+function devBackup(){
+  var json=JSON.stringify(COMICS,null,2);
+  document.getElementById('devRestoreInput').value=json;
+  if(navigator.clipboard){navigator.clipboard.writeText(json).then(function(){alert('Copied to clipboard! ✅ Paste it in your HTML code.');});}
+  else{alert('JSON appears below — copy it manually.');}
+}
+function devRestore(){
+  try{
+    var parsed=JSON.parse(document.getElementById('devRestoreInput').value);
+    if(!Array.isArray(parsed)) throw new Error();
+    COMICS=parsed; saveComics(); renderDevPanel(); renderHome();
+    alert('Restore successful! ✅');
+  } catch(e){alert('Invalid JSON. Check the format.');}
+}
+function devChangePass(){
+  var p1=document.getElementById('devNewPass1').value;
+  var p2=document.getElementById('devNewPass2').value;
+  if(!p1){alert('Password cannot be empty!');return;}
+  if(p1!==p2){alert('Passwords do not match!');return;}
+  DEV_PASS=p1; ls('ch_pass',DEV_PASS);
+  document.getElementById('devNewPass1').value='';
+  document.getElementById('devNewPass2').value='';
+  playSound('success');
+  alert('Password changed! ✅');
+}
+
+// ═══════ NAV / PAGE ═══════
+function setNav(name){
+  document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
+  var el=document.getElementById('nav-'+name);
+  if(el) el.classList.add('active');
+}
+function showPage(id){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
   document.getElementById(id).classList.add('active');
 }
-
-/* ── REFRESH ── */
-function refreshPage() {
-  var b = document.getElementById('refreshBtn');
+function refreshPage(){
+  var b=document.getElementById('refreshBtn');
   b.classList.add('spin');
-  setTimeout(function(){ b.classList.remove('spin'); renderHome(); }, 700);
+  setTimeout(function(){b.classList.remove('spin');loadAll();renderHome();checkNewComics();renderCOTD();},700);
+  playSound('tap');
 }
+function openLink(url){window.location.href=url;}
 
-/* ── OPEN LINK ── */
-function openLink(url) { window.location.href = url; }
-
-/* ── RESTORE DARK MODE on load ── */
-(function() {
-  try {
-    if (localStorage.getItem('champak_dark') === '1') {
-      darkMode = true;
-      document.body.classList.add('dark');
-    }
-  } catch(e){}
+// ═══════ INIT ═══════
+(function(){
+  try{
+    var dark=JSON.parse(localStorage.getItem('ch_user'));
+    if(dark&&dark.dark) document.body.classList.add('dark');
+    if(dark&&dark.theme&&dark.theme!=='orange') document.body.classList.add('theme-'+dark.theme);
+  }catch(e){}
 })();
 </script>
 </body>
