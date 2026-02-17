@@ -40,12 +40,12 @@ body{font-family:'Baloo 2',cursive;background:#FFD84D;}
 
 /* ── HOME ── */
 #pgHome{background:#FFF5C0;overflow:hidden;}
-#homeContent{flex:1;overflow-y:auto;padding-bottom:76px;}
+#homeContent{flex:1;overflow-y:auto;padding-top:8px;padding-bottom:76px;}
 #homeContent::-webkit-scrollbar{width:0;}
 
 /* Hero Banner — no SVG characters, clean decorative */
 .hero-banner{margin:12px 14px 6px;border-radius:22px;overflow:hidden;background:linear-gradient(160deg,#FFE566,#FFD000 45%,#8DC42A 100%);border:3px solid #E8A800;box-shadow:0 5px 0 #C89800,0 7px 18px rgba(200,160,0,.3);position:relative;cursor:pointer;}
-.hero-inner{position:relative;min-height:130px;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:16px;}
+.hero-inner{position:relative;min-height:160px;height:160px;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:16px;}
 /* Decorative circles in background */
 .hero-inner::before{content:'';position:absolute;width:110px;height:110px;border-radius:50%;background:rgba(255,255,255,.15);top:-20px;left:-20px;}
 .hero-inner::after{content:'';position:absolute;width:80px;height:80px;border-radius:50%;background:rgba(255,200,0,.2);bottom:-10px;right:30px;}
@@ -135,61 +135,14 @@ body{font-family:'Baloo 2',cursive;background:#FFD84D;}
 
 <!-- HOME -->
 <div id="pgHome" class="page">
-  <div class="app-hdr">
-
-    <!-- Champak-vibe icon: comic sun/star badge with च -->
-    <div class="hdr-icon-box">
-      <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
-        <!-- Warm gradient bg -->
-        <rect width="52" height="52" rx="13" fill="url(#ig)"/>
-        <defs>
-          <linearGradient id="ig" x1="0" y1="0" x2="52" y2="52">
-            <stop offset="0%" stop-color="#FF9500"/>
-            <stop offset="100%" stop-color="#FF3D00"/>
-          </linearGradient>
-        </defs>
-        <!-- Sun rays -->
-        <g stroke="rgba(255,230,0,.9)" stroke-width="2.5" stroke-linecap="round">
-          <line x1="26" y1="5"  x2="26" y2="10"/>
-          <line x1="26" y1="42" x2="26" y2="47"/>
-          <line x1="5"  y1="26" x2="10" y2="26"/>
-          <line x1="42" y1="26" x2="47" y2="26"/>
-          <line x1="10" y1="10" x2="14" y2="14"/>
-          <line x1="38" y1="38" x2="42" y2="42"/>
-          <line x1="42" y1="10" x2="38" y2="14"/>
-          <line x1="10" y1="42" x2="14" y2="38"/>
-        </g>
-        <!-- Inner circle -->
-        <circle cx="26" cy="26" r="14" fill="rgba(255,240,100,.95)"/>
-        <!-- Hindi च letter -->
-        <text x="26" y="33" text-anchor="middle" font-family="'Baloo 2',sans-serif" font-size="17" font-weight="800" fill="#CC2200">&#2330;</text>
-      </svg>
-    </div>
-
-    <div style="flex:1">
-      <!-- चंपक in Baloo 2 800 (supports Devanagari), Comics in Lilita One -->
-      <div class="hdr-title-row">
-        <span class="hdr-hi">&#2330;&#2306;&#2346;&#2325;</span>
-        <span class="hdr-en">Comics</span>
-      </div>
-      <div class="hdr-sub">&#128737;&#65039; AD FREE &#8226; KIDS SAFE &#8226; FREE</div>
-    </div>
-    <button class="hdr-btn" id="refreshBtn" onclick="refreshPage()">&#128260;</button>
-  </div>
 
   <div id="homeContent">
 
-    <!-- Hero Banner: clean, no SVG characters -->
+    <!-- Hero Banner: characters image -->
     <div class="hero-banner" onclick="showPage('pgSeeAll')">
-      <div class="hero-inner">
-        <span class="hero-deco hd1">&#127775;</span>
-        <span class="hero-deco hd2">&#127881;</span>
-        <span class="hero-deco hd3">&#127800;</span>
-        <span class="hero-deco hd4">&#127775;</span>
-        <div class="hero-text-wrap">
-          <div class="hero-big-hi">&#2330;&#2306;&#2346;&#2325;</div>
-          <div class="hero-tagline">Hasee, Mazaa aur Kahaniyan!</div>
-        </div>
+      <div class="hero-inner" style="padding:0;min-height:160px;">
+        <img src="./champak_banner.png" alt="Champak Characters"
+             style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;border-radius:0;">
       </div>
       <div class="hero-foot">
         <div class="hero-foot-txt">&#127775; Champak ki Duniya!</div>
@@ -256,7 +209,7 @@ var COLORS=['#FF6B00','#0066CC','#009944','#8B00CC','#CC6600','#CC0000','#007788
 function thumb(c){
   if(c.thumbUrl) return c.thumbUrl;
   // Use a wider crop (crop/800) to get more of the cover
-  return 'https://image.thum.io/get/width/400/crop/800/viewportWidth/400/'+c.flipUrl;
+  return 'https://image.thum.io/get/width/400/crop/550/noanimate/viewportWidth/400/'+c.flipUrl;
 }
 function fbFix(col){
   return "this.style.display='none';var f=this.nextElementSibling;f.style.display='flex';f.style.background='"+col+"';";
