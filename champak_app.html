@@ -1011,12 +1011,13 @@ function bootHome(){
 function updateGreeting(){
   var el=document.getElementById('hdrGreeting');
   if(!el)return;
-  var S=STRINGS[USER.lang];
   var h=new Date().getHours();
-  var greet=h<12?'Suprabhat':'h<17?'Namaste':'Shubh Sham';
-  if(h<12) greet='Suprabhat ☀️';
-  else if(h<17) greet='Namaste 🌤️';
-  else greet='Shubh Sham 🌙';
+  var greet;
+  if(h<5)       greet='Good Night 🌙';
+  else if(h<12) greet='Good Morning ☀️';
+  else if(h<17) greet='Good Afternoon 🌤️';
+  else if(h<21) greet='Good Evening 🌆';
+  else          greet='Good Night 🌙';
   el.textContent=(USER.name?greet+', '+USER.name+'!':greet+'!');
 }
 
