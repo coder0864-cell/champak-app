@@ -429,32 +429,6 @@ body.dark .xp-bar-bg{background:#333358!important;}
 .arc-scr{flex:1;overflow-y:auto;}
 .arc-scr::-webkit-scrollbar{width:0;}
 
-/* TETRIS */
-#pgTetris{background:#0a0a1a;}
-.tetris-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:10px;}
-#tetrisCanvas{border:3px solid #FFD700;border-radius:4px;box-shadow:0 0 20px rgba(255,215,0,.3);}
-.tetris-info{display:flex;gap:16px;color:#FFD700;font-family:'Lilita One',cursive;}
-.tetris-stat{text-align:center;}
-.tetris-stat-n{font-size:22px;color:#FFD700;}
-.tetris-stat-l{font-size:10px;color:#888;}
-.tetris-btns{display:flex;gap:8px;}
-.tet-btn{padding:8px 16px;background:linear-gradient(135deg,#FFD700,#FF8C00);border:none;border-radius:10px;font-family:'Lilita One',cursive;font-size:13px;color:#fff;cursor:pointer;box-shadow:0 3px 0 #CC6000;}
-/* Touch controls */
-.touch-dpad{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;width:150px;}
-.dpad-btn{height:44px;background:rgba(255,215,0,.15);border:2px solid rgba(255,215,0,.3);border-radius:10px;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
-.dpad-btn:active{background:rgba(255,215,0,.35);}
-
-/* SPACE INVADERS */
-#pgSpace{background:#000010;}
-.space-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:10px;}
-#spaceCanvas{border:2px solid #00FF41;border-radius:4px;box-shadow:0 0 15px rgba(0,255,65,.3);}
-.space-info{display:flex;gap:20px;color:#00FF41;font-family:'Lilita One',cursive;}
-.space-stat{text-align:center;}
-.space-stat-n{font-size:20px;color:#00FF41;}
-.space-stat-l{font-size:10px;color:#006620;}
-.space-fire-btn{padding:12px 40px;background:linear-gradient(135deg,#00CC41,#008833);border:none;border-radius:12px;font-family:'Lilita One',cursify;font-size:16px;color:#fff;cursor:pointer;box-shadow:0 4px 0 #004411;margin-top:4px;font-family:'Lilita One',cursive;}
-.space-fire-btn:active{transform:translateY(2px);}
-
 /* EMULATOR */
 #pgEmulator{background:#0a0a1a;}
 .emu-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;gap:14px;}
@@ -588,7 +562,6 @@ body.dark .skel{background:linear-gradient(90deg,#1e1e30 25%,#2a2a40 50%,#1e1e30
 
 /* VIDEO SPLASH */
 #pgSplash{background:#000;}
-#splashTapPlay{display:none;}
 
 
 /* EMULATOR FULLSCREEN */
@@ -616,6 +589,53 @@ body.dark .skel{background:linear-gradient(90deg,#1e1e30 25%,#2a2a40 50%,#1e1e30
 @media (orientation:landscape){
   #retroEmuWrap{height:100vh;flex-direction:row;}
   #emujs-container{flex:1;height:100%;}
+}
+
+
+/* Hide EJS toolbar buttons that cover game */
+.ejs_menu_bar, .ejs_menu, #ejs_menu_bar,
+div[id*="ejs_menu"], div[class*="ejs_menu"],
+.ejs_bar, #ejs_bar {
+  display:none!important;
+  height:0!important;
+  overflow:hidden!important;
+}
+/* Make game canvas fill entire container */
+#EJS_player {
+  width:100%!important;
+  height:100%!important;
+  position:absolute!important;
+  inset:0!important;
+}
+#EJS_player canvas,
+#EJS_player iframe,
+#EJS_player video {
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+  display:block!important;
+}
+/* Portrait — full screen */
+@media (orientation:portrait){
+  #retroEmuWrap{height:100vh!important;}
+  #emujs-container{
+    position:fixed!important;
+    inset:0!important;
+    z-index:200!important;
+    background:#000!important;
+  }
+  #retroOverlay{position:fixed!important;z-index:210!important;}
+}
+/* Landscape — full screen */
+@media (orientation:landscape){
+  #retroEmuWrap{height:100vh!important;flex-direction:column!important;}
+  #emujs-container{
+    position:fixed!important;
+    inset:0!important;
+    z-index:200!important;
+    background:#000!important;
+  }
+  #retroOverlay{position:fixed!important;z-index:210!important;}
 }
 
 </style>
@@ -674,16 +694,6 @@ body.dark .skel{background:linear-gradient(90deg,#1e1e30 25%,#2a2a40 50%,#1e1e30
   <!-- FALLBACK image shown if video missing -->
   <img id="splashFallback" class="sp-img" src="./champak_splash.png" alt=""
     style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;display:none;">
-  <!-- Skip button (appears after 2s) -->
-  <button id="splashSkip" onclick="skipSplash()"
-    style="display:none;position:absolute;bottom:22%;right:18px;z-index:10;background:rgba(0,0,0,.45);color:#fff;border:2px solid rgba(255,255,255,.5);border-radius:30px;padding:8px 18px;font-family:'Baloo 2',cursive;font-size:13px;font-weight:800;cursor:pointer;">
-    Skip ▶
-  </button>
-  <!-- Play button for browsers that block autoplay -->
-  <div id="splashTapPlay"
-    style="display:none;position:absolute;inset:0;z-index:8;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,.7);">
-    <div style="font-size:80px;cursor:pointer;" onclick="playSplashVideo()">▶️</div>
-    <div style="font-family:'Lilita One',cursive;font-size:18px;color:#FFD700;margin-top:12px;">Tap to Start</div>
   </div>
 </div>
 
@@ -715,8 +725,8 @@ body.dark .skel{background:linear-gradient(90deg,#1e1e30 25%,#2a2a40 50%,#1e1e30
   <div class="ann-bar" id="annBar" style="display:none;"><span>📢</span><span style="font-size:12px;font-weight:800;color:#fff;flex:1;" id="annTxt"></span><button class="ann-x" onclick="closeAnn()">✕</button></div>
   <div id="homeScroll">
     <div class="streak-bar"><div style="font-size:20px;" id="strkFire">🔥</div><div style="flex:1;"><div style="font-size:12px;font-weight:800;color:var(--text);" id="strkTitle">Reading Streak</div><div style="font-size:10px;color:var(--sub);font-weight:600;" id="strkSub">Read today!</div></div><div><div style="font-size:10px;font-weight:800;color:var(--a);" id="xpLbl">0 XP</div><div class="xp-bar-bg"><div class="xp-bar-fill" id="xpFill" style="width:0%"></div></div></div></div>
-    <div class="hero-banner" onclick="goComics('all')"><div class="hero-img"><img src="./champak_banner.png" alt="Champak" onerror="this.style.background='#FF9500'"></div><div class="hero-foot"><div style="font-size:12px;font-weight:800;color:#fff;">🌟 Champak World!</div><button style="background:#FFE100;color:#6B3A00;font-family:'Lilita One',cursive;font-size:11px;padding:5px 12px;border:none;border-radius:9px;box-shadow:0 3px 0 #C8A800;cursor:pointer;" onclick="event.stopPropagation();goComics('all')">Read →</button></div></div>
-    <div class="cotd-wrap" id="cotdWrap"><div class="cotd-lbl">🎁 Comic of the Day</div><div class="cotd-card" id="cotdCard"><div class="cotd-thumb"><img id="cotdImg" src="" alt="" onerror="this.style.display='none'"></div><div style="flex:1;"><div style="font-size:13px;font-weight:800;color:#fff;line-height:1.3;margin-bottom:3px;" id="cotdTitle">Loading...</div><div style="font-size:10px;color:rgba(255,255,255,.8);font-weight:700;" id="cotdSub"></div></div><button class="cotd-btn" id="cotdBtn">Read →</button></div></div>
+    <div class="hero-banner" onclick="goComics('all')"><div class="hero-img"><img src="./champak_banner.png" alt="Champak" onerror="this.style.background='#FF9500'"></div><div class="hero-foot"><div style="font-size:12px;font-weight:800;color:#fff;">🌟 Champak World!</div></div></div>
+    <div class="cotd-wrap" id="cotdWrap"><div class="cotd-lbl">🎁 Comic of the Day</div><div class="cotd-card" id="cotdCard"><div class="cotd-thumb"><img id="cotdImg" src="" alt="" onerror="this.style.display='none'"></div><div style="flex:1;"><div style="font-size:13px;font-weight:800;color:#fff;line-height:1.3;margin-bottom:3px;" id="cotdTitle">Loading...</div><div style="font-size:10px;color:rgba(255,255,255,.8);font-weight:700;" id="cotdSub"></div></div></div></div>
     <div class="search-wrap"><div class="search-bar"><span>🔍</span><input type="text" id="homeSearch" placeholder="Search comics..." oninput="doSearch(this.value)" autocomplete="off"></div></div>
     <div class="sec-hdr"><div class="sec-title">🇮🇳 Hindi Comics</div><button class="see-all" onclick="goComics('hi')">See All →</button></div>
     <div class="lib-grid" id="libHi"></div>
@@ -738,20 +748,14 @@ body.dark .skel{background:linear-gradient(90deg,#1e1e30 25%,#2a2a40 50%,#1e1e30
 <div id="pgSeeAll" class="page"><div class="app-hdr"><button class="hdr-back" onclick="showPage('pgHome');setNav('home')">←</button><div style="flex:1"><div style="font-family:'Lilita One',cursive;font-size:18px;color:var(--h2);">Champak Comics</div><div style="font-size:9px;font-weight:700;color:var(--h3);" id="allCount"></div></div></div><div class="cat-tabs"><button class="cat-tab on" id="tab-all" onclick="switchTab('all')">📖 All</button><button class="cat-tab" id="tab-hi" onclick="switchTab('hi')">🇮🇳 Hindi</button><button class="cat-tab" id="tab-en" onclick="switchTab('en')">🇬🇧 English</button></div><div class="scr"><div class="all-grid" id="allGrid"></div></div></div>
 
 <!-- GAMES HUB -->
-<div id="pgGames" class="page"><div class="app-hdr"><button class="hdr-back" onclick="showPage('pgHome');setNav('home')">←</button><div style="flex:1"><div style="font-family:'Lilita One',cursive;font-size:19px;color:var(--h2);">🎮 Games</div><div style="font-size:9px;font-weight:700;color:var(--h3);">Play games, earn XP!</div></div></div><div class="scr" style="padding:13px;"><div class="games-grid"><div class="game-card" style="animation-delay:.0s"><div class="game-ico">❌⭕</div><div class="game-title">Tic Tac Toe</div><div class="game-sub">vs AI or 2 Player</div><button class="game-btn ripple-wrap" onclick="addRipple(event,this);initTTT()">▶ Play</button></div><div class="game-card" style="animation-delay:.08s"><div class="game-ico">🐍🪜</div><div class="game-title">Snake & Ladder</div><div class="game-sub">Classic board game</div><button class="game-btn ripple-wrap" onclick="addRipple(event,this);setupSL()">▶ Play</button></div><div class="game-card" style="animation-delay:.16s"><div class="game-ico">🧩</div><div class="game-title">Memory Match</div><div class="game-sub">Flip & match cards!</div><button class="game-btn ripple-wrap" onclick="addRipple(event,this);initMem()">▶ Play</button></div><div class="game-card" style="animation-delay:.24s"><div class="game-ico">🎯</div><div class="game-title">Ludo</div><div class="game-sub">2-4 player classic</div><button class="game-btn ripple-wrap" onclick="addRipple(event,this);setupLudo()">▶ Play</button></div>
-<div class="game-card" style="animation-delay:.32s;grid-column:1/-1;background:linear-gradient(135deg,#1a0533,#2d0a5a);border-color:#6B21A8;"><div class="game-ico">🕹️</div><div class="game-title" style="color:#E879F9;">Arcade Zone</div><div class="game-sub" style="color:#C084FC;">Tetris • Space Invaders • NES Emulator</div><button class="game-btn ripple-wrap" style="background:linear-gradient(135deg,#9333EA,#6B21A8);box-shadow:0 3px 0 #4C1D95;" onclick="addRipple(event,this);showPage('pgArcade')">▶ Enter Arcade</button></div>
+<div id="pgGames" class="page"><div class="app-hdr"><button class="hdr-back" onclick="showPage('pgHome');setNav('home')">←</button><div style="flex:1"><div style="font-family:'Lilita One',cursive;font-size:19px;color:var(--h2);">🎮 Games</div><div style="font-size:9px;font-weight:700;color:var(--h3);">Play games, earn XP!</div></div></div><div class="scr" style="padding:13px;"><div class="games-grid"><div class="game-card" style="animation-delay:.0s"><div class="game-ico">❌⭕</div><div class="game-title">Tic Tac Toe</div><div class="game-sub">vs AI or 2 Player</div><button class="game-btn ripple-wrap" onclick="addRipple(event,this);initTTT()">▶ Play</button></div><div class="game-card" style="animation-delay:.08s"><div class="game-ico">🎯</div><div class="game-title">Ludo</div><div class="game-sub">2-4 player classic</div><button class="game-btn ripple-wrap" onclick="addRipple(event,this);setupLudo()">▶ Play</button></div>
+<div class="game-card" style="animation-delay:.16s;grid-column:1/-1;background:linear-gradient(135deg,#1a0533,#2d0a5a);border-color:#6B21A8;"><div class="game-ico">🕹️</div><div class="game-title" style="color:#E879F9;">Arcade Zone</div><div class="game-sub" style="color:#C084FC;">NES • SNES • Sega Genesis Emulator</div><button class="game-btn ripple-wrap" style="background:linear-gradient(135deg,#9333EA,#6B21A8);box-shadow:0 3px 0 #4C1D95;" onclick="addRipple(event,this);showPage('pgArcade')">▶ Enter Arcade</button></div>
 </div></div></div>
 
 <!-- TTT -->
 <div id="pgTTT" class="page"><div class="app-hdr"><button class="hdr-back" onclick="showPage('pgGames')">←</button><div style="flex:1"><div style="font-family:'Lilita One',cursive;font-size:17px;color:var(--h2);">❌⭕ Tic Tac Toe</div></div><button class="hdr-btn" onclick="initTTT()">🔄</button></div><div class="ttt-wrap"><div class="ttt-mode-wrap"><button class="ttt-mode-btn on" id="tttM1" onclick="setTTTMode('ai',this)">🤖 vs AI</button><button class="ttt-mode-btn" id="tttM2" onclick="setTTTMode('2p',this)">👥 2 Player</button></div><div class="ttt-status" id="tttSt">❌ goes first!</div><div class="ttt-board" id="tttBoard"></div><button class="g-btn ripple-wrap" onclick="addRipple(event,this);initTTT()">🔄 New Game</button><div style="text-align:center;font-family:'Lilita One',cursive;font-size:13px;color:var(--sub);" id="tttSc"></div></div></div>
 
 <!-- SNAKE LADDER -->
-<div id="pgSnake" class="page"><div class="app-hdr"><button class="hdr-back" onclick="showPage('pgGames')">←</button><div style="flex:1"><div style="font-family:'Lilita One',cursive;font-size:17px;color:var(--h2);">🐍🪜 Snake & Ladder</div></div><button class="hdr-btn" onclick="setupSL()">🔄</button></div><div class="sl-outer"><div class="sl-canvas-wrap"><svg id="slSVG" class="sl-board-svg" viewBox="0 0 500 500"></svg></div><div class="sl-info"><div class="sl-players-row" id="slPlayers"></div><button class="dice-btn ripple-wrap" id="slDice" onclick="addRipple(event,this);slRoll()">🎲 Roll Dice!</button><div style="font-size:12px;font-weight:700;color:var(--sub);margin-top:7px;min-height:18px;text-align:center;" id="slLog"></div></div></div></div>
-
-<!-- MEMORY -->
-<div id="pgMemory" class="page"><div class="app-hdr"><button class="hdr-back" onclick="showPage('pgGames')">←</button><div style="flex:1"><div style="font-family:'Lilita One',cursive;font-size:17px;color:var(--h2);">🧩 Memory Match</div></div><button class="hdr-btn" onclick="initMem()">🔄</button></div><div class="mem-wrap"><div class="mem-stats"><div class="mem-stat"><div class="mem-stat-num" id="memM">0</div><div class="mem-stat-lbl">Moves</div></div><div class="mem-stat"><div class="mem-stat-num" id="memP">0</div><div class="mem-stat-lbl">Pairs</div></div><div class="mem-stat"><div class="mem-stat-num" id="memT">0s</div><div class="mem-stat-lbl">Time</div></div></div><div class="mem-board" id="memBoard"></div></div></div>
-
-<!-- LUDO -->
 <div id="pgLudo" class="page"><div class="app-hdr"><button class="hdr-back" onclick="showPage('pgGames')">←</button><div style="flex:1"><div style="font-family:'Lilita One',cursive;font-size:17px;color:var(--h2);">🎯 Ludo</div></div><button class="hdr-btn" onclick="setupLudo()">🔄</button></div><div class="ludo-outer"><div class="ludo-board-wrap"><svg id="ludoSVG" class="ludo-svg" viewBox="0 0 450 450"></svg></div><div class="ludo-info"><div class="lu-players-row" id="luPlayers"></div><button class="dice-btn ripple-wrap" id="luDice" onclick="addRipple(event,this);luRoll()">🎲 Roll Dice!</button><div style="font-size:12px;font-weight:700;color:var(--sub);margin-top:7px;min-height:18px;text-align:center;" id="luLog"></div></div></div></div>
 
 <!-- LEARN HUB -->
@@ -813,7 +817,7 @@ body.dark .skel{background:linear-gradient(90deg,#1e1e30 25%,#2a2a40 50%,#1e1e30
     <div class="sett-sec">👨‍💻 About</div>
     <div class="sett-group">
       <div class="sett-row"><div class="sett-ico" style="background:#FFF0E0">🧑‍🎨</div><div style="flex:1"><div class="sett-label">Developed by</div><div class="sett-val">Baadal — Made with ❤️</div></div></div>
-      <div class="sett-row" onclick="openLink('https://github.com/coder0864-cell')"><div class="sett-ico" style="background:#f0f0f0">🐙</div><div style="flex:1"><div class="sett-label">GitHub</div><div class="sett-val">coder0864-cell</div></div><div class="sett-arr">›</div></div>
+      <div style="flex:1"></div><div class="sett-arr">›</div></div>
     </div>
     <div style="text-align:center;padding:9px 0 4px;color:#bbb;font-size:10px;font-weight:700;">Made with ❤️ by Baadal • v5.0</div>
   </div>
@@ -857,34 +861,18 @@ body.dark .skel{background:linear-gradient(90deg,#1e1e30 25%,#2a2a40 50%,#1e1e30
 <div id="pgArcade" class="page">
   <div class="app-hdr">
     <button class="hdr-back" onclick="showPage('pgGames')">←</button>
-    <div style="flex:1"><div style="font-family:'Lilita One',cursive;font-size:19px;color:var(--h2);">🕹️ Arcade Zone</div><div style="font-size:9px;font-weight:700;color:var(--h3);">Tetris • Space Invaders • NES Emulator</div></div>
+    <div style="flex:1"><div style="font-family:'Lilita One',cursive;font-size:19px;color:var(--h2);">🕹️ Arcade Zone</div><div style="font-size:9px;font-weight:700;color:var(--h3);">NES • SNES • Sega Genesis Emulator</div></div>
   </div>
   <div class="arcade-tabs">
-    <button class="arc-tab on" id="atab-built" onclick="switchArcadeTab('built',this)">🎮 Built-in Games</button>
-    <button class="arc-tab" id="atab-emu" onclick="switchArcadeTab('emu',this)">🕹️ NES Emulator</button>
+    
+    <button class="arc-tab on" id="atab-emu" onclick="switchArcadeTab('emu',this)">🕹️ Emulator</button>
     <button class="arc-tab" id="atab-free" onclick="switchArcadeTab('free',this)">🆓 Free ROMs</button>
   </div>
   <div class="arc-scr" id="arcScr">
     <!-- Built-in tab (default) -->
-    <div id="arcBuilt" style="padding:13px;">
-      <div style="font-family:'Lilita One',cursive;font-size:13px;color:var(--sub);margin-bottom:11px;">✅ 100% Legal • Works Offline • No Downloads</div>
-      <div class="games-grid">
-        <div class="game-card">
-          <div class="game-ico">🟦</div>
-          <div class="game-title">Tetris</div>
-          <div class="game-sub">Classic block stacking!</div>
-          <button class="game-btn ripple-wrap" onclick="addRipple(event,this);initTetris()">▶ Play</button>
-        </div>
-        <div class="game-card">
-          <div class="game-ico">👾</div>
-          <div class="game-title">Space Invaders</div>
-          <div class="game-sub">Shoot the aliens!</div>
-          <button class="game-btn ripple-wrap" onclick="addRipple(event,this);initSpace()">▶ Play</button>
-        </div>
-      </div>
-    </div>
+    <div id="arcBuilt" style="display:none;"></div>
     <!-- Emulator tab → launches full RetroArch-style page -->
-    <div id="arcEmu" style="display:none;padding:13px;">
+    <div id="arcEmu" style="display:block;padding:13px;">
       <div style="background:#1a1a2e;border-radius:14px;padding:16px;border:2px solid #2a2a4e;text-align:center;">
         <div style="font-size:52px;margin-bottom:10px;">🕹️</div>
         <div style="font-family:'Lilita One',cursive;font-size:20px;color:#FFD700;margin-bottom:6px;">RetroArch-Style Emulator</div>
@@ -915,53 +903,6 @@ body.dark .skel{background:linear-gradient(90deg,#1e1e30 25%,#2a2a40 50%,#1e1e30
   </div>
 </div>
 
-<!-- TETRIS PAGE -->
-<div id="pgTetris" class="page" style="background:#0a0a1a;">
-  <div class="app-hdr" style="background:transparent;">
-    <button class="hdr-back" style="background:rgba(255,215,0,.15);border:2px solid rgba(255,215,0,.3);color:#FFD700;" onclick="stopTetris();showPage('pgArcade')">←</button>
-    <div style="flex:1"><div style="font-family:'Lilita One',cursive;font-size:18px;color:#FFD700;">🟦 Tetris</div></div>
-    <button onclick="tetrisPause()" style="background:rgba(255,215,0,.15);border:2px solid rgba(255,215,0,.3);color:#FFD700;padding:5px 10px;border-radius:9px;font-family:'Lilita One',cursive;font-size:12px;cursor:pointer;" id="tetPauseBtn">⏸ Pause</button>
-  </div>
-  <div class="tetris-wrap">
-    <div class="tetris-info">
-      <div class="tetris-stat"><div class="tetris-stat-n" id="tetScore">0</div><div class="tetris-stat-l">SCORE</div></div>
-      <div class="tetris-stat"><div class="tetris-stat-n" id="tetLevel">1</div><div class="tetris-stat-l">LEVEL</div></div>
-      <div class="tetris-stat"><div class="tetris-stat-n" id="tetLines">0</div><div class="tetris-stat-l">LINES</div></div>
-    </div>
-    <canvas id="tetrisCanvas" width="200" height="400"></canvas>
-    <!-- Touch controls -->
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;width:220px;">
-      <button class="dpad-btn" style="border-color:rgba(255,215,0,.3);color:#FFD700;" ontouchstart="tetMove(-1)" onmousedown="tetMove(-1)">⬅️</button>
-      <button class="dpad-btn" style="border-color:rgba(255,215,0,.3);color:#FFD700;font-size:14px;" ontouchstart="tetRotate()" onmousedown="tetRotate()">🔄</button>
-      <button class="dpad-btn" style="border-color:rgba(255,215,0,.3);color:#FFD700;" ontouchstart="tetMove(1)" onmousedown="tetMove(1)">➡️</button>
-      <button class="dpad-btn" style="border-color:rgba(255,215,0,.3);color:#FFD700;" ontouchstart="tetDrop()" onmousedown="tetDrop()">⬇️</button>
-    </div>
-  </div>
-</div>
-
-<!-- SPACE INVADERS PAGE -->
-<div id="pgSpace" class="page" style="background:#000010;">
-  <div class="app-hdr" style="background:transparent;">
-    <button class="hdr-back" style="background:rgba(0,255,65,.1);border:2px solid rgba(0,255,65,.3);color:#00FF41;" onclick="stopSpace();showPage('pgArcade')">←</button>
-    <div style="flex:1"><div style="font-family:'Lilita One',cursive;font-size:18px;color:#00FF41;">👾 Space Invaders</div></div>
-    <button onclick="spacePause()" style="background:rgba(0,255,65,.1);border:2px solid rgba(0,255,65,.3);color:#00FF41;padding:5px 10px;border-radius:9px;font-family:'Lilita One',cursive;font-size:12px;cursor:pointer;" id="spPauseBtn">⏸ Pause</button>
-  </div>
-  <div class="space-wrap">
-    <div class="space-info">
-      <div class="space-stat"><div class="space-stat-n" id="spScore">0</div><div class="space-stat-l">SCORE</div></div>
-      <div class="space-stat"><div class="space-stat-n" id="spLives">❤️❤️❤️</div><div class="space-stat-l">LIVES</div></div>
-      <div class="space-stat"><div class="space-stat-n" id="spWave">1</div><div class="space-stat-l">WAVE</div></div>
-    </div>
-    <canvas id="spaceCanvas" width="320" height="380"></canvas>
-    <div style="display:flex;gap:12px;align-items:center;margin-top:4px;">
-      <button class="dpad-btn" style="width:60px;height:52px;border-color:#00FF41;color:#00FF41;" ontouchstart="spMove(-1);spMoveStart(-1)" ontouchend="spMoveStop()" onmousedown="spMoveStart(-1)" onmouseup="spMoveStop()">⬅️</button>
-      <button onclick="spFire()" style="padding:12px 28px;background:linear-gradient(135deg,#00CC41,#008833);border:none;border-radius:12px;font-family:'Lilita One',cursive;font-size:16px;color:#fff;cursor:pointer;box-shadow:0 4px 0 #004411;">🔫 FIRE!</button>
-      <button class="dpad-btn" style="width:60px;height:52px;border-color:#00FF41;color:#00FF41;" ontouchstart="spMove(1);spMoveStart(1)" ontouchend="spMoveStop()" onmousedown="spMoveStart(1)" onmouseup="spMoveStop()">➡️</button>
-    </div>
-  </div>
-</div>
-
-
 <!-- RETROARCH-STYLE EMULATOR PAGE -->
 <div id="pgRetro" class="page">
   <!-- SYSTEM SELECT VIEW -->
@@ -987,7 +928,7 @@ body.dark .skel{background:linear-gradient(90deg,#1e1e30 25%,#2a2a40 50%,#1e1e30
             <div style="font-size:44px;margin-bottom:8px;">🗂️</div>
             <div style="font-family:'Lilita One',cursive;font-size:16px;color:#FFD700;margin-bottom:4px;">Tap to choose ROM</div>
             <div style="font-size:10px;color:#888;">Any ROM file from your phone storage</div>
-            <input type="file" id="retroRomFile" style="display:none;" accept=".nes,.sfc,.smc,.gba,.gb,.gbc,.smd,.gen,.z64,.n64,.nds,.pce,.ws,.wsc,.ngp,.ngc,.vb,.32x,.cue,.iso" onchange="retroLoadFile(this)">
+            <input type="file" id="retroRomFile" style="display:none;" accept=".nes,.sfc,.smc,.smd,.gen,.md" onchange="retroLoadFile(this)">
           </label>
           <div id="retroLoadStatus" style="margin-top:9px;text-align:center;font-size:11px;color:#888;">No file loaded</div>
         </div>
@@ -1134,10 +1075,7 @@ var TOPICS=[
    items:[{e:'➕',w:'2 + 3 = 5',n:'Addition'},{e:'➕',w:'4 + 6 = 10',n:'Addition'},{e:'➕',w:'7 + 8 = 15',n:'Addition'},{e:'➖',w:'10 - 4 = 6',n:'Subtraction'},{e:'➖',w:'15 - 7 = 8',n:'Subtraction'},{e:'➕',w:'9 + 9 = 18',n:'Addition'},{e:'➖',w:'20 - 5 = 15',n:'Subtraction'},{e:'➕',w:'6 + 7 = 13',n:'Addition'}]},
 
   {id:'gk',title:'General Knowledge',ico:'🌍',sub:'World facts!',age:2,col:'#795548',
-   items:[{e:'🇮🇳',w:'India',n:'Our Country'},{e:'☀️',w:'Sun',n:'Nearest star'},{e:'🌙',w:'Moon',n:'Earth\'s satellite'},{e:'🐟',w:'Fish',n:'Lives in water'},{e:'🌊',w:'Ocean',n:'Largest water body'},{e:'🏔️',w:'Everest',n:'Highest mountain'},{e:'🦁',w:'Lion',n:'King of jungle'},{e:'🌍',w:'Earth',n:'Our planet'}]},
-
-  {id:'riddles',title:'Riddles & Jokes',ico:'😂',sub:'Think, laugh, enjoy!',age:2,col:'#FF5722',
-   items:[{e:'🤔',w:'Riddle 1',n:'Grows as it eats?'},{e:'😄',w:'Fire!',n:'Fire grows as it eats'},{e:'🤔',w:'Riddle 2',n:'Runs without legs?'},{e:'😄',w:'Clock!',n:'Clock runs without legs'},{e:'🤔',w:'Riddle 3',n:'Has eyes but cannot see?'},{e:'😄',w:'Potato!',n:'Potato has eyes!'},{e:'😂',w:'Joke 1',n:'Teacher: 2+2? Student: 4! Teacher: Good! Student: Good?? Brilliant!'},{e:'😂',w:'Joke 2',n:'Why is maths sad? Too many problems!'}]}
+   items:[{e:'🇮🇳',w:'India',n:'Our Country'},{e:'☀️',w:'Sun',n:'Nearest star'},{e:'🌙',w:'Moon',n:'Earth\'s satellite'},{e:'🐟',w:'Fish',n:'Lives in water'},{e:'🌊',w:'Ocean',n:'Largest water body'},{e:'🏔️',w:'Everest',n:'Highest mountain'},{e:'🦁',w:'Lion',n:'King of jungle'},{e:'🌍',w:'Earth',n:'Our planet'}]},{e:'😄',w:'Fire!',n:'Fire grows as it eats'},{e:'🤔',w:'Riddle 2',n:'Runs without legs?'},{e:'😄',w:'Clock!',n:'Clock runs without legs'},{e:'🤔',w:'Riddle 3',n:'Has eyes but cannot see?'},{e:'😄',w:'Potato!',n:'Potato has eyes!'},{e:'😂',w:'Joke 1',n:'Teacher: 2+2? Student: 4! Teacher: Good! Student: Good?? Brilliant!'},{e:'😂',w:'Joke 2',n:'Why is maths sad? Too many problems!'}]}
 ];
 
 var CURRTOPIC=null,QITEMS=[],QIDX=0,QSCORE=0;
@@ -1362,7 +1300,40 @@ function startApp(){
   },820);
 }
 function saveNameAndStart(){var n=document.getElementById('nameIn').value.trim();if(!n){document.getElementById('nameIn').style.animation='shake .3s ease';setTimeout(function(){document.getElementById('nameIn').style.animation='';},400);return;}U.name=n;saveU();confetti();snd('ok');setTimeout(bootHome,700);}
-function bootHome(){applyTheme(U.theme);applyDark(U.dark);updateStreak();updateXPBar();renderHome();showPage('pgHome');setNav('home');renderAnn();renderCOTD();checkNewBadge();updateNotifDot();renderLearn();initJSONBin().then(function(){pushToLeaderboard();});}
+function bootHome(){
+  applyTheme(U.theme);
+  applyDark(U.dark);
+  updateStreak();
+  updateXPBar();
+  showPage('pgHome');
+  setNav('home');
+  renderAnn();
+  renderCOTD();
+  checkNewBadge();
+  updateNotifDot();
+  renderLearn();
+  initJSONBin().then(function(){pushToLeaderboard();});
+  // Language
+  loadLang();
+  // PWA + SW
+  installPWA();
+  registerSW();
+  // Music restore
+  MUSIC.on = ls('ch_music')||false;
+  if(MUSIC.on){
+    var mt=document.getElementById('musicToggleEl');
+    var mv=document.getElementById('musicVal');
+    if(mt)mt.classList.add('on');
+    if(mv)mv.textContent='Now playing — tap bar to control';
+    setTimeout(musicStart,1200);
+  }
+  // Push notifs after short delay
+  setTimeout(schedulePushNotifs, 3000);
+  // Skeleton loaders then render
+  showSkeletons('libHi',2,'card');
+  showSkeletons('libEn',2,'card');
+  setTimeout(renderHome, 600);
+}
 
 // ─── HOME ───
 var COLS=['#FF6B00','#0066CC','#009944','#8B00CC','#CC6600','#CC0000','#007788'];
@@ -1872,7 +1843,7 @@ function openLink(url){window.location.href=url;}
 function switchArcadeTab(tab, btn) {
   document.querySelectorAll('.arc-tab').forEach(function(b){b.classList.remove('on');});
   btn.classList.add('on');
-  document.getElementById('arcBuilt').style.display = tab==='built'?'block':'none';
+  document.getElementById('arcBuilt').style.display = 'none';
   document.getElementById('arcEmu').style.display   = tab==='emu'?'block':'none';
   document.getElementById('arcFree').style.display  = tab==='free'?'block':'none';
   if(tab==='free') renderFreeRoms();
@@ -2204,26 +2175,14 @@ var RETRO = {
 var SYSTEMS = [
   {id:'nes',   name:'NES',          ico:'🎮', sub:'Nintendo', core:'nes',     exts:['nes'],       color:'#CC0000'},
   {id:'snes',  name:'SNES',         ico:'🟣', sub:'Super Nintendo', core:'snes9x', exts:['sfc','smc'], color:'#6600CC'},
-  {id:'gba',   name:'Game Boy Adv', ico:'🟦', sub:'GBA / GBC / GB', core:'mgba',   exts:['gba','gb','gbc'], color:'#0044AA'},
   {id:'sega',  name:'Sega Genesis', ico:'🔵', sub:'Mega Drive', core:'genesis_plus_gx', exts:['smd','gen','md'], color:'#0055BB'},
-  {id:'n64',   name:'Nintendo 64',  ico:'🟩', sub:'N64',       core:'mupen64plus_next', exts:['z64','n64','v64'], color:'#006622'},
-  {id:'psx',   name:'PlayStation',  ico:'⬛', sub:'PS1',        core:'pcsx_rearmed',exts:['iso','cue','img','bin'], color:'#333333'},
-  {id:'gbc',   name:'Game Boy Color',ico:'🟡',sub:'GBC',       core:'gambatte',exts:['gbc','gb'], color:'#AA8800'},
-  {id:'arcade',name:'Arcade',       ico:'👾', sub:'MAME / FBNeo', core:'fbalpha2012', exts:['zip'], color:'#880044'},
-  {id:'nds',   name:'Nintendo DS',  ico:'🔴', sub:'NDS',       core:'desmume',  exts:['nds'],      color:'#CC2200'},
-];
+]
 
 var SYS_INFO = {
-  nes:   'Nintendo Entertainment System (1983). Popular games: Super Mario Bros, Zelda, Contra, Metroid, Mega Man',
-  snes:  'Super Nintendo (1990). Popular games: Super Mario World, Donkey Kong Country, Chrono Trigger, F-Zero',
-  gba:   'Game Boy Advance (2001). Popular games: Pokemon FireRed, Metroid Fusion, Golden Sun, Castlevania',
-  sega:  'Sega Genesis / Mega Drive (1988). Popular games: Sonic, Streets of Rage, Mortal Kombat, Shinobi',
-  n64:   'Nintendo 64 (1996). Popular games: Mario 64, Zelda Ocarina of Time, GoldenEye, Star Fox',
-  psx:   'Sony PlayStation (1994). Popular games: Crash Bandicoot, Spyro, Tekken, Final Fantasy 7',
-  gbc:   'Game Boy Color (1998). Popular games: Pokemon Gold/Silver, Legend of Zelda Oracle series',
-  arcade:'Arcade classics via MAME/FinalBurn. Place ZIP ROM files. Supports thousands of games.',
-  nds:   'Nintendo DS (2004). Dual screen. Popular games: Pokemon Diamond/Pearl, New Super Mario Bros DS',
-};
+  nes:   'Nintendo Entertainment System (1983). Classic games: Super Mario Bros, Zelda, Contra, Metroid, Mega Man, Castlevania',
+  snes:  'Super Nintendo (1990). Classic games: Super Mario World, Donkey Kong Country, Chrono Trigger, F-Zero, Street Fighter',
+  sega:  'Sega Genesis / Mega Drive (1988). Classic games: Sonic, Streets of Rage, Mortal Kombat, Shinobi, Golden Axe',
+}
 
 var RETRO_KEYMAP = {
   'up':     {key:'ArrowUp',    code:0},
@@ -2248,6 +2207,8 @@ function retroInit(){
   if(rec.length>0){document.getElementById('retroRecentWrap').style.display='block';renderRecentROMs();}
   document.getElementById('retroSelectView').style.display='flex';
   document.getElementById('retroEmuWrap').style.display='none';
+  // Restore body scroll
+  document.body.style.overflow='';
   document.getElementById('retroStatusTxt').textContent='Select system & load ROM';
   snd('whoosh');
 }
@@ -2383,18 +2344,15 @@ function retroLaunch(){
   window.EJS_defaultOptions={'save-state-slot':1,'load-state':'0'};
   // Show ONLY the controls built into EmulatorJS - no custom ones
   window.EJS_Buttons={
-    playPause:true, restart:true, mute:true,
-    settings:false, fullscreen:true,
-    saveState:true, loadState:true,
-    screenRecord:false, gamepad:true,
+    playPause:false, restart:false, mute:false,
+    settings:false, fullscreen:false,
+    saveState:false, loadState:false,
+    screenRecord:false, gamepad:false,
     centerMode:false, cacheManager:false
   };
-  // Mobile: use EJS built-in touch controls, portrait fit
   window.EJS_VirtualGamepad=true;
-  window.EJS_GamepadOrder=[
-    {type:'button',text:'B',key:9},
-    {type:'button',text:'A',key:8},
-  ];
+  window.EJS_GamepadEnabled=true;
+  // EJS built-in touch controls handle everything
   window.EJS_AdUrl='';
   window.EJS_AdMode='';
   window.EJS_onGameStart=function(){
@@ -2403,6 +2361,16 @@ function retroLaunch(){
     document.getElementById('emuLoadTxt').textContent='✅ Game Started!';
     setTimeout(function(){document.getElementById('emuLoading').style.display='none';},600);
     RETRO.emuLoaded=true;snd('ok');confetti();addXP(5);
+    // Lock scroll, go fullscreen
+    document.body.style.overflow='hidden';
+    retroShowOverlay();
+    // Try native fullscreen on the container
+    var el=document.getElementById('emujs-container');
+    if(el && el.requestFullscreen){
+      el.requestFullscreen().catch(function(){});
+    } else if(el && el.webkitRequestFullscreen){
+      el.webkitRequestFullscreen();
+    }
   };
 
   // Create player div
@@ -2493,6 +2461,8 @@ function retroEject(){
   // Revoke object URL to free memory
   document.getElementById('retroSelectView').style.display='flex';
   document.getElementById('retroEmuWrap').style.display='none';
+  // Restore body scroll
+  document.body.style.overflow='';
   document.getElementById('emuLoading').style.display='flex';
   document.getElementById('emuLoadFill').style.width='0%';
   document.getElementById('emuLoadFill').style.background='linear-gradient(90deg,#FFD700,#FF8C00)';
@@ -2804,27 +2774,7 @@ self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;e.respondWi
 }
 
 // ─── LOAD ALL V9 EXTRAS ───
-var _origBootHome=bootHome;
-bootHome=function(){
-  _origBootHome();
-  loadLang();
-  schedulePushNotifs();
-  installPWA();
-  registerSW();
-  // Restore music state
-  MUSIC.on=ls('ch_music')||false;
-  if(MUSIC.on){
-    document.getElementById('musicToggleEl').classList.add('on');
-    document.getElementById('musicVal').textContent='Now playing — tap bar to control';
-    setTimeout(musicStart,1200);
-  }
-  // Show skeleton on first comic load
-  setTimeout(function(){
-    showSkeletons('libHi',2,'card');
-    showSkeletons('libEn',2,'card');
-    setTimeout(function(){renderHome();},700);
-  },100);
-};
+
 
 
 
@@ -2832,58 +2782,33 @@ bootHome=function(){
 var splashVideoPlayed = false;
 function initSplashVideo(){
   var vid = document.getElementById('splashVideo');
-  var tapPlay = document.getElementById('splashTapPlay');
-  var skip = document.getElementById('splashSkip');
-  var fallback = document.getElementById('splashFallback');
   if(!vid){startApp();return;}
-  // Try unmuted first (some browsers allow)
-  vid.muted = false;
-  var playPromise = vid.play();
-  if(playPromise !== undefined){
-    playPromise.then(function(){
-      // Playing with audio — show skip after 2s
-      setTimeout(function(){if(skip)skip.style.display='block';},2000);
+  // Always try to play (muted first to satisfy autoplay policy, then unmute)
+  vid.muted = true;
+  vid.play().then(function(){
+    vid.muted = false; // unmute after play starts
     }).catch(function(){
-      // Autoplay blocked — try muted
-      vid.muted = true;
-      vid.play().then(function(){
-        setTimeout(function(){if(skip)skip.style.display='block';},2000);
-      }).catch(function(){
-        // Totally blocked — show tap to play
-        if(fallback)fallback.style.display='block';
-        if(tapPlay){tapPlay.style.display='flex';}
-      });
-    });
-  }
-  // Safety timeout — if video doesn't load in 5s, skip
-  setTimeout(function(){
-    if(!splashVideoPlayed)skipSplash();
-  },5000);
+    // Can't play at all — go straight to app
+    skipSplash();
+  });
+  // Safety: if video hangs >6s, skip
+  setTimeout(function(){if(!splashVideoPlayed)skipSplash();},6000);
 }
 function playSplashVideo(){
   var vid=document.getElementById('splashVideo');
-  var tap=document.getElementById('splashTapPlay');
-  if(tap)tap.style.display='none';
   if(vid){vid.muted=false;vid.play().catch(function(){vid.muted=true;vid.play();});}
-  var skip=document.getElementById('splashSkip');
-  if(skip)skip.style.display='block';
 }
 function onSplashVideoEnd(){
   splashVideoPlayed=true;
   skipSplash();
 }
 function onSplashVideoError(){
-  // Video file not found — show fallback image + button
+  // Video missing — show fallback image and auto-start app after 1.5s
   var vid=document.getElementById('splashVideo');
   var fallback=document.getElementById('splashFallback');
-  var tap=document.getElementById('splashTapPlay');
   if(vid)vid.style.display='none';
   if(fallback)fallback.style.display='block';
-  // Show tap-to-start styled as button
-  if(tap){
-    tap.style.display='flex';
-    tap.innerHTML='<div style="position:absolute;bottom:22%;left:50%;transform:translateX(-50%);width:72%;max-width:290px;"><button class=\"sp-btn ripple-wrap\" onclick=\"skipSplash()\"><span style=\"font-size:22px\">⭐</span> Let\'s Go!</button></div>';
-  }
+  setTimeout(function(){skipSplash();},1500);
 }
 function skipSplash(){
   splashVideoPlayed=true;
