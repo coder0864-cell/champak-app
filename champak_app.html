@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
 <title>Champak Comics</title>
+<link rel="manifest" href="#" id="pwaManifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Champak">
+<meta name="theme-color" content="#FF6B00">
+<link rel="apple-touch-icon" href="./champak_icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800&family=Lilita+One&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
@@ -517,6 +524,100 @@ body.dark .xp-bar-bg{background:#333358!important;}
 .emu-load-bar{width:80%;height:6px;background:#1a1a2e;border-radius:3px;overflow:hidden;}
 .emu-load-fill{height:100%;background:linear-gradient(90deg,#FFD700,#FF8C00);border-radius:3px;transition:width .3s;}
 
+
+/* PROFILE EDIT MODAL */
+.pedit-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:850;align-items:center;justify-content:center;}
+.pedit-modal.open{display:flex;}
+.pedit-box{background:var(--bg);border-radius:20px;padding:20px;width:310px;max-width:92vw;border:3px solid var(--bd);animation:pop .3s ease;}
+.pedit-av-row{display:flex;justify-content:center;margin-bottom:14px;}
+.pedit-av{width:70px;height:70px;border-radius:18px;background:linear-gradient(135deg,var(--a),var(--a2));display:flex;align-items:center;justify-content:center;font-size:38px;border:3px solid rgba(255,255,255,.4);cursor:pointer;}
+.pedit-chars{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0 14px;}
+.pedit-char{background:var(--card);border-radius:11px;padding:9px 5px;text-align:center;border:2.5px solid transparent;cursor:pointer;}
+.pedit-char.sel{border-color:var(--a);background:rgba(255,107,0,.08);}
+.pedit-char:active{transform:scale(.92);}
+
+/* SKELETON LOADER */
+.skel{background:linear-gradient(90deg,#eee 25%,#f5f5f5 50%,#eee 75%);background-size:200% 100%;animation:skelShimmer 1.5s infinite;border-radius:8px;}
+body.dark .skel{background:linear-gradient(90deg,#1e1e30 25%,#2a2a40 50%,#1e1e30 75%);background-size:200% 100%;}
+@keyframes skelShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.skel-card{height:200px;border-radius:14px;margin-bottom:10px;}
+.skel-line{height:12px;border-radius:6px;margin-bottom:7px;}
+.skel-line.short{width:60%;}
+
+/* CONTACT PAGE */
+#pgContact{background:var(--bg);}
+.contact-scr{flex:1;overflow-y:auto;padding:13px 13px 20px;}
+.contact-scr::-webkit-scrollbar{width:0;}
+.contact-card{background:var(--card);border-radius:16px;padding:16px;margin-bottom:12px;border:2px solid rgba(255,200,0,.12);box-shadow:0 3px 9px rgba(0,0,0,.08);}
+.contact-method{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1.5px solid rgba(0,0,0,.05);cursor:pointer;}
+.contact-method:last-child{border:none;}
+.contact-method:active{opacity:.7;}
+.cm-ico{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+
+/* LANGUAGE TOGGLE */
+.lang-row{display:flex;gap:7px;padding:10px 13px;border-bottom:1.5px solid rgba(0,0,0,.05);}
+.lang-btn{flex:1;padding:8px;border-radius:10px;border:2.5px solid rgba(255,200,0,.2);background:var(--bg);font-family:'Baloo 2',cursive;font-size:12px;font-weight:800;color:var(--text);cursor:pointer;text-align:center;}
+.lang-btn.on{background:linear-gradient(135deg,var(--a),var(--a2));color:#fff;border-color:var(--a);box-shadow:0 3px 0 var(--s);}
+
+/* SHARE BUTTON */
+.share-fab{position:fixed;bottom:74px;right:13px;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--a),var(--a2));border:none;box-shadow:0 4px 12px rgba(255,107,0,.4);font-size:20px;cursor:pointer;z-index:40;display:flex;align-items:center;justify-content:center;transition:transform .15s;}
+.share-fab:active{transform:scale(.88);}
+
+/* NOTIF TOAST (local push-style) */
+#pushToast{position:fixed;top:-80px;left:50%;transform:translateX(-50%);width:90%;max-width:340px;background:var(--card);border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:11px;box-shadow:0 6px 20px rgba(0,0,0,.22);z-index:9993;border-left:4px solid var(--a);transition:top .4s cubic-bezier(.175,.885,.32,1.275);}
+#pushToast.show{top:14px;}
+
+/* MUSIC PLAYER (hidden) */
+#bgMusicBar{position:fixed;bottom:62px;left:0;right:0;height:0;overflow:hidden;transition:height .3s;background:linear-gradient(135deg,var(--a),var(--a2));z-index:45;}
+#bgMusicBar.open{height:38px;}
+.music-bar-inner{height:38px;display:flex;align-items:center;padding:0 14px;gap:10px;}
+
+/* LANDSCAPE */
+@media (orientation:landscape){
+  #bNav{flex-direction:row;}
+  .home-hdr,.app-hdr{padding:6px 14px;}
+  .hero-img{height:100px;}
+  .lib-grid,.all-grid,.games-grid,.learn-grid{grid-template-columns:1fr 1fr 1fr;}
+  .lcard-thumb,.acard-thumb{height:110px;}
+  .ttt-board{width:210px;}
+  .ttt-cell{height:68px;font-size:30px;}
+  .retro-dpad-wrap{padding:6px 10px;}
+  .ab-btn{width:40px;height:40px;}
+}
+
+
+/* VIDEO SPLASH */
+#pgSplash{background:#000;}
+#splashTapPlay{display:none;}
+
+
+/* EMULATOR FULLSCREEN */
+#retroEmuWrap{position:relative;}
+#retroOverlay{opacity:1;}
+#retroOverlay.hidden{opacity:0;pointer-events:none!important;}
+#retroOverlay button{pointer-events:all!important;}
+#emujs-container{touch-action:none;}
+#emujs-container canvas,
+#emujs-container iframe,
+#EJS_player{
+  width:100%!important;
+  height:100%!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  display:block!important;
+}
+/* EmulatorJS built-in control bar — keep it, style it nicely */
+.ejs_menu_bar{background:rgba(0,0,0,.8)!important;}
+/* Portrait: game takes full height minus EJS controls */
+@media (orientation:portrait){
+  #retroEmuWrap{height:100vh;}
+  #emujs-container{flex:1;}
+}
+@media (orientation:landscape){
+  #retroEmuWrap{height:100vh;flex-direction:row;}
+  #emujs-container{flex:1;height:100%;}
+}
+
 </style>
 </head>
 <body>
@@ -538,13 +639,52 @@ body.dark .xp-bar-bg{background:#333358!important;}
   </div>
 </div>
 <div id="pwModal"><div class="pw-box"><div style="font-family:'Lilita One',cursive;font-size:18px;color:#FFD700;margin-bottom:5px;">🔐 Dev Panel</div><div style="font-size:11px;color:#FF4444;min-height:15px;margin-bottom:5px;" id="pwErr"></div><input class="pw-input" type="password" id="pwIn" maxlength="20" placeholder="••••" onkeydown="if(event.key==='Enter')checkPw()"><div class="pw-btns"><button class="pw-cancel" onclick="closePwModal()">Cancel</button><button class="pw-ok" onclick="checkPw()">Enter</button></div></div></div>
+
+<!-- SHARE FAB -->
+<button class="share-fab ripple-wrap" onclick="addRipple(event,this);shareApp()" title="Share App" id="shareFab">🔗</button>
+
+<!-- PROFILE EDIT MODAL -->
+<div class="pedit-modal" id="peditModal">
+  <div class="pedit-box">
+    <div style="font-family:'Lilita One',cursive;font-size:19px;color:var(--h1);text-align:center;margin-bottom:12px;">✏️ Edit Profile</div>
+    <div class="pedit-av-row"><div class="pedit-av" id="peditAv">🦊</div></div>
+    <input class="ob-input" type="text" id="peditName" placeholder="Your name..." maxlength="22" autocomplete="off" style="margin-bottom:10px;width:100%;">
+    <div style="font-size:11px;font-weight:800;color:var(--sub);margin-bottom:8px;">Choose Character:</div>
+    <div class="pedit-chars" id="peditChars"></div>
+    <div style="display:flex;gap:8px;margin-top:4px;">
+      <button onclick="closePedit()" style="flex:1;padding:10px;background:var(--bg);border:2px solid rgba(255,200,0,.3);border-radius:12px;font-family:'Baloo 2',cursive;font-size:13px;font-weight:700;color:var(--sub);cursor:pointer;">Cancel</button>
+      <button onclick="savePedit()" style="flex:2;padding:10px;background:linear-gradient(135deg,var(--a),var(--a2));border:none;border-radius:12px;font-family:'Lilita One',cursive;font-size:15px;color:#fff;box-shadow:0 4px 0 var(--s);cursor:pointer;">Save ✓</button>
+    </div>
+  </div>
+</div>
+
 <!-- Player Setup Modal -->
 <div id="playerModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:700;align-items:center;justify-content:center;"><div class="modal-box" id="playerModalBox"></div></div>
 
-<!-- SPLASH -->
-<div id="pgSplash" class="page active">
-  <img class="sp-img" src="./champak_splash.png" alt="">
-  <div class="sp-btn-wrap"><button class="sp-btn ripple-wrap" onclick="addRipple(event,this);startApp()"><span style="font-size:22px">⭐</span> Let's Go!</button></div>
+<!-- SPLASH with VIDEO -->
+<div id="pgSplash" class="page active" style="background:#000;overflow:hidden;">
+  <!-- VIDEO SPLASH (replace champak_intro.mp4 with your video file) -->
+  <video id="splashVideo" playsinline autoplay muted
+    style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;"
+    onended="onSplashVideoEnd()"
+    onerror="onSplashVideoError()">
+    <source src="./champak_intro.mp4" type="video/mp4">
+    <source src="./champak_intro.webm" type="video/webm">
+  </video>
+  <!-- FALLBACK image shown if video missing -->
+  <img id="splashFallback" class="sp-img" src="./champak_splash.png" alt=""
+    style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;display:none;">
+  <!-- Skip button (appears after 2s) -->
+  <button id="splashSkip" onclick="skipSplash()"
+    style="display:none;position:absolute;bottom:22%;right:18px;z-index:10;background:rgba(0,0,0,.45);color:#fff;border:2px solid rgba(255,255,255,.5);border-radius:30px;padding:8px 18px;font-family:'Baloo 2',cursive;font-size:13px;font-weight:800;cursor:pointer;">
+    Skip ▶
+  </button>
+  <!-- Play button for browsers that block autoplay -->
+  <div id="splashTapPlay"
+    style="display:none;position:absolute;inset:0;z-index:8;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,.7);">
+    <div style="font-size:80px;cursor:pointer;" onclick="playSplashVideo()">▶️</div>
+    <div style="font-family:'Lilita One',cursive;font-size:18px;color:#FFD700;margin-top:12px;">Tap to Start</div>
+  </div>
 </div>
 
 <!-- ONBOARD -->
@@ -635,7 +775,8 @@ body.dark .xp-bar-bg{background:#333358!important;}
         <div class="user-pc-av" id="settAv">🦊</div>
         <div><div class="user-pc-name" id="settName">Player</div><div class="user-pc-rank" id="settRank">📖 Beginner</div></div>
       </div>
-      <div class="user-pc-stats">
+      <button onclick="openPedit()" style="width:100%;padding:8px;background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.35);border-radius:10px;font-family:'Lilita One',cursive;font-size:13px;color:#fff;cursor:pointer;margin-bottom:11px;">✏️ Edit Profile</button>
+    <div class="user-pc-stats">
         <div class="user-pc-stat"><div class="user-pc-stat-n" id="settXP">0</div><div class="user-pc-stat-l">XP</div></div>
         <div class="user-pc-stat"><div class="user-pc-stat-n" id="settStreak">0</div><div class="user-pc-stat-l">Day Streak</div></div>
         <div class="user-pc-stat"><div class="user-pc-stat-n" id="settReads">0</div><div class="user-pc-stat-l">Comics Read</div></div>
@@ -643,6 +784,8 @@ body.dark .xp-bar-bg{background:#333358!important;}
     </div>
     <div class="sett-sec">🎨 Appearance</div>
     <div class="sett-group">
+      <div class="lang-row" id="langRow"><button class="lang-btn on" id="lang-en" onclick="setLang('en',this)">🇬🇧 English</button><button class="lang-btn" id="lang-hi" onclick="setLang('hi',this)">🇮🇳 हिंदी</button></div>
+      <div class="sett-row" onclick="toggleMusic()"><div class="sett-ico" style="background:#FFF0F8">🎵</div><div style="flex:1"><div class="sett-label" id="musicLabel">Background Music</div><div class="sett-val" id="musicVal">Tap to play kids BGM</div></div><div class="toggle" id="musicToggleEl"></div></div>
       <div class="sett-row" onclick="toggleDark()"><div class="sett-ico" style="background:#1a1a2e">🌙</div><div style="flex:1"><div class="sett-label">Dark Mode</div></div><div class="toggle" id="darkToggle"></div></div>
       <div class="sett-row" onclick="toggleSound()"><div class="sett-ico" style="background:#FFF0E0">🔊</div><div style="flex:1"><div class="sett-label">Sound Effects</div></div><div class="toggle on" id="soundToggle"></div></div>
       <div class="theme-row"><div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:7px;">🎨 Colour Theme</div><div><span class="tdot on" id="td-orange" style="background:linear-gradient(135deg,#FFD700,#FF6B00)" onclick="setTheme('orange')"></span><span class="tdot" id="td-blue" style="background:linear-gradient(135deg,#4FC3F7,#1565C0)" onclick="setTheme('blue')"></span><span class="tdot" id="td-green" style="background:linear-gradient(135deg,#A5D6A7,#2E7D32)" onclick="setTheme('green')"></span><span class="tdot" id="td-purple" style="background:linear-gradient(135deg,#CE93D8,#6A1B9A)" onclick="setTheme('purple')"></span><span class="tdot" id="td-pink" style="background:linear-gradient(135deg,#F48FB1,#C2185B)" onclick="setTheme('pink')"></span></div></div>
@@ -665,6 +808,7 @@ body.dark .xp-bar-bg{background:#333358!important;}
     <div class="sett-group">
       <div class="sett-row" onclick="showPage('pgFeedback')"><div class="sett-ico" style="background:#FFF0E0">💌</div><div style="flex:1"><div class="sett-label">Send Feedback</div><div class="sett-val">Ideas, bugs, comic requests</div></div><div class="sett-arr">›</div></div>
       <div class="sett-row" onclick="showPage('pgInbox');renderInbox()"><div class="sett-ico" style="background:#E8F5E9">📥</div><div style="flex:1"><div class="sett-label">My Inbox</div><div class="sett-val" id="inboxCount">Dev replies will appear here</div></div><div class="sett-arr">›</div></div>
+    <div class="sett-row" onclick="showPage('pgContact')"><div class="sett-ico" style="background:#E3F2FD">📞</div><div style="flex:1"><div class="sett-label">Contact & Support</div><div class="sett-val">FAQ, feedback, share app</div></div><div class="sett-arr">›</div></div>
     </div>
     <div class="sett-sec">👨‍💻 About</div>
     <div class="sett-group">
@@ -863,16 +1007,15 @@ body.dark .xp-bar-bg{background:#333358!important;}
 
   <!-- GAME RUNNING VIEW -->
   <div id="retroEmuWrap" style="display:none;flex-direction:column;height:100%;background:#000;">
-    <!-- Top bar -->
-    <div style="background:#111;padding:5px 10px;display:flex;align-items:center;gap:8px;flex-shrink:0;border-bottom:1px solid #222;">
-      <button onclick="retroEject()" style="background:rgba(255,68,0,.2);border:1px solid #FF4400;color:#FF4400;padding:4px 9px;border-radius:7px;font-family:'Lilita One',cursive;font-size:11px;cursor:pointer;">⏏️</button>
-      <div style="flex:1;font-family:'Lilita One',cursive;font-size:12px;color:#FFD700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" id="retroGameTitle">Game</div>
-      <button onclick="retroTogglePause()" id="retroPauseBtn" style="background:rgba(255,215,0,.15);border:1px solid #FFD700;color:#FFD700;padding:4px 9px;border-radius:7px;font-family:'Lilita One',cursive;font-size:11px;cursor:pointer;">⏸</button>
-      <button onclick="retroSaveState()" style="background:rgba(0,255,100,.1);border:1px solid #00FF64;color:#00FF64;padding:4px 9px;border-radius:7px;font-family:'Lilita One',cursive;font-size:11px;cursor:pointer;">💾</button>
-      <button onclick="retroFullscreen()" style="background:rgba(255,255,255,.07);border:1px solid #444;color:#aaa;padding:4px 9px;border-radius:7px;font-family:'Lilita One',cursive;font-size:11px;cursor:pointer;">⛶</button>
+    <!-- Floating minimal overlay — auto-hides after 3s, tap game to show again -->
+    <div id="retroOverlay" style="position:absolute;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;gap:6px;padding:6px 8px;background:linear-gradient(180deg,rgba(0,0,0,.7),transparent);transition:opacity .4s;pointer-events:none;">
+      <button onclick="retroEject()" style="background:rgba(255,68,0,.6);border:none;color:#fff;padding:5px 10px;border-radius:8px;font-family:'Lilita One',cursive;font-size:11px;cursor:pointer;pointer-events:all;">⏏️ Exit</button>
+      <div style="flex:1;font-family:'Lilita One',cursive;font-size:11px;color:#FFD700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" id="retroGameTitle">Game</div>
+      <button onclick="retroSaveState()" style="background:rgba(0,255,100,.5);border:none;color:#fff;padding:5px 9px;border-radius:8px;font-family:'Lilita One',cursive;font-size:11px;cursor:pointer;pointer-events:all;">💾</button>
+      <button onclick="retroFullscreen()" style="background:rgba(255,255,255,.3);border:none;color:#fff;padding:5px 9px;border-radius:8px;font-family:'Lilita One',cursive;font-size:11px;cursor:pointer;pointer-events:all;">⛶</button>
     </div>
     <!-- Game canvas -->
-    <div id="emujs-container" style="flex:1;position:relative;background:#000;display:flex;align-items:center;justify-content:center;">
+    <div id="emujs-container" style="flex:1;position:relative;background:#000;display:flex;align-items:center;justify-content:center;overflow:hidden;" onclick="retroShowOverlay()">
       <div id="emuLoading">
         <div style="font-size:48px;animation:bounce 1s ease-in-out infinite;">🕹️</div>
         <div style="font-family:'Lilita One',cursive;font-size:18px;color:#FFD700;" id="emuLoadTxt">Loading...</div>
@@ -880,73 +1023,9 @@ body.dark .xp-bar-bg{background:#333358!important;}
         <div style="font-size:10px;color:#888;margin-top:4px;" id="emuLoadSub">Initializing emulator</div>
       </div>
     </div>
-    <!-- Touch D-pad controls -->
-    <div class="retro-dpad-wrap" id="retroControls">
-      <!-- Left: D-Pad -->
-      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
-        <div class="dpad-cross">
-          <div></div>
-          <div class="dc-btn" id="dc-up"
-            ontouchstart="event.preventDefault();retroBtn('up',true)" ontouchend="event.preventDefault();retroBtn('up',false)"
-            onmousedown="retroBtn('up',true)" onmouseup="retroBtn('up',false)">⬆</div>
-          <div></div>
-          <div class="dc-btn" id="dc-left"
-            ontouchstart="event.preventDefault();retroBtn('left',true)" ontouchend="event.preventDefault();retroBtn('left',false)"
-            onmousedown="retroBtn('left',true)" onmouseup="retroBtn('left',false)">⬅</div>
-          <div class="dc-btn dc-center">⬤</div>
-          <div class="dc-btn" id="dc-right"
-            ontouchstart="event.preventDefault();retroBtn('right',true)" ontouchend="event.preventDefault();retroBtn('right',false)"
-            onmousedown="retroBtn('right',true)" onmouseup="retroBtn('right',false)">➡</div>
-          <div></div>
-          <div class="dc-btn" id="dc-down"
-            ontouchstart="event.preventDefault();retroBtn('down',true)" ontouchend="event.preventDefault();retroBtn('down',false)"
-            onmousedown="retroBtn('down',true)" onmouseup="retroBtn('down',false)">⬇</div>
-          <div></div>
-        </div>
-        <!-- Select + Start -->
-        <div style="display:flex;gap:8px;margin-top:4px;">
-          <button class="menu-btn"
-            ontouchstart="event.preventDefault();retroBtn('select',true)" ontouchend="event.preventDefault();retroBtn('select',false)"
-            onmousedown="retroBtn('select',true)" onmouseup="retroBtn('select',false)">SELECT</button>
-          <button class="menu-btn"
-            ontouchstart="event.preventDefault();retroBtn('start',true)" ontouchend="event.preventDefault();retroBtn('start',false)"
-            onmousedown="retroBtn('start',true)" onmouseup="retroBtn('start',false)">START</button>
-        </div>
-      </div>
-      <!-- Right: Action buttons -->
-      <div class="retro-ab-wrap">
-        <div class="retro-ab-row">
-          <div></div>
-          <div class="ab-btn" style="border-color:#FFAA00;background:rgba(255,170,0,.15);color:#FFAA00;"
-            ontouchstart="event.preventDefault();retroBtn('x',true)" ontouchend="event.preventDefault();retroBtn('x',false)"
-            onmousedown="retroBtn('x',true)" onmouseup="retroBtn('x',false)">X</div>
-        </div>
-        <div class="retro-ab-row">
-          <div class="ab-btn" style="border-color:#4488FF;background:rgba(68,136,255,.15);color:#4488FF;"
-            ontouchstart="event.preventDefault();retroBtn('y',true)" ontouchend="event.preventDefault();retroBtn('y',false)"
-            onmousedown="retroBtn('y',true)" onmouseup="retroBtn('y',false)">Y</div>
-          <div class="ab-btn" style="border-color:#FF4444;background:rgba(255,68,68,.15);color:#FF4444;"
-            ontouchstart="event.preventDefault();retroBtn('a',true)" ontouchend="event.preventDefault();retroBtn('a',false)"
-            onmousedown="retroBtn('a',true)" onmouseup="retroBtn('a',false)">A</div>
-        </div>
-        <div class="retro-ab-row">
-          <div></div>
-          <div class="ab-btn" style="border-color:#44CC44;background:rgba(68,204,68,.15);color:#44CC44;"
-            ontouchstart="event.preventDefault();retroBtn('b',true)" ontouchend="event.preventDefault();retroBtn('b',false)"
-            onmousedown="retroBtn('b',true)" onmouseup="retroBtn('b',false)">B</div>
-        </div>
-        <!-- L/R shoulder -->
-        <div style="display:flex;gap:6px;margin-top:4px;">
-          <button class="menu-btn"
-            ontouchstart="event.preventDefault();retroBtn('l',true)" ontouchend="event.preventDefault();retroBtn('l',false)"
-            onmousedown="retroBtn('l',true)" onmouseup="retroBtn('l',false)">L</button>
-          <button class="menu-btn"
-            ontouchstart="event.preventDefault();retroBtn('r',true)" ontouchend="event.preventDefault();retroBtn('r',false)"
-            onmousedown="retroBtn('r',true)" onmouseup="retroBtn('r',false)">R</button>
-        </div>
-      </div>
-    </div>
+
   </div>
+</div>
 </div>
 
 <!-- OPEN COMIC OVERLAY -->
@@ -2300,9 +2379,24 @@ function retroLaunch(){
   window.EJS_pathtodata='https://cdn.emulatorjs.org/stable/data/';
   window.EJS_startOnLoaded=true;
   window.EJS_fullscreenOnLoaded=false;
-  window.EJS_color='#FFD700';
+  window.EJS_color='#FF6B00';
   window.EJS_defaultOptions={'save-state-slot':1,'load-state':'0'};
-  window.EJS_Buttons={playPause:false,restart:false,mute:false,settings:false,fullscreen:false,saveState:false,loadState:false,screenRecord:false,gamepad:true,centerMode:false,cacheManager:false};
+  // Show ONLY the controls built into EmulatorJS - no custom ones
+  window.EJS_Buttons={
+    playPause:true, restart:true, mute:true,
+    settings:false, fullscreen:true,
+    saveState:true, loadState:true,
+    screenRecord:false, gamepad:true,
+    centerMode:false, cacheManager:false
+  };
+  // Mobile: use EJS built-in touch controls, portrait fit
+  window.EJS_VirtualGamepad=true;
+  window.EJS_GamepadOrder=[
+    {type:'button',text:'B',key:9},
+    {type:'button',text:'A',key:8},
+  ];
+  window.EJS_AdUrl='';
+  window.EJS_AdMode='';
   window.EJS_onGameStart=function(){
     clearInterval(progTimer);
     document.getElementById('emuLoadFill').style.width='100%';
@@ -2407,6 +2501,417 @@ function retroEject(){
   document.getElementById('retroPauseBtn').textContent='⏸';
   snd('tap');
 }
+
+
+// ════════════════════════════════════════════════════
+//  V9 NEW FEATURES JS
+// ════════════════════════════════════════════════════
+
+// ─── LANGUAGE SYSTEM ───
+var LANG = 'en';
+var STRINGS = {
+  en: {
+    home:'Home', comics:'Comics', games:'Games', learn:'Learn', settings:'Settings',
+    readNow:'Read Now', search:'Search comics...', streak:'Reading Streak',
+    readToday:'Read today to start!', comicDay:'🎁 Comic of the Day',
+    noComics:'No comics yet 😊', learnZone:'🎓 Learn Zone',
+    takeQuiz:'🧠 Take Quiz!', sendFeedback:'Send Feedback',
+    myInbox:'My Inbox', contactSupport:'Contact & Support',
+    editProfile:'✏️ Edit Profile', bgMusic:'Background Music',
+    darkMode:'Dark Mode', soundEffects:'Sound Effects',
+    letsGo:"Let's Go! 🚀", welcome:'Welcome to Champak! 🎉',
+    chooseName:'Enter your name and pick your character!',
+    namePlaceholder:'Your name...'
+  },
+  hi: {
+    home:'होम', comics:'कॉमिक्स', games:'गेम्स', learn:'सीखो', settings:'सेटिंग्स',
+    readNow:'पढ़ो', search:'कॉमिक्स खोजें...', streak:'पढ़ाई की लकीर',
+    readToday:'आज पढ़ो!', comicDay:'🎁 आज की कॉमिक',
+    noComics:'अभी कोई कॉमिक नहीं 😊', learnZone:'🎓 सीखो ज़ोन',
+    takeQuiz:'🧠 क्विज़ लो!', sendFeedback:'फ़ीडबैक दो',
+    myInbox:'मेरा इनबॉक्स', contactSupport:'संपर्क करें',
+    editProfile:'✏️ प्रोफ़ाइल बदलो', bgMusic:'बैकग्राउंड म्यूज़िक',
+    darkMode:'डार्क मोड', soundEffects:'साउंड',
+    letsGo:'चलते हैं! 🚀', welcome:'चंपक में स्वागत! 🎉',
+    chooseName:'अपना नाम लिखो और कैरेक्टर चुनो!',
+    namePlaceholder:'तुम्हारा नाम...'
+  }
+};
+function T(key){return (STRINGS[LANG]&&STRINGS[LANG][key])||STRINGS.en[key]||key;}
+function setLang(lang,btn){
+  LANG=lang;ls('ch_lang',lang);
+  document.querySelectorAll('.lang-btn').forEach(function(b){b.classList.remove('on');});
+  if(btn)btn.classList.add('on');
+  applyLangStrings();snd('tap');
+  showPushNotif('🌐','Language changed!',lang==='hi'?'हिंदी मोड चालू':'English mode on');
+}
+function applyLangStrings(){
+  // Nav labels
+  var navKeys=['home','comics','games','learn','settings'];
+  navKeys.forEach(function(k){
+    var el=document.querySelector('#nav-'+k+' .nav-label');
+    if(el)el.textContent=T(k);
+  });
+  // Search placeholder
+  var sp=document.getElementById('homeSearch');if(sp)sp.placeholder=T('search');
+  // Streak
+  var st=document.getElementById('strkTitle');
+  if(st&&st.textContent.indexOf('Day')===-1&&st.textContent.indexOf('दिन')===-1)
+    st.textContent=T('streak');
+  // Music label
+  var ml=document.getElementById('musicLabel');if(ml)ml.textContent=T('bgMusic');
+  var dl=document.querySelector('#darkToggle')&&document.querySelector('.sett-label');
+  // Settings labels update
+  document.querySelectorAll('.sett-label').forEach(function(el){
+    var txt=el.textContent.trim();
+    if(txt==='Dark Mode'||txt==='डार्क मोड') el.textContent=T('darkMode');
+    if(txt==='Sound Effects'||txt==='साउंड') el.textContent=T('soundEffects');
+    if(txt==='Background Music'||txt==='बैकग्राउंड म्यूज़िक') el.textContent=T('bgMusic');
+    if(txt==='Send Feedback'||txt==='फ़ीडबैक दो') el.textContent=T('sendFeedback');
+    if(txt==='My Inbox'||txt==='मेरा इनबॉक्स') el.textContent=T('myInbox');
+    if(txt==='Contact & Support'||txt==='संपर्क करें') el.textContent=T('contactSupport');
+  });
+  // Onboard
+  var ob=document.querySelector('.ob-title');if(ob)ob.textContent=T('welcome');
+  var obs=document.querySelector('.ob-sub');if(obs)obs.textContent=T('chooseName');
+  var ni=document.getElementById('nameIn');if(ni)ni.placeholder=T('namePlaceholder');
+  var ob2=document.querySelector('.ob-btn');if(ob2)ob2.textContent=T('letsGo');
+  // Comic of day label
+  var cd=document.querySelector('.cotd-lbl');if(cd)cd.textContent=T('comicDay');
+}
+function loadLang(){
+  LANG=ls('ch_lang')||'en';
+  var btn=document.getElementById('lang-'+LANG);
+  if(btn){document.querySelectorAll('.lang-btn').forEach(function(b){b.classList.remove('on');});btn.classList.add('on');}
+  applyLangStrings();
+}
+
+// ─── PROFILE EDIT ───
+var peditSelChar='';
+function openPedit(){
+  var ch=getChar();
+  peditSelChar=U.avatar;
+  document.getElementById('peditAv').textContent=ch.e;
+  document.getElementById('peditName').value=U.name||'';
+  // Build char grid
+  var el=document.getElementById('peditChars');el.innerHTML='';
+  CHARS.forEach(function(c2){
+    var d=document.createElement('div');
+    d.className='pedit-char'+(c2.id===U.avatar?' sel':'');
+    d.innerHTML='<div style="font-size:26px;">'+c2.e+'</div><div style="font-size:9px;font-weight:800;color:var(--sub);">'+c2.name+'</div>';
+    d.onclick=function(){
+      document.querySelectorAll('.pedit-char').forEach(function(x){x.classList.remove('sel');});
+      d.classList.add('sel');peditSelChar=c2.id;
+      document.getElementById('peditAv').textContent=c2.e;
+      snd('tap');
+    };
+    el.appendChild(d);
+  });
+  document.getElementById('peditModal').classList.add('open');
+  snd('tap');
+}
+function closePedit(){document.getElementById('peditModal').classList.remove('open');}
+function savePedit(){
+  var n=document.getElementById('peditName').value.trim();
+  if(!n){document.getElementById('peditName').style.animation='shake .3s ease';setTimeout(function(){document.getElementById('peditName').style.animation='';},400);return;}
+  var oldName=U.name;
+  U.name=n;U.avatar=peditSelChar||U.avatar;
+  saveU();closePedit();snd('ok');
+  updateRankDisplay();renderSettings();
+  if(oldName!==n)showPushNotif('👤','Profile updated!','Name: '+n);
+  confetti();
+}
+
+// ─── PUSH-STYLE NOTIFICATIONS ───
+var pushTimer=null;
+function showPushNotif(ico,title,body,dur){
+  clearTimeout(pushTimer);
+  document.getElementById('ptIco').textContent=ico||'🔔';
+  document.getElementById('ptTitle').textContent=title||'Notification';
+  document.getElementById('ptBody').textContent=body||'';
+  var t=document.getElementById('pushToast');
+  t.classList.add('show');
+  snd('notif');
+  pushTimer=setTimeout(function(){t.classList.remove('show');},dur||3500);
+}
+function closePushToast(){
+  clearTimeout(pushTimer);
+  document.getElementById('pushToast').classList.remove('show');
+}
+// Schedule smart local push notifications
+function schedulePushNotifs(){
+  // Show a welcome back notif after 5 seconds on home
+  setTimeout(function(){
+    if(SK.count>1)showPushNotif('🔥','Streak alive!','Day '+SK.count+' — keep reading! 📚',3000);
+    else showPushNotif('👋','Welcome back!',U.name+'! New comics waiting 📖',3000);
+  },5000);
+  // Notif if unread inbox replies
+  var unread=REPLIES.filter(function(r){return r.reply&&!r.userRead;}).length;
+  if(unread>0){
+    setTimeout(function(){showPushNotif('💬','Dev replied!',unread+' message'+(unread>1?'s':'')+' in your inbox',4000);},9000);
+  }
+}
+
+// ─── BACKGROUND MUSIC (Web Audio API generated tones) ───
+var MUSIC = {
+  on: false, playing: false, trackIdx: 0, audioCtx: null,
+  oscillators: [], gainNode: null, barOpen: false
+};
+var MUSIC_TRACKS = [
+  {name:'Happy Kids BGM', tempo:120, notes:[523,659,784,1047,784,659,523,392]},
+  {name:'Adventure Theme', tempo:100, notes:[392,440,494,523,587,659,698,784]},
+  {name:'Calm Study BGM', tempo:80,  notes:[264,297,330,352,396,440,494,528]},
+];
+var musicNoteTimer=null,musicNoteIdx=0;
+function musicStart(){
+  if(!MUSIC.audioCtx){
+    try{MUSIC.audioCtx=new(window.AudioContext||window.webkitAudioContext)();}
+    catch(e){return;}
+  }
+  if(MUSIC.audioCtx.state==='suspended')MUSIC.audioCtx.resume();
+  MUSIC.playing=true;
+  document.getElementById('musicPlayBtn').textContent='⏸';
+  document.getElementById('bgMusicBar').classList.add('open');
+  MUSIC.barOpen=true;
+  playMusicNote();
+}
+function playMusicNote(){
+  if(!MUSIC.playing||!MUSIC.audioCtx)return;
+  var track=MUSIC_TRACKS[MUSIC.trackIdx];
+  var note=track.notes[musicNoteIdx%track.notes.length];
+  musicNoteIdx++;
+  try{
+    var o=MUSIC.audioCtx.createOscillator();
+    var g=MUSIC.audioCtx.createGain();
+    o.type='sine';o.frequency.value=note;
+    o.connect(g);g.connect(MUSIC.audioCtx.destination);
+    var now=MUSIC.audioCtx.currentTime;
+    g.gain.setValueAtTime(0,now);
+    g.gain.linearRampToValueAtTime(0.07,now+0.05);
+    g.gain.exponentialRampToValueAtTime(0.001,now+0.4);
+    o.start(now);o.stop(now+0.45);
+  }catch(e){}
+  var ms=Math.round(60000/track.tempo);
+  musicNoteTimer=setTimeout(playMusicNote,ms);
+}
+function musicStop(){
+  MUSIC.playing=false;
+  clearTimeout(musicNoteTimer);
+  document.getElementById('musicPlayBtn').textContent='▶';
+}
+function musicToggle(){
+  if(MUSIC.playing){musicStop();}else{musicStart();}
+  ls('ch_music',MUSIC.on);
+}
+function musicNext(){
+  MUSIC.trackIdx=(MUSIC.trackIdx+1)%MUSIC_TRACKS.length;
+  musicNoteIdx=0;
+  document.getElementById('musicTrackName').textContent=MUSIC_TRACKS[MUSIC.trackIdx].name;
+  if(MUSIC.playing){clearTimeout(musicNoteTimer);playMusicNote();}
+  snd('tap');
+}
+function musicPrev(){
+  MUSIC.trackIdx=(MUSIC.trackIdx-1+MUSIC_TRACKS.length)%MUSIC_TRACKS.length;
+  musicNoteIdx=0;
+  document.getElementById('musicTrackName').textContent=MUSIC_TRACKS[MUSIC.trackIdx].name;
+  if(MUSIC.playing){clearTimeout(musicNoteTimer);playMusicNote();}
+  snd('tap');
+}
+function closeMusicBar(){
+  musicStop();
+  document.getElementById('bgMusicBar').classList.remove('open');
+  MUSIC.barOpen=false;
+  document.getElementById('musicToggleEl').classList.remove('on');
+  MUSIC.on=false;ls('ch_music',false);
+}
+function toggleMusic(){
+  MUSIC.on=!MUSIC.on;
+  document.getElementById('musicToggleEl').classList.toggle('on',MUSIC.on);
+  document.getElementById('musicVal').textContent=MUSIC.on?'Now playing — tap bar to control':'Tap to play kids BGM';
+  if(MUSIC.on){musicStart();showPushNotif('🎵','Music On!',MUSIC_TRACKS[MUSIC.trackIdx].name);}
+  else{closeMusicBar();}
+  ls('ch_music',MUSIC.on);snd('tap');
+}
+
+// ─── SHARE APP ───
+function shareApp(){
+  var text='🎮 Champak Comics App!\n\n📚 Read Champak comics\n🎮 Play games (Tetris, Snake, Ludo + NES Emulator!)\n🎓 Learn ABC, Maths, GK\n🏆 Compete on leaderboard\n\nMade by Baadal ❤️';
+  if(navigator.share){
+    navigator.share({title:'Champak Comics',text:text}).then(function(){snd('ok');}).catch(function(){});
+  } else {
+    // Fallback: copy to clipboard
+    if(navigator.clipboard){
+      navigator.clipboard.writeText(text).then(function(){
+        showPushNotif('📋','Copied!','Share text copied to clipboard!');snd('ok');
+      });
+    } else {
+      var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();
+      showPushNotif('📋','Copied!','Share text copied!');snd('ok');
+    }
+  }
+}
+function sendFeedbackFromContact(){showPage('pgFeedback');}
+
+// ─── SKELETON LOADERS ───
+function showSkeletons(containerId, count, type){
+  var el=document.getElementById(containerId);if(!el)return;
+  el.innerHTML='';
+  for(var i=0;i<(count||2);i++){
+    if(type==='card'){
+      el.innerHTML+='<div><div class="skel skel-card"></div><div class="skel skel-line" style="margin-top:7px;"></div><div class="skel skel-line short"></div></div>';
+    } else {
+      el.innerHTML+='<div class="skel skel-line" style="height:52px;border-radius:12px;margin-bottom:8px;"></div>';
+    }
+  }
+}
+
+// ─── PWA MANIFEST (inline) ───
+function installPWA(){
+  var manifest={
+    name:'Champak Comics',short_name:'Champak',
+    description:'Read Champak comics, play games, learn!',
+    start_url:'./',display:'standalone',
+    background_color:'#FFD700',theme_color:'#FF6B00',
+    orientation:'any',
+    icons:[
+      {src:'./champak_icon.png',sizes:'192x192',type:'image/png'},
+      {src:'./champak_icon.png',sizes:'512x512',type:'image/png'}
+    ]
+  };
+  var blob=new Blob([JSON.stringify(manifest)],{type:'application/json'});
+  var url=URL.createObjectURL(blob);
+  document.getElementById('pwaManifest').href=url;
+}
+
+// ─── SERVICE WORKER (offline cache) ───
+function registerSW(){
+  if('serviceWorker' in navigator){
+    var swCode=`
+const CACHE='champak-v9';
+const ASSETS=['./','./?v=9','./champak_splash.png','./champak_banner.png','./champak_icon.png'];
+self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS).catch(()=>{})));self.skipWaiting();});
+self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));self.clients.claim();});
+self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(res=>{if(res.ok){var clone=res.clone();caches.open(CACHE).then(c=>c.put(e.request,clone));}return res;}).catch(()=>caches.match('./'))));});
+`;
+    try{
+      var blob=new Blob([swCode],{type:'application/javascript'});
+      var url=URL.createObjectURL(blob);
+      navigator.serviceWorker.register(url,{scope:'./'}).then(function(){
+        console.log('SW registered');
+      }).catch(function(e){console.log('SW failed:',e);});
+    }catch(e){}
+  }
+}
+
+// ─── LOAD ALL V9 EXTRAS ───
+var _origBootHome=bootHome;
+bootHome=function(){
+  _origBootHome();
+  loadLang();
+  schedulePushNotifs();
+  installPWA();
+  registerSW();
+  // Restore music state
+  MUSIC.on=ls('ch_music')||false;
+  if(MUSIC.on){
+    document.getElementById('musicToggleEl').classList.add('on');
+    document.getElementById('musicVal').textContent='Now playing — tap bar to control';
+    setTimeout(musicStart,1200);
+  }
+  // Show skeleton on first comic load
+  setTimeout(function(){
+    showSkeletons('libHi',2,'card');
+    showSkeletons('libEn',2,'card');
+    setTimeout(function(){renderHome();},700);
+  },100);
+};
+
+
+
+// ─── VIDEO SPLASH ───
+var splashVideoPlayed = false;
+function initSplashVideo(){
+  var vid = document.getElementById('splashVideo');
+  var tapPlay = document.getElementById('splashTapPlay');
+  var skip = document.getElementById('splashSkip');
+  var fallback = document.getElementById('splashFallback');
+  if(!vid){startApp();return;}
+  // Try unmuted first (some browsers allow)
+  vid.muted = false;
+  var playPromise = vid.play();
+  if(playPromise !== undefined){
+    playPromise.then(function(){
+      // Playing with audio — show skip after 2s
+      setTimeout(function(){if(skip)skip.style.display='block';},2000);
+    }).catch(function(){
+      // Autoplay blocked — try muted
+      vid.muted = true;
+      vid.play().then(function(){
+        setTimeout(function(){if(skip)skip.style.display='block';},2000);
+      }).catch(function(){
+        // Totally blocked — show tap to play
+        if(fallback)fallback.style.display='block';
+        if(tapPlay){tapPlay.style.display='flex';}
+      });
+    });
+  }
+  // Safety timeout — if video doesn't load in 5s, skip
+  setTimeout(function(){
+    if(!splashVideoPlayed)skipSplash();
+  },5000);
+}
+function playSplashVideo(){
+  var vid=document.getElementById('splashVideo');
+  var tap=document.getElementById('splashTapPlay');
+  if(tap)tap.style.display='none';
+  if(vid){vid.muted=false;vid.play().catch(function(){vid.muted=true;vid.play();});}
+  var skip=document.getElementById('splashSkip');
+  if(skip)skip.style.display='block';
+}
+function onSplashVideoEnd(){
+  splashVideoPlayed=true;
+  skipSplash();
+}
+function onSplashVideoError(){
+  // Video file not found — show fallback image + button
+  var vid=document.getElementById('splashVideo');
+  var fallback=document.getElementById('splashFallback');
+  var tap=document.getElementById('splashTapPlay');
+  if(vid)vid.style.display='none';
+  if(fallback)fallback.style.display='block';
+  // Show tap-to-start styled as button
+  if(tap){
+    tap.style.display='flex';
+    tap.innerHTML='<div style="position:absolute;bottom:22%;left:50%;transform:translateX(-50%);width:72%;max-width:290px;"><button class=\"sp-btn ripple-wrap\" onclick=\"skipSplash()\"><span style=\"font-size:22px\">⭐</span> Let\'s Go!</button></div>';
+  }
+}
+function skipSplash(){
+  splashVideoPlayed=true;
+  var vid=document.getElementById('splashVideo');
+  if(vid){vid.pause();vid.src='';}
+  startApp();
+}
+
+// Override window.onload to init video
+window.addEventListener('load',function(){
+  initSplashVideo();
+});
+
+// ─── EMULATOR OVERLAY AUTO-HIDE ───
+var retroOverlayTimer=null;
+function retroShowOverlay(){
+  var ov=document.getElementById('retroOverlay');
+  if(!ov)return;
+  ov.classList.remove('hidden');
+  clearTimeout(retroOverlayTimer);
+  retroOverlayTimer=setTimeout(function(){ov.classList.add('hidden');},3000);
+}
+// Auto-hide overlay when game starts
+var _origEJSStart=window.EJS_onGameStart;
+window.EJS_onGameStart=function(){
+  if(_origEJSStart)_origEJSStart();
+  setTimeout(retroShowOverlay,500);
+};
 
 </script>
 </body>
