@@ -534,8 +534,8 @@ body.dark .skel{background:linear-gradient(90deg,#1e1e30 25%,#2a2a40 50%,#1e1e30
 .lang-btn.on{background:linear-gradient(135deg,var(--a),var(--a2));color:#fff;border-color:var(--a);box-shadow:0 3px 0 var(--s);}
 
 /* SHARE BUTTON */
-.share-fab{position:fixed;bottom:74px;right:13px;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--a),var(--a2));border:none;box-shadow:0 4px 12px rgba(255,107,0,.4);font-size:20px;cursor:pointer;z-index:40;display:flex;align-items:center;justify-content:center;transition:transform .15s;}
-.share-fab:active{transform:scale(.88);}
+
+
 
 /* NOTIF TOAST (local push-style) */
 #pushToast{position:fixed;top:-80px;left:50%;transform:translateX(-50%);width:90%;max-width:340px;background:var(--card);border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:11px;box-shadow:0 6px 20px rgba(0,0,0,.22);z-index:9993;border-left:4px solid var(--a);transition:top .4s cubic-bezier(.175,.885,.32,1.275);}
@@ -660,8 +660,6 @@ div[id*="ejs_menu"], div[class*="ejs_menu"],
 </div>
 <div id="pwModal"><div class="pw-box"><div style="font-family:'Lilita One',cursive;font-size:18px;color:#FFD700;margin-bottom:5px;">🔐 Dev Panel</div><div style="font-size:11px;color:#FF4444;min-height:15px;margin-bottom:5px;" id="pwErr"></div><input class="pw-input" type="password" id="pwIn" maxlength="20" placeholder="••••" onkeydown="if(event.key==='Enter')checkPw()"><div class="pw-btns"><button class="pw-cancel" onclick="closePwModal()">Cancel</button><button class="pw-ok" onclick="checkPw()">Enter</button></div></div></div>
 
-<!-- SHARE FAB -->
-<button class="share-fab ripple-wrap" onclick="addRipple(event,this);shareApp()" title="Share App" id="shareFab">🔗</button>
 
 <!-- PROFILE EDIT MODAL -->
 <div class="pedit-modal" id="peditModal">
@@ -682,25 +680,16 @@ div[id*="ejs_menu"], div[class*="ejs_menu"],
 <div id="playerModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:700;align-items:center;justify-content:center;"><div class="modal-box" id="playerModalBox"></div></div>
 
 <!-- SPLASH with VIDEO -->
-<div id="pgSplash" class="page active" style="background:#000;overflow:hidden;position:relative;">
-  <!-- VIDEO — frozen on first frame until tap -->
-  <video id="splashVideo" playsinline
-    style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;pointer-events:none;"
-    onended="onSplashVideoEnd()"
-    onerror="onSplashVideoError()">
+<div id="pgSplash" class="page active" style="background:#1a0a00;overflow:hidden;">
+  <img src="./champak_splash.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;pointer-events:none;">
+  <video id="splashVideo" playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;display:none;pointer-events:none;" onended="onSplashEnd()" onerror="startApp()">
     <source src="./champak_intro.mp4" type="video/mp4">
-    <source src="./champak_intro.webm" type="video/webm">
   </video>
-  <!-- FALLBACK image -->
-  <img id="splashFallback" src="./champak_splash.png" alt=""
-    style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;display:none;pointer-events:none;">
-  <!-- FULL SCREEN TAP LAYER — entire screen triggers start -->
-  <div id="tapLayer" onclick="onTapStart()" ontouchend="onTapStart()"
-    style="position:absolute;inset:0;z-index:99;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:14%;cursor:pointer;">
-    <!-- Pulsing tap button (purely visual, tap layer handles the click) -->
-    <div id="tapStartBtn" style="background:linear-gradient(180deg,#FFAA00,#FF6A00 55%,#E84500);color:#fff;font-family:'Baloo 2',cursive;font-size:24px;font-weight:800;border-radius:50px;padding:16px 48px;box-shadow:0 6px 0 #A03000;animation:btnGlow 2s ease-in-out infinite;pointer-events:none;">
+  <div style="position:absolute;inset:0;z-index:10;display:flex;align-items:flex-end;justify-content:center;padding-bottom:14%;pointer-events:none;">
+    <button id="tapStartBtn" onclick="onTapStart()" ontouchend="event.preventDefault();onTapStart()"
+      style="pointer-events:all;padding:16px 56px;background:linear-gradient(180deg,#FFAA00,#FF6A00 55%,#E84500);color:#fff;font-family:'Baloo 2',cursive;font-size:24px;font-weight:800;border:none;border-radius:50px;cursor:pointer;box-shadow:0 7px 0 #A03000;animation:btnGlow 2s ease-in-out infinite;">
       ⭐ Tap to Start
-    </div>
+    </button>
   </div>
 </div>
 
@@ -818,12 +807,12 @@ div[id*="ejs_menu"], div[class*="ejs_menu"],
     <div class="sett-group">
       <div class="sett-row" onclick="showPage('pgFeedback')"><div class="sett-ico" style="background:#FFF0E0">💌</div><div style="flex:1"><div class="sett-label">Send Feedback</div><div class="sett-val">Ideas, bugs, comic requests</div></div><div class="sett-arr">›</div></div>
       <div class="sett-row" onclick="showPage('pgInbox');renderInbox()"><div class="sett-ico" style="background:#E8F5E9">📥</div><div style="flex:1"><div class="sett-label">My Inbox</div><div class="sett-val" id="inboxCount">Dev replies will appear here</div></div><div class="sett-arr">›</div></div>
-    <div class="sett-row" onclick="showPage('pgContact')"><div class="sett-ico" style="background:#E3F2FD">📞</div><div style="flex:1"><div class="sett-label">Contact & Support</div><div class="sett-val">FAQ, feedback, share app</div></div><div class="sett-arr">›</div></div>
+    <div class="sett-row" onclick="shareApp()"><div class="sett-ico" style="background:#FFF0E0">🔗</div><div style="flex:1"><div class="sett-label">Share App</div><div class="sett-val">Invite friends!</div></div><div class="sett-arr">›</div></div>
+      <div class="sett-row" onclick="showPage('pgContact')"><div class="sett-ico" style="background:#E3F2FD">📞</div><div style="flex:1"><div class="sett-label">Contact & Support</div><div class="sett-val">FAQ, feedback, share app</div></div><div class="sett-arr">›</div></div>
     </div>
     <div class="sett-sec">👨‍💻 About</div>
     <div class="sett-group">
       <div class="sett-row"><div class="sett-ico" style="background:#FFF0E0">🧑‍🎨</div><div style="flex:1"><div class="sett-label">Developed by</div><div class="sett-val">Baadal — Made with ❤️</div></div></div>
-      <div style="flex:1"></div><div class="sett-arr">›</div></div>
     </div>
     <div style="text-align:center;padding:9px 0 4px;color:#bbb;font-size:10px;font-weight:700;">Made with ❤️ by Baadal • v5.0</div>
   </div>
@@ -995,6 +984,16 @@ var U={name:'',avatar:'cheeku',theme:'orange',dark:false,sound:true};
 var SK={last:'',count:0};
 var XP=0,BADGES=[],ANN={active:false,text:'',expiry:''},MAINT=false;
 var DEV_PW='1234',DEV_ON=false;
+// Early declarations prevent crash when bootHome runs before v9 vars defined
+var MUSIC = {on:false,playing:false,trackIdx:0,audioCtx:null,oscillators:[],gainNode:null,barOpen:false};
+var MUSIC_TRACKS = [
+  {name:'Happy Kids BGM',  tempo:120, notes:[523,659,784,1047,784,659,523,392]},
+  {name:'Adventure Theme', tempo:100, notes:[392,440,494,523,587,659,698,784]},
+  {name:'Calm Study BGM',  tempo:80,  notes:[264,297,330,352,396,440,494,528]}
+];
+var musicNoteTimer=null, musicNoteIdx=0;
+var LANG='en';
+var _tapDone=false;
 var LTAPS=0,LTIMER=null,CTAB='all',FBTYPE='idea';
 var FIRST_TODAY=false,UID='';
 
@@ -1081,7 +1080,7 @@ var TOPICS=[
    items:[{e:'➕',w:'2 + 3 = 5',n:'Addition'},{e:'➕',w:'4 + 6 = 10',n:'Addition'},{e:'➕',w:'7 + 8 = 15',n:'Addition'},{e:'➖',w:'10 - 4 = 6',n:'Subtraction'},{e:'➖',w:'15 - 7 = 8',n:'Subtraction'},{e:'➕',w:'9 + 9 = 18',n:'Addition'},{e:'➖',w:'20 - 5 = 15',n:'Subtraction'},{e:'➕',w:'6 + 7 = 13',n:'Addition'}]},
 
   {id:'gk',title:'General Knowledge',ico:'🌍',sub:'World facts!',age:2,col:'#795548',
-   items:[{e:'🇮🇳',w:'India',n:'Our Country'},{e:'☀️',w:'Sun',n:'Nearest star'},{e:'🌙',w:'Moon',n:'Earth\'s satellite'},{e:'🐟',w:'Fish',n:'Lives in water'},{e:'🌊',w:'Ocean',n:'Largest water body'},{e:'🏔️',w:'Everest',n:'Highest mountain'},{e:'🦁',w:'Lion',n:'King of jungle'},{e:'🌍',w:'Earth',n:'Our planet'}]},{e:'😄',w:'Fire!',n:'Fire grows as it eats'},{e:'🤔',w:'Riddle 2',n:'Runs without legs?'},{e:'😄',w:'Clock!',n:'Clock runs without legs'},{e:'🤔',w:'Riddle 3',n:'Has eyes but cannot see?'},{e:'😄',w:'Potato!',n:'Potato has eyes!'},{e:'😂',w:'Joke 1',n:'Teacher: 2+2? Student: 4! Teacher: Good! Student: Good?? Brilliant!'},{e:'😂',w:'Joke 2',n:'Why is maths sad? Too many problems!'}]}
+   items:[{e:'🇮🇳',w:'India',n:'Our Country'},{e:'☀️',w:'Sun',n:'Nearest star'},{e:'🌙',w:'Moon',n:'Earth\'s satellite'},{e:'🐟',w:'Fish',n:'Lives in water'},{e:'🌊',w:'Ocean',n:'Largest water body'},{e:'🏔️',w:'Everest',n:'Highest mountain'},{e:'🦁',w:'Lion',n:'King of jungle'},{e:'🌍',w:'Earth',n:'Our planet'}]}
 ];
 
 var CURRTOPIC=null,QITEMS=[],QIDX=0,QSCORE=0;
@@ -2484,7 +2483,6 @@ function retroEject(){
 // ════════════════════════════════════════════════════
 
 // ─── LANGUAGE SYSTEM ───
-var LANG = 'en';
 var STRINGS = {
   en: {
     home:'Home', comics:'Comics', games:'Games', learn:'Learn', settings:'Settings',
@@ -2629,16 +2627,6 @@ function schedulePushNotifs(){
 }
 
 // ─── BACKGROUND MUSIC (Web Audio API generated tones) ───
-var MUSIC = {
-  on: false, playing: false, trackIdx: 0, audioCtx: null,
-  oscillators: [], gainNode: null, barOpen: false
-};
-var MUSIC_TRACKS = [
-  {name:'Happy Kids BGM', tempo:120, notes:[523,659,784,1047,784,659,523,392]},
-  {name:'Adventure Theme', tempo:100, notes:[392,440,494,523,587,659,698,784]},
-  {name:'Calm Study BGM', tempo:80,  notes:[264,297,330,352,396,440,494,528]},
-];
-var musicNoteTimer=null,musicNoteIdx=0;
 function musicStart(){
   if(!MUSIC.audioCtx){
     try{MUSIC.audioCtx=new(window.AudioContext||window.webkitAudioContext)();}
@@ -2786,83 +2774,20 @@ self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;e.respondWi
 
 // ─── VIDEO SPLASH ───
 var splashVideoPlayed = false;
-function initSplashVideo(){
-  var vid = document.getElementById('splashVideo');
-  if(!vid){startApp();return;}
-  // Load video and freeze on first frame — do NOT play yet
-  vid.muted = true;
-  vid.volume = 1.0;
-  vid.currentTime = 0;
-  // Just load metadata to show first frame, don't play
-  vid.load();
-  // Once first frame is ready, pause to freeze it
-  vid.addEventListener('loadeddata', function(){
-    vid.pause(); // freeze on first frame
-  }, {once: true});
-  vid.addEventListener('canplay', function(){
-    vid.pause(); // ensure frozen
-  }, {once: true});
-}
+// initSplashVideo: image shows by default, video plays on user tap
+function initSplashVideo(){}
 
-var tapStarted = false;
-function onTapStart(){
-  if(tapStarted) return; // prevent double-fire from touch+click
-  tapStarted = true;
-  // Hide the tap layer immediately
-  var layer = document.getElementById('tapLayer');
-  if(layer) layer.style.display = 'none';
-  var vid = document.getElementById('splashVideo');
-  if(!vid){ skipSplash(); return; }
-  // User gesture — play from beginning WITH audio
-  vid.muted = false;
-  vid.volume = 1.0;
-  vid.currentTime = 0;
-  vid.play().catch(function(){
-    // Audio blocked — try muted
-    vid.muted = true;
-    vid.play().catch(function(){ skipSplash(); });
-  });
-  // Safety: max 15s
-  setTimeout(function(){
-    if(!splashVideoPlayed) skipSplash();
-  }, 15000);
-}
 function playSplashVideo(){
   var vid=document.getElementById('splashVideo');
   if(vid){vid.muted=false;vid.play().catch(function(){vid.muted=true;vid.play();});}
 }
-function onSplashVideoEnd(){
-  splashVideoPlayed=true;
-  skipSplash();
-}
-function onSplashVideoError(){
-  // Video missing — show fallback image and auto-start app after 1.5s
-  var vid=document.getElementById('splashVideo');
-  var fallback=document.getElementById('splashFallback');
-  if(vid)vid.style.display='none';
-  if(fallback)fallback.style.display='block';
-  setTimeout(function(){skipSplash();},1500);
-}
+// onSplashVideoEnd handled by onSplashEnd
+
+// onSplashVideoError: just start app
+
 function skipSplash(){
-  if(splashVideoPlayed) return; // prevent double-call
-  splashVideoPlayed=true;
-  var vid=document.getElementById('splashVideo');
-  if(vid){
-    try{vid.pause();}catch(e){}
-    vid.src='';
-    vid.load();
-  }
-  // Small delay so video stops cleanly before transition
-  setTimeout(startApp, 100);
+  startApp();
 }
-
-// Override window.onload to init video
-window.addEventListener('load',function(){
-  initSplashVideo();
-});
-
-// ─── EMULATOR OVERLAY AUTO-HIDE ───
-var retroOverlayTimer=null;
 function retroShowOverlay(){
   var ov=document.getElementById('retroOverlay');
   if(!ov)return;
@@ -2876,6 +2801,34 @@ window.EJS_onGameStart=function(){
   if(_origEJSStart)_origEJSStart();
   setTimeout(retroShowOverlay,500);
 };
+
+
+// ─── SPLASH SCREEN JS ───
+var _tapDone = false;
+function onTapStart(){
+  if(_tapDone) return;
+  _tapDone = true;
+  var btn = document.getElementById('tapStartBtn');
+  if(btn) btn.style.display = 'none';
+  var vid = document.getElementById('splashVideo');
+  if(!vid){ startApp(); return; }
+  // Show video over the image
+  vid.style.display = 'block';
+  vid.muted = false;
+  vid.volume = 1.0;
+  vid.currentTime = 0;
+  var p = vid.play();
+  if(p) p.catch(function(){
+    // Audio blocked - try muted, or just go to app if no video file
+    vid.muted = true;
+    vid.play().catch(function(){ startApp(); });
+  });
+  // Safety: max 16 seconds then go to app
+  setTimeout(function(){ if(!document.getElementById('pgHome').classList.contains('active')) startApp(); }, 16000);
+}
+function onSplashEnd(){
+  startApp();
+}
 
 </script>
 </body>
