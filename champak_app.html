@@ -683,17 +683,22 @@ div[id*="ejs_menu"], div[class*="ejs_menu"],
 
 <!-- SPLASH with VIDEO -->
 <div id="pgSplash" class="page active" style="background:#000;overflow:hidden;">
-  <!-- VIDEO SPLASH (replace champak_intro.mp4 with your video file) -->
-  <video id="splashVideo" playsinline autoplay muted
+  <!-- VIDEO SPLASH -->
+  <video id="splashVideo" playsinline
     style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;"
     onended="onSplashVideoEnd()"
     onerror="onSplashVideoError()">
     <source src="./champak_intro.mp4" type="video/mp4">
     <source src="./champak_intro.webm" type="video/webm">
   </video>
-  <!-- FALLBACK image shown if video missing -->
+  <!-- FALLBACK image -->
   <img id="splashFallback" class="sp-img" src="./champak_splash.png" alt=""
     style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;display:none;">
+  <!-- TAP TO START button — always visible, starts video audio + app -->
+  <div class="sp-btn-wrap" style="z-index:10;bottom:12%;">
+    <button class="sp-btn ripple-wrap" id="tapStartBtn" onclick="onTapStart()">
+      <span style="font-size:22px;">⭐</span> Tap to Start
+    </button>
   </div>
 </div>
 
@@ -2782,30 +2787,40 @@ var splashVideoPlayed = false;
 function initSplashVideo(){
   var vid = document.getElementById('splashVideo');
   if(!vid){startApp();return;}
+  // Load video and freeze on first frame — do NOT play yet
+  vid.muted = true;
+  vid.volume = 1.0;
+  vid.currentTime = 0;
+  // Just load metadata to show first frame, don't play
+  vid.load();
+  // Once first frame is ready, pause to freeze it
+  vid.addEventListener('loadeddata', function(){
+    vid.pause(); // freeze on first frame
+  }, {once: true});
+  vid.addEventListener('canplay', function(){
+    vid.pause(); // ensure frozen
+  }, {once: true});
+}
 
-  // In AIA/WebView, autoplay WITH audio is usually allowed
-  // Try unmuted first — works in most Android WebViews
+function onTapStart(){
+  var vid = document.getElementById('splashVideo');
+  var btn = document.getElementById('tapStartBtn');
+  // Hide button immediately
+  if(btn) btn.style.display = 'none';
+  if(!vid){ skipSplash(); return; }
+  // User gesture — unlock audio, play from start
   vid.muted = false;
   vid.volume = 1.0;
-
-  var p = vid.play();
-  if(p !== undefined){
-    p.then(function(){
-      // Playing with audio — great!
-    }).catch(function(){
-      // Browser blocked unmuted — retry muted (silent splash is fine)
-      vid.muted = true;
-      vid.play().catch(function(){
-        // Can't play at all — just start app
-        skipSplash();
-      });
-    });
-  }
-
-  // Safety timeout — if video hangs >8s, skip to app
+  vid.currentTime = 0;
+  vid.play().catch(function(){
+    // Audio still blocked — play muted then go to app on end
+    vid.muted = true;
+    vid.play().catch(function(){ skipSplash(); });
+  });
+  // Safety: max 15s then auto-start app
   setTimeout(function(){
-    if(!splashVideoPlayed){ skipSplash(); }
-  }, 8000);
+    if(!splashVideoPlayed) skipSplash();
+  }, 15000);
 }
 function playSplashVideo(){
   var vid=document.getElementById('splashVideo');
