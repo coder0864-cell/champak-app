@@ -15,7 +15,7 @@ body.theme-green{--a:#2E7D32;--a2:#1B5E20;--s:#1B5E20;--p:#A5D6A7;--p2:#43A047;-
 body.theme-purple{--a:#6A1B9A;--a2:#4A148C;--s:#4A148C;--p:#CE93D8;--p2:#8E24AA;--bd:#6A1B9A;--bg:#F3E5F5;--nav:#E1BEE7;--h1:#4A148C;--h2:#6A1B9A;--h3:#7B1FA2;--tab:#6A1B9A;}
 body.theme-pink{--a:#C2185B;--a2:#880E4F;--s:#880E4F;--p:#F48FB1;--p2:#E91E63;--bd:#C2185B;--bg:#FCE4EC;--nav:#F8BBD0;--h1:#880E4F;--h2:#C2185B;--h3:#D81B60;--tab:#C2185B;}
 body.dark{--bg:#12121e;--card:#1e1e30;--text:#e8e0ff;--sub:#888;}
-body.dark .app-hdr,body.dark .home-hdr{background:linear-gradient(135deg,#1e1e30,#12121e)!important;border-color:#333358!important;}
+body.dark .home-hdr{background:linear-gradient(135deg,#1e1e30,#12121e)!important;border-color:#333358!important;}
 body.dark #bNav{background:linear-gradient(180deg,#1e1e30,#12121e)!important;border-color:#333358!important;}
 body.dark .nav-ico:not(.act-ico){background:rgba(255,255,255,.07)!important;}
 body.dark .lcard,body.dark .acard,body.dark .game-card,body.dark .topic-card,body.dark .lrn-card,body.dark .ttt-cell,body.dark .mem-card-inner,body.dark .sett-group,body.dark .sett-row,body.dark .fb-form,body.dark .quiz-question,body.dark .q-opt,body.dark .msg-item,body.dark .notif-panel,body.dark .cat-tabs,body.dark .search-bar,body.dark .streak-bar,body.dark .sl-info,body.dark .ludo-info{background:#1e1e30!important;border-color:#333358!important;}
@@ -72,12 +72,13 @@ body.dark .xp-bar-bg{background:#333358!important;}
 .ob-btn:active{transform:translateY(3px);}
 
 /* HEADERS */
-.app-hdr,.home-hdr{background:linear-gradient(135deg,var(--p),var(--p2));padding:10px 12px;display:flex;align-items:center;gap:9px;border-bottom:3px solid var(--bd);box-shadow:0 3px 10px rgba(0,0,0,.12);flex-shrink:0;}
+.home-hdr{background:linear-gradient(135deg,var(--p),var(--p2));padding:10px 12px;display:flex;align-items:center;gap:9px;border-bottom:3px solid var(--bd);box-shadow:0 3px 10px rgba(0,0,0,.12);flex-shrink:0;}
+.app-hdr{padding:5px 10px 2px;display:flex;align-items:center;gap:8px;flex-shrink:0;background:transparent;min-height:44px;}
 .hdr-avatar{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,var(--a),var(--a2));border:2.5px solid rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;font-size:26px;cursor:pointer;flex-shrink:0;box-shadow:0 3px 8px rgba(0,0,0,.18);}
 .hdr-uname{font-family:'Lilita One',cursive;font-size:17px;color:var(--h1);line-height:1.1;}
 .hdr-rank{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.45);border-radius:8px;padding:2px 8px;font-size:11px;font-weight:800;color:var(--h2);margin-top:2px;}
 .hdr-btn{background:rgba(255,255,255,.4);border:2px solid rgba(255,255,255,.55);color:var(--h2);width:36px;height:36px;border-radius:11px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;}
-.hdr-back{background:rgba(255,255,255,.4);border:2px solid rgba(255,255,255,.55);color:var(--h2);width:36px;height:36px;border-radius:11px;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.hdr-back{background:rgba(128,128,128,.15);border:1.5px solid rgba(128,128,128,.25);color:var(--text);width:36px;height:36px;border-radius:11px;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .notif-dot{position:absolute;top:2px;right:2px;width:9px;height:9px;background:#FF3D00;border-radius:50%;border:1.5px solid var(--p);}
 
 /* NOTIF PANEL */
@@ -410,6 +411,112 @@ body.dark .xp-bar-bg{background:#333358!important;}
 .pw-btns{display:flex;gap:7px;}
 .pw-ok{flex:1;padding:9px;background:linear-gradient(135deg,#FF7700,#FF4400);color:#fff;border:none;border-radius:9px;font-family:'Lilita One',cursive;font-size:14px;cursor:pointer;}
 .pw-cancel{padding:9px 13px;background:#333;color:#aaa;border:none;border-radius:9px;font-family:'Baloo 2',cursive;font-size:12px;cursor:pointer;}
+
+/* ARCADE PAGE */
+#pgArcade{background:var(--bg);}
+.arcade-tabs{display:flex;background:var(--card);border-bottom:2px solid rgba(255,200,0,.2);flex-shrink:0;overflow-x:auto;}
+.arcade-tabs::-webkit-scrollbar{width:0;height:0;}
+.arc-tab{flex-shrink:0;padding:10px 16px 9px;font-family:'Lilita One',cursive;font-size:13px;color:#aaa;background:transparent;border:none;cursor:pointer;white-space:nowrap;position:relative;}
+.arc-tab.on{color:var(--tab);}
+.arc-tab.on::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--tab);border-radius:3px 3px 0 0;}
+.arc-scr{flex:1;overflow-y:auto;}
+.arc-scr::-webkit-scrollbar{width:0;}
+
+/* TETRIS */
+#pgTetris{background:#0a0a1a;}
+.tetris-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:10px;}
+#tetrisCanvas{border:3px solid #FFD700;border-radius:4px;box-shadow:0 0 20px rgba(255,215,0,.3);}
+.tetris-info{display:flex;gap:16px;color:#FFD700;font-family:'Lilita One',cursive;}
+.tetris-stat{text-align:center;}
+.tetris-stat-n{font-size:22px;color:#FFD700;}
+.tetris-stat-l{font-size:10px;color:#888;}
+.tetris-btns{display:flex;gap:8px;}
+.tet-btn{padding:8px 16px;background:linear-gradient(135deg,#FFD700,#FF8C00);border:none;border-radius:10px;font-family:'Lilita One',cursive;font-size:13px;color:#fff;cursor:pointer;box-shadow:0 3px 0 #CC6000;}
+/* Touch controls */
+.touch-dpad{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;width:150px;}
+.dpad-btn{height:44px;background:rgba(255,215,0,.15);border:2px solid rgba(255,215,0,.3);border-radius:10px;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.dpad-btn:active{background:rgba(255,215,0,.35);}
+
+/* SPACE INVADERS */
+#pgSpace{background:#000010;}
+.space-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:10px;}
+#spaceCanvas{border:2px solid #00FF41;border-radius:4px;box-shadow:0 0 15px rgba(0,255,65,.3);}
+.space-info{display:flex;gap:20px;color:#00FF41;font-family:'Lilita One',cursive;}
+.space-stat{text-align:center;}
+.space-stat-n{font-size:20px;color:#00FF41;}
+.space-stat-l{font-size:10px;color:#006620;}
+.space-fire-btn{padding:12px 40px;background:linear-gradient(135deg,#00CC41,#008833);border:none;border-radius:12px;font-family:'Lilita One',cursify;font-size:16px;color:#fff;cursor:pointer;box-shadow:0 4px 0 #004411;margin-top:4px;font-family:'Lilita One',cursive;}
+.space-fire-btn:active{transform:translateY(2px);}
+
+/* EMULATOR */
+#pgEmulator{background:#0a0a1a;}
+.emu-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;gap:14px;}
+.emu-drop{background:rgba(255,215,0,.05);border:2px dashed rgba(255,215,0,.4);border-radius:16px;padding:32px 20px;text-align:center;cursor:pointer;width:100%;max-width:360px;}
+.emu-drop:hover{background:rgba(255,215,0,.1);}
+#emuContainer{width:100%;max-width:500px;display:none;}
+#emuContainer iframe{width:100%;height:350px;border:3px solid #FFD700;border-radius:8px;}
+.free-roms-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;width:100%;max-width:400px;}
+.rom-card{background:#1e1e30;border-radius:12px;padding:12px 10px;text-align:center;border:1.5px solid #333358;cursor:pointer;}
+.rom-card:active{transform:scale(.95);}
+.rom-ico{font-size:28px;margin-bottom:4px;}
+.rom-name{font-size:11px;font-weight:800;color:#e8e0ff;margin-bottom:3px;}
+.rom-genre{font-size:9px;color:#888;font-weight:600;}
+
+
+/* RETRO EMULATOR PAGE */
+#pgRetro{background:#0d0d0d;}
+.retro-hdr{background:linear-gradient(135deg,#1a1a2e,#16213e);padding:9px 12px;display:flex;align-items:center;gap:9px;border-bottom:2px solid #FFD700;flex-shrink:0;}
+.retro-scr{flex:1;overflow-y:auto;background:#0d0d0d;}
+.retro-scr::-webkit-scrollbar{width:0;}
+/* System selector */
+.sys-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:13px;}
+.sys-card{background:#1a1a2e;border-radius:12px;padding:12px 8px;text-align:center;border:2px solid #2a2a4e;cursor:pointer;transition:all .15s;}
+.sys-card:active{transform:scale(.93);}
+.sys-card.sel{border-color:#FFD700;background:#2a2a1e;}
+.sys-ico{font-size:30px;margin-bottom:5px;}
+.sys-name{font-family:'Lilita One',cursive;font-size:11px;color:#e8e0ff;margin-bottom:2px;}
+.sys-sub{font-size:9px;color:#888;}
+/* ROM loader */
+.rom-loader{background:#1a1a2e;border-radius:14px;margin:0 13px 13px;border:2px solid #2a2a4e;overflow:hidden;}
+.rom-loader-hdr{background:linear-gradient(135deg,#FFD700,#FF8C00);padding:10px 13px;font-family:'Lilita One',cursive;font-size:14px;color:#fff;}
+.rom-loader-body{padding:13px;}
+.rom-drop-area{border:2px dashed #FFD700;border-radius:12px;padding:28px 16px;text-align:center;cursor:pointer;transition:background .2s;}
+.rom-drop-area:hover{background:rgba(255,215,0,.07);}
+.rom-drop-area:active{background:rgba(255,215,0,.15);}
+/* Emulator screen */
+#retroEmuWrap{display:none;flex-direction:column;background:#000;height:100%;}
+#emujs-container{width:100%;flex:1;position:relative;background:#000;}
+#emujs-container canvas{width:100%!important;height:100%!important;display:block;image-rendering:pixelated;}
+/* Controls overlay */
+.retro-ctrl-bar{background:#1a1a2e;border-top:2px solid #2a2a4e;padding:8px 10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;flex-shrink:0;}
+.retro-ctrl-btn{padding:7px 12px;border-radius:9px;border:none;font-family:'Lilita One',cursive;font-size:12px;cursor:pointer;}
+.rcb-pause{background:rgba(255,215,0,.15);color:#FFD700;border:1.5px solid #FFD700;}
+.rcb-reset{background:rgba(255,68,0,.15);color:#FF4400;border:1.5px solid #FF4400;}
+.rcb-save{background:rgba(0,255,100,.1);color:#00FF64;border:1.5px solid #00FF64;}
+.rcb-load{background:rgba(0,180,255,.1);color:#00B4FF;border:1.5px solid #00B4FF;}
+.rcb-full{background:rgba(255,255,255,.08);color:#ccc;border:1.5px solid #555;}
+.rcb-eject{background:rgba(150,0,0,.2);color:#FF6666;border:1.5px solid #FF4444;}
+/* Touch D-Pad */
+.retro-dpad-wrap{background:#111;padding:10px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;}
+.dpad-cross{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;width:130px;}
+.dc-btn{height:42px;background:#222;border:1.5px solid #444;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;user-select:none;-webkit-user-select:none;}
+.dc-btn:active,.dc-btn.pressed{background:#333;border-color:#FFD700;}
+.dc-center{background:#1a1a1a;border-radius:50%;}
+.retro-ab-wrap{display:flex;flex-direction:column;gap:8px;align-items:center;}
+.retro-ab-row{display:flex;gap:10px;}
+.ab-btn{width:48px;height:48px;border-radius:50%;border:3px solid;display:flex;align-items:center;justify-content:center;font-family:'Lilita One',cursive;font-size:16px;cursor:pointer;user-select:none;-webkit-user-select:none;}
+.ab-btn:active,.ab-btn.pressed{opacity:.7;transform:scale(.93);}
+.retro-menu-btns{display:flex;gap:7px;margin-top:4px;}
+.menu-btn{padding:5px 10px;background:#1a1a1a;border:1.5px solid #444;color:#aaa;border-radius:7px;font-family:'Lilita One',cursive;font-size:10px;cursor:pointer;}
+/* Recent ROMs */
+.recent-list{padding:0 13px 13px;}
+.recent-item{background:#1a1a2e;border-radius:10px;padding:10px 12px;margin-bottom:7px;display:flex;align-items:center;gap:10px;border:1.5px solid #2a2a4e;cursor:pointer;}
+.recent-item:active{background:#2a2a3e;}
+/* Loading screen */
+#emuLoading{position:absolute;inset:0;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:13px;z-index:10;}
+.emu-load-bar{width:80%;height:6px;background:#1a1a2e;border-radius:3px;overflow:hidden;}
+.emu-load-fill{height:100%;background:linear-gradient(90deg,#FFD700,#FF8C00);border-radius:3px;transition:width .3s;}
+
 </style>
 </head>
 <body>
@@ -491,7 +598,9 @@ body.dark .xp-bar-bg{background:#333358!important;}
 <div id="pgSeeAll" class="page"><div class="app-hdr"><button class="hdr-back" onclick="showPage('pgHome');setNav('home')">←</button><div style="flex:1"><div style="font-family:'Lilita One',cursive;font-size:18px;color:var(--h2);">Champak Comics</div><div style="font-size:9px;font-weight:700;color:var(--h3);" id="allCount"></div></div></div><div class="cat-tabs"><button class="cat-tab on" id="tab-all" onclick="switchTab('all')">📖 All</button><button class="cat-tab" id="tab-hi" onclick="switchTab('hi')">🇮🇳 Hindi</button><button class="cat-tab" id="tab-en" onclick="switchTab('en')">🇬🇧 English</button></div><div class="scr"><div class="all-grid" id="allGrid"></div></div></div>
 
 <!-- GAMES HUB -->
-<div id="pgGames" class="page"><div class="app-hdr"><button class="hdr-back" onclick="showPage('pgHome');setNav('home')">←</button><div style="flex:1"><div style="font-family:'Lilita One',cursive;font-size:19px;color:var(--h2);">🎮 Games</div><div style="font-size:9px;font-weight:700;color:var(--h3);">Play games, earn XP!</div></div></div><div class="scr" style="padding:13px;"><div class="games-grid"><div class="game-card" style="animation-delay:.0s"><div class="game-ico">❌⭕</div><div class="game-title">Tic Tac Toe</div><div class="game-sub">vs AI or 2 Player</div><button class="game-btn ripple-wrap" onclick="addRipple(event,this);initTTT()">▶ Play</button></div><div class="game-card" style="animation-delay:.08s"><div class="game-ico">🐍🪜</div><div class="game-title">Snake & Ladder</div><div class="game-sub">Classic board game</div><button class="game-btn ripple-wrap" onclick="addRipple(event,this);setupSL()">▶ Play</button></div><div class="game-card" style="animation-delay:.16s"><div class="game-ico">🧩</div><div class="game-title">Memory Match</div><div class="game-sub">Flip & match cards!</div><button class="game-btn ripple-wrap" onclick="addRipple(event,this);initMem()">▶ Play</button></div><div class="game-card" style="animation-delay:.24s"><div class="game-ico">🎯</div><div class="game-title">Ludo</div><div class="game-sub">2-4 player classic</div><button class="game-btn ripple-wrap" onclick="addRipple(event,this);setupLudo()">▶ Play</button></div></div></div></div>
+<div id="pgGames" class="page"><div class="app-hdr"><button class="hdr-back" onclick="showPage('pgHome');setNav('home')">←</button><div style="flex:1"><div style="font-family:'Lilita One',cursive;font-size:19px;color:var(--h2);">🎮 Games</div><div style="font-size:9px;font-weight:700;color:var(--h3);">Play games, earn XP!</div></div></div><div class="scr" style="padding:13px;"><div class="games-grid"><div class="game-card" style="animation-delay:.0s"><div class="game-ico">❌⭕</div><div class="game-title">Tic Tac Toe</div><div class="game-sub">vs AI or 2 Player</div><button class="game-btn ripple-wrap" onclick="addRipple(event,this);initTTT()">▶ Play</button></div><div class="game-card" style="animation-delay:.08s"><div class="game-ico">🐍🪜</div><div class="game-title">Snake & Ladder</div><div class="game-sub">Classic board game</div><button class="game-btn ripple-wrap" onclick="addRipple(event,this);setupSL()">▶ Play</button></div><div class="game-card" style="animation-delay:.16s"><div class="game-ico">🧩</div><div class="game-title">Memory Match</div><div class="game-sub">Flip & match cards!</div><button class="game-btn ripple-wrap" onclick="addRipple(event,this);initMem()">▶ Play</button></div><div class="game-card" style="animation-delay:.24s"><div class="game-ico">🎯</div><div class="game-title">Ludo</div><div class="game-sub">2-4 player classic</div><button class="game-btn ripple-wrap" onclick="addRipple(event,this);setupLudo()">▶ Play</button></div>
+<div class="game-card" style="animation-delay:.32s;grid-column:1/-1;background:linear-gradient(135deg,#1a0533,#2d0a5a);border-color:#6B21A8;"><div class="game-ico">🕹️</div><div class="game-title" style="color:#E879F9;">Arcade Zone</div><div class="game-sub" style="color:#C084FC;">Tetris • Space Invaders • NES Emulator</div><button class="game-btn ripple-wrap" style="background:linear-gradient(135deg,#9333EA,#6B21A8);box-shadow:0 3px 0 #4C1D95;" onclick="addRipple(event,this);showPage('pgArcade')">▶ Enter Arcade</button></div>
+</div></div></div>
 
 <!-- TTT -->
 <div id="pgTTT" class="page"><div class="app-hdr"><button class="hdr-back" onclick="showPage('pgGames')">←</button><div style="flex:1"><div style="font-family:'Lilita One',cursive;font-size:17px;color:var(--h2);">❌⭕ Tic Tac Toe</div></div><button class="hdr-btn" onclick="initTTT()">🔄</button></div><div class="ttt-wrap"><div class="ttt-mode-wrap"><button class="ttt-mode-btn on" id="tttM1" onclick="setTTTMode('ai',this)">🤖 vs AI</button><button class="ttt-mode-btn" id="tttM2" onclick="setTTTMode('2p',this)">👥 2 Player</button></div><div class="ttt-status" id="tttSt">❌ goes first!</div><div class="ttt-board" id="tttBoard"></div><button class="g-btn ripple-wrap" onclick="addRipple(event,this);initTTT()">🔄 New Game</button><div style="text-align:center;font-family:'Lilita One',cursive;font-size:13px;color:var(--sub);" id="tttSc"></div></div></div>
@@ -598,6 +707,247 @@ body.dark .xp-bar-bg{background:#333358!important;}
   <div class="dev-sec"><div class="dev-sec-h">💾 Backup & Restore</div><div class="dev-sec-b"><button class="dev-bk" style="background:linear-gradient(135deg,#1565C0,#0D47A1);color:#fff;" onclick="devBackup()">📤 Export JSON</button><textarea class="dev-in" id="devRI" style="height:65px;resize:none;" placeholder="Paste JSON to restore..."></textarea><button class="dev-bk" style="background:linear-gradient(135deg,#2E7D32,#1B5E20);color:#fff;" onclick="devRestore()">📥 Restore</button></div></div>
   <div class="dev-sec"><div class="dev-sec-h">🔑 Change Password</div><div class="dev-sec-b"><input class="dev-in" type="password" id="devP1" placeholder="New password..."><input class="dev-in" type="password" id="devP2" placeholder="Confirm..."><button class="dev-add" onclick="devChangePass()">🔑 Update</button></div></div>
 </div></div>
+
+
+<!-- ARCADE HUB -->
+<div id="pgArcade" class="page">
+  <div class="app-hdr">
+    <button class="hdr-back" onclick="showPage('pgGames')">←</button>
+    <div style="flex:1"><div style="font-family:'Lilita One',cursive;font-size:19px;color:var(--h2);">🕹️ Arcade Zone</div><div style="font-size:9px;font-weight:700;color:var(--h3);">Tetris • Space Invaders • NES Emulator</div></div>
+  </div>
+  <div class="arcade-tabs">
+    <button class="arc-tab on" id="atab-built" onclick="switchArcadeTab('built',this)">🎮 Built-in Games</button>
+    <button class="arc-tab" id="atab-emu" onclick="switchArcadeTab('emu',this)">🕹️ NES Emulator</button>
+    <button class="arc-tab" id="atab-free" onclick="switchArcadeTab('free',this)">🆓 Free ROMs</button>
+  </div>
+  <div class="arc-scr" id="arcScr">
+    <!-- Built-in tab (default) -->
+    <div id="arcBuilt" style="padding:13px;">
+      <div style="font-family:'Lilita One',cursive;font-size:13px;color:var(--sub);margin-bottom:11px;">✅ 100% Legal • Works Offline • No Downloads</div>
+      <div class="games-grid">
+        <div class="game-card">
+          <div class="game-ico">🟦</div>
+          <div class="game-title">Tetris</div>
+          <div class="game-sub">Classic block stacking!</div>
+          <button class="game-btn ripple-wrap" onclick="addRipple(event,this);initTetris()">▶ Play</button>
+        </div>
+        <div class="game-card">
+          <div class="game-ico">👾</div>
+          <div class="game-title">Space Invaders</div>
+          <div class="game-sub">Shoot the aliens!</div>
+          <button class="game-btn ripple-wrap" onclick="addRipple(event,this);initSpace()">▶ Play</button>
+        </div>
+      </div>
+    </div>
+    <!-- Emulator tab → launches full RetroArch-style page -->
+    <div id="arcEmu" style="display:none;padding:13px;">
+      <div style="background:#1a1a2e;border-radius:14px;padding:16px;border:2px solid #2a2a4e;text-align:center;">
+        <div style="font-size:52px;margin-bottom:10px;">🕹️</div>
+        <div style="font-family:'Lilita One',cursive;font-size:20px;color:#FFD700;margin-bottom:6px;">RetroArch-Style Emulator</div>
+        <div style="font-size:12px;color:#aaa;line-height:1.7;margin-bottom:14px;">Supports NES · SNES · GBA · Sega · N64<br>Full touch controls · Save states · Multiple systems<br><span style="color:#888;font-size:10px;">Load your own ROM file from your phone</span></div>
+        <button onclick="showPage('pgRetro');retroInit()" style="width:100%;padding:14px;background:linear-gradient(135deg,#FFD700,#FF8C00);border:none;border-radius:13px;font-family:'Lilita One',cursive;font-size:18px;color:#fff;box-shadow:0 5px 0 #CC6000;cursor:pointer;">🎮 Launch Emulator</button>
+      </div>
+      <div style="background:#1a1a2e;border-radius:12px;padding:12px;margin-top:11px;border:1.5px solid #2a2a4e;">
+        <div style="font-size:11px;color:#888;line-height:1.8;">✅ Emulator is open-source (EmulatorJS)<br>✅ You load your own ROM — you control it<br>✅ Same approach as RetroArch, Delta, etc.<br>🔒 No ROMs stored or distributed by this app</div>
+      </div>
+    </div>
+    <!-- Free ROMs tab -->
+    <div id="arcFree" style="display:none;padding:13px;">
+      <div style="background:#1e1e30;border-radius:12px;padding:12px;margin-bottom:12px;border:1px solid #333358;">
+        <div style="font-family:'Lilita One',cursive;font-size:14px;color:#FFD700;margin-bottom:5px;">🆓 100% Free & Legal Homebrew NES Games</div>
+        <div style="font-size:11px;color:#aaa;line-height:1.6;">These games were made by indie developers and released free. Click to download ROM, then load it in the Emulator tab above!</div>
+      </div>
+      <div class="free-roms-grid" id="freeRomsGrid"></div>
+      <div style="margin-top:13px;background:#1e1e30;border-radius:12px;padding:12px;border:1px solid #333358;">
+        <div style="font-family:'Lilita One',cursive;font-size:13px;color:#FFD700;margin-bottom:6px;">🌐 More Free Legal Games</div>
+        <div style="font-size:11px;color:#aaa;line-height:1.8;">
+          <div>• <span style="color:#4FC3F7;">pdroms.de/nintendo-nes</span> — 500+ homebrew games</div>
+          <div>• <span style="color:#4FC3F7;">nesworld.com</span> — demos and homebrew</div>
+          <div>• <span style="color:#4FC3F7;">gbatemp.net</span> — community ROMs</div>
+          <div style="margin-top:6px;font-size:10px;color:#666;">⚠️ Never download copyrighted commercial ROMs (Mario, Zelda etc)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TETRIS PAGE -->
+<div id="pgTetris" class="page" style="background:#0a0a1a;">
+  <div class="app-hdr" style="background:transparent;">
+    <button class="hdr-back" style="background:rgba(255,215,0,.15);border:2px solid rgba(255,215,0,.3);color:#FFD700;" onclick="stopTetris();showPage('pgArcade')">←</button>
+    <div style="flex:1"><div style="font-family:'Lilita One',cursive;font-size:18px;color:#FFD700;">🟦 Tetris</div></div>
+    <button onclick="tetrisPause()" style="background:rgba(255,215,0,.15);border:2px solid rgba(255,215,0,.3);color:#FFD700;padding:5px 10px;border-radius:9px;font-family:'Lilita One',cursive;font-size:12px;cursor:pointer;" id="tetPauseBtn">⏸ Pause</button>
+  </div>
+  <div class="tetris-wrap">
+    <div class="tetris-info">
+      <div class="tetris-stat"><div class="tetris-stat-n" id="tetScore">0</div><div class="tetris-stat-l">SCORE</div></div>
+      <div class="tetris-stat"><div class="tetris-stat-n" id="tetLevel">1</div><div class="tetris-stat-l">LEVEL</div></div>
+      <div class="tetris-stat"><div class="tetris-stat-n" id="tetLines">0</div><div class="tetris-stat-l">LINES</div></div>
+    </div>
+    <canvas id="tetrisCanvas" width="200" height="400"></canvas>
+    <!-- Touch controls -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;width:220px;">
+      <button class="dpad-btn" style="border-color:rgba(255,215,0,.3);color:#FFD700;" ontouchstart="tetMove(-1)" onmousedown="tetMove(-1)">⬅️</button>
+      <button class="dpad-btn" style="border-color:rgba(255,215,0,.3);color:#FFD700;font-size:14px;" ontouchstart="tetRotate()" onmousedown="tetRotate()">🔄</button>
+      <button class="dpad-btn" style="border-color:rgba(255,215,0,.3);color:#FFD700;" ontouchstart="tetMove(1)" onmousedown="tetMove(1)">➡️</button>
+      <button class="dpad-btn" style="border-color:rgba(255,215,0,.3);color:#FFD700;" ontouchstart="tetDrop()" onmousedown="tetDrop()">⬇️</button>
+    </div>
+  </div>
+</div>
+
+<!-- SPACE INVADERS PAGE -->
+<div id="pgSpace" class="page" style="background:#000010;">
+  <div class="app-hdr" style="background:transparent;">
+    <button class="hdr-back" style="background:rgba(0,255,65,.1);border:2px solid rgba(0,255,65,.3);color:#00FF41;" onclick="stopSpace();showPage('pgArcade')">←</button>
+    <div style="flex:1"><div style="font-family:'Lilita One',cursive;font-size:18px;color:#00FF41;">👾 Space Invaders</div></div>
+    <button onclick="spacePause()" style="background:rgba(0,255,65,.1);border:2px solid rgba(0,255,65,.3);color:#00FF41;padding:5px 10px;border-radius:9px;font-family:'Lilita One',cursive;font-size:12px;cursor:pointer;" id="spPauseBtn">⏸ Pause</button>
+  </div>
+  <div class="space-wrap">
+    <div class="space-info">
+      <div class="space-stat"><div class="space-stat-n" id="spScore">0</div><div class="space-stat-l">SCORE</div></div>
+      <div class="space-stat"><div class="space-stat-n" id="spLives">❤️❤️❤️</div><div class="space-stat-l">LIVES</div></div>
+      <div class="space-stat"><div class="space-stat-n" id="spWave">1</div><div class="space-stat-l">WAVE</div></div>
+    </div>
+    <canvas id="spaceCanvas" width="320" height="380"></canvas>
+    <div style="display:flex;gap:12px;align-items:center;margin-top:4px;">
+      <button class="dpad-btn" style="width:60px;height:52px;border-color:#00FF41;color:#00FF41;" ontouchstart="spMove(-1);spMoveStart(-1)" ontouchend="spMoveStop()" onmousedown="spMoveStart(-1)" onmouseup="spMoveStop()">⬅️</button>
+      <button onclick="spFire()" style="padding:12px 28px;background:linear-gradient(135deg,#00CC41,#008833);border:none;border-radius:12px;font-family:'Lilita One',cursive;font-size:16px;color:#fff;cursor:pointer;box-shadow:0 4px 0 #004411;">🔫 FIRE!</button>
+      <button class="dpad-btn" style="width:60px;height:52px;border-color:#00FF41;color:#00FF41;" ontouchstart="spMove(1);spMoveStart(1)" ontouchend="spMoveStop()" onmousedown="spMoveStart(1)" onmouseup="spMoveStop()">➡️</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- RETROARCH-STYLE EMULATOR PAGE -->
+<div id="pgRetro" class="page">
+  <!-- SYSTEM SELECT VIEW -->
+  <div id="retroSelectView" style="display:flex;flex-direction:column;height:100%;background:#0d0d0d;">
+    <div class="retro-hdr">
+      <button class="hdr-back" style="background:rgba(255,215,0,.15);border:2px solid rgba(255,215,0,.3);color:#FFD700;" onclick="retroEject();showPage('pgArcade')">←</button>
+      <div style="flex:1">
+        <div style="font-family:'Lilita One',cursive;font-size:17px;color:#FFD700;">🕹️ Retro Emulator</div>
+        <div style="font-size:9px;color:#888;font-weight:700;" id="retroStatusTxt">Select system & load ROM</div>
+      </div>
+      <button onclick="retroShowRecent()" style="background:rgba(255,215,0,.15);border:1.5px solid #FFD700;color:#FFD700;padding:5px 10px;border-radius:8px;font-family:'Lilita One',cursive;font-size:11px;cursor:pointer;">📂 Recent</button>
+    </div>
+    <div class="retro-scr">
+      <!-- System grid -->
+      <div style="padding:12px 13px 4px;font-family:'Lilita One',cursive;font-size:12px;color:#888;">SELECT SYSTEM</div>
+      <div class="sys-grid" id="sysGrid"></div>
+      <!-- ROM Loader -->
+      <div class="rom-loader">
+        <div class="rom-loader-hdr">📂 Load ROM File</div>
+        <div class="rom-loader-body">
+          <div style="font-size:11px;color:#aaa;margin-bottom:11px;line-height:1.6;">Select a ROM file from your device. Supports .nes .sfc .gba .gb .gbc .smd .z64 .n64 and more.</div>
+          <label class="rom-drop-area" for="retroRomFile">
+            <div style="font-size:44px;margin-bottom:8px;">🗂️</div>
+            <div style="font-family:'Lilita One',cursive;font-size:16px;color:#FFD700;margin-bottom:4px;">Tap to choose ROM</div>
+            <div style="font-size:10px;color:#888;">Any ROM file from your phone storage</div>
+            <input type="file" id="retroRomFile" style="display:none;" accept=".nes,.sfc,.smc,.gba,.gb,.gbc,.smd,.gen,.z64,.n64,.nds,.pce,.ws,.wsc,.ngp,.ngc,.vb,.32x,.cue,.iso" onchange="retroLoadFile(this)">
+          </label>
+          <div id="retroLoadStatus" style="margin-top:9px;text-align:center;font-size:11px;color:#888;">No file loaded</div>
+        </div>
+      </div>
+      <!-- Recent ROMs -->
+      <div id="retroRecentWrap" style="display:none;">
+        <div style="padding:8px 13px 4px;font-family:'Lilita One',cursive;font-size:12px;color:#888;">RECENT ROMS</div>
+        <div class="recent-list" id="retroRecentList"></div>
+      </div>
+      <!-- System info -->
+      <div id="retroSysInfo" style="display:none;background:#1a1a2e;border-radius:12px;margin:0 13px 13px;padding:12px;border:1.5px solid #2a2a4e;">
+        <div style="font-family:'Lilita One',cursive;font-size:13px;color:#FFD700;margin-bottom:6px;" id="retroSysTitle">System Info</div>
+        <div style="font-size:11px;color:#aaa;line-height:1.7;" id="retroSysDesc"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GAME RUNNING VIEW -->
+  <div id="retroEmuWrap" style="display:none;flex-direction:column;height:100%;background:#000;">
+    <!-- Top bar -->
+    <div style="background:#111;padding:5px 10px;display:flex;align-items:center;gap:8px;flex-shrink:0;border-bottom:1px solid #222;">
+      <button onclick="retroEject()" style="background:rgba(255,68,0,.2);border:1px solid #FF4400;color:#FF4400;padding:4px 9px;border-radius:7px;font-family:'Lilita One',cursive;font-size:11px;cursor:pointer;">⏏️</button>
+      <div style="flex:1;font-family:'Lilita One',cursive;font-size:12px;color:#FFD700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" id="retroGameTitle">Game</div>
+      <button onclick="retroTogglePause()" id="retroPauseBtn" style="background:rgba(255,215,0,.15);border:1px solid #FFD700;color:#FFD700;padding:4px 9px;border-radius:7px;font-family:'Lilita One',cursive;font-size:11px;cursor:pointer;">⏸</button>
+      <button onclick="retroSaveState()" style="background:rgba(0,255,100,.1);border:1px solid #00FF64;color:#00FF64;padding:4px 9px;border-radius:7px;font-family:'Lilita One',cursive;font-size:11px;cursor:pointer;">💾</button>
+      <button onclick="retroFullscreen()" style="background:rgba(255,255,255,.07);border:1px solid #444;color:#aaa;padding:4px 9px;border-radius:7px;font-family:'Lilita One',cursive;font-size:11px;cursor:pointer;">⛶</button>
+    </div>
+    <!-- Game canvas -->
+    <div id="emujs-container" style="flex:1;position:relative;background:#000;display:flex;align-items:center;justify-content:center;">
+      <div id="emuLoading">
+        <div style="font-size:48px;animation:bounce 1s ease-in-out infinite;">🕹️</div>
+        <div style="font-family:'Lilita One',cursive;font-size:18px;color:#FFD700;" id="emuLoadTxt">Loading...</div>
+        <div class="emu-load-bar"><div class="emu-load-fill" id="emuLoadFill" style="width:0%"></div></div>
+        <div style="font-size:10px;color:#888;margin-top:4px;" id="emuLoadSub">Initializing emulator</div>
+      </div>
+    </div>
+    <!-- Touch D-pad controls -->
+    <div class="retro-dpad-wrap" id="retroControls">
+      <!-- Left: D-Pad -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+        <div class="dpad-cross">
+          <div></div>
+          <div class="dc-btn" id="dc-up"
+            ontouchstart="event.preventDefault();retroBtn('up',true)" ontouchend="event.preventDefault();retroBtn('up',false)"
+            onmousedown="retroBtn('up',true)" onmouseup="retroBtn('up',false)">⬆</div>
+          <div></div>
+          <div class="dc-btn" id="dc-left"
+            ontouchstart="event.preventDefault();retroBtn('left',true)" ontouchend="event.preventDefault();retroBtn('left',false)"
+            onmousedown="retroBtn('left',true)" onmouseup="retroBtn('left',false)">⬅</div>
+          <div class="dc-btn dc-center">⬤</div>
+          <div class="dc-btn" id="dc-right"
+            ontouchstart="event.preventDefault();retroBtn('right',true)" ontouchend="event.preventDefault();retroBtn('right',false)"
+            onmousedown="retroBtn('right',true)" onmouseup="retroBtn('right',false)">➡</div>
+          <div></div>
+          <div class="dc-btn" id="dc-down"
+            ontouchstart="event.preventDefault();retroBtn('down',true)" ontouchend="event.preventDefault();retroBtn('down',false)"
+            onmousedown="retroBtn('down',true)" onmouseup="retroBtn('down',false)">⬇</div>
+          <div></div>
+        </div>
+        <!-- Select + Start -->
+        <div style="display:flex;gap:8px;margin-top:4px;">
+          <button class="menu-btn"
+            ontouchstart="event.preventDefault();retroBtn('select',true)" ontouchend="event.preventDefault();retroBtn('select',false)"
+            onmousedown="retroBtn('select',true)" onmouseup="retroBtn('select',false)">SELECT</button>
+          <button class="menu-btn"
+            ontouchstart="event.preventDefault();retroBtn('start',true)" ontouchend="event.preventDefault();retroBtn('start',false)"
+            onmousedown="retroBtn('start',true)" onmouseup="retroBtn('start',false)">START</button>
+        </div>
+      </div>
+      <!-- Right: Action buttons -->
+      <div class="retro-ab-wrap">
+        <div class="retro-ab-row">
+          <div></div>
+          <div class="ab-btn" style="border-color:#FFAA00;background:rgba(255,170,0,.15);color:#FFAA00;"
+            ontouchstart="event.preventDefault();retroBtn('x',true)" ontouchend="event.preventDefault();retroBtn('x',false)"
+            onmousedown="retroBtn('x',true)" onmouseup="retroBtn('x',false)">X</div>
+        </div>
+        <div class="retro-ab-row">
+          <div class="ab-btn" style="border-color:#4488FF;background:rgba(68,136,255,.15);color:#4488FF;"
+            ontouchstart="event.preventDefault();retroBtn('y',true)" ontouchend="event.preventDefault();retroBtn('y',false)"
+            onmousedown="retroBtn('y',true)" onmouseup="retroBtn('y',false)">Y</div>
+          <div class="ab-btn" style="border-color:#FF4444;background:rgba(255,68,68,.15);color:#FF4444;"
+            ontouchstart="event.preventDefault();retroBtn('a',true)" ontouchend="event.preventDefault();retroBtn('a',false)"
+            onmousedown="retroBtn('a',true)" onmouseup="retroBtn('a',false)">A</div>
+        </div>
+        <div class="retro-ab-row">
+          <div></div>
+          <div class="ab-btn" style="border-color:#44CC44;background:rgba(68,204,68,.15);color:#44CC44;"
+            ontouchstart="event.preventDefault();retroBtn('b',true)" ontouchend="event.preventDefault();retroBtn('b',false)"
+            onmousedown="retroBtn('b',true)" onmouseup="retroBtn('b',false)">B</div>
+        </div>
+        <!-- L/R shoulder -->
+        <div style="display:flex;gap:6px;margin-top:4px;">
+          <button class="menu-btn"
+            ontouchstart="event.preventDefault();retroBtn('l',true)" ontouchend="event.preventDefault();retroBtn('l',false)"
+            onmousedown="retroBtn('l',true)" onmouseup="retroBtn('l',false)">L</button>
+          <button class="menu-btn"
+            ontouchstart="event.preventDefault();retroBtn('r',true)" ontouchend="event.preventDefault();retroBtn('r',false)"
+            onmousedown="retroBtn('r',true)" onmouseup="retroBtn('r',false)">R</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- OPEN COMIC OVERLAY -->
 <div id="ovOpen"><div style="font-size:62px">📖</div><div style="font-family:'Baloo 2',cursive;font-size:21px;font-weight:800;color:#CC3300;margin-top:13px;">Opening Comic!</div><div style="font-size:12px;color:#884400;margin-top:4px;font-weight:700;">One moment...</div></div>
@@ -917,7 +1267,21 @@ function renderInbox(){
 function buildCharGrid(){var el=document.getElementById('charGrid');if(!el)return;el.innerHTML='';CHARS.forEach(function(c,i){var d=document.createElement('div');d.className='char-btn'+(i===0?' sel':'');d.dataset.id=c.id;d.innerHTML='<div class="char-btn-e">'+c.e+'</div><div class="char-btn-n">'+c.name+'</div>';d.onclick=function(){document.querySelectorAll('.char-btn').forEach(function(b){b.classList.remove('sel');});d.classList.add('sel');U.avatar=c.id;snd('tap');};el.appendChild(d);});U.avatar='cheeku';}
 
 // ─── APP START ───
-function startApp(){loadAll();snd('tap');if(MAINT){document.getElementById('maintScreen').classList.add('show');return;}var sp=document.getElementById('pgSplash');sp.style.opacity='0';setTimeout(function(){sp.style.display='none';if(!U.name||U.name.trim()===''){showPage('pgOnboard');buildCharGrid();}else bootHome();},820);}
+function startApp(){
+  loadAll();snd('tap');
+  if(MAINT){document.getElementById('maintScreen').classList.add('show');return;}
+  var sp=document.getElementById('pgSplash');sp.style.opacity='0';
+  setTimeout(function(){
+    sp.style.display='none';
+    // Only show onboard on very first launch ever
+    if(!ls('ch_launched')){
+      ls('ch_launched',true);
+      showPage('pgOnboard');buildCharGrid();
+    } else {
+      bootHome();
+    }
+  },820);
+}
 function saveNameAndStart(){var n=document.getElementById('nameIn').value.trim();if(!n){document.getElementById('nameIn').style.animation='shake .3s ease';setTimeout(function(){document.getElementById('nameIn').style.animation='';},400);return;}U.name=n;saveU();confetti();snd('ok');setTimeout(bootHome,700);}
 function bootHome(){applyTheme(U.theme);applyDark(U.dark);updateStreak();updateXPBar();renderHome();showPage('pgHome');setNav('home');renderAnn();renderCOTD();checkNewBadge();updateNotifDot();renderLearn();initJSONBin().then(function(){pushToLeaderboard();});}
 
@@ -1385,7 +1749,29 @@ function devChangePass(){var p1=document.getElementById('devP1').value,p2=docume
 
 // ─── NAV / PAGES ───
 function setNav(n){document.querySelectorAll('.nav-item').forEach(function(x){delete x.dataset.active;x.querySelector('.nav-ico').classList.remove('act-ico');});var el=document.getElementById('nav-'+n);if(el){el.dataset.active='1';el.querySelector('.nav-ico').classList.add('act-ico');}}
-function showPage(id){document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});var el=document.getElementById(id);if(el)el.classList.add('active');}
+
+// ─── ANDROID BACK BUTTON HISTORY ───
+var PAGE_HISTORY=['pgHome'];
+var _showPageRaw=function(id){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+  var el=document.getElementById(id);if(el)el.classList.add('active');
+};
+function showPage(id){
+  if(id==='pgSplash'||id==='pgOnboard'){_showPageRaw(id);return;}
+  // Push state so Android back button triggers popstate
+  try{history.pushState({pg:id},'','');}catch(e){}
+  PAGE_HISTORY.push(id);
+  _showPageRaw(id);
+}
+window.addEventListener('popstate',function(e){
+  PAGE_HISTORY.pop();
+  var prev=PAGE_HISTORY[PAGE_HISTORY.length-1]||'pgHome';
+  _showPageRaw(prev);
+  // Sync bottom nav
+  var navMap={pgHome:'home',pgSeeAll:'comics',pgGames:'games',pgLearn:'learn',pgSettings:'settings'};
+  if(navMap[prev])setNav(navMap[prev]);
+});
+
 function refreshPage(){var b=document.getElementById('refreshBtn');b.style.animation='spin .6s linear';setTimeout(function(){b.style.animation='';loadAll();renderHome();checkNewBadge();renderCOTD();updateRankDisplay();renderAnn();},700);snd('tap');}
 function openLink(url){window.location.href=url;}
 
@@ -1397,6 +1783,630 @@ function openLink(url){window.location.href=url;}
     if(u&&u.theme&&u.theme!=='orange')document.body.classList.add('theme-'+u.theme);
   }catch(e){}
 })();
+
+
+// ════════════════════════════════════════
+//  ARCADE ZONE JavaScript
+// ════════════════════════════════════════
+
+// ── ARCADE TAB SWITCHER ──
+function switchArcadeTab(tab, btn) {
+  document.querySelectorAll('.arc-tab').forEach(function(b){b.classList.remove('on');});
+  btn.classList.add('on');
+  document.getElementById('arcBuilt').style.display = tab==='built'?'block':'none';
+  document.getElementById('arcEmu').style.display   = tab==='emu'?'block':'none';
+  document.getElementById('arcFree').style.display  = tab==='free'?'block':'none';
+  if(tab==='free') renderFreeRoms();
+  snd('tap');
+}
+
+// ── FREE ROMS DATA (100% legal homebrew) ──
+var FREE_ROMS = [
+  {name:'Alter Ego',genre:'Platformer',ico:'🦸',url:'https://pdroms.de/files/nintendo-nintendoentertainmentsystem-nes-famicom/alter-ego'},
+  {name:'D-Pad Hero',genre:'Rhythm',ico:'🎵',url:'https://pdroms.de/files/nintendo-nintendoentertainmentsystem-nes-famicom/d-pad-hero'},
+  {name:'Blade Buster',genre:'Shooter',ico:'🚀',url:'https://pdroms.de/files/nintendo-nintendoentertainmentsystem-nes-famicom/blade-buster'},
+  {name:'Battle Kid',genre:'Action',ico:'⚔️',url:'https://pdroms.de/files/nintendo-nintendoentertainmentsystem-nes-famicom/battle-kid-fortress-of-peril-v1-00'},
+  {name:'Lawn Mower',genre:'Arcade',ico:'🌿',url:'https://pdroms.de/files/nintendo-nintendoentertainmentsystem-nes-famicom/lawn-mower'},
+  {name:'Lan Master',genre:'Puzzle',ico:'🧩',url:'https://pdroms.de/files/nintendo-nintendoentertainmentsystem-nes-famicom/lan-master'},
+  {name:'Chase',genre:'Action',ico:'🏃',url:'https://pdroms.de/files/nintendo-nintendoentertainmentsystem-nes-famicom'},
+  {name:'Haunted',genre:'Horror',ico:'👻',url:'https://pdroms.de/files/nintendo-nintendoentertainmentsystem-nes-famicom'},
+];
+function renderFreeRoms(){
+  var el=document.getElementById('freeRomsGrid');if(!el||el.children.length>0)return;
+  FREE_ROMS.forEach(function(r){
+    var d=document.createElement('div');d.className='rom-card';
+    d.innerHTML='<div class="rom-ico">'+r.ico+'</div><div class="rom-name">'+r.name+'</div><div class="rom-genre">'+r.genre+'</div><div style="font-size:9px;color:#FFD700;margin-top:5px;">🔗 Download Free</div>';
+    d.onclick=function(){
+      if(confirm('Open '+r.name+' download page?\n\nDownload the .nes file, then load it in the Emulator tab!')){
+        window.open(r.url,'_blank');
+      }
+    };
+    el.appendChild(d);
+  });
+}
+
+// ══════════════════════════════════════
+//  TETRIS
+// ══════════════════════════════════════
+var TET={
+  W:10,H:20,sz:20,
+  board:null,cur:null,next:null,
+  score:0,lines:0,level:1,
+  timer:null,paused:false,over:false,
+  canvas:null,ctx:null
+};
+var TET_PIECES=[
+  {shape:[[1,1,1,1]],color:'#00F0F0'},                           // I
+  {shape:[[1,1],[1,1]],color:'#F0F000'},                         // O
+  {shape:[[0,1,0],[1,1,1]],color:'#A000F0'},                     // T
+  {shape:[[1,0],[1,0],[1,1]],color:'#F0A000'},                   // L
+  {shape:[[0,1],[0,1],[1,1]],color:'#0000F0'},                   // J
+  {shape:[[0,1,1],[1,1,0]],color:'#00F000'},                     // S
+  {shape:[[1,1,0],[0,1,1]],color:'#F00000'}                      // Z
+];
+
+function initTetris(){
+  showPage('pgTetris');snd('whoosh');
+  TET.canvas=document.getElementById('tetrisCanvas');
+  TET.ctx=TET.canvas.getContext('2d');
+  TET.sz=Math.floor(Math.min(
+    (window.innerWidth-40)/TET.W,
+    (window.innerHeight-220)/TET.H
+  ));
+  TET.canvas.width=TET.W*TET.sz;
+  TET.canvas.height=TET.H*TET.sz;
+  TET.board=Array.from({length:TET.H},function(){return Array(TET.W).fill(0);});
+  TET.score=0;TET.lines=0;TET.level=1;TET.over=false;TET.paused=false;
+  TET.cur=tetNewPiece();TET.next=tetNewPiece();
+  clearInterval(TET.timer);
+  tetTick();
+  document.getElementById('tetPauseBtn').textContent='⏸ Pause';
+  updateTetUI();
+}
+function stopTetris(){clearInterval(TET.timer);TET.timer=null;}
+function tetNewPiece(){
+  var p=TET_PIECES[Math.floor(Math.random()*TET_PIECES.length)];
+  return {shape:p.shape.map(function(r){return r.slice();}),color:p.color,
+          x:Math.floor(TET.W/2)-Math.floor(p.shape[0].length/2),y:0};
+}
+function tetTick(){
+  TET.timer=setTimeout(function(){
+    if(!TET.paused&&!TET.over){
+      if(!tetMoveDown()){tetPlace();}
+      tetDraw();
+    }
+    if(!TET.over)tetTick();
+  },Math.max(100,500-TET.level*45));
+}
+function tetMove(dx){
+  if(TET.paused||TET.over)return;
+  TET.cur.x+=dx;
+  if(tetCollide())TET.cur.x-=dx;
+  else snd('tap');
+  tetDraw();
+}
+function tetRotate(){
+  if(TET.paused||TET.over)return;
+  var old=TET.cur.shape;
+  TET.cur.shape=TET.cur.shape[0].map(function(_,i){return TET.cur.shape.map(function(r){return r[i];}).reverse();});
+  if(tetCollide())TET.cur.shape=old;
+  else snd('flip');
+  tetDraw();
+}
+function tetDrop(){if(TET.paused||TET.over)return;while(tetMoveDown());tetPlace();tetDraw();}
+function tetMoveDown(){TET.cur.y++;if(tetCollide()){TET.cur.y--;return false;}return true;}
+function tetCollide(){
+  return TET.cur.shape.some(function(row,dy){
+    return row.some(function(v,dx){
+      if(!v)return false;
+      var nx=TET.cur.x+dx,ny=TET.cur.y+dy;
+      return nx<0||nx>=TET.W||ny>=TET.H||(ny>=0&&TET.board[ny][nx]);
+    });
+  });
+}
+function tetPlace(){
+  TET.cur.shape.forEach(function(row,dy){
+    row.forEach(function(v,dx){
+      if(v&&TET.cur.y+dy>=0)TET.board[TET.cur.y+dy][TET.cur.x+dx]=TET.cur.color;
+    });
+  });
+  // Clear lines
+  var cleared=0;
+  for(var y=TET.H-1;y>=0;y--){
+    if(TET.board[y].every(function(c){return c;})){
+      TET.board.splice(y,1);TET.board.unshift(Array(TET.W).fill(0));
+      cleared++;y++;
+    }
+  }
+  if(cleared){
+    var pts=[0,100,300,500,800];
+    TET.score+=pts[cleared]*TET.level;
+    TET.lines+=cleared;
+    TET.level=Math.floor(TET.lines/10)+1;
+    snd(cleared>=4?'win':'ok');
+    if(cleared>=4)confetti();
+  }
+  addXP(Math.ceil(TET.score/100));
+  TET.cur=TET.next;TET.next=tetNewPiece();
+  if(tetCollide()){TET.over=true;snd('no');setTimeout(function(){alert('Game Over! Score: '+TET.score);},200);}
+  updateTetUI();
+}
+function updateTetUI(){
+  document.getElementById('tetScore').textContent=TET.score;
+  document.getElementById('tetLevel').textContent=TET.level;
+  document.getElementById('tetLines').textContent=TET.lines;
+}
+function tetrisPause(){
+  TET.paused=!TET.paused;
+  document.getElementById('tetPauseBtn').textContent=TET.paused?'▶ Resume':'⏸ Pause';
+  snd('tap');
+}
+function tetDraw(){
+  var ctx=TET.ctx,sz=TET.sz;
+  ctx.fillStyle='#0a0a1a';ctx.fillRect(0,0,TET.canvas.width,TET.canvas.height);
+  // Grid lines
+  ctx.strokeStyle='rgba(255,255,255,.05)';ctx.lineWidth=0.5;
+  for(var x=0;x<=TET.W;x++){ctx.beginPath();ctx.moveTo(x*sz,0);ctx.lineTo(x*sz,TET.H*sz);ctx.stroke();}
+  for(var y=0;y<=TET.H;y++){ctx.beginPath();ctx.moveTo(0,y*sz);ctx.lineTo(TET.W*sz,y*sz);ctx.stroke();}
+  // Board
+  TET.board.forEach(function(row,y){row.forEach(function(col,x){if(col){tetDrawCell(ctx,x,y,col,sz);}});});
+  // Ghost piece
+  var ghost={x:TET.cur.x,y:TET.cur.y,shape:TET.cur.shape,color:TET.cur.color};
+  while(true){ghost.y++;var ok=!ghost.shape.some(function(row,dy){return row.some(function(v,dx){if(!v)return false;var nx=ghost.x+dx,ny=ghost.y+dy;return nx<0||nx>=TET.W||ny>=TET.H||(ny>=0&&TET.board[ny][nx]);});});if(!ok){ghost.y--;break;}}
+  ghost.shape.forEach(function(row,dy){row.forEach(function(v,dx){if(v){ctx.fillStyle='rgba(255,255,255,.15)';ctx.fillRect((ghost.x+dx)*sz,(ghost.y+dy)*sz,sz-1,sz-1);}});});
+  // Current piece
+  TET.cur.shape.forEach(function(row,dy){row.forEach(function(v,dx){if(v)tetDrawCell(ctx,TET.cur.x+dx,TET.cur.y+dy,TET.cur.color,sz);});});
+  // Pause overlay
+  if(TET.paused){ctx.fillStyle='rgba(0,0,0,.6)';ctx.fillRect(0,0,TET.canvas.width,TET.canvas.height);ctx.fillStyle='#FFD700';ctx.font='bold 20px Lilita One,cursive';ctx.textAlign='center';ctx.fillText('PAUSED',TET.canvas.width/2,TET.canvas.height/2);}
+}
+function tetDrawCell(ctx,x,y,col,sz){
+  ctx.fillStyle=col;ctx.fillRect(x*sz,y*sz,sz-1,sz-1);
+  ctx.fillStyle='rgba(255,255,255,.3)';ctx.fillRect(x*sz,y*sz,sz-1,2);ctx.fillRect(x*sz,y*sz,2,sz-1);
+  ctx.fillStyle='rgba(0,0,0,.3)';ctx.fillRect(x*sz+sz-3,y*sz,3,sz-1);ctx.fillRect(x*sz,y*sz+sz-3,sz-1,3);
+}
+
+// ══════════════════════════════════════
+//  SPACE INVADERS
+// ══════════════════════════════════════
+var SP={
+  canvas:null,ctx:null,
+  player:{x:150,y:340,w:30,h:14,speed:5},
+  bullets:[],eBullets:[],
+  aliens:[],
+  score:0,lives:3,wave:1,
+  timer:null,paused:false,over:false,
+  moveDir:1,moveSpeed:1,moveTimer:0,
+  fireTimer:0,moveInterval:null,
+  alienDescend:0
+};
+var SP_ALIENS=['👾','👽','🛸'];
+
+function initSpace(){
+  showPage('pgSpace');snd('whoosh');
+  SP.canvas=document.getElementById('spaceCanvas');
+  SP.ctx=SP.canvas.getContext('2d');
+  var maxW=Math.min(window.innerWidth-20,360);
+  SP.canvas.width=maxW;SP.canvas.height=Math.floor(maxW*1.18);
+  SP.player.x=maxW/2-15;SP.player.y=SP.canvas.height-50;
+  SP.score=0;SP.lives=3;SP.wave=1;SP.over=false;SP.paused=false;
+  spawnWave();
+  clearInterval(SP.timer);
+  SP.timer=setInterval(spaceLoop,1000/60);
+  document.getElementById('spPauseBtn').textContent='⏸ Pause';
+  updateSpUI();
+}
+function stopSpace(){clearInterval(SP.timer);SP.timer=null;if(SP.moveInterval){clearInterval(SP.moveInterval);}}
+function spacePause(){SP.paused=!SP.paused;document.getElementById('spPauseBtn').textContent=SP.paused?'▶ Resume':'⏸ Pause';}
+
+function spawnWave(){
+  SP.aliens=[];SP.bullets=[];SP.eBullets=[];SP.moveDir=1;SP.alienDescend=0;
+  var cols=8,rows=Math.min(3+Math.floor(SP.wave/2),5);
+  var cellW=Math.floor((SP.canvas.width-20)/cols);
+  for(var r=0;r<rows;r++){
+    for(var c=0;c<cols;c++){
+      SP.aliens.push({x:10+c*cellW+cellW/2-14,y:30+r*32,w:28,h:22,alive:true,type:r%3,pts:(rows-r)*10*SP.wave});
+    }
+  }
+}
+
+var spMoveDir=0;
+function spMoveStart(d){spMoveDir=d;}
+function spMoveStop(){spMoveDir=0;}
+function spMove(d){SP.player.x=Math.max(0,Math.min(SP.canvas.width-30,SP.player.x+d*18));} 
+function spFire(){
+  if(SP.over||SP.paused)return;
+  SP.bullets.push({x:SP.player.x+15,y:SP.player.y,speed:8});
+  snd('tap');
+}
+
+var spLoopCount=0;
+function spaceLoop(){
+  if(SP.paused||SP.over)return;
+  spLoopCount++;
+  // Move player with held button
+  if(spMoveDir!==0) SP.player.x=Math.max(0,Math.min(SP.canvas.width-30,SP.player.x+spMoveDir*4));
+  // Move bullets
+  SP.bullets=SP.bullets.filter(function(b){b.y-=b.speed;return b.y>0;});
+  SP.eBullets=SP.eBullets.filter(function(b){b.y+=3+SP.wave*.5;return b.y<SP.canvas.height;});
+  // Move aliens
+  SP.moveTimer++;
+  var spd=Math.max(8,28-SP.wave*2-Math.floor((55-SP.aliens.filter(function(a){return a.alive;}).length)/5));
+  if(SP.moveTimer>=spd){
+    SP.moveTimer=0;
+    var alive=SP.aliens.filter(function(a){return a.alive;});
+    var minX=Math.min.apply(null,alive.map(function(a){return a.x;}));
+    var maxX=Math.max.apply(null,alive.map(function(a){return a.x+a.w;}));
+    if((SP.moveDir>0&&maxX>=SP.canvas.width-4)||(SP.moveDir<0&&minX<=4)){
+      SP.moveDir*=-1;
+      SP.aliens.forEach(function(a){a.y+=10;SP.alienDescend+=10;});
+    } else {
+      SP.aliens.forEach(function(a){a.x+=SP.moveDir*8;});
+    }
+  }
+  // Alien fire
+  SP.fireTimer++;
+  if(SP.fireTimer>Math.max(40,90-SP.wave*8)){
+    SP.fireTimer=0;
+    var alive2=SP.aliens.filter(function(a){return a.alive;});
+    if(alive2.length>0){var shooter=alive2[Math.floor(Math.random()*alive2.length)];SP.eBullets.push({x:shooter.x+14,y:shooter.y+22});}
+  }
+  // Check collisions
+  SP.bullets.forEach(function(b){
+    SP.aliens.forEach(function(a){
+      if(!a.alive)return;
+      if(b.x>a.x&&b.x<a.x+a.w&&b.y>a.y&&b.y<a.y+a.h){a.alive=false;b.y=-999;SP.score+=a.pts;snd('match');addXP(1);}
+    });
+  });
+  SP.eBullets.forEach(function(b){
+    if(b.x>SP.player.x&&b.x<SP.player.x+30&&b.y>SP.player.y&&b.y<SP.player.y+14){
+      b.y=SP.canvas.height+99;SP.lives--;snd('no');
+      if(SP.lives<=0){SP.over=true;clearInterval(SP.timer);confetti();snd('no');setTimeout(function(){alert('Game Over! Score: '+SP.score);},300);}
+    }
+  });
+  // Win wave
+  if(SP.aliens.every(function(a){return !a.alive;})){
+    SP.wave++;snd('win');confetti();spawnWave();
+  }
+  // Aliens reach bottom
+  if(SP.alienDescend>SP.canvas.height-120){SP.over=true;clearInterval(SP.timer);setTimeout(function(){alert('They got through! Score: '+SP.score);},300);}
+  updateSpUI();
+  spaceDraw();
+}
+
+function updateSpUI(){
+  document.getElementById('spScore').textContent=SP.score;
+  document.getElementById('spLives').textContent='❤️'.repeat(Math.max(0,SP.lives));
+  document.getElementById('spWave').textContent=SP.wave;
+}
+function spaceDraw(){
+  var ctx=SP.ctx,cw=SP.canvas.width,ch=SP.canvas.height;
+  // Background — starfield
+  ctx.fillStyle='#000010';ctx.fillRect(0,0,cw,ch);
+  // Stars (static for perf)
+  ctx.fillStyle='rgba(255,255,255,.5)';
+  for(var i=0;i<40;i++){ctx.fillRect((i*37+spLoopCount*0.05)%cw,(i*53+i*7)%ch,1.5,1.5);}
+  // Aliens
+  ctx.font='22px serif';
+  SP.aliens.forEach(function(a){
+    if(!a.alive)return;
+    ctx.fillText(SP_ALIENS[a.type],a.x,a.y+22);
+  });
+  // Player ship
+  ctx.fillStyle='#00FF41';
+  ctx.beginPath();ctx.moveTo(SP.player.x+15,SP.player.y);ctx.lineTo(SP.player.x,SP.player.y+14);ctx.lineTo(SP.player.x+30,SP.player.y+14);ctx.closePath();ctx.fill();
+  ctx.fillStyle='#00CC33';ctx.fillRect(SP.player.x+10,SP.player.y+6,10,8);
+  // Bullets
+  SP.bullets.forEach(function(b){ctx.fillStyle='#FFD700';ctx.fillRect(b.x-2,b.y,4,10);});
+  SP.eBullets.forEach(function(b){ctx.fillStyle='#FF4444';ctx.fillRect(b.x-2,b.y,4,10);});
+  // Pause overlay
+  if(SP.paused){ctx.fillStyle='rgba(0,0,0,.6)';ctx.fillRect(0,0,cw,ch);ctx.fillStyle='#00FF41';ctx.font='bold 22px sans-serif';ctx.textAlign='center';ctx.fillText('PAUSED',cw/2,ch/2);}
+  ctx.textAlign='left';
+}
+
+
+// ════════════════════════════════════════════════════
+//  RETROARCH-STYLE EMULATOR — EmulatorJS
+//  Open source: github.com/EmulatorJS/EmulatorJS
+// ════════════════════════════════════════════════════
+
+var RETRO = {
+  selectedCore: 'nes',
+  romData: null,
+  romName: '',
+  romExt: '',
+  emu: null,
+  paused: false,
+  saveStates: {},
+  recent: [],
+  emuLoaded: false,
+  animFrame: null
+};
+
+var SYSTEMS = [
+  {id:'nes',   name:'NES',          ico:'🎮', sub:'Nintendo', core:'nes',     exts:['nes'],       color:'#CC0000'},
+  {id:'snes',  name:'SNES',         ico:'🟣', sub:'Super Nintendo', core:'snes9x', exts:['sfc','smc'], color:'#6600CC'},
+  {id:'gba',   name:'Game Boy Adv', ico:'🟦', sub:'GBA / GBC / GB', core:'mgba',   exts:['gba','gb','gbc'], color:'#0044AA'},
+  {id:'sega',  name:'Sega Genesis', ico:'🔵', sub:'Mega Drive', core:'genesis_plus_gx', exts:['smd','gen','md'], color:'#0055BB'},
+  {id:'n64',   name:'Nintendo 64',  ico:'🟩', sub:'N64',       core:'mupen64plus_next', exts:['z64','n64','v64'], color:'#006622'},
+  {id:'psx',   name:'PlayStation',  ico:'⬛', sub:'PS1',        core:'pcsx_rearmed',exts:['iso','cue','img','bin'], color:'#333333'},
+  {id:'gbc',   name:'Game Boy Color',ico:'🟡',sub:'GBC',       core:'gambatte',exts:['gbc','gb'], color:'#AA8800'},
+  {id:'arcade',name:'Arcade',       ico:'👾', sub:'MAME / FBNeo', core:'fbalpha2012', exts:['zip'], color:'#880044'},
+  {id:'nds',   name:'Nintendo DS',  ico:'🔴', sub:'NDS',       core:'desmume',  exts:['nds'],      color:'#CC2200'},
+];
+
+var SYS_INFO = {
+  nes:   'Nintendo Entertainment System (1983). Popular games: Super Mario Bros, Zelda, Contra, Metroid, Mega Man',
+  snes:  'Super Nintendo (1990). Popular games: Super Mario World, Donkey Kong Country, Chrono Trigger, F-Zero',
+  gba:   'Game Boy Advance (2001). Popular games: Pokemon FireRed, Metroid Fusion, Golden Sun, Castlevania',
+  sega:  'Sega Genesis / Mega Drive (1988). Popular games: Sonic, Streets of Rage, Mortal Kombat, Shinobi',
+  n64:   'Nintendo 64 (1996). Popular games: Mario 64, Zelda Ocarina of Time, GoldenEye, Star Fox',
+  psx:   'Sony PlayStation (1994). Popular games: Crash Bandicoot, Spyro, Tekken, Final Fantasy 7',
+  gbc:   'Game Boy Color (1998). Popular games: Pokemon Gold/Silver, Legend of Zelda Oracle series',
+  arcade:'Arcade classics via MAME/FinalBurn. Place ZIP ROM files. Supports thousands of games.',
+  nds:   'Nintendo DS (2004). Dual screen. Popular games: Pokemon Diamond/Pearl, New Super Mario Bros DS',
+};
+
+var RETRO_KEYMAP = {
+  'up':     {key:'ArrowUp',    code:0},
+  'down':   {key:'ArrowDown',  code:1},
+  'left':   {key:'ArrowLeft',  code:2},
+  'right':  {key:'ArrowRight', code:3},
+  'a':      {key:'x',          code:8},
+  'b':      {key:'z',          code:9},
+  'x':      {key:'s',          code:10},
+  'y':      {key:'a',          code:11},
+  'l':      {key:'q',          code:12},
+  'r':      {key:'w',          code:13},
+  'start':  {key:'Enter',      code:6},
+  'select': {key:'Shift',      code:7},
+};
+
+// ── BUILD SYSTEM GRID ──
+function retroInit(){
+  buildSysGrid();
+  var rec=ls('ch_retro_rec')||[];
+  RETRO.recent=rec;
+  if(rec.length>0){document.getElementById('retroRecentWrap').style.display='block';renderRecentROMs();}
+  document.getElementById('retroSelectView').style.display='flex';
+  document.getElementById('retroEmuWrap').style.display='none';
+  document.getElementById('retroStatusTxt').textContent='Select system & load ROM';
+  snd('whoosh');
+}
+
+function buildSysGrid(){
+  var el=document.getElementById('sysGrid');if(!el||el.children.length>0)return;
+  SYSTEMS.forEach(function(sys){
+    var d=document.createElement('div');
+    d.className='sys-card'+(sys.id===RETRO.selectedCore?' sel':'');
+    d.style.borderColor=sys.id===RETRO.selectedCore?sys.color:'#2a2a4e';
+    d.innerHTML='<div class="sys-ico">'+sys.ico+'</div><div class="sys-name">'+sys.name+'</div><div class="sys-sub">'+sys.sub+'</div>';
+    d.onclick=function(){
+      document.querySelectorAll('.sys-card').forEach(function(c){c.classList.remove('sel');c.style.borderColor='#2a2a4e';});
+      d.classList.add('sel');d.style.borderColor=sys.color;
+      RETRO.selectedCore=sys.id;snd('tap');
+      // Show info
+      document.getElementById('retroSysInfo').style.display='block';
+      document.getElementById('retroSysTitle').textContent=sys.ico+' '+sys.name;
+      document.getElementById('retroSysDesc').textContent=SYS_INFO[sys.id]||'';
+      // Update file picker accepted extensions
+      var fp=document.getElementById('retroRomFile');
+      if(fp)fp.accept='.'+SYSTEMS.find(function(s){return s.id===sys.id;}).exts.join(',.');
+    };
+    el.appendChild(d);
+  });
+}
+
+// ── DETECT CORE FROM EXTENSION ──
+function detectCore(ext){
+  ext=ext.toLowerCase();
+  for(var i=0;i<SYSTEMS.length;i++){
+    if(SYSTEMS[i].exts.indexOf(ext)>-1)return SYSTEMS[i];
+  }
+  return SYSTEMS[0]; // default NES
+}
+
+// ── LOAD ROM FILE ──
+function retroLoadFile(input){
+  var file=input.files[0];if(!file)return;
+  var ext=file.name.split('.').pop().toLowerCase();
+  var sys=detectCore(ext);
+  RETRO.romName=file.name;
+  RETRO.romExt=ext;
+  RETRO.selectedCore=sys.id;
+  // Auto-select correct system card
+  document.querySelectorAll('.sys-card').forEach(function(c,i){
+    c.classList.remove('sel');c.style.borderColor='#2a2a4e';
+    if(SYSTEMS[i]&&SYSTEMS[i].id===sys.id){c.classList.add('sel');c.style.borderColor=sys.color;}
+  });
+  document.getElementById('retroLoadStatus').textContent='⏳ Reading '+file.name+'...';
+  document.getElementById('retroLoadStatus').style.color='#FFD700';
+  var reader=new FileReader();
+  reader.onload=function(e){
+    RETRO.romData=e.target.result;
+    document.getElementById('retroLoadStatus').textContent='✅ '+file.name+' ('+sys.name+') — Ready!';
+    document.getElementById('retroLoadStatus').style.color='#00FF64';
+    snd('ok');
+    // Save to recent
+    var rec=ls('ch_retro_rec')||[];
+    rec=rec.filter(function(r){return r.name!==file.name;});
+    rec.unshift({name:file.name,sys:sys.id,sysName:sys.name,ico:sys.ico,time:new Date().toLocaleDateString()});
+    if(rec.length>8)rec=rec.slice(0,8);
+    ls('ch_retro_rec',rec);RETRO.recent=rec;
+    renderRecentROMs();document.getElementById('retroRecentWrap').style.display='block';
+    // Auto-launch
+    setTimeout(function(){retroLaunch();},600);
+  };
+  reader.onerror=function(){
+    document.getElementById('retroLoadStatus').textContent='❌ Failed to read file';
+    document.getElementById('retroLoadStatus').style.color='#FF4444';
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function retroShowRecent(){
+  var w=document.getElementById('retroRecentWrap');
+  w.style.display=w.style.display==='none'?'block':'none';
+}
+function renderRecentROMs(){
+  var el=document.getElementById('retroRecentList');el.innerHTML='';
+  var rec=ls('ch_retro_rec')||[];
+  if(!rec.length){el.innerHTML='<div style="color:#888;font-size:11px;padding:6px;">No recent ROMs</div>';return;}
+  rec.forEach(function(r){
+    var d=document.createElement('div');d.className='recent-item';
+    d.innerHTML='<div style="font-size:22px;">'+r.ico+'</div><div style="flex:1;"><div style="font-size:11px;font-weight:800;color:#e8e0ff;">'+r.name+'</div><div style="font-size:9px;color:#888;">'+r.sysName+' • '+r.time+'</div></div><div style="font-size:11px;color:#FFD700;font-weight:800;">▶</div>';
+    d.onclick=function(){
+      // Can only replay if ROM is still in memory (session)
+      if(RETRO.romData&&RETRO.romName===r.name){retroLaunch();}
+      else{alert('Re-select this ROM file — browser security prevents auto-reloading from storage.\n\nTap "Tap to choose ROM" and select: '+r.name);}
+    };
+    el.appendChild(d);
+  });
+}
+
+// ── LAUNCH GAME via EmulatorJS ──
+function retroLaunch(){
+  if(!RETRO.romData){alert('Please load a ROM file first!');return;}
+  snd('ok');
+  // Switch to game view
+  document.getElementById('retroSelectView').style.display='none';
+  document.getElementById('retroEmuWrap').style.display='flex';
+  document.getElementById('retroGameTitle').textContent=RETRO.romName.replace(/\.[^.]+$/,'');
+  document.getElementById('emuLoading').style.display='flex';
+  document.getElementById('emuLoadFill').style.width='0%';
+  document.getElementById('emuLoadTxt').textContent='Loading '+RETRO.romName+'...';
+  document.getElementById('emuLoadSub').textContent='Initializing emulator core';
+
+  // Progress animation
+  var prog=0;
+  var progTimer=setInterval(function(){prog+=Math.random()*12;if(prog>90)prog=90;document.getElementById('emuLoadFill').style.width=prog+'%';},180);
+
+  // Convert ArrayBuffer to base64 blob URL for EmulatorJS
+  var blob=new Blob([RETRO.romData],{type:'application/octet-stream'});
+  var romURL=URL.createObjectURL(blob);
+
+  // Get system config
+  var sys=SYSTEMS.find(function(s){return s.id===RETRO.selectedCore;})||SYSTEMS[0];
+
+  // Clear any previous emulator
+  var container=document.getElementById('emujs-container');
+  // Remove old EJS elements except loading screen
+  var old=container.querySelector('div[id="EJS_player"]');if(old)old.remove();
+  var oldStyle=document.getElementById('EJS_style');if(oldStyle)oldStyle.remove();
+
+  // EmulatorJS config
+  window.EJS_player='#EJS_player';
+  window.EJS_core=sys.core;
+  window.EJS_gameUrl=romURL;
+  window.EJS_pathtodata='https://cdn.emulatorjs.org/stable/data/';
+  window.EJS_startOnLoaded=true;
+  window.EJS_fullscreenOnLoaded=false;
+  window.EJS_color='#FFD700';
+  window.EJS_defaultOptions={'save-state-slot':1,'load-state':'0'};
+  window.EJS_Buttons={playPause:false,restart:false,mute:false,settings:false,fullscreen:false,saveState:false,loadState:false,screenRecord:false,gamepad:true,centerMode:false,cacheManager:false};
+  window.EJS_onGameStart=function(){
+    clearInterval(progTimer);
+    document.getElementById('emuLoadFill').style.width='100%';
+    document.getElementById('emuLoadTxt').textContent='✅ Game Started!';
+    setTimeout(function(){document.getElementById('emuLoading').style.display='none';},600);
+    RETRO.emuLoaded=true;snd('ok');confetti();addXP(5);
+  };
+
+  // Create player div
+  var playerDiv=document.createElement('div');playerDiv.id='EJS_player';
+  playerDiv.style.cssText='width:100%;height:100%;';
+  container.appendChild(playerDiv);
+
+  // Load EmulatorJS script
+  var oldScript=document.getElementById('EJS_script');if(oldScript)oldScript.remove();
+  var script=document.createElement('script');
+  script.id='EJS_script';
+  script.src='https://cdn.emulatorjs.org/stable/data/loader.js';
+  script.onload=function(){
+    clearInterval(progTimer);
+    document.getElementById('emuLoadFill').style.width='85%';
+    document.getElementById('emuLoadSub').textContent='Loading game data...';
+  };
+  script.onerror=function(){
+    clearInterval(progTimer);
+    document.getElementById('emuLoadTxt').textContent='❌ No internet connection';
+    document.getElementById('emuLoadSub').textContent='EmulatorJS requires internet to load core files';
+    document.getElementById('emuLoadFill').style.width='0%';
+    document.getElementById('emuLoadFill').style.background='#FF4444';
+  };
+  document.head.appendChild(script);
+}
+
+// ── CONTROLS ──
+function retroBtn(btn, pressed){
+  var map=RETRO_KEYMAP[btn];if(!map)return;
+  // Try EmulatorJS gamepad API first
+  if(window.EJS_emulator&&window.EJS_emulator.gameManager){
+    try{
+      if(pressed) window.EJS_emulator.gameManager.simulateInput(0,map.code,1);
+      else window.EJS_emulator.gameManager.simulateInput(0,map.code,0);
+      return;
+    }catch(e){}
+  }
+  // Fallback: keyboard events on the EJS canvas
+  var canvas=document.querySelector('#emujs-container canvas')||document.getElementById('EJS_player');
+  var tgt=canvas||document.body;
+  var evt=new KeyboardEvent(pressed?'keydown':'keyup',{key:map.key,code:map.key,bubbles:true,cancelable:true});
+  tgt.dispatchEvent(evt);
+  // Visual feedback
+  var dcEl=document.getElementById('dc-'+btn);
+  if(dcEl)dcEl.classList.toggle('pressed',pressed);
+}
+
+// Keyboard passthrough
+document.addEventListener('keydown',function(e){
+  var btn=Object.keys(RETRO_KEYMAP).find(function(k){return RETRO_KEYMAP[k].key===e.key;});
+  if(btn)retroBtn(btn,true);
+});
+document.addEventListener('keyup',function(e){
+  var btn=Object.keys(RETRO_KEYMAP).find(function(k){return RETRO_KEYMAP[k].key===e.key;});
+  if(btn)retroBtn(btn,false);
+});
+
+// ── EMULATOR ACTIONS ──
+function retroTogglePause(){
+  RETRO.paused=!RETRO.paused;
+  try{
+    if(RETRO.paused) window.EJS_emulator.pause();
+    else window.EJS_emulator.play();
+  }catch(e){}
+  document.getElementById('retroPauseBtn').textContent=RETRO.paused?'▶':'⏸';
+  snd('tap');
+}
+function retroSaveState(){
+  try{window.EJS_emulator.saveState();}catch(e){}
+  snd('ok');
+  // Visual feedback
+  var btn=document.querySelector('[onclick="retroSaveState()"]');
+  if(btn){var orig=btn.textContent;btn.textContent='✅';setTimeout(function(){btn.textContent=orig;},1000);}
+}
+function retroFullscreen(){
+  var el=document.getElementById('emujs-container');
+  if(el.requestFullscreen)el.requestFullscreen();
+  else if(el.webkitRequestFullscreen)el.webkitRequestFullscreen();
+}
+function retroEject(){
+  // Stop emulator
+  try{if(window.EJS_emulator)window.EJS_emulator.pause();}catch(e){}
+  RETRO.emuLoaded=false;RETRO.paused=false;
+  // Remove EJS elements
+  var old=document.getElementById('EJS_player');if(old)old.remove();
+  var oldS=document.getElementById('EJS_script');if(oldS)oldS.remove();
+  // Revoke object URL to free memory
+  document.getElementById('retroSelectView').style.display='flex';
+  document.getElementById('retroEmuWrap').style.display='none';
+  document.getElementById('emuLoading').style.display='flex';
+  document.getElementById('emuLoadFill').style.width='0%';
+  document.getElementById('emuLoadFill').style.background='linear-gradient(90deg,#FFD700,#FF8C00)';
+  document.getElementById('emuLoadTxt').textContent='Loading...';
+  document.getElementById('emuLoadSub').textContent='Initializing emulator core';
+  document.getElementById('retroPauseBtn').textContent='⏸';
+  snd('tap');
+}
 
 </script>
 </body>
