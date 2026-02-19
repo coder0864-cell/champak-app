@@ -682,23 +682,25 @@ div[id*="ejs_menu"], div[class*="ejs_menu"],
 <div id="playerModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:700;align-items:center;justify-content:center;"><div class="modal-box" id="playerModalBox"></div></div>
 
 <!-- SPLASH with VIDEO -->
-<div id="pgSplash" class="page active" style="background:#000;overflow:hidden;">
-  <!-- VIDEO SPLASH -->
+<div id="pgSplash" class="page active" style="background:#000;overflow:hidden;position:relative;">
+  <!-- VIDEO — frozen on first frame until tap -->
   <video id="splashVideo" playsinline
-    style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;"
+    style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;pointer-events:none;"
     onended="onSplashVideoEnd()"
     onerror="onSplashVideoError()">
     <source src="./champak_intro.mp4" type="video/mp4">
     <source src="./champak_intro.webm" type="video/webm">
   </video>
   <!-- FALLBACK image -->
-  <img id="splashFallback" class="sp-img" src="./champak_splash.png" alt=""
-    style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;display:none;">
-  <!-- TAP TO START button — always visible, starts video audio + app -->
-  <div class="sp-btn-wrap" style="z-index:10;bottom:12%;">
-    <button class="sp-btn ripple-wrap" id="tapStartBtn" onclick="onTapStart()">
-      <span style="font-size:22px;">⭐</span> Tap to Start
-    </button>
+  <img id="splashFallback" src="./champak_splash.png" alt=""
+    style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;display:none;pointer-events:none;">
+  <!-- FULL SCREEN TAP LAYER — entire screen triggers start -->
+  <div id="tapLayer" onclick="onTapStart()" ontouchend="onTapStart()"
+    style="position:absolute;inset:0;z-index:99;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:14%;cursor:pointer;">
+    <!-- Pulsing tap button (purely visual, tap layer handles the click) -->
+    <div id="tapStartBtn" style="background:linear-gradient(180deg,#FFAA00,#FF6A00 55%,#E84500);color:#fff;font-family:'Baloo 2',cursive;font-size:24px;font-weight:800;border-radius:50px;padding:16px 48px;box-shadow:0 6px 0 #A03000;animation:btnGlow 2s ease-in-out infinite;pointer-events:none;">
+      ⭐ Tap to Start
+    </div>
   </div>
 </div>
 
@@ -2802,22 +2804,25 @@ function initSplashVideo(){
   }, {once: true});
 }
 
+var tapStarted = false;
 function onTapStart(){
+  if(tapStarted) return; // prevent double-fire from touch+click
+  tapStarted = true;
+  // Hide the tap layer immediately
+  var layer = document.getElementById('tapLayer');
+  if(layer) layer.style.display = 'none';
   var vid = document.getElementById('splashVideo');
-  var btn = document.getElementById('tapStartBtn');
-  // Hide button immediately
-  if(btn) btn.style.display = 'none';
   if(!vid){ skipSplash(); return; }
-  // User gesture — unlock audio, play from start
+  // User gesture — play from beginning WITH audio
   vid.muted = false;
   vid.volume = 1.0;
   vid.currentTime = 0;
   vid.play().catch(function(){
-    // Audio still blocked — play muted then go to app on end
+    // Audio blocked — try muted
     vid.muted = true;
     vid.play().catch(function(){ skipSplash(); });
   });
-  // Safety: max 15s then auto-start app
+  // Safety: max 15s
   setTimeout(function(){
     if(!splashVideoPlayed) skipSplash();
   }, 15000);
