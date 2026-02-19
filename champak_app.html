@@ -748,17 +748,16 @@ div[id*="ejs_menu"], div[class*="ejs_menu"],
 <div id="pgSeeAll" class="page"><div class="app-hdr"><button class="hdr-back" onclick="showPage('pgHome');setNav('home')">←</button><div style="flex:1"><div style="font-family:'Lilita One',cursive;font-size:18px;color:var(--h2);">Champak Comics</div><div style="font-size:9px;font-weight:700;color:var(--h3);" id="allCount"></div></div></div><div class="cat-tabs"><button class="cat-tab on" id="tab-all" onclick="switchTab('all')">📖 All</button><button class="cat-tab" id="tab-hi" onclick="switchTab('hi')">🇮🇳 Hindi</button><button class="cat-tab" id="tab-en" onclick="switchTab('en')">🇬🇧 English</button></div><div class="scr"><div class="all-grid" id="allGrid"></div></div></div>
 
 <!-- GAMES HUB -->
-<div id="pgGames" class="page"><div class="app-hdr"><button class="hdr-back" onclick="showPage('pgHome');setNav('home')">←</button><div style="flex:1"><div style="font-family:'Lilita One',cursive;font-size:19px;color:var(--h2);">🎮 Games</div><div style="font-size:9px;font-weight:700;color:var(--h3);">Play games, earn XP!</div></div></div><div class="scr" style="padding:13px;"><div class="games-grid"><div class="game-card" style="animation-delay:.0s"><div class="game-ico">❌⭕</div><div class="game-title">Tic Tac Toe</div><div class="game-sub">vs AI or 2 Player</div><button class="game-btn ripple-wrap" onclick="addRipple(event,this);initTTT()">▶ Play</button></div><div class="game-card" style="animation-delay:.08s"><div class="game-ico">🎯</div><div class="game-title">Ludo</div><div class="game-sub">2-4 player classic</div><button class="game-btn ripple-wrap" onclick="addRipple(event,this);setupLudo()">▶ Play</button></div>
-<div class="game-card" style="animation-delay:.16s;grid-column:1/-1;background:linear-gradient(135deg,#1a0533,#2d0a5a);border-color:#6B21A8;"><div class="game-ico">🕹️</div><div class="game-title" style="color:#E879F9;">Arcade Zone</div><div class="game-sub" style="color:#C084FC;">NES • SNES • Sega Genesis Emulator</div><button class="game-btn ripple-wrap" style="background:linear-gradient(135deg,#9333EA,#6B21A8);box-shadow:0 3px 0 #4C1D95;" onclick="addRipple(event,this);showPage('pgArcade')">▶ Enter Arcade</button></div>
+<div id="pgGames" class="page"><div class="app-hdr"><button class="hdr-back" onclick="showPage('pgHome');setNav('home')">←</button><div style="flex:1"><div style="font-family:'Lilita One',cursive;font-size:19px;color:var(--h2);">🎮 Games</div><div style="font-size:9px;font-weight:700;color:var(--h3);">Play games, earn XP!</div></div></div><div class="scr" style="padding:13px;"><div class="games-grid" style="grid-template-columns:1fr;">
+<div class="game-card" style="animation-delay:.0s;background:linear-gradient(135deg,#1a0533,#2d0a5a);border-color:#6B21A8;">
+  <div class="game-ico">🕹️</div>
+  <div class="game-title" style="color:#E879F9;font-size:22px;">Retro Emulator</div>
+  <div class="game-sub" style="color:#C084FC;font-size:12px;margin-top:4px;">NES · SNES · Sega Genesis<br>Load any ROM and play!</div>
+  <button class="game-btn ripple-wrap" style="background:linear-gradient(135deg,#9333EA,#6B21A8);box-shadow:0 3px 0 #4C1D95;margin-top:12px;padding:12px;" onclick="addRipple(event,this);showPage('pgArcade')">🎮 Launch Emulator</button>
+</div>
 </div></div></div>
 
-<!-- TTT -->
-<div id="pgTTT" class="page"><div class="app-hdr"><button class="hdr-back" onclick="showPage('pgGames')">←</button><div style="flex:1"><div style="font-family:'Lilita One',cursive;font-size:17px;color:var(--h2);">❌⭕ Tic Tac Toe</div></div><button class="hdr-btn" onclick="initTTT()">🔄</button></div><div class="ttt-wrap"><div class="ttt-mode-wrap"><button class="ttt-mode-btn on" id="tttM1" onclick="setTTTMode('ai',this)">🤖 vs AI</button><button class="ttt-mode-btn" id="tttM2" onclick="setTTTMode('2p',this)">👥 2 Player</button></div><div class="ttt-status" id="tttSt">❌ goes first!</div><div class="ttt-board" id="tttBoard"></div><button class="g-btn ripple-wrap" onclick="addRipple(event,this);initTTT()">🔄 New Game</button><div style="text-align:center;font-family:'Lilita One',cursive;font-size:13px;color:var(--sub);" id="tttSc"></div></div></div>
-
 <!-- SNAKE LADDER -->
-<div id="pgLudo" class="page"><div class="app-hdr"><button class="hdr-back" onclick="showPage('pgGames')">←</button><div style="flex:1"><div style="font-family:'Lilita One',cursive;font-size:17px;color:var(--h2);">🎯 Ludo</div></div><button class="hdr-btn" onclick="setupLudo()">🔄</button></div><div class="ludo-outer"><div class="ludo-board-wrap"><svg id="ludoSVG" class="ludo-svg" viewBox="0 0 450 450"></svg></div><div class="ludo-info"><div class="lu-players-row" id="luPlayers"></div><button class="dice-btn ripple-wrap" id="luDice" onclick="addRipple(event,this);luRoll()">🎲 Roll Dice!</button><div style="font-size:12px;font-weight:700;color:var(--sub);margin-top:7px;min-height:18px;text-align:center;" id="luLog"></div></div></div></div>
-
-<!-- LEARN HUB -->
 <div id="pgLearn" class="page"><div class="app-hdr"><button class="hdr-back" onclick="showPage('pgHome');setNav('home')">←</button><div style="flex:1"><div style="font-family:'Lilita One',cursive;font-size:19px;color:var(--h2);">🎓 Learn Zone</div><div style="font-size:9px;font-weight:700;color:var(--h3);">Learn, play, earn!</div></div></div><div class="learn-scr"><div class="age-title">🌟 Little Learners (4–7 years)</div><div class="learn-grid" id="lg1"></div><div class="age-title">🧠 Smart Kids (6–10 years)</div><div class="learn-grid" id="lg2"></div></div></div>
 
 <!-- TOPIC PAGE -->
@@ -2783,16 +2782,30 @@ var splashVideoPlayed = false;
 function initSplashVideo(){
   var vid = document.getElementById('splashVideo');
   if(!vid){startApp();return;}
-  // Always try to play (muted first to satisfy autoplay policy, then unmute)
-  vid.muted = true;
-  vid.play().then(function(){
-    vid.muted = false; // unmute after play starts
+
+  // In AIA/WebView, autoplay WITH audio is usually allowed
+  // Try unmuted first — works in most Android WebViews
+  vid.muted = false;
+  vid.volume = 1.0;
+
+  var p = vid.play();
+  if(p !== undefined){
+    p.then(function(){
+      // Playing with audio — great!
     }).catch(function(){
-    // Can't play at all — go straight to app
-    skipSplash();
-  });
-  // Safety: if video hangs >6s, skip
-  setTimeout(function(){if(!splashVideoPlayed)skipSplash();},6000);
+      // Browser blocked unmuted — retry muted (silent splash is fine)
+      vid.muted = true;
+      vid.play().catch(function(){
+        // Can't play at all — just start app
+        skipSplash();
+      });
+    });
+  }
+
+  // Safety timeout — if video hangs >8s, skip to app
+  setTimeout(function(){
+    if(!splashVideoPlayed){ skipSplash(); }
+  }, 8000);
 }
 function playSplashVideo(){
   var vid=document.getElementById('splashVideo');
@@ -2811,10 +2824,16 @@ function onSplashVideoError(){
   setTimeout(function(){skipSplash();},1500);
 }
 function skipSplash(){
+  if(splashVideoPlayed) return; // prevent double-call
   splashVideoPlayed=true;
   var vid=document.getElementById('splashVideo');
-  if(vid){vid.pause();vid.src='';}
-  startApp();
+  if(vid){
+    try{vid.pause();}catch(e){}
+    vid.src='';
+    vid.load();
+  }
+  // Small delay so video stops cleanly before transition
+  setTimeout(startApp, 100);
 }
 
 // Override window.onload to init video
