@@ -722,7 +722,7 @@ div[id*="ejs_menu"], div[class*="ejs_menu"],
   <div id="homeScroll">
     <div class="streak-bar"><div style="font-size:20px;" id="strkFire">🔥</div><div style="flex:1;"><div style="font-size:12px;font-weight:800;color:var(--text);" id="strkTitle">Reading Streak</div><div style="font-size:10px;color:var(--sub);font-weight:600;" id="strkSub">Read today!</div></div><div><div style="font-size:10px;font-weight:800;color:var(--a);" id="xpLbl">0 XP</div><div class="xp-bar-bg"><div class="xp-bar-fill" id="xpFill" style="width:0%"></div></div></div></div>
     <div class="hero-banner" onclick="goComics('all')"><div class="hero-img"><img src="./champak_banner.png" alt="Champak" onerror="this.style.background='#FF9500'"></div><div class="hero-foot"><div style="font-size:12px;font-weight:800;color:#fff;">🌟 Champak World!</div></div></div>
-    <div class="cotd-wrap" id="cotdWrap"><div class="cotd-lbl">🎁 Comic of the Day</div><div class="cotd-card" id="cotdCard"><div class="cotd-thumb"><img id="cotdImg" src="" alt="" onerror="this.style.display='none'"></div><div style="flex:1;"><div style="font-size:13px;font-weight:800;color:#fff;line-height:1.3;margin-bottom:3px;" id="cotdTitle">Loading...</div><div style="font-size:10px;color:rgba(255,255,255,.8);font-weight:700;" id="cotdSub"></div></div></div></div>
+    <div class="cotd-wrap" id="cotdWrap"><div class="cotd-lbl">🎁 Comic of the Day</div><div class="cotd-card" id="cotdCard"><div class="cotd-thumb"><img id="cotdImg" src="" alt="" style="width:80px;height:88px;object-fit:cover;border-radius:8px;" onerror="this.onerror=null;this.src='https://image.thum.io/get/width/300/crop/400/noanimate/'+this.dataset.url;"></div><div style="flex:1;"><div style="font-size:13px;font-weight:800;color:#fff;line-height:1.3;margin-bottom:3px;" id="cotdTitle">Loading...</div><div style="font-size:10px;color:rgba(255,255,255,.8);font-weight:700;" id="cotdSub"></div></div></div></div>
     <div class="search-wrap"><div class="search-bar"><span>🔍</span><input type="text" id="homeSearch" placeholder="Search comics..." oninput="doSearch(this.value)" autocomplete="off"></div></div>
     <div class="sec-hdr"><div class="sec-title">🇮🇳 Hindi Comics</div><button class="see-all" onclick="goComics('hi')">See All →</button></div>
     <div class="lib-grid" id="libHi"></div>
@@ -1274,7 +1274,11 @@ function updateStreak(){
 }
 
 // ─── THUMBNAILS ───
-function thumb(c){return c.thumbUrl||c.flipUrl.replace(/\/$/,'')+'/files/large/1.jpg';}
+function thumb(c){
+  if(c.thumbUrl) return c.thumbUrl;
+  var u=c.flipUrl.replace(/\/$/,'');
+  return 'https://image.thum.io/get/width/300/crop/400/noanimate/'+u;
+}
 function thumbErr(img,url,col){var tried=parseInt(img.dataset.tried||'0');img.dataset.tried=tried+1;img.onerror=null;if(tried===0){img.onerror=function(){thumbErr(img,url,col);};img.src=url.replace(/\/$/,'')+'/files/mobile/1.jpg';}else if(tried===1){img.onerror=function(){thumbErr(img,url,col);};img.src='https://image.thum.io/get/width/400/crop/550/noanimate/'+url;}else{img.style.display='none';var p=document.createElement('div');p.style.cssText='position:absolute;inset:0;background:'+col+';display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;';p.innerHTML='<div style="font-size:28px">📕</div><div style="font-size:8px;font-weight:800;color:rgba(255,255,255,.8)">CHAMPAK</div>';img.parentElement.appendChild(p);}}
 
 // ─── NOTIFICATIONS ───
@@ -1346,23 +1350,28 @@ function bootHome(){
   setTimeout(schedulePushNotifs, 3000);
   // Render immediately, then skeleton shimmer on top briefly
   renderHome();
-  showSkeletons('libHi',2,'card');
-  showSkeletons('libEn',2,'card');
-  setTimeout(renderHome, 400);
+  // Force img reload after DOM settles (fixes lazy browser img caching issues)
+  setTimeout(function(){
+    document.querySelectorAll('#libHi img, #libEn img').forEach(function(img){
+      if(!img.complete || img.naturalWidth===0){
+        var s=img.src; img.src=''; img.src=s;
+      }
+    });
+  }, 900);
 }
 
 // ─── HOME ───
 var COLS=['#FF6B00','#0066CC','#009944','#8B00CC','#CC6600','#CC0000','#007788'];
 function renderHome(q){var fq=q?q.toLowerCase():null;var vis=COMICS.filter(function(c){return !c.isHidden;});function filt(lang){return vis.filter(function(c){return c.lang===lang&&(!fq||c.name.toLowerCase().indexOf(fq)>-1);}).sort(function(a,b){return (b.isPinned?1:0)-(a.isPinned?1:0);});}renderLibGrid('libHi',filt('hi').slice(0,4));renderLibGrid('libEn',filt('en').slice(0,4));}
-function renderLibGrid(id,list){var el=document.getElementById(id);if(!el)return;el.innerHTML='';if(!list.length){el.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:14px;color:#bbb;font-size:12px;font-weight:700;">No comics yet 😊</div>';return;}list.forEach(function(c,i){var col=COLS[i%COLS.length],isFav=FAVS.indexOf(c.id)>-1;var d=document.createElement('div');d.className='lcard ripple-wrap';d.style.animationDelay=(i*.07)+'s';var lb=c.lang==='hi'?'<span class="cbadge bl b-hi">Hindi</span>':'<span class="cbadge bl b-en">ENG</span>';var rb=c.isPinned?'<span class="cbadge br b-pin">📌</span>':c.isNew?'<span class="cbadge br b-new">NEW</span>':isFav?'<span class="cbadge br" style="background:#e91e63;color:#fff;font-size:10px;">❤️</span>':'';d.innerHTML='<div class="lcard-thumb"><img src="'+thumb(c)+'" loading="lazy" onerror="thumbErr(this,\''+c.flipUrl+'\',\''+col+'\')">'+lb+rb+'</div><div class="lcard-name">'+c.name+'</div><button class="lread-btn">Read Now</button>';d.onclick=function(e){addRipple(e,d);openComic(c);};el.appendChild(d);});}
-function renderCOTD(){var vis=COMICS.filter(function(c){return !c.isHidden;});if(!vis.length){document.getElementById('cotdWrap').style.display='none';return;}document.getElementById('cotdWrap').style.display='block';var c=vis[(new Date().getDate()+new Date().getMonth())%vis.length];document.getElementById('cotdTitle').textContent=c.name;document.getElementById('cotdSub').textContent=(c.date||'')+(c.pages?' • '+c.pages+'p':'');document.getElementById('cotdImg').src=thumb(c);document.getElementById('cotdBtn').onclick=function(){openComic(c);};}
+function renderLibGrid(id,list){var el=document.getElementById(id);if(!el)return;el.innerHTML='';if(!list.length){el.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:14px;color:#bbb;font-size:12px;font-weight:700;">No comics yet 😊</div>';return;}list.forEach(function(c,i){var col=COLS[i%COLS.length],isFav=FAVS.indexOf(c.id)>-1;var d=document.createElement('div');d.className='lcard ripple-wrap';d.style.animationDelay=(i*.07)+'s';var lb=c.lang==='hi'?'<span class="cbadge bl b-hi">Hindi</span>':'<span class="cbadge bl b-en">ENG</span>';var rb=c.isPinned?'<span class="cbadge br b-pin">📌</span>':c.isNew?'<span class="cbadge br b-new">NEW</span>':isFav?'<span class="cbadge br" style="background:#e91e63;color:#fff;font-size:10px;">❤️</span>':'';d.innerHTML='<div class="lcard-thumb"><img src="'+thumb(c)+'" loading="eager" onerror="thumbErr(this,\''+c.flipUrl+'\',\''+col+'\')" style="background:#ddd">'+lb+rb+'</div><div class="lcard-name">'+c.name+'</div><button class="lread-btn">Read Now</button>';d.onclick=function(e){addRipple(e,d);openComic(c);};el.appendChild(d);});}
+function renderCOTD(){var vis=COMICS.filter(function(c){return !c.isHidden;});if(!vis.length){document.getElementById('cotdWrap').style.display='none';return;}document.getElementById('cotdWrap').style.display='block';var c=vis[(new Date().getDate()+new Date().getMonth())%vis.length];document.getElementById('cotdTitle').textContent=c.name;document.getElementById('cotdSub').textContent=(c.date||'')+(c.pages?' • '+c.pages+'p':'');var ci=document.getElementById('cotdImg');ci.dataset.url=c.flipUrl;ci.src=thumb(c);document.getElementById('cotdBtn').onclick=function(){openComic(c);};}
 function renderAnn(){var b=document.getElementById('annBar');var exp=ANN.expiry?new Date(ANN.expiry)<new Date():false;if(ANN.active&&ANN.text&&!exp){document.getElementById('annTxt').textContent=ANN.text;b.style.display='flex';}else b.style.display='none';}
 function closeAnn(){document.getElementById('annBar').style.display='none';}
 function checkNewBadge(){var n=COMICS.filter(function(c){return c.isNew&&!c.isHidden;}).length;var b=document.getElementById('newBadge');if(n>0){b.textContent=n;b.style.display='flex';}else b.style.display='none';}
 function doSearch(v){renderHome(v||null);}
 
 // ─── COMICS ───
-function renderAllGrid(tab){tab=tab||CTAB;var vis=COMICS.filter(function(c){return !c.isHidden;});var list=vis.filter(function(c){return tab==='all'||c.lang===tab;}).sort(function(a,b){return (b.isPinned?1:0)-(a.isPinned?1:0)||(b.id-a.id);});var hi=vis.filter(function(c){return c.lang==='hi';}).length,en=vis.filter(function(c){return c.lang==='en';}).length;document.getElementById('allCount').textContent=hi+' Hindi • '+en+' English';var el=document.getElementById('allGrid');el.innerHTML='';if(!list.length){el.innerHTML='<div class="no-items">No comics yet 😊</div>';return;}list.forEach(function(c,i){var col=COLS[i%COLS.length],isFav=FAVS.indexOf(c.id)>-1;var d=document.createElement('div');d.className='acard';d.style.animationDelay=(i*.05)+'s';var lb=c.lang==='hi'?'<span class="cbadge bl b-hi">Hindi</span>':'<span class="cbadge bl b-en">ENG</span>';d.innerHTML='<div class="acard-thumb"><img src="'+thumb(c)+'" loading="lazy" onerror="thumbErr(this,\''+c.flipUrl+'\',\''+col+'\')"><div class="acard-ov"></div>'+lb+(c.isPinned?'<span class="cbadge" style="top:7px;right:7px;background:#FFD700;color:#8B1A00;">📌</span>':c.date?'<div class="acard-date">'+c.date+'</div>':'')+(c.isNew?'<span class="cbadge bl b-new" style="top:auto;bottom:7px;">NEW</span>':'')+(c.pages?'<div class="acard-pages">'+c.pages+'p</div>':'')+'</div><div class="acard-info"><div class="acard-name">'+c.name+'</div><div style="display:flex;gap:5px;"><button class="aread-btn ripple-wrap">📖 Read</button><button id="fvb'+c.id+'" style="width:34px;background:'+(isFav?'#e91e63':'rgba(255,100,0,.1)')+';border:2px solid '+(isFav?'#e91e63':'rgba(255,100,0,.2)')+';border-radius:8px;cursor:pointer;font-size:13px;">'+(isFav?'❤️':'🤍')+'</button></div></div>';d.querySelector('.aread-btn').onclick=function(e){e.stopPropagation();addRipple(e,this);openComic(c);};d.onclick=function(e){addRipple(e,d);openComic(c);};(function(comic,btn){btn.onclick=function(e){e.stopPropagation();toggleFav(comic.id,btn);};})(c,d.querySelector('#fvb'+c.id));el.appendChild(d);});}
+function renderAllGrid(tab){tab=tab||CTAB;var vis=COMICS.filter(function(c){return !c.isHidden;});var list=vis.filter(function(c){return tab==='all'||c.lang===tab;}).sort(function(a,b){return (b.isPinned?1:0)-(a.isPinned?1:0)||(b.id-a.id);});var hi=vis.filter(function(c){return c.lang==='hi';}).length,en=vis.filter(function(c){return c.lang==='en';}).length;document.getElementById('allCount').textContent=hi+' Hindi • '+en+' English';var el=document.getElementById('allGrid');el.innerHTML='';if(!list.length){el.innerHTML='<div class="no-items">No comics yet 😊</div>';return;}list.forEach(function(c,i){var col=COLS[i%COLS.length],isFav=FAVS.indexOf(c.id)>-1;var d=document.createElement('div');d.className='acard';d.style.animationDelay=(i*.05)+'s';var lb=c.lang==='hi'?'<span class="cbadge bl b-hi">Hindi</span>':'<span class="cbadge bl b-en">ENG</span>';d.innerHTML='<div class="acard-thumb"><img src="'+thumb(c)+'" loading="eager" onerror="thumbErr(this,\''+c.flipUrl+'\',\''+col+'\')"><div class="acard-ov"></div>'+lb+(c.isPinned?'<span class="cbadge" style="top:7px;right:7px;background:#FFD700;color:#8B1A00;">📌</span>':c.date?'<div class="acard-date">'+c.date+'</div>':'')+(c.isNew?'<span class="cbadge bl b-new" style="top:auto;bottom:7px;">NEW</span>':'')+(c.pages?'<div class="acard-pages">'+c.pages+'p</div>':'')+'</div><div class="acard-info"><div class="acard-name">'+c.name+'</div><div style="display:flex;gap:5px;"><button class="aread-btn ripple-wrap">📖 Read</button><button id="fvb'+c.id+'" style="width:34px;background:'+(isFav?'#e91e63':'rgba(255,100,0,.1)')+';border:2px solid '+(isFav?'#e91e63':'rgba(255,100,0,.2)')+';border-radius:8px;cursor:pointer;font-size:13px;">'+(isFav?'❤️':'🤍')+'</button></div></div>';d.querySelector('.aread-btn').onclick=function(e){e.stopPropagation();addRipple(e,this);openComic(c);};d.onclick=function(e){addRipple(e,d);openComic(c);};(function(comic,btn){btn.onclick=function(e){e.stopPropagation();toggleFav(comic.id,btn);};})(c,d.querySelector('#fvb'+c.id));el.appendChild(d);});}
 function switchTab(t){CTAB=t;document.querySelectorAll('.cat-tab').forEach(function(x){x.classList.remove('on');});document.getElementById('tab-'+t).classList.add('on');snd('whoosh');renderAllGrid(t);}
 function goComics(t){CTAB=t||'all';showPage('pgSeeAll');setNav('comics');snd('whoosh');setTimeout(function(){switchTab(CTAB);},40);}
 
@@ -1370,7 +1379,7 @@ function goComics(t){CTAB=t||'all';showPage('pgSeeAll');setNav('comics');snd('wh
 function toggleFav(id,btn){snd('tap');var idx=FAVS.indexOf(id);if(idx>-1)FAVS.splice(idx,1);else{FAVS.push(id);snd('match');}ls('ch_fv',FAVS);if(btn){var on=FAVS.indexOf(id)>-1;btn.textContent=on?'❤️':'🤍';btn.style.background=on?'#e91e63':'rgba(255,100,0,.1)';}checkBadges();}
 function openFavsOv(){renderFavsGrid();document.getElementById('favsOv').classList.add('show');snd('whoosh');}
 function closeFavsOv(e){if(!e||e.target===document.getElementById('favsOv'))document.getElementById('favsOv').classList.remove('show');}
-function renderFavsGrid(){var el=document.getElementById('favsGrid');el.innerHTML='';var list=COMICS.filter(function(c){return FAVS.indexOf(c.id)>-1&&!c.isHidden;});if(!list.length){el.innerHTML='<div class="no-items">❤️ No favourites yet<br><small>Tap 🤍 on any comic!</small></div>';return;}list.forEach(function(c,i){var col=COLS[i%COLS.length],d=document.createElement('div');d.className='fav-card';d.innerHTML='<div class="fav-thumb"><img src="'+thumb(c)+'" loading="lazy" onerror="thumbErr(this,\''+c.flipUrl+'\',\''+col+'\')"></div><div class="fav-name">'+c.name+'</div><button class="fav-rm" onclick="event.stopPropagation();removeFav('+c.id+')">Remove ✕</button>';d.onclick=function(){closeFavsOv();openComic(c);};el.appendChild(d);});}
+function renderFavsGrid(){var el=document.getElementById('favsGrid');el.innerHTML='';var list=COMICS.filter(function(c){return FAVS.indexOf(c.id)>-1&&!c.isHidden;});if(!list.length){el.innerHTML='<div class="no-items">❤️ No favourites yet<br><small>Tap 🤍 on any comic!</small></div>';return;}list.forEach(function(c,i){var col=COLS[i%COLS.length],d=document.createElement('div');d.className='fav-card';d.innerHTML='<div class="fav-thumb"><img src="'+thumb(c)+'" loading="eager" onerror="thumbErr(this,\''+c.flipUrl+'\',\''+col+'\')"></div><div class="fav-name">'+c.name+'</div><button class="fav-rm" onclick="event.stopPropagation();removeFav('+c.id+')">Remove ✕</button>';d.onclick=function(){closeFavsOv();openComic(c);};el.appendChild(d);});}
 function removeFav(id){FAVS=FAVS.filter(function(x){return x!==id;});ls('ch_fv',FAVS);renderFavsGrid();snd('tap');}
 
 // ─── OPEN COMIC ───
@@ -2826,7 +2835,7 @@ function onTapStart(){
   // Show video over the image
   vid.style.display = 'block';
   vid.muted = false;
-  vid.volume = 0.25;
+  vid.volume = 0.20;
   vid.currentTime = 0;
   var p = vid.play();
   if(p) p.catch(function(){
@@ -2834,8 +2843,8 @@ function onTapStart(){
     vid.muted = true;
     vid.play().catch(function(){ startApp(); });
   });
-  // Safety: max 16 seconds then go to app
-  setTimeout(function(){ if(!document.getElementById('pgHome').classList.contains('active')) startApp(); }, 16000);
+  // Auto-skip after 7s (when rabbit stops talking)
+  setTimeout(function(){ if(!document.getElementById('pgHome').classList.contains('active')) startApp(); }, 7000);
 }
 function onSplashEnd(){
   startApp();
