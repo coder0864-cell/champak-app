@@ -817,7 +817,8 @@ div[id*="ejs_menu"], div[class*="ejs_menu"],
     <div class="sett-group">
       <div class="sett-row" onclick="showPage('pgFeedback')"><div class="sett-ico" style="background:#FFF0E0">💌</div><div style="flex:1"><div class="sett-label">Send Feedback</div><div class="sett-val">Ideas, bugs, comic requests</div></div><div class="sett-arr">›</div></div>
       <div class="sett-row" onclick="showPage('pgInbox');renderInbox()"><div class="sett-ico" style="background:#E8F5E9">📥</div><div style="flex:1"><div class="sett-label">My Inbox</div><div class="sett-val" id="inboxCount">Dev replies will appear here</div></div><div class="sett-arr">›</div></div>
-    <div class="sett-row" onclick="shareApp()"><div class="sett-ico" style="background:#FFF0E0">🔗</div><div style="flex:1"><div class="sett-label">Share App</div><div class="sett-val">Invite friends!</div></div><div class="sett-arr">›</div></div>
+    <div class="sett-row" onclick="logout()"><div class="sett-ico" style="background:#FFE8E8">🚪</div><div style="flex:1"><div class="sett-label" style="color:#e53935;">Log Out</div><div class="sett-val">Change name & avatar</div></div><div class="sett-arr" style="color:#e53935;">›</div></div>
+      <div class="sett-row" onclick="shareApp()"><div class="sett-ico" style="background:#FFF0E0">🔗</div><div style="flex:1"><div class="sett-label">Share App</div><div class="sett-val">Invite friends!</div></div><div class="sett-arr">›</div></div>
       <div class="sett-row" onclick="showPage('pgContact')"><div class="sett-ico" style="background:#E3F2FD">📞</div><div style="flex:1"><div class="sett-label">Contact & Support</div><div class="sett-val">FAQ, feedback, share app</div></div><div class="sett-arr">›</div></div>
     </div>
     <div class="sett-sec">👨‍💻 About</div>
@@ -988,14 +989,17 @@ var LB_CACHE = [];
 var LB_LOADED = false;
 
 // ─── DATA ───
-var DC=[{id:1,name:"Champak Hindi - Sep 2019",lang:"hi",isNew:false,isPinned:false,isHidden:false,flipUrl:"https://online.fliphtml5.com/ufmtz/dtjr/",pages:50,date:"Sep 2019"}];
+var DC=[
+  {id:1,name:"Champak Hindi - Sep 2019",lang:"hi",isNew:false,isPinned:false,isHidden:false,flipUrl:"https://online.fliphtml5.com/ufmtz/dtjr/",pages:50,date:"Sep 2019"},
+  {id:2,name:"Champak",lang:"hi",isNew:true,isPinned:false,isHidden:false,flipUrl:"https://online.fliphtml5.com/ufmtz/lnvj/",pages:52,date:"Aug 2021"}
+];
 var COMICS=[],FB=[],STATS={},FAVS=[],HIST=[],NOTIFS=[],REPLIES=[];
 var U={name:'',avatar:'cheeku',theme:'orange',dark:false,sound:true};
 var SK={last:'',count:0};
 var XP=0,BADGES=[],ANN={active:false,text:'',expiry:''},MAINT=false;
 var DEV_PW='1234',DEV_ON=false;
 // Early declarations prevent crash when bootHome runs before v9 vars defined
-var MUSIC = {on:false,playing:false,trackIdx:0,audioCtx:null,oscillators:[],gainNode:null,barOpen:false};
+var MUSIC = {on:true,playing:false,trackIdx:0,audioCtx:null,oscillators:[],gainNode:null,barOpen:false};
 var MUSIC_TRACKS = [
   {name:'Happy Kids BGM',  tempo:120, notes:[523,659,784,1047,784,659,523,392]},
   {name:'Adventure Theme', tempo:100, notes:[392,440,494,523,587,659,698,784]},
@@ -1309,9 +1313,10 @@ function startApp(){
   var sp=document.getElementById('pgSplash');sp.style.opacity='0';
   setTimeout(function(){
     sp.style.display='none';
-    // Only show onboard on very first launch ever
-    if(!ls('ch_launched')){
-      ls('ch_launched',true);
+    // Show onboard if no name saved (handles fresh install AND data-cleared users)
+    ls('ch_launched',true);
+    var savedUser = ls('ch_u');
+    if(!savedUser || !savedUser.name || !savedUser.name.trim()){
       showPage('pgOnboard');buildCharGrid();
     } else {
       bootHome();
@@ -1319,6 +1324,18 @@ function startApp(){
   },820);
 }
 function saveNameAndStart(){var n=document.getElementById('nameIn').value.trim();if(!n){document.getElementById('nameIn').style.animation='shake .3s ease';setTimeout(function(){document.getElementById('nameIn').style.animation='';},400);return;}U.name=n;saveU();confetti();snd('ok');setTimeout(bootHome,700);}
+function logout(){
+  if(!confirm('Log out? Your comics and progress will be saved locally. You will be asked to enter your name again.')) return;
+  // Clear user identity only, keep comics data
+  ls('ch_u', null);
+  ls('ch_launched', null);
+  ls('ch_sk', null);
+  ls('ch_xp', null);
+  ls('ch_bd', null);
+  ls('ch_music', null);
+  // Reload app
+  window.location.reload();
+}
 function bootHome(){
   applyTheme(U.theme);
   applyDark(U.dark);
@@ -1337,27 +1354,33 @@ function bootHome(){
   // PWA + SW
   installPWA();
   registerSW();
-  // Music restore
-  MUSIC.on = ls('ch_music')||false;
+  // Music restore — default ON, only off if user explicitly turned off
+  var savedMusic = ls('ch_music');
+  MUSIC.on = (savedMusic === false) ? false : true;
+  var mt=document.getElementById('musicToggleEl');
+  var mv=document.getElementById('musicVal');
   if(MUSIC.on){
-    var mt=document.getElementById('musicToggleEl');
-    var mv=document.getElementById('musicVal');
     if(mt)mt.classList.add('on');
     if(mv)mv.textContent='Now playing — tap bar to control';
     setTimeout(musicStart,1200);
+  } else {
+    if(mt)mt.classList.remove('on');
+    if(mv)mv.textContent='Tap to play kids BGM';
   }
   // Push notifs after short delay
   setTimeout(schedulePushNotifs, 3000);
   // Render immediately, then skeleton shimmer on top briefly
   renderHome();
-  // Force img reload after DOM settles (fixes lazy browser img caching issues)
+  // Retry failed thumbnails after 1.5s
   setTimeout(function(){
-    document.querySelectorAll('#libHi img, #libEn img').forEach(function(img){
-      if(!img.complete || img.naturalWidth===0){
-        var s=img.src; img.src=''; img.src=s;
+    document.querySelectorAll('#libHi img,#libEn img,#cotdImg').forEach(function(img){
+      if(img.src && (img.naturalWidth===0 || !img.complete)){
+        var s=img.src;
+        img.src='';
+        setTimeout(function(){ img.src=s; },50);
       }
     });
-  }, 900);
+  },1500);
 }
 
 // ─── HOME ───
@@ -2852,4 +2875,4 @@ function onSplashEnd(){
 
 </script>
 </body>
-</html
+</html>
